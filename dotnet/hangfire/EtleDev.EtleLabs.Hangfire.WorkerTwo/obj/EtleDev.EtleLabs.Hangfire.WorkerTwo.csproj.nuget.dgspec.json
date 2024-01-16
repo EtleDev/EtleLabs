@@ -1,0 +1,136 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\dev\\sources\\pro\\etlelabs\\dotnet\\hangfire\\EtleDev.EtleLabs.Hangfire.WorkerTwo\\EtleDev.EtleLabs.Hangfire.WorkerTwo.csproj": {}
+  },
+  "projects": {
+    "C:\\dev\\sources\\pro\\etlelabs\\dotnet\\hangfire\\EtleDev.EtleLabs.Hangfire.JobDefinitionsTwo\\EtleDev.EtleLabs.Hangfire.JobDefinitionsTwo.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\dev\\sources\\pro\\etlelabs\\dotnet\\hangfire\\EtleDev.EtleLabs.Hangfire.JobDefinitionsTwo\\EtleDev.EtleLabs.Hangfire.JobDefinitionsTwo.csproj",
+        "projectName": "EtleDev.EtleLabs.Hangfire.JobDefinitionsTwo",
+        "projectPath": "C:\\dev\\sources\\pro\\etlelabs\\dotnet\\hangfire\\EtleDev.EtleLabs.Hangfire.JobDefinitionsTwo\\EtleDev.EtleLabs.Hangfire.JobDefinitionsTwo.csproj",
+        "packagesPath": "C:\\Users\\eleconte\\.nuget\\packages\\",
+        "outputPath": "C:\\dev\\sources\\pro\\etlelabs\\dotnet\\hangfire\\EtleDev.EtleLabs.Hangfire.JobDefinitionsTwo\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\eleconte\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\dev\\sources\\pro\\etlelabs\\dotnet\\hangfire\\EtleDev.EtleLabs.Hangfire.WorkerTwo\\EtleDev.EtleLabs.Hangfire.WorkerTwo.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\dev\\sources\\pro\\etlelabs\\dotnet\\hangfire\\EtleDev.EtleLabs.Hangfire.WorkerTwo\\EtleDev.EtleLabs.Hangfire.WorkerTwo.csproj",
+        "projectName": "EtleDev.EtleLabs.Hangfire.WorkerTwo",
+        "projectPath": "C:\\dev\\sources\\pro\\etlelabs\\dotnet\\hangfire\\EtleDev.EtleLabs.Hangfire.WorkerTwo\\EtleDev.EtleLabs.Hangfire.WorkerTwo.csproj",
+        "packagesPath": "C:\\Users\\eleconte\\.nuget\\packages\\",
+        "outputPath": "C:\\dev\\sources\\pro\\etlelabs\\dotnet\\hangfire\\EtleDev.EtleLabs.Hangfire.WorkerTwo\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\eleconte\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "C:\\dev\\sources\\pro\\etlelabs\\dotnet\\hangfire\\EtleDev.EtleLabs.Hangfire.JobDefinitionsTwo\\EtleDev.EtleLabs.Hangfire.JobDefinitionsTwo.csproj": {
+                "projectPath": "C:\\dev\\sources\\pro\\etlelabs\\dotnet\\hangfire\\EtleDev.EtleLabs.Hangfire.JobDefinitionsTwo\\EtleDev.EtleLabs.Hangfire.JobDefinitionsTwo.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Hangfire.NetCore": {
+              "target": "Package",
+              "version": "[1.8.7, )"
+            },
+            "Hangfire.Redis.StackExchange": {
+              "target": "Package",
+              "version": "[1.9.3, )"
+            },
+            "Microsoft.Extensions.Hosting": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

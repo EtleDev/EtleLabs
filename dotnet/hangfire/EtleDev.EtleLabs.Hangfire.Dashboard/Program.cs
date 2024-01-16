@@ -1,9 +1,22 @@
+using EtleDev.EtleLabs.Hangfire.Dashboard;
+using Hangfire;
+using Hangfire.Dashboard;
+using Hangfire.Redis.StackExchange;
+using StackExchange.Redis;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddHangfire(configuration => configuration
+            .SetDataCompatibilityLevel(CompatibilityLevel.Version_180)
+            .UseSimpleAssemblyNameTypeSerializer()
+            .UseRecommendedSerializerSettings()
+            //.UseSQLiteStorage("Data Source=./hfdb.db"));
+            .UseRedisStorage(ConnectionMultiplexer.Connect("redis-db:6379,allowAdmin=true,defaultDatabase=3,name=HF"), new RedisStorageOptions { Db = 3 }));
 
 var app = builder.Build();
 
@@ -35,6 +48,13 @@ app.MapGet("/weatherforecast", () =>
 })
 .WithName("GetWeatherForecast")
 .WithOpenApi();
+
+app.UseHangfireDashboard("/jobs", new DashboardOptions
+{
+    //, AllowAllConnectionsFilter()
+    Authorization = new[] { new NoAuthFilter() },
+    IgnoreAntiforgeryToken = true
+});
 
 app.Run();
 

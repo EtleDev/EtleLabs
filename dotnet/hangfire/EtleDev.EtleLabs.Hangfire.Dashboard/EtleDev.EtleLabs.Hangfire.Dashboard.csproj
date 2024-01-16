@@ -7,12 +7,20 @@
     <InvariantGlobalization>true</InvariantGlobalization>
     <UserSecretsId>68fc5ced-6767-4085-a25b-8c19735d9ed0</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Hangfire.AspNetCore" Version="1.8.7" />
+    <PackageReference Include="Hangfire.Dashboard.Authorization" Version="3.0.1" />
+    <PackageReference Include="Hangfire.Redis.StackExchange" Version="1.9.3" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.5" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EtleDev.EtleLabs.Hangfire.JobDefinitions\EtleDev.EtleLabs.Hangfire.JobDefinitions.csproj" />
   </ItemGroup>
 
 </Project>

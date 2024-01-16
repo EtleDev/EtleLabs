@@ -1,6 +1,12 @@
 version: '3.4'
 
 services:
+  etledev.etlelabs.hangfire.dashboard:
+    image: ${DOCKER_REGISTRY-}etledevetlelabshangfiredashboard
+    build:
+      context: .
+      dockerfile: EtleDev.EtleLabs.Hangfire.Dashboard/Dockerfile
+
   etledev.etlelabs.hangfire.schedulerone:
     image: ${DOCKER_REGISTRY-}etledevetlelabshangfireschedulerone
     build:
@@ -29,4 +35,5 @@ services:
 volumes:
   redis_data:
     name: infra-db-redis-vol
+
 

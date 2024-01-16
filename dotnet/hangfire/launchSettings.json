@@ -5,7 +5,8 @@
       "commandVersion": "1.0",
       "serviceActions": {
         "etledev.etlelabs.hangfire.schedulerone": "StartDebugging",
-        "etledev.etlelabs.hangfire.workerone": "StartDebugging"
+        "etledev.etlelabs.hangfire.workerone": "StartDebugging",
+        "etledev.etlelabs.hangfire.dashboard": "StartDebugging"
       }
     }
   }
