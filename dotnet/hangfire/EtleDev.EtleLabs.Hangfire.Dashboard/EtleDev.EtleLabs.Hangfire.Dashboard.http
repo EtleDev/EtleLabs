@@ -1,0 +1,6 @@
+@EtleDev.EtleLabs.Hangfire.Dashboard_HostAddress = http://localhost:5251
+
+GET {{EtleDev.EtleLabs.Hangfire.Dashboard_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

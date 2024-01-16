@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "iQkXVRm8MUPAcvmntV2GpEBqKIJnruGwPjrVt0KFLAo=",
+  "Source": "EtleDev.EtleLabs.Hangfire.SchedulerOne",
+  "BasePath": "_content/EtleDev.EtleLabs.Hangfire.SchedulerOne",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

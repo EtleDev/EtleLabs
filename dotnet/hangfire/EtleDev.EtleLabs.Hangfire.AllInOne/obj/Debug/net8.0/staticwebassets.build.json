@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "03DVSAADNXBZwQdLhHPAIH/3TE4B5he9smsiht3i0wE=",
+  "Source": "EtleDev.EtleLabs.Hangfire.AllInOne",
+  "BasePath": "_content/EtleDev.EtleLabs.Hangfire.AllInOne",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

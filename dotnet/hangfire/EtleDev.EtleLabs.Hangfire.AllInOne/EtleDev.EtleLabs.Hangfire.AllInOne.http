@@ -1,0 +1,6 @@
+@EtleDev.EtleLabs.Hangfire.AllInOne_HostAddress = http://localhost:5038
+
+GET {{EtleDev.EtleLabs.Hangfire.AllInOne_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

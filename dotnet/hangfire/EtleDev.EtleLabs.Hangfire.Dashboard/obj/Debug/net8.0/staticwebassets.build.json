@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "rOHS9R535ZctmloqlyyCkKTvdMcfy4rw0EKpywS0WR4=",
+  "Source": "EtleDev.EtleLabs.Hangfire.Dashboard",
+  "BasePath": "_content/EtleDev.EtleLabs.Hangfire.Dashboard",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

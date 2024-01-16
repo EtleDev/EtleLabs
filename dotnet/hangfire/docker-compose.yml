@@ -1,0 +1,32 @@
+version: '3.4'
+
+services:
+  etledev.etlelabs.hangfire.schedulerone:
+    image: ${DOCKER_REGISTRY-}etledevetlelabshangfireschedulerone
+    build:
+      context: .
+      dockerfile: EtleDev.EtleLabs.Hangfire.SchedulerOne/Dockerfile
+
+  etledev.etlelabs.hangfire.workerone:
+    image: ${DOCKER_REGISTRY-}etledevetlelabshangfireworkerone
+    build:
+      context: .
+      dockerfile: EtleDev.EtleLabs.Hangfire.WorkerOne/Dockerfile
+
+  redis_db:
+    image: redis:alpine
+    container_name: redis-db
+    # hostname: infra-db-redis
+    restart: unless-stopped
+    # environment:
+    #   MONGO_INITDB_ROOT_USERNAME: core-admin
+    #   MONGO_INITDB_ROOT_PASSWORD: C0reP@ssw0rd!
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+
+volumes:
+  redis_data:
+    name: infra-db-redis-vol
+

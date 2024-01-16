@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\EtleDev.EtleLabs.Hangfire.SchedulerOne.props" />
+</Project>
