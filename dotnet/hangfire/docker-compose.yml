@@ -12,6 +12,7 @@ services:
     build:
       context: .
       dockerfile: EtleDev.EtleLabs.Hangfire.SchedulerOne/Dockerfile
+    container_name: "scheduler-one"
 
   etledev.etlelabs.hangfire.workerone:
     image: ${DOCKER_REGISTRY-}etledevetlelabshangfireworkerone
@@ -32,8 +33,22 @@ services:
     volumes:
       - redis_data:/data
 
+  etledev.etlelabs.hangfire.schedulertwo:
+    image: ${DOCKER_REGISTRY-}etledevetlelabshangfireschedulertwo
+    build:
+      context: .
+      dockerfile: EtleDev.EtleLabs.Hangfire.SchedulerTwo/Dockerfile
+
+  etledev.etlelabs.hangfire.workertwo:
+    image: ${DOCKER_REGISTRY-}etledevetlelabshangfireworkertwo
+    build:
+      context: .
+      dockerfile: EtleDev.EtleLabs.Hangfire.WorkerTwo/Dockerfile
+
 volumes:
   redis_data:
     name: infra-db-redis-vol
+
+
 
 

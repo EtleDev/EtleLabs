@@ -1,4 +1,3 @@
-using EtleDev.EtleLabs.Hangfire.JobDefinitions.Jobs;
 using EtleDev.EtleLabs.Hangfire.SchedulerOne;
 using Hangfire;
 using Hangfire.Redis.StackExchange;

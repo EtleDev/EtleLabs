@@ -1,0 +1,35 @@
+#See https://aka.ms/overrideVSDockerComposeConfiguration to understand how Visual Studio uses this override file.
+
+version: '3.4'
+
+#services:
+  #etledev.etlelabs.hangfire.dashboard:
+    #labels:
+      #com.microsoft.visualstudio.debuggee.program: "dotnet"
+      #com.microsoft.visualstudio.debuggee.arguments: "\"/app/EtleDev.EtleLabs.Hangfire.Dashboard.dll\""
+      #com.microsoft.visualstudio.debuggee.workingdirectory: "/app"
+      #com.microsoft.visualstudio.debuggee.killprogram: "/bin/sh -c \"if PID=$$(pidof dotnet); then kill $$PID; fi\""
+      #com.microsoft.visual-studio.project-name: "EtleDev.EtleLabs.Hangfire.Dashboard"
+  #etledev.etlelabs.hangfire.schedulerone:
+    #labels:
+      #com.microsoft.visualstudio.debuggee.program: "dotnet"
+      #com.microsoft.visualstudio.debuggee.arguments: "\"/app/EtleDev.EtleLabs.Hangfire.SchedulerOne.dll\""
+      #com.microsoft.visualstudio.debuggee.workingdirectory: "/app"
+      #com.microsoft.visualstudio.debuggee.killprogram: "/bin/sh -c \"if PID=$$(pidof dotnet); then kill $$PID; fi\""
+      #com.microsoft.visual-studio.project-name: "EtleDev.EtleLabs.Hangfire.SchedulerOne"
+
+  #etledev.etlelabs.hangfire.schedulertwo:
+    #labels:
+      #com.microsoft.visualstudio.debuggee.program: "dotnet"
+      #com.microsoft.visualstudio.debuggee.arguments: "\"/app/EtleDev.EtleLabs.Hangfire.SchedulerTwo.dll\""
+      #com.microsoft.visualstudio.debuggee.workingdirectory: "/app"
+      #com.microsoft.visualstudio.debuggee.killprogram: "/bin/sh -c \"if PID=$$(pidof dotnet); then kill $$PID; fi\""
+      #com.microsoft.visual-studio.project-name: "EtleDev.EtleLabs.Hangfire.SchedulerTwo"
+
+  #etledev.etlelabs.hangfire.workerone:
+    #labels:
+      #com.microsoft.visualstudio.debuggee.program: "dotnet"
+      #com.microsoft.visualstudio.debuggee.arguments: "\"/app/EtleDev.EtleLabs.Hangfire.WorkerOne.dll\""
+      #com.microsoft.visualstudio.debuggee.workingdirectory: "/app"
+      #com.microsoft.visualstudio.debuggee.killprogram: "/bin/sh -c \"if PID=$$(pidof dotnet); then kill $$PID; fi\""
+      #com.microsoft.visual-studio.project-name: "EtleDev.EtleLabs.Hangfire.WorkerOne"

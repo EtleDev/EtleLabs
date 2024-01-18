@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("EtleDev.EtleLabs.Hangfire.Dashboard")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bfeff06d26d6c872499a2180fca87c8314c02bce")]
 [assembly: System.Reflection.AssemblyProductAttribute("EtleDev.EtleLabs.Hangfire.Dashboard")]
 [assembly: System.Reflection.AssemblyTitleAttribute("EtleDev.EtleLabs.Hangfire.Dashboard")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

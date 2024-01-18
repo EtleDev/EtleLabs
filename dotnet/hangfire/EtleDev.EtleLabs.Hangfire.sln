@@ -13,15 +13,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EtleDev.EtleLabs.Hangfire.S
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EtleDev.EtleLabs.Hangfire.WorkerOne", "EtleDev.EtleLabs.Hangfire.WorkerOne\EtleDev.EtleLabs.Hangfire.WorkerOne.csproj", "{BC7DE11D-0ADB-4411-9906-DCE7BA396C59}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EtleDev.EtleLabs.Hangfire.JobDefinitions", "EtleDev.EtleLabs.Hangfire.JobDefinitions\EtleDev.EtleLabs.Hangfire.JobDefinitions.csproj", "{D9161868-6AA5-4CBF-BF30-E6F86C4AE63E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EtleDev.EtleLabs.Hangfire.One.Facade", "EtleDev.EtleLabs.Hangfire.JobDefinitions\EtleDev.EtleLabs.Hangfire.One.Facade.csproj", "{D9161868-6AA5-4CBF-BF30-E6F86C4AE63E}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{70533029-71F1-432F-A3E4-B715C6250121}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EtleDev.EtleLabs.Hangfire.SchedulerTwo", "EtleDev.EtleLabs.Hangfire.SchedulerTwo\EtleDev.EtleLabs.Hangfire.SchedulerTwo.csproj", "{F836F8DF-CC33-4513-91EE-01ACFC012018}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EtleDev.EtleLabs.Hangfire.SchedulerTwo", "EtleDev.EtleLabs.Hangfire.SchedulerTwo\EtleDev.EtleLabs.Hangfire.SchedulerTwo.csproj", "{F836F8DF-CC33-4513-91EE-01ACFC012018}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EtleDev.EtleLabs.Hangfire.WorkerTwo", "EtleDev.EtleLabs.Hangfire.WorkerTwo\EtleDev.EtleLabs.Hangfire.WorkerTwo.csproj", "{404A74C5-B776-4C2E-9CC1-6645AF4DE37F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EtleDev.EtleLabs.Hangfire.WorkerTwo", "EtleDev.EtleLabs.Hangfire.WorkerTwo\EtleDev.EtleLabs.Hangfire.WorkerTwo.csproj", "{404A74C5-B776-4C2E-9CC1-6645AF4DE37F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EtleDev.EtleLabs.Hangfire.JobDefinitionsTwo", "EtleDev.EtleLabs.Hangfire.JobDefinitionsTwo\EtleDev.EtleLabs.Hangfire.JobDefinitionsTwo.csproj", "{13ED85C0-EDCC-42F9-B246-270DA95C3557}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EtleDev.EtleLabs.Hangfire.Two.Facade", "EtleDev.EtleLabs.Hangfire.JobDefinitionsTwo\EtleDev.EtleLabs.Hangfire.Two.Facade.csproj", "{13ED85C0-EDCC-42F9-B246-270DA95C3557}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EtleDev.EtleLabs.Hangfire.SharedKernel", "EtleDev.EtleLabs.Hangfire.SharedKernel\EtleDev.EtleLabs.Hangfire.SharedKernel.csproj", "{B3876213-E63A-46A6-AC70-71197008CEE8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -65,6 +67,10 @@ Global
 		{13ED85C0-EDCC-42F9-B246-270DA95C3557}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{13ED85C0-EDCC-42F9-B246-270DA95C3557}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{13ED85C0-EDCC-42F9-B246-270DA95C3557}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3876213-E63A-46A6-AC70-71197008CEE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3876213-E63A-46A6-AC70-71197008CEE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3876213-E63A-46A6-AC70-71197008CEE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3876213-E63A-46A6-AC70-71197008CEE8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -77,6 +83,7 @@ Global
 		{F836F8DF-CC33-4513-91EE-01ACFC012018} = {D6028502-AFA3-49FB-974E-F7473DCFF1AF}
 		{404A74C5-B776-4C2E-9CC1-6645AF4DE37F} = {D6028502-AFA3-49FB-974E-F7473DCFF1AF}
 		{13ED85C0-EDCC-42F9-B246-270DA95C3557} = {D6028502-AFA3-49FB-974E-F7473DCFF1AF}
+		{B3876213-E63A-46A6-AC70-71197008CEE8} = {D6028502-AFA3-49FB-974E-F7473DCFF1AF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {76DFDD1B-04AC-4831-AE73-75360D05AC59}

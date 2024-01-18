@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\EtleDev.EtleLabs.Hangfire.SharedKernel\EtleDev.EtleLabs.Hangfire.SharedKernel.csproj" />
+  </ItemGroup>
+
 </Project>

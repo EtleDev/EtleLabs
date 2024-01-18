@@ -6,11 +6,18 @@
     <DockerPublishLocally>False</DockerPublishLocally>
     <ProjectGuid>70533029-71f1-432f-a3e4-b715c6250121</ProjectGuid>
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
-    <DockerServiceUrl>{Scheme}://localhost:{ServicePort}/swagger</DockerServiceUrl>
-    <DockerServiceName>etledev.etlelabs.hangfire.schedulerone</DockerServiceName>
+    <DockerServiceUrl>{Scheme}://localhost:{ServicePort}/</DockerServiceUrl>
+    <DockerServiceName>etledev.etlelabs.hangfire.dashboard</DockerServiceName>
   </PropertyGroup>
   <ItemGroup>
+    <None Include="docker-compose.infrastructure.yml" />
     <None Include="docker-compose.override.yml">
+      <DependentUpon>docker-compose.yml</DependentUpon>
+    </None>
+    <None Include="docker-compose.vs.debug.yml">
+      <DependentUpon>docker-compose.yml</DependentUpon>
+    </None>
+    <None Include="docker-compose.vs.release.yml">
       <DependentUpon>docker-compose.yml</DependentUpon>
     </None>
     <None Include="docker-compose.yml" />

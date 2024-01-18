@@ -3,10 +3,16 @@
     "Docker Compose": {
       "commandName": "DockerCompose",
       "commandVersion": "1.0",
+      "composeLaunchAction": "LaunchBrowser",
+      "composeLaunchServiceName": "etledev.etlelabs.hangfire.dashboard",
+      "composeLaunchUrl": "{Scheme}://localhost:{ServicePort}/",
       "serviceActions": {
         "etledev.etlelabs.hangfire.schedulerone": "StartDebugging",
         "etledev.etlelabs.hangfire.workerone": "StartDebugging",
-        "etledev.etlelabs.hangfire.dashboard": "StartDebugging"
+        "etledev.etlelabs.hangfire.dashboard": "StartDebugging",
+        "etledev.etlelabs.hangfire.schedulertwo": "StartDebugging",
+        "redis_db": "StartWithoutDebugging",
+        "etledev.etlelabs.hangfire.workertwo": "StartDebugging"
       }
     }
   }

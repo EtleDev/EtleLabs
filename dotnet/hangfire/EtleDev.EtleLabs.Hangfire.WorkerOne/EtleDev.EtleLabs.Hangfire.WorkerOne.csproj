@@ -15,6 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\EtleDev.EtleLabs.Hangfire.JobDefinitions\EtleDev.EtleLabs.Hangfire.JobDefinitions.csproj" />
+    <ProjectReference Include="..\EtleDev.EtleLabs.Hangfire.JobDefinitions\EtleDev.EtleLabs.Hangfire.One.Facade.csproj" />
   </ItemGroup>
 </Project>

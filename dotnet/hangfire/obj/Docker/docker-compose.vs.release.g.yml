@@ -28,7 +28,6 @@ services:
       com.microsoft.visual-studio.project-name: "EtleDev.EtleLabs.Hangfire.Dashboard"
     tty: true
   etledev.etlelabs.hangfire.schedulerone:
-    container_name: "EtleDev.EtleLabs.Hangfire.SchedulerOne"
     build:
       args:
         BUILD_CONFIGURATION: Release
@@ -54,6 +53,31 @@ services:
       com.microsoft.visual-studio.project-name: "EtleDev.EtleLabs.Hangfire.SchedulerOne"
     tty: true
 
+  etledev.etlelabs.hangfire.schedulertwo:
+    container_name: "EtleDev.EtleLabs.Hangfire.SchedulerTwo"
+    build:
+      args:
+        BUILD_CONFIGURATION: Release
+      labels:
+        com.microsoft.created-by: "visual-studio"
+        com.microsoft.visual-studio.project-name: "EtleDev.EtleLabs.Hangfire.SchedulerTwo"
+    volumes:
+      - C:\Users\eleconte\vsdbg\vs2017u5:/remote_debugger:rw
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - C:\Program Files\Microsoft Visual Studio\2022\Professional\MSBuild\Sdks\Microsoft.Docker.Sdk\tools\TokenService.Proxy\linux-x64\net6.0:/TokenService.Proxy:ro
+      - C:\Program Files\Microsoft Visual Studio\2022\Professional\MSBuild\Sdks\Microsoft.Docker.Sdk\tools\HotReloadProxy\linux-x64\net6.0:/HotReloadProxy:ro
+      - C:\Program Files\Microsoft Visual Studio\2022\Professional\Common7\IDE\CommonExtensions\Microsoft\HotReload:/HotReloadAgent:ro
+
+    entrypoint: tail -f /dev/null
+    labels:
+      com.microsoft.visualstudio.debuggee.program: "dotnet"
+      com.microsoft.visualstudio.debuggee.arguments: " --additionalProbingPath /.nuget/packages  \"/app/EtleDev.EtleLabs.Hangfire.SchedulerTwo.dll\""
+      com.microsoft.visualstudio.debuggee.workingdirectory: "/app"
+      com.microsoft.visualstudio.debuggee.killprogram: "/bin/sh -c \"if PID=$$(pidof dotnet); then kill $$PID; fi\""
+      com.microsoft.visual-studio.project-name: "EtleDev.EtleLabs.Hangfire.SchedulerTwo"
+    tty: true
+
   etledev.etlelabs.hangfire.workerone:
     container_name: "EtleDev.EtleLabs.Hangfire.WorkerOne"
     build:
@@ -77,4 +101,29 @@ services:
       com.microsoft.visualstudio.debuggee.workingdirectory: "/app"
       com.microsoft.visualstudio.debuggee.killprogram: "/bin/sh -c \"if PID=$$(pidof dotnet); then kill $$PID; fi\""
       com.microsoft.visual-studio.project-name: "EtleDev.EtleLabs.Hangfire.WorkerOne"
+    tty: true
+
+  etledev.etlelabs.hangfire.workertwo:
+    container_name: "EtleDev.EtleLabs.Hangfire.WorkerTwo"
+    build:
+      args:
+        BUILD_CONFIGURATION: Release
+      labels:
+        com.microsoft.created-by: "visual-studio"
+        com.microsoft.visual-studio.project-name: "EtleDev.EtleLabs.Hangfire.WorkerTwo"
+    volumes:
+      - C:\Users\eleconte\vsdbg\vs2017u5:/remote_debugger:rw
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - C:\Program Files\Microsoft Visual Studio\2022\Professional\MSBuild\Sdks\Microsoft.Docker.Sdk\tools\TokenService.Proxy\linux-x64\net6.0:/TokenService.Proxy:ro
+      - C:\Program Files\Microsoft Visual Studio\2022\Professional\MSBuild\Sdks\Microsoft.Docker.Sdk\tools\HotReloadProxy\linux-x64\net6.0:/HotReloadProxy:ro
+      - C:\Program Files\Microsoft Visual Studio\2022\Professional\Common7\IDE\CommonExtensions\Microsoft\HotReload:/HotReloadAgent:ro
+
+    entrypoint: tail -f /dev/null
+    labels:
+      com.microsoft.visualstudio.debuggee.program: "dotnet"
+      com.microsoft.visualstudio.debuggee.arguments: " --additionalProbingPath /.nuget/packages  \"/app/EtleDev.EtleLabs.Hangfire.WorkerTwo.dll\""
+      com.microsoft.visualstudio.debuggee.workingdirectory: "/app"
+      com.microsoft.visualstudio.debuggee.killprogram: "/bin/sh -c \"if PID=$$(pidof dotnet); then kill $$PID; fi\""
+      com.microsoft.visual-studio.project-name: "EtleDev.EtleLabs.Hangfire.WorkerTwo"
     tty: true

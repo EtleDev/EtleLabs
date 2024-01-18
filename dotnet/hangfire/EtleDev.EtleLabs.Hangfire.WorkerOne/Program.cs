@@ -1,4 +1,3 @@
-using EtleDev.EtleLabs.Hangfire.WorkerOne;
 using Hangfire;
 using Hangfire.Redis.StackExchange;
 using StackExchange.Redis;
@@ -12,7 +11,8 @@ builder.Services.AddHangfire(configuration => configuration
             //.UseSQLiteStorage("Data Source=./hfdb.db"));
             .UseRedisStorage(ConnectionMultiplexer.Connect("redis-db:6379,allowAdmin=true,defaultDatabase=3,name=HF"), new RedisStorageOptions { Db = 3 }));
 
-builder.Services.AddHangfireServer();
+builder.Services.AddHangfireServer((cfg) => new BackgroundJobServerOptions { Queues = ["one"] });
+//builder.Services.AddHangfireServer((sp, cfg) => new BackgroundJobServerOptions { Queues = new[] { "One" } });
 
 var host = builder.Build();
 

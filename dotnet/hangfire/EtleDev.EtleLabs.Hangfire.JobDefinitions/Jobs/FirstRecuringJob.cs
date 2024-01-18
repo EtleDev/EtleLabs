@@ -1,7 +1,13 @@
-﻿namespace EtleDev.EtleLabs.Hangfire.JobDefinitions.Jobs
+﻿using EtleDev.EtleLabs.Hangfire.SharedKernel;
+
+namespace EtleDev.EtleLabs.Hangfire.One.Facade.Jobs
 {
     public class FirstRecuringJob : IJob
     {
+        public string Name
+        {
+            get => "First Recuring job";
+        }
         public async Task Run()
         {
             Console.WriteLine("First Recuring job started !");

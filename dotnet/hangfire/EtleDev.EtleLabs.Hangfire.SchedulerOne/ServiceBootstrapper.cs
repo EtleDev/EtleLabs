@@ -1,4 +1,4 @@
-﻿using EtleDev.EtleLabs.Hangfire.JobDefinitions.Jobs;
+﻿using EtleDev.EtleLabs.Hangfire.One.Facade.Jobs;
 using Hangfire;
 using System.Runtime.CompilerServices;
 
@@ -8,10 +8,11 @@ namespace EtleDev.EtleLabs.Hangfire.SchedulerOne
     {
         public static IServiceCollection RegisterJobs(this IServiceCollection services)
         {
-            RecurringJob.AddOrUpdate<FirstRecuringJob>(Guid.NewGuid().ToString(), j => j.Run(), Cron.Minutely);
+            RecurringJob.AddOrUpdate<FirstRecuringJob>(nameof(FirstRecuringJob), "one", j => j.Run(), Cron.Minutely);
 
             //RecurringJobManager.AddOrUpdate<FirstRecuringJob>(Guid.NewGuid().ToString(), j => j.Run(), Cron.Minutely);
-            RecurringJob.AddOrUpdate<SecondRecuringJob>(Guid.NewGuid().ToString(), j => j.Run(), Cron.Minutely);
+            RecurringJob.AddOrUpdate<SecondRecuringJob>(j => j.Run(), Cron.Minutely, queue: "one");
+            RecurringJob.AddOrUpdate<LongRunJob>(nameof(LongRunJob), "one", j => j.Run(), Cron.Minutely);
 
             BackgroundJob.Enqueue<OneShotJob>(j => j.Run());
             //BackgroundJob.Enqueue<OneShotJob>("toto", j => j.Run());
@@ -23,10 +24,11 @@ namespace EtleDev.EtleLabs.Hangfire.SchedulerOne
 
         public static IApplicationBuilder RegisterJobs(this IApplicationBuilder app)
         {
-            RecurringJob.AddOrUpdate<FirstRecuringJob>(Guid.NewGuid().ToString(), j => j.Run(), Cron.Minutely);
+            RecurringJob.AddOrUpdate<FirstRecuringJob>(nameof(FirstRecuringJob), "one", j => j.Run(), Cron.Minutely);
 
             //RecurringJobManager.AddOrUpdate<FirstRecuringJob>(Guid.NewGuid().ToString(), j => j.Run(), Cron.Minutely);
-            RecurringJob.AddOrUpdate<SecondRecuringJob>(Guid.NewGuid().ToString(), j => j.Run(), Cron.Minutely);
+            RecurringJob.AddOrUpdate<SecondRecuringJob>(j => j.Run(), Cron.Minutely, queue:"one");
+            RecurringJob.AddOrUpdate<LongRunJob>(nameof(LongRunJob), "one", j => j.Run(), Cron.Minutely);
 
             BackgroundJob.Enqueue<OneShotJob>(j => j.Run());
             //BackgroundJob.Enqueue<OneShotJob>("toto", j => j.Run());

@@ -49,11 +49,12 @@ app.MapGet("/weatherforecast", () =>
 .WithName("GetWeatherForecast")
 .WithOpenApi();
 
-app.UseHangfireDashboard("/jobs", new DashboardOptions
+app.UseHangfireDashboard("", new DashboardOptions
 {
     //, AllowAllConnectionsFilter()
     Authorization = new[] { new NoAuthFilter() },
-    IgnoreAntiforgeryToken = true
+    IgnoreAntiforgeryToken = true,
+    AppPath = "https://scheduler-one/swagger"
 });
 
 app.Run();
