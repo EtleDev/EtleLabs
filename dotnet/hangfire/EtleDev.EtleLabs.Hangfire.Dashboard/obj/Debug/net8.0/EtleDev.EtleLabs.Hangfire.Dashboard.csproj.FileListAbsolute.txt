@@ -7,13 +7,11 @@ C:\dev\sources\pro\etlelabs\dotnet\hangfire\EtleDev.EtleLabs.Hangfire.Dashboard\
 C:\dev\sources\pro\etlelabs\dotnet\hangfire\EtleDev.EtleLabs.Hangfire.Dashboard\bin\Debug\net8.0\EtleDev.EtleLabs.Hangfire.Dashboard.pdb
 C:\dev\sources\pro\etlelabs\dotnet\hangfire\EtleDev.EtleLabs.Hangfire.Dashboard\bin\Debug\net8.0\Hangfire.AspNetCore.dll
 C:\dev\sources\pro\etlelabs\dotnet\hangfire\EtleDev.EtleLabs.Hangfire.Dashboard\bin\Debug\net8.0\Hangfire.Core.dll
-C:\dev\sources\pro\etlelabs\dotnet\hangfire\EtleDev.EtleLabs.Hangfire.Dashboard\bin\Debug\net8.0\Hangfire.Dashboard.Authorization.dll
 C:\dev\sources\pro\etlelabs\dotnet\hangfire\EtleDev.EtleLabs.Hangfire.Dashboard\bin\Debug\net8.0\Hangfire.NetCore.dll
 C:\dev\sources\pro\etlelabs\dotnet\hangfire\EtleDev.EtleLabs.Hangfire.Dashboard\bin\Debug\net8.0\Hangfire.Redis.StackExchange.dll
 C:\dev\sources\pro\etlelabs\dotnet\hangfire\EtleDev.EtleLabs.Hangfire.Dashboard\bin\Debug\net8.0\Microsoft.AspNetCore.OpenApi.dll
 C:\dev\sources\pro\etlelabs\dotnet\hangfire\EtleDev.EtleLabs.Hangfire.Dashboard\bin\Debug\net8.0\Microsoft.OpenApi.dll
 C:\dev\sources\pro\etlelabs\dotnet\hangfire\EtleDev.EtleLabs.Hangfire.Dashboard\bin\Debug\net8.0\Newtonsoft.Json.dll
-C:\dev\sources\pro\etlelabs\dotnet\hangfire\EtleDev.EtleLabs.Hangfire.Dashboard\bin\Debug\net8.0\Owin.dll
 C:\dev\sources\pro\etlelabs\dotnet\hangfire\EtleDev.EtleLabs.Hangfire.Dashboard\bin\Debug\net8.0\Pipelines.Sockets.Unofficial.dll
 C:\dev\sources\pro\etlelabs\dotnet\hangfire\EtleDev.EtleLabs.Hangfire.Dashboard\bin\Debug\net8.0\StackExchange.Redis.dll
 C:\dev\sources\pro\etlelabs\dotnet\hangfire\EtleDev.EtleLabs.Hangfire.Dashboard\bin\Debug\net8.0\Swashbuckle.AspNetCore.Swagger.dll
@@ -33,10 +31,6 @@ C:\dev\sources\pro\etlelabs\dotnet\hangfire\EtleDev.EtleLabs.Hangfire.Dashboard\
 C:\dev\sources\pro\etlelabs\dotnet\hangfire\EtleDev.EtleLabs.Hangfire.Dashboard\bin\Debug\net8.0\tr-TR\Hangfire.Core.resources.dll
 C:\dev\sources\pro\etlelabs\dotnet\hangfire\EtleDev.EtleLabs.Hangfire.Dashboard\bin\Debug\net8.0\zh-TW\Hangfire.Core.resources.dll
 C:\dev\sources\pro\etlelabs\dotnet\hangfire\EtleDev.EtleLabs.Hangfire.Dashboard\bin\Debug\net8.0\zh\Hangfire.Core.resources.dll
-C:\dev\sources\pro\etlelabs\dotnet\hangfire\EtleDev.EtleLabs.Hangfire.Dashboard\bin\Debug\net8.0\EtleDev.EtleLabs.Hangfire.One.Facade.dll
-C:\dev\sources\pro\etlelabs\dotnet\hangfire\EtleDev.EtleLabs.Hangfire.Dashboard\bin\Debug\net8.0\EtleDev.EtleLabs.Hangfire.SharedKernel.dll
-C:\dev\sources\pro\etlelabs\dotnet\hangfire\EtleDev.EtleLabs.Hangfire.Dashboard\bin\Debug\net8.0\EtleDev.EtleLabs.Hangfire.One.Facade.pdb
-C:\dev\sources\pro\etlelabs\dotnet\hangfire\EtleDev.EtleLabs.Hangfire.Dashboard\bin\Debug\net8.0\EtleDev.EtleLabs.Hangfire.SharedKernel.pdb
 C:\dev\sources\pro\etlelabs\dotnet\hangfire\EtleDev.EtleLabs.Hangfire.Dashboard\obj\Debug\net8.0\EtleDev.EtleLabs.Hangfire.Dashboard.csproj.AssemblyReference.cache
 C:\dev\sources\pro\etlelabs\dotnet\hangfire\EtleDev.EtleLabs.Hangfire.Dashboard\obj\Debug\net8.0\EtleDev.EtleLabs.Hangfire.Dashboard.GeneratedMSBuildEditorConfig.editorconfig
 C:\dev\sources\pro\etlelabs\dotnet\hangfire\EtleDev.EtleLabs.Hangfire.Dashboard\obj\Debug\net8.0\EtleDev.EtleLabs.Hangfire.Dashboard.AssemblyInfoInputs.cache

@@ -11,7 +11,7 @@ namespace EtleDev.EtleLabs.Hangfire.One.Facade.Jobs
         public async Task Run()
         {
             Console.WriteLine("Second Recuring job started !");
-            await Task.Delay(32000);
+            await Task.Delay(72000);
             Console.WriteLine("Second Recuring job finished !");
         }
     }

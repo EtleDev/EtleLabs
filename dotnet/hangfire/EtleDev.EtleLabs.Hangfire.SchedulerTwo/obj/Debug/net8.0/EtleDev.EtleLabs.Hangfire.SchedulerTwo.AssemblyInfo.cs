@@ -16,7 +16,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("EtleDev.EtleLabs.Hangfire.SchedulerTwo")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bfeff06d26d6c872499a2180fca87c8314c02bce")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+13691c6faa60350a4c2ea6c04ea9a948c4c381e2")]
 [assembly: System.Reflection.AssemblyProductAttribute("EtleDev.EtleLabs.Hangfire.SchedulerTwo")]
 [assembly: System.Reflection.AssemblyTitleAttribute("EtleDev.EtleLabs.Hangfire.SchedulerTwo")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

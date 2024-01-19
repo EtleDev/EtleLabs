@@ -12,9 +12,9 @@ namespace EtleDev.EtleLabs.Hangfire.One.Facade.Jobs
         {
             Console.WriteLine("Long job started !");
             var taskList = new List<Task>();
-            for (int i = 0; i < 1000; i++)
+            for (int i = 0; i < 10000; i++)
             {
-                taskList.Add(Task.Delay(1000));
+                taskList.Add(Task.Delay(10000));
             }
 
             await Task.WhenAll(taskList);

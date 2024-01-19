@@ -15,6 +15,7 @@ namespace EtleDev.EtleLabs.Hangfire.SchedulerOne
             RecurringJob.AddOrUpdate<LongRunJob>(nameof(LongRunJob), "one", j => j.Run(), Cron.Minutely);
 
             BackgroundJob.Enqueue<OneShotJob>(j => j.Run());
+            BackgroundJob.Enqueue<FirstRecuringJob>(j => j.Run());
             //BackgroundJob.Enqueue<OneShotJob>("toto", j => j.Run());
             //BackgroundJob.con
             //RecurringJob.AddOrUpdate<FirstRecuringJob>(Guid.NewGuid().ToString(), j => j.Run(), Cron.Minutely()/*, new RecurringJobOptions { }*/);
@@ -30,7 +31,8 @@ namespace EtleDev.EtleLabs.Hangfire.SchedulerOne
             RecurringJob.AddOrUpdate<SecondRecuringJob>(j => j.Run(), Cron.Minutely, queue:"one");
             RecurringJob.AddOrUpdate<LongRunJob>(nameof(LongRunJob), "one", j => j.Run(), Cron.Minutely);
 
-            BackgroundJob.Enqueue<OneShotJob>(j => j.Run());
+            var jobId = BackgroundJob.Enqueue<OneShotJob>("one", j => j.Run());
+            Console.WriteLine(jobId);
             //BackgroundJob.Enqueue<OneShotJob>("toto", j => j.Run());
             //BackgroundJob.con
             //RecurringJob.AddOrUpdate<FirstRecuringJob>(Guid.NewGuid().ToString(), j => j.Run(), Cron.Minutely()/*, new RecurringJobOptions { }*/);

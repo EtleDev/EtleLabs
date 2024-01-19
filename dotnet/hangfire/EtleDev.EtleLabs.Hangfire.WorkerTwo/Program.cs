@@ -12,7 +12,9 @@ builder.Services.AddHangfire(configuration => configuration
             //.UseSQLiteStorage("Data Source=./hfdb.db"));
             .UseRedisStorage(ConnectionMultiplexer.Connect("redis-db:6379,allowAdmin=true,defaultDatabase=3,name=HF"), new RedisStorageOptions { Db = 3 }));
 
-builder.Services.AddHangfireServer((cfg) => new BackgroundJobServerOptions { Queues = ["two"] });
+builder.Services.AddSingleton(new BackgroundJobServerOptions { Queues = ["two"] });
+
+builder.Services.AddHangfireServer();
 
 var host = builder.Build();
 host.Run();
