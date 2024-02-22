@@ -1,0 +1,56 @@
+version: '3.9'
+
+services:
+  ansible-node-manager:
+    image: ansible-control
+    build: 
+      context: .
+      dockerfile: ./dockerfiles/Dockerfile.ansible
+    hostname: "ansible"
+    container_name: "ansible"
+    networks:
+      - local
+
+  etle-server:
+    image: etle-server-fake
+    build:
+      context: .
+      dockerfile: ./dockerfiles/Dockerfile.server
+    # entrypoint: "tail -f /dev/null"
+    hostname: "etle-server"
+    container_name: "etle-server"
+    networks:
+      - local
+
+  etle-rescue:
+    image: rockylinux/rockylinux
+    entrypoint: "sleep infinity"
+    hostname: "etle-rescue"
+    container_name: "etle-rescue"
+    networks:
+      - local
+
+  etle-nas:
+    image: debian
+    command: "tail -f /dev/null"
+    hostname: "etle-nas"
+    container_name: "etle-nas"
+    networks:
+      - local
+
+  etle-media:
+    image: archlinux
+    command: "sleep infinity"
+    hostname: "etle-media"
+    container_name: "etle-media"
+    networks:
+      - local
+
+  ansible-node-manager-web-iu:
+    image: quay.io/ansible/awx
+
+
+
+
+networks:
+  local:
