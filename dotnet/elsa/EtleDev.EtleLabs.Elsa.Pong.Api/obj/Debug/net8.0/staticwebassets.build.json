@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "hhs9sFBJK8IamCMNExR82e7+DiURaVgzniwICv5mKCE=",
+  "Source": "EtleDev.EtleLabs.Elsa.Pong.Api",
+  "BasePath": "_content/EtleDev.EtleLabs.Elsa.Pong.Api",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

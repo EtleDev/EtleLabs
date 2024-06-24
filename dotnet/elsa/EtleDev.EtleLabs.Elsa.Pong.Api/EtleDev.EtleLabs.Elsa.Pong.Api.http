@@ -1,0 +1,6 @@
+@EtleDev.EtleLabs.Elsa.Pong.Api_HostAddress = http://localhost:5234
+
+GET {{EtleDev.EtleLabs.Elsa.Pong.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

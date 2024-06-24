@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\buildMultiTargeting\EtleDev.EtleLabs.Elsa.Pong.Api.props" />
+</Project>

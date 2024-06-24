@@ -1,0 +1,22 @@
+version: '3.9'
+
+services:
+  pong-api:
+    image: ${DOCKER_REGISTRY-}pong-api
+    build:
+      context: .
+      dockerfile: EtleDev.EtleLabs.Elsa.Pong.Api/Dockerfile
+    container_name: "pong-api"
+
+  elsa-all-in-one:
+    image: elsaworkflows/elsa-server-and-studio-v3
+    ports:
+      - "1081:8080"
+
+  elsa-server:
+    image: elsaworkflows/elsa-server-v3
+
+  elsa-studio:
+    image: elsaworkflows/elsa-studio-v3
+    environment:
+      ELSA_SERVER_BASEADDRESS: http://elsa-server:80

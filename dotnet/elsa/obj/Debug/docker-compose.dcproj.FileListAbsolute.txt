@@ -1,0 +1,15 @@
+C:\dev\sources\pro\etlelabs\dotnet\elsa\EtleDev.EtleLabs.Elsa\bin\Debug\EtleDev.EtleLabs.Elsa.Pong.Api.deps.json
+C:\dev\sources\pro\etlelabs\dotnet\elsa\EtleDev.EtleLabs.Elsa\bin\Debug\EtleDev.EtleLabs.Elsa.Pong.Api.runtimeconfig.json
+C:\dev\sources\pro\etlelabs\dotnet\elsa\EtleDev.EtleLabs.Elsa\bin\Debug\appsettings.Development.json
+C:\dev\sources\pro\etlelabs\dotnet\elsa\EtleDev.EtleLabs.Elsa\bin\Debug\appsettings.json
+C:\dev\sources\pro\etlelabs\dotnet\elsa\EtleDev.EtleLabs.Elsa\bin\Debug\EtleDev.EtleLabs.Elsa.Pong.Api.exe
+C:\dev\sources\pro\etlelabs\dotnet\elsa\EtleDev.EtleLabs.Elsa\bin\Debug\EtleDev.EtleLabs.Elsa.Pong.Api.dll
+C:\dev\sources\pro\etlelabs\dotnet\elsa\EtleDev.EtleLabs.Elsa\bin\Debug\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\dev\sources\pro\etlelabs\dotnet\elsa\EtleDev.EtleLabs.Elsa\bin\Debug\Swashbuckle.AspNetCore.Swagger.dll
+C:\dev\sources\pro\etlelabs\dotnet\elsa\EtleDev.EtleLabs.Elsa\bin\Debug\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\dev\sources\pro\etlelabs\dotnet\elsa\EtleDev.EtleLabs.Elsa\bin\Debug\Microsoft.AspNetCore.OpenApi.dll
+C:\dev\sources\pro\etlelabs\dotnet\elsa\EtleDev.EtleLabs.Elsa\bin\Debug\Microsoft.OpenApi.dll
+C:\dev\sources\pro\etlelabs\dotnet\elsa\EtleDev.EtleLabs.Elsa\bin\Debug\EtleDev.EtleLabs.Elsa.Pong.Api.pdb
+C:\dev\sources\pro\etlelabs\dotnet\elsa\EtleDev.EtleLabs.Elsa\obj\Debug\docker-compose.dcproj.AssemblyReference.cache
+C:\dev\sources\pro\etlelabs\dotnet\elsa\EtleDev.EtleLabs.Elsa\obj\Debug\docker-compose.dcproj.CoreCompileInputs.cache
+C:\dev\sources\pro\etlelabs\dotnet\elsa\EtleDev.EtleLabs.Elsa\obj\Debug\docker-c.35A3FFBA.Up2Date

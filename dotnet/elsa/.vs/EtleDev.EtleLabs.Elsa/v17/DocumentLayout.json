@@ -1,0 +1,96 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\dev\\sources\\pro\\etlelabs\\dotnet\\elsa\\EtleDev.EtleLabs.Elsa\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{4B41E98B-DE80-40D7-89CF-544E2FCAFB30}|docker-compose.dcproj|c:\\dev\\sources\\pro\\etlelabs\\dotnet\\elsa\\etledev.etlelabs.elsa\\docker-compose.yml||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{4B41E98B-DE80-40D7-89CF-544E2FCAFB30}|docker-compose.dcproj|solutionrelative:docker-compose.yml||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4B41E98B-DE80-40D7-89CF-544E2FCAFB30}|docker-compose.dcproj|c:\\dev\\sources\\pro\\etlelabs\\dotnet\\elsa\\etledev.etlelabs.elsa\\docker-compose.override.yml||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{4B41E98B-DE80-40D7-89CF-544E2FCAFB30}|docker-compose.dcproj|solutionrelative:docker-compose.override.yml||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{232233C5-AA77-4807-8811-882513B23352}|EtleDev.EtleLabs.Elsa.Pong.Api\\EtleDev.EtleLabs.Elsa.Pong.Api.csproj|c:\\dev\\sources\\pro\\etlelabs\\dotnet\\elsa\\etledev.etlelabs.elsa\\etledev.etlelabs.elsa.pong.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{232233C5-AA77-4807-8811-882513B23352}|EtleDev.EtleLabs.Elsa.Pong.Api\\EtleDev.EtleLabs.Elsa.Pong.Api.csproj|solutionrelative:etledev.etlelabs.elsa.pong.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{232233C5-AA77-4807-8811-882513B23352}|EtleDev.EtleLabs.Elsa.Pong.Api\\EtleDev.EtleLabs.Elsa.Pong.Api.csproj|c:\\dev\\sources\\pro\\etlelabs\\dotnet\\elsa\\etledev.etlelabs.elsa\\etledev.etlelabs.elsa.pong.api\\etledev.etlelabs.elsa.pong.api.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{232233C5-AA77-4807-8811-882513B23352}|EtleDev.EtleLabs.Elsa.Pong.Api\\EtleDev.EtleLabs.Elsa.Pong.Api.csproj|solutionrelative:etledev.etlelabs.elsa.pong.api\\etledev.etlelabs.elsa.pong.api.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 233,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "docker-compose.override.yml",
+              "DocumentMoniker": "C:\\dev\\sources\\pro\\etlelabs\\dotnet\\elsa\\EtleDev.EtleLabs.Elsa\\docker-compose.override.yml",
+              "RelativeDocumentMoniker": "docker-compose.override.yml",
+              "ToolTip": "C:\\dev\\sources\\pro\\etlelabs\\dotnet\\elsa\\EtleDev.EtleLabs.Elsa\\docker-compose.override.yml",
+              "RelativeToolTip": "docker-compose.override.yml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAMAAAALAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003775|",
+              "WhenOpened": "2024-06-24T21:02:01.074Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "docker-compose.yml",
+              "DocumentMoniker": "C:\\dev\\sources\\pro\\etlelabs\\dotnet\\elsa\\EtleDev.EtleLabs.Elsa\\docker-compose.yml",
+              "RelativeDocumentMoniker": "docker-compose.yml",
+              "ToolTip": "C:\\dev\\sources\\pro\\etlelabs\\dotnet\\elsa\\EtleDev.EtleLabs.Elsa\\docker-compose.yml",
+              "RelativeToolTip": "docker-compose.yml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABAAAAAnAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003775|",
+              "WhenOpened": "2024-06-24T20:48:22.569Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\dev\\sources\\pro\\etlelabs\\dotnet\\elsa\\EtleDev.EtleLabs.Elsa\\EtleDev.EtleLabs.Elsa.Pong.Api\\Program.cs",
+              "RelativeDocumentMoniker": "EtleDev.EtleLabs.Elsa.Pong.Api\\Program.cs",
+              "ToolTip": "C:\\dev\\sources\\pro\\etlelabs\\dotnet\\elsa\\EtleDev.EtleLabs.Elsa\\EtleDev.EtleLabs.Elsa.Pong.Api\\Program.cs",
+              "RelativeToolTip": "EtleDev.EtleLabs.Elsa.Pong.Api\\Program.cs",
+              "ViewState": "AQIAAA8AAAAAAAAAAAAiwDcAAAAlAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-24T20:36:06.774Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "EtleDev.EtleLabs.Elsa.Pong.Api",
+              "DocumentMoniker": "C:\\dev\\sources\\pro\\etlelabs\\dotnet\\elsa\\EtleDev.EtleLabs.Elsa\\EtleDev.EtleLabs.Elsa.Pong.Api\\EtleDev.EtleLabs.Elsa.Pong.Api.csproj",
+              "RelativeDocumentMoniker": "EtleDev.EtleLabs.Elsa.Pong.Api\\EtleDev.EtleLabs.Elsa.Pong.Api.csproj",
+              "ToolTip": "C:\\dev\\sources\\pro\\etlelabs\\dotnet\\elsa\\EtleDev.EtleLabs.Elsa\\EtleDev.EtleLabs.Elsa.Pong.Api\\EtleDev.EtleLabs.Elsa.Pong.Api.csproj",
+              "RelativeToolTip": "EtleDev.EtleLabs.Elsa.Pong.Api\\EtleDev.EtleLabs.Elsa.Pong.Api.csproj",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2024-06-24T20:35:42.643Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
