@@ -1,0 +1,68 @@
+/**
+ * Custom styles for presentation.
+ */
+
+.reveal .slide-flex {
+      display: flex;
+      gap: 2em;
+      align-items: stretch;
+      height: 98vh;
+}
+.reveal .col-gauche {
+    flex: 1;
+    border: 2px solid #3399cc;
+    padding: 1em;
+    /* background: #f8fafc; */
+    border-radius: 8px;
+    min-width: 200px;
+    /* height: 90%; */
+    min-height: 0;
+}
+.reveal .col-droite {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    border: 2px solid #3399cc;
+    padding: 1em;
+    border-radius: 8px;
+    gap: 1em;
+    min-width: 250px;
+    /* height: 90%; */
+}
+.reveal .cadre-haut, .cadre-bas {
+    flex: 1;
+    border: 2px solid #ffc107;
+    padding: 1em;
+    /* background: #fdf6e3; */
+    border-radius: 8px;
+    min-height: 0;
+    font-size: 5cqh;
+}
+
+.reveal .cadre-avec-titre {
+    position: relative;
+    border: 2px solid #3399cc;
+    border-radius: 8px;
+    padding: 2em 1em 1em 1em;
+    /* margin-top: 2em; */
+    /* background: #f8fafc; */
+    box-sizing: border-box;
+    flex: 1;
+    min-height: 0;
+}
+.reveal .titre-cadre {
+    position: absolute;
+    top: -1.2em;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #3399cc;
+    color: white;
+    padding: 0.3em 1.2em;
+    border-radius: 2px;
+    font-weight: bold;
+    /* font-size: 1.1em; */
+    font-size: 5cqh;
+    border: 2px solid #3399cc;
+    z-index: 2;
+    white-space: nowrap;
+}
