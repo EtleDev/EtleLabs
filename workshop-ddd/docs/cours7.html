@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/black.css">
+		<link rel="stylesheet" href="css/customization.css">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h1>Domain-Driven Design</h1>
+				</section>
+				<section>
+					<h1>BOUNDED CONTEXTS</h1>
+				</section>
+				<section><p>Définition :</p>Représente un sous-système indépendant des autres sous-systèmes</section>
+				<section>Bounded Contexts = Autonomous Contexts</section>
+				<section><p>OBJECTIF :</p>Maintenir un modèle qui a vocation à devenir de plus en plus large</section>
+				<section><p>OBJECTIF :</p>Maximiser l’indépendance de développement et de déploiement</section>
+				<section>Diapo 7</section>
+				<section>Diapo 8</section>
+				<section>Un Bounded Context est un organisme vivant qui accepte des inputs et possède une interface publique</section>
+				<section>Diapo 10</section>
+				<section>Diapo 11</section>
+				<section>Les Bounded Contexts communiquent uniquement via leur interface publique</section>
+				<section>Comment se matérialisent-ils ?</section>
+				<section>Diapo 14</section>
+				<section>Diapo 15</section>
+				<section>Diapo 16</section>
+				<section>La décomposition se fait autour du domain model</section>
+				<section>C’est une décomposition métier</section>
+				<section>Un Bounded Context a une responsabilité sur toute la verticalité du produit</section>
+				<section>Diapo 20</section>
+				<section>
+					<h1>DELIMITER LES CONTEXTS</h1>
+				</section>
+				<section>
+					<h1>HEURISTIQUES</h1>
+				</section>
+				<section>Relève plus de l’art que de la science</section>
+				<section>Comment savoir si notre décomposition est bonne ?</section>
+				<section><p>HEURISTIQUE :</p>Lorsqu’un nouveau besoin est introduit, un seul Bounded Context est impacté (Common Closure Principle)</section>
+				<section><p>HEURISTIQUE :</p>L’équipe gérant chaque Bounded Context travaille en grande autonomie</section>
+				<section><p>HEURISTIQUE :</p>Le nom du Bounded Context fait sens aux yeux des personnes non techniques</section>
+				<section><p>HEURISTIQUE :</p>Les acteurs concernés par chaque Bounded Context sont clairement identifiés</section>
+				<section><p>HEURISTIQUE :</p>Les changements effectués dans un Bounded Context ont peu voir aucun impact sur les autres</section>
+				<section><p>HEURISTIQUE :</p>Chaque Bounded Context gère toute la verticalité d’une partie du produit (DB et UI)</section>
+				<section><p>HEURISTIQUE :</p>Les communications entre Bounded Contexts sont limitées</section>
+				<section>
+					<h1>BOUNDED CONTEXTS</h1>
+				</section>
+				<section><p>INDICE :</p>Ecouter le langage des différents parties prenantes & experts</section>
+				<section><p>INDICE :</p>Suivre les différents process / cycle de vie</section>
+				<section><p>INDICE :</p>Suivre la data et son évolution</section>
+				<section><p>INDICE :</p>Observer la concurrence ou d’autres secteurs similaires</section>
+				<section><p>INDICE :</p>Reverse Conway Maneuver : adapter l’architecture à la dynamique des communications de l’entreprise</section>
+				<section>
+					<h1>INTÉGRER LES BOUNDED CONTEXTS</h1>
+				</section>
+				<section>Diapo 39</section>
+				<section>Diapo 40</section>
+				<section>Diapo 41</section>
+				<section>Diapo 42</section>
+				<section>
+					<h2>Exercice pratique</h2>
+				</section>
+				<section>Diapo 44</section>
+		</div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				hash: true,
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+			});
+		</script>
+	</body>
+</html>
