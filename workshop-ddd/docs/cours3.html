@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/black.css">
+		<link rel="stylesheet" href="css/customization.css">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h1>Domain-Driven Design</h1>
+				</section>
+				<section>
+					<h1>ENTITIES</h1>
+				</section>
+				<section><p>Définition :</p>Représente un concept qui évolue avec le temps</section>
+				<section><p>Définition :</p>Possède une identité unique, identifiable dans le système</section>
+				<section>
+					<p>Un utilisateur dans le système d’authentification</p>
+					<p>Un voyage dans le système de planification de voyage</p>								
+				</section>
+				<section>Diapo 6</section>
+				<section>
+					<h1>REPOSITORIES</h1>
+				</section>
+				<section>Diapo 8</section>
+				<section>Diapo 9</section>
+				<section><p>REPOSITORY :</p>Se situe dans l’implémentation, pas dans l’utilisation</section>
+				<section><p>REPOSITORY :</p>Source d’entités ou de value objects</section>
+				<section><p>REPOSITORY :</p>Destination de sauvegarde (mais pas toujours)</section>
+				<section><p>REPOSITORY :</p>Un Repository est un Domain Service</section>
+				<section>
+					<p>Collection-Oriented Repository</p>
+					<p>Persistence-Oriented Repository</p>								
+				</section>
+				<section>Diapo 15</section>
+				<section>Diapo 16</section>
+				<section>
+					<h2>Exercice pratique</h2>
+				</section>
+				<section>
+					<h1>POLICY PATTERN</h1>					
+				</section>
+				<section><p>POLICY :</p>Implémente un choix / algorithme variable</section>
+				<section><p>POLICY :</p>Fait varier le code à exécuter selon des conditions métier</section>
+				<section>Diapo 21</section>
+			</div>
+		</div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				hash: true,
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+			});
+		</script>
+	</body>
+</html>
