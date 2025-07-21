@@ -8,7 +8,7 @@
 
 		<link rel="stylesheet" href="dist/reset.css">
 		<link rel="stylesheet" href="dist/reveal.css">
-		<link rel="stylesheet" href="dist/theme/black.css">
+		<link rel="stylesheet" href="dist/theme/moon.css">
 		<link rel="stylesheet" href="css/customization.css">
 
 		<!-- Theme used for syntax highlighted code -->
@@ -21,11 +21,35 @@
 					<h1>Domain-Driven Design</h1>
 				</section>
 				<section>Quels sont les problèmes récurrents du développement logiciel ?</section>
-				<section>Problème 1 : La complexité évolue avec le temps</section>
-				<section>Question : Comment maintenir le contrôle sur la complexité du logicielle ?</section>
-				<section>Problème 2 : Le développement se fait en Silo</section>
 				<section>
-					<blockquote cite="http://searchservervirtualization.techtarget.com/definition/Our-Favorite-Technology-Quotations">
+					<h5>Problème 1</h5>
+					<p>
+						La complexité évolue avec le temps
+					</p>
+				</section>
+				<section><img class="r-frame" src="./img/part1/complexity-over-time.png" height="80%" /></section>
+				<section><img class="r-frame" src="./img/part1/productivity-over-time.png" height="80%" /></section>
+				<section>
+					<h5>Question</h5>
+					<p>
+						Comment maintenir le contrôle sur la complexité du logicielle ?
+					</p>
+				</section>
+				<section>
+					<div class="slide-2col-container">
+						<div class="slide-2col-texte">
+							<h5>Problème 2</h5>
+							<p>
+								Le développement se fait en Silo
+							</p>
+						</div>
+						<div class="slide-2col-image">
+							<img class="r-frame" src="./img/part1/dev-client-hit.png"/>
+						</div>
+					</div>
+				</section>
+				<section>
+					<blockquote cite="http://">
 						&ldquo;Les développeurs implémentent ce qu’ils comprennent de la spécification, pas ce qui est spécifié et attendu&rdquo;
 					</blockquote>
 					<p><em>Eric Evans</em></p>
@@ -35,12 +59,65 @@
 						&ldquo;Ce qui part en production, c'est ce que les développeurs ont compris&rdquo;
 					</blockquote>
 					<p><em>Arnaud Lemaire</em></p>
+				</section>				
+				<section>
+					<div class="slide-2col-container">
+						<div class="slide-2col-texte">
+							<h5>Problème</h5>
+							<p>
+								Décalage entre développeurs et clients
+							</p>
+						</div>
+						<div class="slide-2col-image">
+							<img class="r-frame" src="./img/part1/isolated-teams.png"/>
+						</div>
+					</div>
 				</section>
-				<section>Problème : Décalage entre développeurs et clients</section>
-				<section>Problème : Produit non conforme</section>
-				<section>Problème : Difficile à maintenir</section>
-				<section>Problème : Pénible à utiliser</section>
-				<section><p>Question :</p>Comment unifier la compréhension du besoin entre devs et business ?</section>
+				<section>
+					<div class="slide-2col-container">
+						<div class="slide-2col-texte">
+							<h5>Problème</h5>
+							<p>
+								Produit non conforme
+							</p>
+						</div>
+						<div class="slide-2col-image">
+							<img class="r-frame" src="./img/part1/broken-product.png"/>
+						</div>
+					</div>
+				</section>		
+				<section>
+					<div class="slide-2col-container">
+						<div class="slide-2col-texte">
+							<h5>Problème</h5>
+							<p>
+								Difficile à maintenir
+							</p>
+						</div>
+						<div class="slide-2col-image">
+							<img class="r-frame" src="./img/part1/broken-product.png"/>
+						</div>
+					</div>
+				</section>
+				<section>
+					<div class="slide-2col-container">
+						<div class="slide-2col-texte">
+							<h5>Problème</h5>
+							<p>
+								Pénible à utiliser
+							</p>
+						</div>
+						<div class="slide-2col-image">
+							<img class="r-frame" src="./img/part1/broken-product.png"/>
+						</div>
+					</div>
+				</section>
+				<section>
+					<h5>Question</h5>
+					<p>
+						Comment unifier la <span class="highlight">compréhension du besoin</span>  entre devs et business ?
+					</p>
+				</section>				
 				<section><h1>TERRITOIRE DU DOMAIN-DRIVEN DESIGN</h1></section>
 				<section><p>Définition :</p>Discipline centrée sur le métier</section>
 				<section><p>Définition :</p>Unifier le modèle mental des développeurs et des experts métier</section>
