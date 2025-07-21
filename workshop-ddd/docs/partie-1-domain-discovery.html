@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/black.css">
+		<link rel="stylesheet" href="css/customization.css">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h1>Domain-Driven Design</h1>
+				</section>
+				<section>Quels sont les problèmes récurrents du développement logiciel ?</section>
+				<section>Problème 1 : La complexité évolue avec le temps</section>
+				<section>Question : Comment maintenir le contrôle sur la complexité du logicielle ?</section>
+				<section>Problème 2 : Le développement se fait en Silo</section>
+				<section>
+					<blockquote cite="http://searchservervirtualization.techtarget.com/definition/Our-Favorite-Technology-Quotations">
+						&ldquo;Les développeurs implémentent ce qu’ils comprennent de la spécification, pas ce qui est spécifié et attendu&rdquo;
+					</blockquote>
+					<p><em>Eric Evans</em></p>
+				</section>
+				<section>
+					<blockquote cite="https://youtu.be/sZbmP0JZHBs?feature=shared&t=2155">
+						&ldquo;Ce qui part en production, c'est ce que les développeurs ont compris&rdquo;
+					</blockquote>
+					<p><em>Arnaud Lemaire</em></p>
+				</section>
+				<section>Problème : Décalage entre développeurs et clients</section>
+				<section>Problème : Produit non conforme</section>
+				<section>Problème : Difficile à maintenir</section>
+				<section>Problème : Pénible à utiliser</section>
+				<section><p>Question :</p>Comment unifier la compréhension du besoin entre devs et business ?</section>
+				<section><h1>TERRITOIRE DU DOMAIN-DRIVEN DESIGN</h1></section>
+				<section><p>Définition :</p>Discipline centrée sur le métier</section>
+				<section><p>Définition :</p>Unifier le modèle mental des développeurs et des experts métier</section>
+				<section><p>Définition :</p>Partager un langage commun</section>
+				<section><p>Définition :</p>Contrôler la complexité du logiciel</section>
+				<section><p>Définition :</p>Décomposer cette complexité dans des contextes</section>
+				<section>
+					<h1>TERRITOIRE</h1>
+					<div class="slide-flex">
+						<div class="col-gauche cadre-avec-titre">
+						<strong class="titre-cadre">Problem space</strong>
+						<p>Comprendre le domaine, la vision de l'entreprise, ses objectifs et ses besoins</p>
+						</div>
+						<div class="col-droite cadre-avec-titre">
+							<strong class="titre-cadre">Solution space</strong>
+							<div class="cadre-haut cadre-avec-titre">
+								<strong class="titre-cadre">Stratégique</strong>
+								<p>Décomposer le problème en différentes parties et établir les relations entre ces parties</p>
+							</div>
+							<div class="cadre-bas cadre-avec-titre">
+								<strong class="titre-cadre">Tactique</strong>
+								<p>Implémenter la solution avec des patterns de code</p>
+							</div>
+						</div>
+					</div>
+				</section>
+				<section>
+					<h1>TERRITOIRE</h1>
+					<div class="slide-flex">
+						<div class="col-gauche cadre-avec-titre">
+						<strong class="titre-cadre">Problem space</strong>
+						<!-- <ul>
+							<li>Domain Discovery</li>
+							<li>Subdomains</li>
+							<li>Domain Vision</li>
+							<li>Ubiquitous Language</li>
+							<li>Event Storming</li>
+							<li>Example Mapping</li>							
+						</ul> -->
+						<!-- <p>Domain Discovery</p>
+						<p>Subdomains</p>
+						<p>Domain Vision</p>
+						<p>Ubiquitous Language</p>
+						<p>Event Storming</p>
+						<p>Example Mapping</p> -->
+						<p>Domain Discovery, Subdomains, Domain Vision, Ubiquitous Language, Event Storming, Example Mapping</p>
+						</div>
+						<div class="col-droite cadre-avec-titre">
+							<strong class="titre-cadre">Solution space</strong>
+							<div class="cadre-haut cadre-avec-titre">
+								<strong class="titre-cadre">Stratégique</strong>
+								<p>Bounded Context, Context Mapping, Teaming Patterns</p>
+							</div>
+							<div class="cadre-bas cadre-avec-titre">
+								<strong class="titre-cadre">Tactique</strong>
+								<p>Aggregates, Entities, Value Objects, Domain Events, Domain Services, Repositories</p>
+							</div>
+						</div>
+					</div>
+				</section>
+				<section>
+					<h1>Problem space</h1>
+				</section>
+				<section><p>Définition :</p>Comprendre les problèmes que l’entreprise essaye de résoudre</section>
+				<section>Déterminer les aspects les plus importants</section>
+				<section>Investir le maximum d’effort sur ce qui rapporte de l’argent</section>
+				<section>Comprendre intensément le domaine</section>
+				<section><h2>Techniques</h1><p>Distillation</p><p>Domain Vision</p><p>Knowledge Crunching</p><p>Impact Mapping</p></section>
+				<section>
+					<h1>Solution space</h1>
+				</section>
+				<section>Décomposer la solution en sous-solutions</section>
+				<section>Développer chaque solution selon son importance</section>
+				<section>
+					<h1>TERRITOIRE</h1>
+					<div class="slide-flex">
+						<div class="col-gauche cadre-avec-titre">
+						<strong class="titre-cadre">Problem space</strong>
+						<p>Domain Discovery, Subdomains, Domain Vision, Ubiquitous Language, Event Storming, Example Mapping</p>
+						</div>
+						<div class="col-droite cadre-avec-titre">
+							<strong class="titre-cadre">Solution space</strong>
+							<div class="cadre-haut cadre-avec-titre">
+								<strong class="titre-cadre">Stratégique</strong>
+								<p>Bounded Context, Context Mapping, Teaming Patterns</p>
+							</div>
+							<div class="cadre-bas cadre-avec-titre">
+								<strong class="titre-cadre">Tactique</strong>
+								<p>Aggregates, Entities, Value Objects, Domain Events, Domain Services, Repositories</p>
+							</div>
+						</div>
+					</div>
+				</section>
+				<section>
+					<h1>Le domain</h1>
+				</section>
+				<section><p>Question :</p>Que signifie le terme Domaine ?</section>
+				<section>
+					<blockquote cite="http://searchservervirtualization.techtarget.com/definition/Our-Favorite-Technology-Quotations">
+						&ldquo;Une sphère de savoir, d’influence ou d’activité, la partie du sujet sur lequel l’utilisateur applique le logiciel&rdquo;
+					</blockquote>
+					<p><em>Eric Evans</em></p>
+				</section>
+				<section>exemple : les domaines de réservation de place de restaurant (créer l'image)</section>
+				<section>Le domain peut-être très large</section>
+				<section>diapo 40</section>
+				<section>diapo 41</section>
+				<section>Le Domaine existe déjà, il n’est pas conçu / designé</section>
+				<section>
+					<blockquote cite="http://searchservervirtualization.techtarget.com/definition/Our-Favorite-Technology-Quotations">
+						&ldquo;Le Domaine est hors de portée de l’influence du designer&rdquo;
+					</blockquote>
+					<p><em>Gien Verschatse</em></p>
+				</section>
+				<section>
+					<h1>SUBDOMAINS</h1>
+				</section>
+				<section>Le domain peut-être très large => elephant carpaccio (si un truc est trop grand pour être bouffé d'un coup, soit pas con, découpe le en petit morceaux)</section>
+				<section><p>Subdomain :</p>Partie distincte du domain</section>
+				<section>Tous les subdomains ne se valent pas</section>
+				<section>Le plus important est le Core Subdomain</section>
+				<section><p>Question :</p>Comment déterminer quelle partie du Domaine fait partie de son coeur ?</section>
+				<section>Source de revenus principale Coeur de métier Avantage Compétitif</section>
+				<section>diapo 51</section>
+				<section>diapo 52</section>
+				<section><p>Question :</p>Core Domain de Amazon ?</section>
+				<section><p>Question :</p>Core Domain de LinkedIn ?</section>
+				<section><p>Question :</p>Core Domain de Google ?</section>
+				<section>D’autres subdomains sont importants pour soutenir ce Core</section>
+				<section>Moins complexes et pas nécessairement avantageux</section>
+				<section><p>Question :</p>Citez un supporting subdomain de LinkedIn</section>
+				<section>diapo 60</section>
+				<section>diapo 61</section>
+				<section>D’autres subdomains sont importants mais n’ont rien de spécifique à notre business</section>
+				<section>Ce sont des Generic Subdomains</section>
+				<section><p>Question :</p>Citez un generic subdomain de LinkedIn</section>
+				<section>diapo 65</section>
+				<section>diapo 66</section>
+				<section>diapo 67</section>
+				<section>
+					<h1>SUBDOMAINS PATTERNS</h1>
+				</section>
+				<section>diapo 69</section>
+				<section><p>DECISIVE CORE :</p>Position idéale pour un Core. Diapo 70</section>
+				<section>diapo 71</section>
+				<section><p>AVANTAGE COURT-TERME :</p>La compétition finira par rattraper. Diapo 72</section>
+				<section>diapo 73</section>
+				<section><p>CORE CACHÉ :</p>Grosse différenciation mais modèle simple, mauvais usage de la technologie ?. Diapo 74</section>
+				<section><p>BASELINE EX-CORE :</p>Était notre avantage compétitif, maintenant c’est le minimum attendu de nos clients Diapo 75</section>
+				<section><p>CORE COMMODITÉ :</p>Une SaaS ou un plugin implémente cette fonctionnalité Diapo 76</section>
+				<section>
+					<h2>Exercice pratique</h2>
+				</section>
+				<section>
+					<h1>IMPÉDENCE DE LANGAGE</h1>
+				</section>
+				<section><p>IMPÉDENCE DE LANGAGE :</p>Différents langages, différentes perceptions. Diapo 79</section>
+				<section>diapo 80</section>
+				<section>
+					<h2>Impédance de langage</h1>
+					<p>Difficultés à se comprendre</p>
+					<p>L’essence du besoin se perd</p>
+					<p>Langage appauvri</p>
+					<p>Produit non conforme</p>
+				</section>
+				<section>Unifier le langage et éliminer tout besoin de traduction</section>
+				<section>Créer un langage en collaboration avec les experts métier</section>
+				<section>diapo 84</section>
+				<section>Ce langage participe a créer un modèle partagé</section>
+				<section>
+					<h1>LE MODÈLE</h1>
+				</section>
+				<section><p>Question :</p>Qu’est-ce qu’un Modèle ?</section>
+				<section>Abstraire l’essentiel et mettre de côté le superflu</section>
+				<section>diapo 89</section>
+				<section>diapo 90</section>
+				<section>diapo 91</section>
+				<section>Créer un modèle qui sert les activités de la boite</section>
+				<section>
+					<h1>CRÉER LE LANGAGE</h1>
+				</section>
+				<section>Analyse de Verbes et de Noms</section>
+				<section>Ecouter les experts métier</section>
+				<section>
+					<blockquote cite="http://">
+						&ldquo;Nous aimerions développer une application pour automatiser les différents aspects de notre restaurant&rdquo;
+					</blockquote>
+					<p><em>Le client</em></p>
+				</section>
+				<section>
+					<blockquote cite="http://">
+						&ldquo;La première chose à automatiser est la réservation de table&rdquo;
+					</blockquote>
+					<p><em>Le client</em></p>
+				</section>
+				<section>
+					<blockquote cite="http://">
+						&ldquo;Nos clients peuvent réserver une table soit au rez-de-chaussée, soit en terrasse, soit au premier étage&rdquo;
+					</blockquote>
+					<p><em>Le client</em></p>
+				</section>
+				<section>
+					<blockquote cite="http://">
+						&ldquo;Certaines tables ne peuventêtre réservées qu’à condition qu’il y ai plusieurs clients sur la réservation&rdquo;
+					</blockquote>
+					<p><em>Le client</em></p>
+				</section>
+				<section>
+					<blockquote cite="http://">
+						&ldquo;On a des tables couple au rez-de-chaussée et au premier étage, uniquement pour deux personnes&rdquo;
+					</blockquote>
+					<p><em>Le client</em></p>
+				</section>
+				<section>
+					<blockquote cite="http://">
+						&ldquo;Et on a des tables de groupe pour des réservations de trois personnes minimum&rdquo;
+					</blockquote>
+					<p><em>Le client</em></p>
+				</section>
+				<section>
+					<blockquote cite="http://">
+						&ldquo;On aimerait garder une trace de nos clients et de leurs réservation dans notre base d’informations&rdquo;
+					</blockquote>
+					<p><em>Le client</em></p>
+				</section>
+				<section>
+					<blockquote cite="http://">
+						&ldquo;Nous voudrions assez rapidement savoir lesquels de nos clients honorent leur réservation et pénaliser les autres&rdquo;
+					</blockquote>
+					<p><em>Le client</em></p>
+				</section>
+				<section>
+					<blockquote cite="http://">
+						&ldquo;L’application sera intégralement gérée par nos administrateurs, notamment par notre hôte d’accueil&rdquo;
+					</blockquote>
+					<p><em>Le client</em></p>
+				</section>
+				<section>diapo 105</section>		
+				<section>Les noms sont des candidats d’objets</section>
+				<section>Les verbes sont des candidats de comportement</section>
+				<section>Les adjectifs sont des candidats de spécialisations</section>
+				<section>diapo 109</section>
+				<section>
+					<h1>RENDRE L’IMPLICITE EXPLICITE</h1>
+				</section>
+				<section>Problème : Le brief manque énormément d’informations</section>
+				<section>Certaines choses sont évidentes pour les experts</section>
+				<section>Mais dans le monde du logiciel, l’évidence n’existe pas</section>
+				<section>Tout ce qui n’est pas explicite n’existe pas</section>
+				<section>diapo 115</section>
+				<section>diapo 116</section>
+				<section>Problème : Comment rendre l’implicite explicite ?</section>
+				<section>Solution 1 : Poser beaucoup de questions. Il faut s'étonner de tout ! (ex : pourquoi le ciel est-il bleu ?)</section>
+				<section>Solution 2 : Challenger le besoin</section>
+				<section>Solution 3 : Observer le travail des experts métier</section>
+				<section>Solution 4 : Faire des ateliers de groupe</section>
+				<section>
+					<h2>Knowledge Crunching</h2>
+				</section>
+				<section>
+					<h2>Outils de Knowledge Crunching</h1>
+					<p>Domain Vision</p>
+					<p>Domain Storytelling</p>
+					<p>Event Storming</p>
+					<p>Impact Mapping</p>
+					<p>Specification by Example => BDD</p>
+				</section>
+				<section>Conseil : Comprendre intimement le besoin avant d’imaginer une solution</section>
+				<section>
+					<h2>Exercice pratique</h2>
+				</section>
+				<section>
+					<h1>ANALYSER LES USE CASES</h1>
+				</section>
+				<section><p>Définition :</p>Description d’une interaction entre un acteur et notre système</section>
+				<section><p>Acteur :</p>Une personne ou un autre système avec un intérêt vis à vis de notre application</section>
+				<section><p>Usecases :</p>Approche pour récolter le besoin</section>
+				<section>diapo 130</section>
+				<section>diapo 131</section>
+				<section>diapo 132</section>
+				<section>diapo 133</section>
+				<section>Avons-nous toutes les informations pour commencer à coder ?</section>
+				<section>diapo 135</section>
+				<section>diapo 136</section>
+				<section>Qu’est-ce qu’une table ?</section>
+				<section>Comment sont gérées les tables ?</section>
+				<section>
+					<blockquote cite="http://">
+						&ldquo;Chère cliente, auriez-vous l’amabilité de me dire d’où viennent vos tables ?&rdquo;
+					</blockquote>
+					<p><em>Un mauvais développeur (Pas vous, j’espère...)</em></p>
+				</section>
+				<section>
+					<blockquote cite="http://">
+						&ldquo;Pourriez-vous m’en dire plus sur la topologie de votre restaurant ? Est-elle fixe ? Déplacez-vous parfois les tables ?&rdquo;
+					</blockquote>
+					<p><em>Un bon développeur (Définitivement vous)</em></p>
+				</section>
+				<section>
+					<blockquote cite="http://">
+						&ldquo;Comme je vous l’ai déjà dis, nous avez trois emplacements : la terrasse, le rez-de-chaussée et le premier étage Client&rdquo;
+					</blockquote>
+					<p><em>Le client</em></p>
+				</section>
+				<section>
+					<blockquote cite="http://">
+						&ldquo;Mais la topologie du restaurant peut varier, il n’est pas rare de monter / descendre une table, d’en ajouter ou d’en retirer&rdquo;
+					</blockquote>
+					<p><em>Le client</em></p>
+				</section>
+				<section>
+					<blockquote cite="http://">
+						&ldquo;Qui s’occupe de cela ?&rdquo;
+					</blockquote>
+					<p><em>Le boss final des devs</em></p>
+				</section>
+				<section>
+					<blockquote cite="http://">
+						&ldquo;Les serveurs bien sûr, mais ils doivent rendre des comptes à notre hôte d’accueil qui met à jour son registre.&rdquo;
+					</blockquote>
+					<p><em>Le client</em></p>
+				</section>
+				<section>diapo 145</section>
+				<section>
+					<h2>Exercice pratique</h2>
+				</section>
+			</div>
+		</div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				hash: true,
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+			});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/black.css">
+		<link rel="stylesheet" href="css/customization.css">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h1>Domain-Driven Design</h1>
+				</section>
+				<section>
+					<h1>ANALYSER LES OBJETS</h1>
+				</section>
+				<section>Un objet est une abstraction d’un un concept tiré du monde réel</section>
+				<section>Il encapsule un comportement et des invariants</section>
+				<section>Comportement = Fonction</section>
+				<section><p>Invariant :</p>Une propriété qui doit être respectée en toutes circonstances</section>
+				<section><p>EXEMPLE :</p>La distance d’un trajet doit être positif</section>
+				<section>Diapo 8</section>
+				<section>
+					<h1>DOMAIN OBJECTS</h1>
+				</section>
+				<section><p>Définition :</p>Objet qui représente un concept dans le domaine</section>
+				<section>
+					<p>Un concept issu du modèle</p>
+					<p>Fait partie du langage ubiquitaire</p>
+					<p>Catégorisé en temps que Pattern Tactique</p>
+				</section>
+				<section>Les Domain Objects contiennent la logique métier</section>
+				<section>
+					<h2>Exercice pratique</h2>
+				</section>
+				<section>
+					<h1>VALUE OBJECTS</h1>
+				</section>
+				<section><p>Définition :</p>Représentent une valeur dans notre modèle</section>
+				<section>
+					<p>La distance qui sépare deux endroits</p>
+					<p>Une valeur monétaire</p>
+					<p>Le temps nécessaire à une tâche</p>
+				</section>
+				<section>
+					<p>Un ValueObject est immuable.</p>
+					<p>5 minutes sera toujours 5 minutes.</p>					
+				</section>
+				<section>
+					<p>Un ValueObject est défini par ses propriétés.</p>
+					<p>Il n’a pas d’identité.</p>					
+				</section>
+				<section><p>PREDICTION :</p>La majorité de vos Domain Objects seront des Value Objects</section>
+				<section>
+					<h1>DOMAIN SERVICES</h1>
+				</section>
+				<section><p>Définition :</p>Représente un service à l’intérieur du domaine.</section>
+				<section>
+					<p>Calculer une taxe selon le pays.</p>
+					<p>Mettre au point un itinéraire terrestre.</p>
+					<p>Déterminer le prix d’un trajet.</p>
+				</section>
+				<section>
+					<p>Il doit faire sens aux yeux des non-devs.</p>
+					<p>Il parle le langage ubiquitaire.</p>					
+				</section>
+				<section>
+					<h1>ARCHITECTURE</h1>
+				</section>
+				<section>Diapo 25</section>
+				<section>
+					<p>Application Services</p>
+					<p>Définit les capacités du système du point de vue d’un utilisateur / acteur</p>
+					<p>Ce sont les Use Cases</p>
+				</section>
+				<section>
+					<p>Domain Services</p>
+					<p>Définit une responsabilité au sein du Domain Model</p>					
+				</section>
+				<section>
+					<h2>Exercice pratique</h2>
+				</section>
+			</div>
+		</div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				hash: true,
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+			});
+		</script>
+	</body>
+</html>
