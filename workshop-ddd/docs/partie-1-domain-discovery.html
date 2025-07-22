@@ -19,13 +19,37 @@
 			<div class="slides">
 				<section>
 					<h1>Domain-Driven Design</h1>
+
+					<aside data-markdown class="notes">
+						# Rappel :
+						- test
+						- tache 2
+
+						Lien du board : 
+
+						Qu'attendez-vous de ce workshop ?
+						=> Faire un questionnaire en ligne ?
+						=> faire une rubrique sur le board ?
+
+						Si je vous parle du livre bleu, ça vous parle ?
+
+						But du workshop => vous enseigner le DDD pour pouvoir le mettre en pratique dans le contexte pro et vous rendre suffisamment autonome pour comprendre le DDD, et comprendre les ressources à son sujet
+						Donner la base nécessaire pour évoluer dans le DDD.
+						A la fin de ce workshop, vous ne serez pas des Eric Evans ambulants (aka pas des experts)
+
+						C'est la première fois que j'enseigne ce workshop et je ne suis pas formateur de métier.
+						Merci de bien vouloir faire des retours constructifs pour améliorer cet atelier.
+						Il y aura donc sûrement des erreurs et des soucis techniques, c'est inévitable.
+
+						Pause de 10-15 min toutes les heures
+
+						Je reste à dispo.
+
+						N'hésitez pas à poser des questions, il n'y a pas de questions bêtes
+					</aside>
 				</section>
 				<section>
 					Quels sont les problèmes récurrents du développement logiciel ?
-
-					<aside class="notes">
-						Shhh, these are your private notes 📝
-					</aside>
 				</section>
 				<section>
 					<h5>Problème 1</h5>
@@ -34,11 +58,30 @@
 					</p>
 
 					<aside data-markdown class="notes">
-						Shhh, these are your markdown private notes 📝
+						Donc on parle bien ici de logiciels "vivants", pas de PoC ou de petits scripts
 					</aside>					
 				</section>
-				<section><img class="r-frame" src="./img/part1/complexity-over-time.png" height="80%" /></section>
-				<section><img class="r-frame" src="./img/part1/productivity-over-time.png" height="80%" /></section>
+				<section>
+					<img class="r-frame" src="./img/part1/complexity-over-time.png" height="80%" />
+					<aside data-markdown class="notes">
+						Au départ, la complexité reste très basse. Mais elle croit EXPONENTIELLEMENT
+						Exemple : sur EZEP, rajouter un usecase nous faisait une exponentielle de 2
+						Ca arrive systèmatiquement sans design
+
+						C'est ça le but du design : faire du design constant permet de conserver notre productivité / vélocité dans le temps ! (de la garder constante)
+
+						Le problème, c'est que pour lancer une boîte, souvent on ne fait pas de design, car ça prend du temps. Et il y a un écart important au départ. Cet écart est rentabilisé sur la durée.
+
+						Ca demande donc de l'expérience de savoir quand commencer à faire du design, et sur quelle partie du code (car toutes les parties du code ne mérite pas le même niveau de design)
+					</aside>	
+				</section>
+				<section>
+					<img class="r-frame" src="./img/part1/productivity-over-time.png" height="80%" />
+					<aside data-markdown class="notes">
+						le design a donc un impact sur la productivité
+						La perte de productivité intervient assez rapidement (env. 6 mois / 1 an). C'est quelque chose d'extrêmement commun. (Ca vous est surement déjà arrivé dans d'autres boites)
+					</aside>
+				</section>
 				<section>
 					<h5>Question</h5>
 					<p>
@@ -51,12 +94,16 @@
 							<h5>Problème 2</h5>
 							<p>
 								Le développement se fait en Silo
-							</p>
+							</p>							
 						</div>
 						<div class="slide-2col-image">
 							<img class="r-frame" src="./img/part1/dev-client-hit.png"/>
 						</div>
 					</div>
+					<aside data-markdown class="notes">
+						souvent les experts métier vont voir les dévs (ou pas) mais ne parle pas le même langage.
+						Occasionnant quasiment systèmatiquement de la traduction, et donc le code produit n'est pas ce qui est attendu
+					</aside>
 				</section>
 				<section>
 					<blockquote cite="http://">
@@ -120,6 +167,10 @@
 					<p>
 						Unifier le <span class="highlight">modèle mental</span> des <span class="highlight">développeurs</span> et des <span class="highlight">experts métier</span>
 					</p>
+
+					<aside data-markdown class="notes">
+						au delà de parler le même langage, le but du DDD est de PENSER de la même façon
+					</aside>
 				</section>
 				<section>
 					<h5>Définition</h5>
@@ -138,11 +189,21 @@
 					<p>
 						Décomposer cette complexité dans des <span class="highlight">contextes</span>
 					</p>
-				</section>
-				
+
+					<aside data-markdown class="notes">
+						principe du "divide and conquer"
+						Exemple : vous connaissez l'Elephant carpaccio ?
+						C'est un atelier qui vise à décomposer un gros problème en plus petit problèmes.
+						Globalement, si tu dois bouffer un éléphant, soit pas con, coupe le en petit morceau
+						Ca c'est le sujet des bounded contexts
+					</aside>
+				</section>				
 				<section>
 					<h3>Territoire</h3>
 					<img class="r-frame" src="./img/part1/territory.png" width="80%" />
+					<aside data-markdown class="notes">
+						Problem space => orienté produit
+					</aside>
 				</section>
 				<section>
 					<h3>Territoire</h3>
@@ -227,8 +288,28 @@
 					</div>
 				</section>
 				<section>Investir le maximum d’effort sur ce qui <span class="highlight">rapporte de l’argent</span></section>
-				<section>Comprendre intensément le domaine</section>
-				<section><h2>Techniques</h1><p>Distillation</p><p>Domain Vision</p><p>Knowledge Crunching</p><p>Impact Mapping</p></section>
+				<section>
+					Comprendre intensément le domaine
+
+					<aside data-markdown class="notes">
+						C'est ça notre boulot de développeur : plus que de comprendre notre code, il est important de comprendre POURQUOI on le code, et ce que ça rapporte à l'entreprise
+					</aside>
+				</section>
+				<section>
+					<h2>Techniques</h1>
+						<p>Distillation</p>
+						<p>Domain Vision</p>
+						<p>Knowledge Crunching</p>
+						<p>Impact Mapping</p>
+
+						<aside data-markdown class="notes">
+							Rajouter une animation !
+							Distillation : fait de prendre toute la richesse du problème et de la distiller en une compréhension vraiment claire uniquement de ce qui est important pour ce problème
+							Domain vision : comprendre la vision de l'entreprise, la direction qu'elle veut prendre
+							Knowledge Crunching : toutes les activités qui permettent de comprendre ce que fait l'entreprise
+							Impact mapping : déterminer les actions qui auront le plus d'impact sur le bénéfice de l'entreprise à un moment donné
+						</aside>
+					</section>
 				<section>
 					<h1>Solution space</h1>
 				</section>
@@ -249,6 +330,10 @@
 							<img class="r-frame" src="./img/part1/subsolutions.png"/>
 						</div>
 					</div>
+
+					<aside data-markdown class="notes">
+						cf. divide and conquer
+					</aside>
 				</section>
 				<section>
 					<p>
@@ -258,6 +343,10 @@
 				<section>
 					<h3>Territoire</h3>
 					<img class="r-frame" src="./img/part1/territory-3.png" width="80%" />
+
+					<aside data-markdown class="notes">
+						dans ce cours on va surtout aborder le problem space
+					</aside>
 				</section>
 				<section>
 					<h1>Le domain</h1>
@@ -267,27 +356,56 @@
 					<p>
 						Que signifie le terme Domaine ?
 					</p>
+
+					<aside data-markdown class="notes">
+						TRAVAIL :
+						Qui peut me donner une définition du domaine ? Un mot clé ? Une phrase ?
+					</aside>
 				</section>
 				<section>
 					<blockquote cite="http://">
 						&ldquo;Une sphère de savoir, d’influence ou d’activité, la partie du sujet sur lequel <span class="highlight">l’utilisateur applique le logiciel</span>&rdquo;
 					</blockquote>
 					<p><em>Eric Evans</em></p>
+					<aside data-markdown class="notes">
+						certaines choses ne font pas partie du domaine (d'un point de vue DDD) si l'utilisateur n'y est pas confronté.
+						Donc la raison de faire du DDD, c'est pour comprendre le besoin de l'entreprise vis-à-vis de ses utilisateurs ou acteurs du système.
+						Donc ce qui nous intéresse, c'est la partie qui est au contact des utilisateurs.
+					</aside>
 				</section>
 				<section>
 					<h3>Domain</h3>
 					<img class="r-frame" src="./img/part1/enterprise-activities.png" width="70%" />
+
+					<aside data-markdown class="notes">
+						Exemple : application de restauration qui a un domaine divisé en plusieurs sections (ex : réservation, topologie, ... lis ta diapo bordel)
+						Tout ne fait pas partie du domaine du point de vue du logiciel que l'on veut développer.
+						Nous on veut développer une application de réservation de table sur un restaurant.
+					</aside>
 				</section>
 				<section>Le domain peut-être <span class="highlight">très large</span></section>
 				<section>
 					<h3>Domain</h3>
 					<img class="r-frame" src="./img/part1/selected-enterprise-activities.png" width="70%" />
+
+					<aside data-markdown class="notes">
+						dans ce cas (dvpt d'app de résa) seul ces 4 sous-domaines nous intéresse
+						Le reste est en DEHORS de notre sphère d'Analyse
+						Exemple : la cuisine ne nous concerne pas pour le moment.
+						Mais c'est évolutif dans le temps ! Ca pourrait le devenir à termes.
+					</aside>
 				</section>
 				<section>
 					<h3>Domain</h3>
 					<img class="r-frame" src="./img/part1/chosen-enterprise-activities.png" width="70%" />
 				</section>
-				<section>Le Domaine <span class="highlight">existe déjà</span>, il n’est pas conçu / designé</section>
+				<section>
+					Le Domaine <span class="highlight">existe déjà</span>, il n’est pas conçu / designé
+
+					<aside data-markdown class="notes">
+						ce n'est pas quelque chose qu'on va construire, c'est quelque chose qu'on va analyser. C'est une analyse de l'existant.
+					</aside>
+				</section>
 				<section>
 					<blockquote cite="http://">
 						&ldquo;Le Domaine est hors de portée de l’influence du designer&rdquo;
@@ -297,12 +415,17 @@
 				<section>
 					<h1>SUBDOMAINS</h1>
 				</section>
-				<section>Le domain peut-être <span class="highlight">très large</span> => elephant carpaccio (si un truc est trop grand pour être bouffé d'un coup, soit pas con, découpe le en petit morceaux)</section>
+				<section>Le domain peut-être <span class="highlight">très large</span></section>
 				<section>
 					<h5>Subdomain</h5>
 					<p>
 						Partie distincte du domain
 					</p>
+					<aside data-markdown class="notes">
+						Donc dans l'analyse du domaine, on va faire une première subdivision
+						Car il est plus simple d'apréhender quelque chose qui est plus petit
+						cf. elephant carpaccio, chaos report
+					</aside>
 				</section>
 				<section>Tous les subdomains <span class="highlight">ne se valent pas</span></section>
 				<section>Le plus important est le <span class="highlight">Core Subdomain</span></section>
@@ -311,8 +434,17 @@
 					<p>
 						Comment déterminer quelle partie du Domaine fait partie de son coeur ?
 					</p>
+					<aside data-markdown class="notes">
+						TRAVAIL : laisser les étudiants répondre !
+						Comment détermine-t-on quelle partie du domaine est importante ?
+					</aside>
 				</section>
-				<section>Source de revenus principale Coeur de métier Avantage Compétitif</section>
+				<section>Source de revenus principale <br/> Coeur de métier <br/> Avantage Compétitif
+					<aside data-markdown class="notes">
+						c'est la raison pour laquelle tu as des clients, pour laquelle des clients viennent (pour laquelle ils sont prêt à tuer !)
+						ce qui est important pour déterminer le core domaine, c'est comprendre pourquoi tes clients te donne de l'argent
+					</aside>
+				</section>
 				<section>
 					<h3>Core subdomains</h3>
 					<img class="r-frame" src="./img/part1/chosen-enterprise-activities.png" width="70%" />
@@ -320,18 +452,39 @@
 				<section>
 					<h3>Core subdomains</h3>
 					<img class="r-frame" src="./img/part1/chosen-core-subdomain.png" width="70%" />
+					<aside data-markdown class="notes">
+						dans le cadre de notre exemple, c'est le système de réservation
+					</aside>
 				</section>
 				<section>
 					<h5>Question</h5>
 					<p>
 						Core Domain de Amazon ?
 					</p>
+					<aside data-markdown class="notes">
+						Faire une animation
+						TRAVAIL : laisser les étudiants répondre
+						qu'est-ce qui fait que VOUS vous commandez sur amazon ? (car il existe pleins de site e-commerce)
+						donc la question n'est pas si évidente
+						la question n'est pas objective
+						le but de l'exercice est de vous donner des heuristiques, de vous mettre dans la peau des clients, et de se dire "la valeur ajoutée de ma boite elle se situe ici, c'est là que je dois mettre du pognon" pour faire en sorte qu'aucun de mes concurrent ne me rattrape
+						car si ton avantage compétitif est facile à rattraper, est-ce vraiment un avantage compétitif ?
+						Ton core domain d'aujourd'hui, n'est pas forcément ton core domain de demain
+						Exemple : Kodak (à ne pas suivre, à développer), Yamaha, Nokia, Google (on y revient après)
+					</aside>
 				</section>
 				<section>
 					<h5>Question</h5>
 					<p>
 						Core Domain de LinkedIn ?
 					</p>
+					<aside data-markdown class="notes">
+						Pourquoi donne-t-on de l'argent à LinkedIn ? Qui paye pour LinkedIn ?
+						core domain : capacité à fournir des profils complet de personne qui cherche du travail
+						2eme core domain : capacité à sélectionner les bons profils lors d'une recherche
+						Ce sont 2 sujets très proche l'un de l'autre, mais qui n'ont pas forcément les mêmes Acteurs (celui qui créé son profil est rarement celui qui fait une recherche)
+						C'est généralement le cas dans toutes les applications de matching (ex: air b'n'b, application de rencontre, uber, covoiturage, ...)
+					</aside>
 				</section>
 				<section>
 					<h5>Question</h5>
@@ -340,12 +493,16 @@
 					</p>
 				</section>
 				<section>D’autres subdomains sont importants pour <span class="highlight">soutenir</span> ce Core</section>
-				<section>Moins complexes et pas nécessairement avantageux</section>
+				<section>Moins complexes et pas nécessairement avantageux
+					<aside data-markdown class="notes">
+						exemple : système de publication
+					</aside>
+				</section>
 				<section>
 					<h5>Question</h5>
 					<p>
 						Citez un supporting subdomain de LinkedIn
-					</p>
+					</p>					
 				</section>
 				<section>
 					<h3>Supporting subdomains</h3>
@@ -354,6 +511,9 @@
 				<section>
 					<h3>Supporting subdomains</h3>
 					<img class="r-frame" src="./img/part1/selected-supporting-subdomain.png" width="80%" />
+					<aside data-markdown class="notes">
+						dans notre exemple
+					</aside>
 				</section>
 				<section>D’autres subdomains sont importants mais n’ont rien de <span class="highlight">spécifique</span> à notre business</section>
 				<section>Ce sont des <span class="highlight">Generic Subdomains</span></section>
@@ -362,19 +522,41 @@
 					<p>
 						Citez un generic subdomain de LinkedIn
 					</p>
+					<aside data-markdown class="notes">
+						exemple : système de paiement, système d'inscription, gestion utilisateurs, authentification, hébergement des images, messagerie, ...
+					</aside>
 				</section>
 				<section>
 					<h3>Generic subdomains</h3>
 					<img class="r-frame" src="./img/part1/generic-subdomain.png" width="90%" />
+					<aside data-markdown class="notes">
+						dans notre exemple, gestion du personnel administratif
+					</aside>
 				</section>
 				<section>
 					<img class="r-frame" src="./img/part1/subdomains-topology.png" width="90%" />
+					<aside data-markdown class="notes">
+						ca, c'est une charte qui permet de positionner un subdomain en fonction de sa complexité et sa différenciation métier
+					</aside>
 				</section>
 				<section>
 					<img class="r-frame" src="./img/part1/subdomains-alignement-axis.png" width="80%" />
+					<aside data-markdown class="notes">
+						voici l'axe sur lequel idéalement, tout subdomain devrait se situer
+						plus un subdomain est complexe, plus on a intérêt à ce que sa différenciation soit forte
+						complexité = complexité du code qu'on a écrit, la complexité du système qu'on essaye de Concevoir
+						si vous avez un modèle avec 2-3 objets dans un ORM qui font du CRUD, votre complexité est très faible
+						si vous avez un modèle avec beaucoup d'objets qui font beaucoup de règle de calcul, votre complexité est très forte
+						plus la différenciation métier est forte, plus il est acceptable que la complexité soit élevée
+						Si on a une forte complexité et une faible différenciation métier, pourquoi est-ce qu'on le fait ?
+						A l'inverse, s'il y a une forte différenciation métier, et que la solution est simple à implémenter, tout le monde va le faire
+						Exception : si on est le premier à le faire (cf. exo d'après), c'est un avantage compétitif court-terme.
+						On peut commencer par là, mais il faudra très vite ettoffer sa fonctionnalité, ou trouver autre chose
+					</aside>
 				</section>
 				<section>
 					<h1>SUBDOMAINS PATTERNS</h1>
+					<aside data-markdown class="notes">PAUSE de 10-15 min</aside>
 				</section>
 				<section>
 					<img class="r-frame" src="./img/part1/subdomains-graph-core.png" width="80%" />
