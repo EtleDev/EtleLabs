@@ -684,19 +684,51 @@
 				</section>
 				<section>
 					<h2>Exercice pratique</h2>
+					<aside data-markdown class="notes">
+						Notes :
+
+						Poser la question de savoir si l'exercice a été compliqué 
+						Notion d'utilisateur à BANNIR ! On parle de conducteur, covoitureur, passager, ...
+						Se poser la question : est-ce que c'est pour ça que j'utilise Movéo et pas une autre ?
+
+						Consignes : 
+						10 min (possible recave de 5 min)
+						Lire le brief et identifié les core subdomain, supporting subdomain et generic subdomain
+
+
+						PAUSE : de 10-15 min à la fin de l'exercice
+					</aside>
 				</section>
 				<section>
 					<h1>IMPÉDENCE DE LANGAGE</h1>
+					<aside data-markdown class="notes">
+						Poser la question : Qu'est-ce qu'une impédence ? (autre que le réglage d'un ampli de guitare)
+					</aside>
 				</section>
 				<section>
 					<h5>IMPÉDENCE DE LANGAGE</h5>
 					<p>
-						Différents langages, différentes perceptions. (image tour de babel)
+						Différents langages, différentes perceptions.
 					</p>
+					<aside data-markdown class="notes">
+						Impédence : 2 choses qui ne sont pas équilibrées, adaptée, qui ne sont pas au même niveau
+						Quand on parle d'impédence de langage, c'est quand on a 2 groupes qui parlent 2 langages différents pour parler du même sujet
+						C'est le début des problèmes
+						Rajouter une définition d'un dico
+						Rajouter l'image de la tour de Babel (comme dans le cour original)
+					</aside>
 				</section>
 				<section>
 					<h6>IMPÉDENCE DE LANGAGE</h6>
 					<img class="r-frame" src="./img/part1/language-impedance.png" />
+					<aside data-markdown class="notes">
+						Dès qu'on introduit une couche de traduction, on perd du sens !
+
+						Exemple : la bible ?
+						se référer à la vidéo de LinkTheSun sur les traductions : exemple, la reine des neiges => let it go
+
+						cette couche de traduction nous pose énormément de problèmes pour parler de la même chose et pour avoir un consensus sur ce qu'on est en train de faire
+					</aside>
 				</section>
 				<section>
 					<h2>Impédence de langage</h1>
@@ -704,12 +736,21 @@
 					<p>L’essence du besoin se perd</p>
 					<p>Langage appauvri</p>
 					<p>Produit non conforme</p>
+					<aside data-markdown class="notes">
+						Ajouter une animation, se reférer au cours original
+					</aside>
 				</section>
 				<section><span class="highlight">Unifier le langage</span> et éliminer tout besoin de <span class="highlight">traduction</span></section>
 				<section>Créer un langage en <span class="highlight">collaboration</span> avec les experts métier</section>
 				<section>
 					<h6>Langage ubiquitaire</h6>
 					<img class="r-frame" src="./img/part1/ubiquitous-language.png" />
+					<aside data-markdown class="notes">
+						se mettre d'accord sur un langage ubiquaire, parler la même langue dans lequel les développeurs et les métiers et les experts métiers emploient les mêmes termes
+						et dans lequel le code lui-même emploie ces termes.
+
+						Exemple : pas de "Create Reservation" mais plutôt "Réserver Table"
+					</aside>					
 				</section>
 				<section>Ce langage participe a créer un <span class="highlight">modèle partagé</span></section>
 				<section>
@@ -720,21 +761,48 @@
 					<p>
 						Qu’est-ce qu’un Modèle ?
 					</p>
+					<aside data-markdown class="notes">
+						EXERCICE : poser la question aux étudiants et les laisser répondre
+
+						Pouvez-vous me donner un exemple de modèle ?
+
+						On a toujours 3 acteurs dans la composition d'un modèle : expression du besoin + l'information dont on a besoin = le modèle lui-même
+
+						Exemple : travaux dans la salle de bain pour poser le receveur de douche. il est arrivé en retard, j'ai donc utiliser un carton découper aux bonnes dimensions pour représenter mon receveur et poser le carrelage
+						le carton a servi de modèle. Je n'avais pas besoin du receveur pour poser le parquet, juste de ses dimensions
+					</aside>
 				</section>
 				<section>Abstraire <span class="highlight">l’essentiel</span> et mettre de côté le <span class="highlight">superflu</span></section>
 				<section>
 					<h6>Modèle trop riche</h6>
 					<img class="r-frame" src="./img/part1/too-rich-model.png" />
+					<aside data-markdown class="notes">
+						Ici, on a toutes les informations d'une table
+						Dans le cadre de la réservation, je n'ai pas besoin de la moitié de ces informations
+
+						C'est une erreur courante chez les dévs
+					</aside>
 				</section>
 				<section>
 					<h6>Modèle distillé</h6>
 					<img class="r-frame" src="./img/part1/distilled-model.png" />
+					<aside data-markdown class="notes">
+						Modèle distillé ne contenant que les informations strictement nécessaires
+					</aside>
 				</section>
 				<section>
 					<h6>Modèle d'un autre domaine</h6>
 					<img class="r-frame" src="./img/part1/other-domain-model.png" />
+					<aside data-markdown class="notes">
+						autre modèle, autre domaine, je suis Ikéa, les informations nécessaire ne sont pas les mêmes si je dois vendre une table
+					</aside>
 				</section>
-				<section><span class="highlight">Créer</span> un modèle qui sert les activités de la boite</section>
+				<section>
+					<span class="highlight">Créer</span> un modèle qui sert les activités de la boite
+					<aside data-markdown class="notes">
+						C'est ça qu'il faut toujours garder en tête à chaque fois que l'on vous dit le mot modèle, la première chose, la première question qui doit vous venir en tête, c'est quel problème on veut résoudre.
+					</aside>
+				</section>
 				<section>
 					<h1>CRÉER LE LANGAGE</h1>
 				</section>
@@ -763,6 +831,11 @@
 						&ldquo;Certaines tables ne peuventêtre réservées qu’à condition qu’il y ai plusieurs clients sur la réservation&rdquo;
 					</blockquote>
 					<p><em>Le client</em></p>
+
+					<aside data-markdown class="notes">
+						Lorsque vous voyez "condition" ou lorsque vous voyez lorsque le mot "lorsque" soyez attentifs.
+						parce que ce sont des mots qui indiquent des invariants ou de la consistance éventuelle.
+					</aside>
 				</section>
 				<section>
 					<blockquote cite="http://">
@@ -797,6 +870,9 @@
 				<section>
 					<h6>Langage ubiquitaire</h6>
 					<img class="r-frame" src="./img/part1/enriched-ubiquitous-language.png" width="70%"/>
+					<aside data-markdown class="notes">
+						exemple d'adjectif : table de couple
+					</aside>
 				</section>
 				<section>Les noms sont des <span class="highlight">candidats d’objets</span></section>
 				<section>Les verbes sont des <span class="highlight">candidats de comportement</span></section>
@@ -836,6 +912,9 @@
 					<p>
 						Poser beaucoup de questions. Il faut s'étonner de tout ! (ex : pourquoi le ciel est-il bleu ?)
 					</p>
+					<aside data-markdown class="notes">
+						Faire une animation
+					</aside>
 				</section>
 				<section>
 					<h5>Solution 2</h5>
@@ -857,6 +936,10 @@
 				</section>
 				<section>
 					<h2>Knowledge Crunching</h2>
+					<aside data-markdown class="notes">
+						De manière globale, on va faire du Knowledge Crunching
+						De l'acumulation de savoir
+					</aside>
 				</section>
 				<section>
 					<h2>Outils de Knowledge Crunching</h1>
@@ -865,6 +948,15 @@
 					<p>Event Storming</p>
 					<p>Impact Mapping</p>
 					<p>Specification by Example => BDD</p>
+					<aside data-markdown class="notes">
+						Domain Storytelling : consiste à raconter une histoire un scénario utilisateur avec des icônes et des verbes.
+						Event storming : on y reviens en jour 5
+						Specification by example : autrement appelé Behaviour driven development (BDD). C'est spécificier le comportement attendu du logiciel en utilisant des exemples. Très proche du domain Storytelling
+
+						Quoi faire quand les devs ont contaminé le langage métier : redécouvrir le métier, en posant la question, que souhaitez-vous vraiment faire ?
+						Il faut avoir une pensée orienté outcome => ce n'est pas, comment est-ce qu'on fait les choses, c'est quel résultat est-ce que tu veux obtenir. Centrer la discussion autour du bénéfice client, et non sur la solution
+						Exemple : bordereau chez faire-savoir
+					</aside>
 				</section>
 				<section>
 					<h5>Conseil</h5>
@@ -872,9 +964,9 @@
 						Comprendre intimement le besoin avant d’imaginer une solution
 					</p>
 				</section>
-				<section>
+				<!-- <section>
 					<h2>Exercice pratique</h2>
-				</section>
+				</section> -->
 				<section>
 					<h1>ANALYSER LES USE CASES</h1>
 				</section>
@@ -914,6 +1006,14 @@
 						<div class="slide-2col-image" >
 						</div>
 					</div>
+					<aside data-markdown class="notes">
+						main course = cas nominal
+						alternative course = cas alternatif != cas d'erreur
+						un cas d'erreur est un cas alternatif, mais un cas alternatif n'est pas forcément un cas d'erreur
+						Précondition, c'est ce qui doit être vrai avant, et les postconditions, ce qui doit être vrai après
+						une postcondition peut être vue comme un résultat
+						Les invariants c'est ce qui est maintenu tout au long de l'execution de ton main course
+					</aside>
 				</section>
 				<section>
 					<h3>USECASE</h3>	
@@ -968,8 +1068,15 @@
 				</section>
 				<section>
 					<img class="r-frame" src="./img/part1/usecases-list.png" />
+					<aside data-markdown class="notes">
+						Les usecase en jaune sont des usecase implicites. Ils n'ont pas été énoncé pendant le brief, mais on en aura besoin pour les autres cas
+					</aside>
 				</section>
-				<section>Avons-nous toutes les informations pour commencer à coder ?</section>
+				<section>Avons-nous toutes les informations pour commencer à coder ?
+					<aside data-markdown class="notes">
+						Evidement NON ! ...
+					</aside>
+				</section>
 				<section>
 					<h3>USECASE</h3>	
 					<h6>Réserver une table</h6>	
@@ -1017,6 +1124,9 @@
 							</p>
 						</div>
 					</div>
+					<aside data-markdown class="notes">
+						... car on a un terme qui revient très souvent, c'est "table"
+					</aside>
 				</section>
 				<section>Qu’est-ce qu’une table ?</section>
 				<section>Comment sont gérées les tables ?</section>
@@ -1031,6 +1141,9 @@
 						&ldquo;Pourriez-vous m’en dire plus sur la topologie de votre restaurant ? Est-elle fixe ? Déplacez-vous parfois les tables ?&rdquo;
 					</blockquote>
 					<p><em>Un bon développeur (Définitivement vous)</em></p>
+					<aside data-markdown class="notes">
+						Ce qui est important dans le métier de développeur c'est l'art de poser les bonnes questions pour obtenir les informations dont on a besoin
+					</aside>
 				</section>
 				<section>
 					<blockquote cite="http://">
@@ -1058,9 +1171,18 @@
 				</section>
 				<section>
 					<img class="r-frame" src="./img/part1/full-usecases-list.png" />
+					<aside data-markdown class="notes">
+						En posant simplement 2 nouvelles questions, on découvre 3 nouveaux usecases
+					</aside>
 				</section>
 				<section>
 					<h2>Exercice pratique</h2>
+					<aside data-markdown class="notes">
+						On peut se poser la question de savoir si Conducteur n'est pas anticipatoire comme nom.
+						Feature != Usecase !
+						Enfin, c'est pas vraiment un Uscase, c'est une fonctionnalité du système, tout n'est pas Usecase en fait, tu ne définis pas l'intégralité du fonctionnement de ton système à travers des Usecase.
+						Usecase : C'est un outil de compréhension d'utilisation du système par ses utilisateurs
+					</aside>
 				</section>
 			</div>
 		</div>
