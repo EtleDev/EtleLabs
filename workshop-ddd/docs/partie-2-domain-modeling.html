@@ -8,7 +8,7 @@
 
 		<link rel="stylesheet" href="dist/reset.css">
 		<link rel="stylesheet" href="dist/reveal.css">
-		<link rel="stylesheet" href="dist/theme/black.css">
+		<link rel="stylesheet" href="dist/theme/moon.css">
 		<link rel="stylesheet" href="css/customization.css">
 
 		<!-- Theme used for syntax highlighted code -->
@@ -19,75 +19,128 @@
 			<div class="slides">
 				<section>
 					<h1>Domain-Driven Design</h1>
+					<aside data-markdown class="notes">
+
+					</aside>
 				</section>
 				<section>
 					<h1>ANALYSER LES OBJETS</h1>
 				</section>
-				<section>Un objet est une abstraction d’un un concept tiré du monde réel</section>
-				<section>Il encapsule un comportement et des invariants</section>
+				<section>Un objet est une abstraction d’un un concept <span class="highlight">tiré du monde réel</span></section>
+				<section>Il encapsule un <span class="highlight">comportement</span> et des <span class="highlight">invariants</span></section>
 				<section>Comportement = Fonction</section>
-				<section><p>Invariant :</p>Une propriété qui doit être respectée en toutes circonstances</section>
-				<section><p>EXEMPLE :</p>La distance d’un trajet doit être positif</section>
-				<section>Diapo 8</section>
+				<section>
+					<h5>Invariant</h5>
+					<p>Une <span class="highlight">propriété</span> qui doit être <span class="highlight">respectée</span> en toutes circonstances</p>
+				</section>
+				<section>
+					<h5>EXEMPLE</h5>
+					<p>La distance d’un trajet doit être positif</p>
+				</section>
+				<section>
+					<h3>Langage ubiquitaire - Analyse de noms</h3>
+					<img class="r-frame" src="./img/part2/objects-candidates.png" width="80%" />
+				</section>
 				<section>
 					<h1>DOMAIN OBJECTS</h1>
 				</section>
-				<section><p>Définition :</p>Objet qui représente un concept dans le domaine</section>
 				<section>
-					<p>Un concept issu du modèle</p>
-					<p>Fait partie du langage ubiquitaire</p>
-					<p>Catégorisé en temps que Pattern Tactique</p>
+					<h5>Définition</h5>
+					<p>
+						Objet qui représente un concept dans le domaine
+					</p>
 				</section>
-				<section>Les Domain Objects contiennent la logique métier</section>
+				<section>
+					<p>Un concept issu du <span class="highlight">modèle</span></p>
+					<p>Fait partie du <span class="highlight">langage ubiquitaire</span></p>
+					<p>Catégorisé en temps que <span class="highlight">Pattern Tactique</span></p>
+					<aside data-markdown class="notes">
+						Ajouter une animation
+					</aside>
+				</section>
+				<section>Les Domain Objects contiennent la <span class="highlight">logique métier</span></section>
 				<section>
 					<h2>Exercice pratique</h2>
+					<aside data-markdown class="notes">
+
+					</aside>
 				</section>
 				<section>
 					<h1>VALUE OBJECTS</h1>
-				</section>
-				<section><p>Définition :</p>Représentent une valeur dans notre modèle</section>
-				<section>
-					<p>La distance qui sépare deux endroits</p>
-					<p>Une valeur monétaire</p>
-					<p>Le temps nécessaire à une tâche</p>
+					<aside data-markdown class="notes">
+
+					</aside>
 				</section>
 				<section>
-					<p>Un ValueObject est immuable.</p>
+					<h5>Définition</h5>
+					<p>
+						Représentent une valeur dans notre modèle
+					</p>
+				</section>
+				<section>
+					<p>La <span class="highlight">distance</span> qui sépare deux endroits</p>
+					<p>Une valeur <span class="highlight">monétaire</span></p>
+					<p>Le <span class="highlight">temps</span> nécessaire à une tâche</p>
+				</section>
+				<section>
+					<p>Un ValueObject est <span class="highlight">immuable</span>.</p>
 					<p>5 minutes sera toujours 5 minutes.</p>					
 				</section>
 				<section>
-					<p>Un ValueObject est défini par ses propriétés.</p>
+					<p>Un ValueObject est défini par ses <span class="highlight">propriétés</span>.</p>
 					<p>Il n’a pas d’identité.</p>					
 				</section>
-				<section><p>PREDICTION :</p>La majorité de vos Domain Objects seront des Value Objects</section>
+				<section>
+					<h5>Prédiction</h5>
+					<p>
+						La <span class="highlight">majorité</span> de vos Domain Objects seront des <span class="highlight">Value Objects</span>
+					</p>
+				</section>
 				<section>
 					<h1>DOMAIN SERVICES</h1>
-				</section>
-				<section><p>Définition :</p>Représente un service à l’intérieur du domaine.</section>
-				<section>
-					<p>Calculer une taxe selon le pays.</p>
-					<p>Mettre au point un itinéraire terrestre.</p>
-					<p>Déterminer le prix d’un trajet.</p>
+					<aside data-markdown class="notes">
+
+					</aside>
 				</section>
 				<section>
-					<p>Il doit faire sens aux yeux des non-devs.</p>
-					<p>Il parle le langage ubiquitaire.</p>					
+					<h5>Définition</h5>
+					<p>
+						Représente un service à l’intérieur du domaine.
+					</p>
+				</section>
+				<section>
+					<p><span class="highlight">Calculer</span> une taxe selon le pays.</p>
+					<p><span class="highlight">Mettre au point</span> un itinéraire terrestre.</p>
+					<p><span class="highlight">Déterminer</span> le prix d’un trajet.</p>
+				</section>
+				<section>
+					<p>Il doit avoir du sens aux yeux des <span class="highlight">non-devs</span>.</p>
+					<p>Il parle le <span class="highlight">langage ubiquitaire</span>.</p>					
 				</section>
 				<section>
 					<h1>ARCHITECTURE</h1>
+					<aside data-markdown class="notes">
+
+					</aside>
 				</section>
-				<section>Diapo 25</section>
 				<section>
-					<p>Application Services</p>
+					<h3>Ports & Adapters</h3>
+					<img class="r-frame" src="./img/part2/clean-architecture.png" width="110%" />
+				</section>
+				<section>
+					<p><span class="highlight">Application Services</span></p>
 					<p>Définit les capacités du système du point de vue d’un utilisateur / acteur</p>
-					<p>Ce sont les Use Cases</p>
+					<p>Ce sont les <span class="highlight">Use Cases</span></p>
 				</section>
 				<section>
-					<p>Domain Services</p>
+					<p><span class="highlight">Domain Services</span></p>
 					<p>Définit une responsabilité au sein du Domain Model</p>					
 				</section>
 				<section>
 					<h2>Exercice pratique</h2>
+					<aside data-markdown class="notes">
+
+					</aside>
 				</section>
 			</div>
 		</div>
