@@ -20,14 +20,29 @@
 				<section>
 					<h1>Domain-Driven Design</h1>
 					<aside data-markdown class="notes">
-
+						Rappel sur les design patterns en général
+						Rappel sur SOLID
 					</aside>
 				</section>
 				<section>
 					<h1>ANALYSER LES OBJETS</h1>
 				</section>
-				<section>Un objet est une abstraction d’un un concept <span class="highlight">tiré du monde réel</span></section>
-				<section>Il encapsule un <span class="highlight">comportement</span> et des <span class="highlight">invariants</span></section>
+				<section>
+					Un objet est une abstraction d’un un concept <span class="highlight">tiré du monde réel</span>
+					<aside data-markdown class="notes">
+						Ce n'est pas la représentation réelle / directe de l'objet, je vais récupérer uniquement ce qui ets intéressant pour le problème que je suis en train de résoudre
+						D'où, abstraction du concept
+					</aside>
+				</section>
+				<section>
+					Il encapsule un <span class="highlight">comportement</span> et des <span class="highlight">invariants</span>
+					<aside data-markdown class="notes">
+						par exemple, dans le cas d'une distance, le comportement, c'est le fait de pouvoir la convertir en m^tre ou en kilomètre
+						et un invariant, c'est qu'elle ne peut pas être inférieur à 0
+						autre exemple, dans le cadre de notre application de covoiturage, on pourrait se dire qu'une distance ne peut être inférieure à 200m
+						Ce q est faux dans un contexte général, mais pertinent dans notre contexte
+					</aside>
+				</section>
 				<section>Comportement = Fonction</section>
 				<section>
 					<h5>Invariant</h5>
@@ -40,6 +55,9 @@
 				<section>
 					<h3>Langage ubiquitaire - Analyse de noms</h3>
 					<img class="r-frame" src="./img/part2/objects-candidates.png" width="80%" />
+					<aside data-markdown class="notes">
+						l'analyse de noms peut donner de nombreux candidats d'objets ou de classe, mais ça ne veut pas dire qu'ils seront tous représenté dans le code
+					</aside>
 				</section>
 				<section>
 					<h1>DOMAIN OBJECTS</h1>
@@ -56,12 +74,37 @@
 					<p>Catégorisé en temps que <span class="highlight">Pattern Tactique</span></p>
 					<aside data-markdown class="notes">
 						Ajouter une animation
+
+						Il est conçu pour le problème en cours (et pas pour être générique).
+						Il fait partie du langage ubiquitaire, donc il a du sens auprès des experts métier et peut être utilisé pour échanger avec eux
 					</aside>
 				</section>
-				<section>Les Domain Objects contiennent la <span class="highlight">logique métier</span></section>
+				<section>
+					Les Domain Objects contiennent la <span class="highlight">logique métier</span>
+					<aside data-markdown class="notes">
+						Ce sont les domain objetcs qui contiennent 99% de la logique métier, idéalement
+					</aside>
+				</section>
 				<section>
 					<h2>Exercice pratique</h2>
 					<aside data-markdown class="notes">
+						Des questions jusqu'à présent ?
+
+						Exercice de refacto :
+						Consigne :
+						- Prendre le code indiqué, et le refactoriser petit à petit pour introduire des domain objects
+						- ici on a une notion de requête HTTP qui va vous amener à découvrir un autre type de domain objects
+						- le faire commit par commit, le but est d'introduire progressivement des concepts
+						- durée : 15 min
+
+						Correction : 
+						- sortir l'infra du domaine
+						- sortir le ratio provider pour rendre le code testable
+						- ratioProvider n'est pas un bon nom (ie. il n'est pas compréhensible par le métier) lui préférer "ratios"
+						- Notion de Collection-Oriented VS Persistence-Oriented => on va préféré le collection en DDD (car on ne sait pas s'il y a une persistence derrière)
+						- Le design logique ne doit pas être influencé par le design physique
+						- Les contraintes logiques sont obligées de se soumettre aux contraintes physiques
+						- les DTO appartiennent à la couche application
 
 					</aside>
 				</section>
@@ -84,7 +127,10 @@
 				</section>
 				<section>
 					<p>Un ValueObject est <span class="highlight">immuable</span>.</p>
-					<p>5 minutes sera toujours 5 minutes.</p>					
+					<p>5 minutes sera toujours 5 minutes.</p>
+					<aside data-markdown class="notes">
+						Si on a besoin de faire passer une course de 1 Km à 2 Km, on ne modifie pas l'objet, on en créé un autre
+					</aside>		
 				</section>
 				<section>
 					<p>Un ValueObject est défini par ses <span class="highlight">propriétés</span>.</p>
@@ -94,6 +140,10 @@
 					<h5>Prédiction</h5>
 					<p>
 						La <span class="highlight">majorité</span> de vos Domain Objects seront des <span class="highlight">Value Objects</span>
+						<aside data-markdown class="notes">
+							Dans un domaine qui est riche, on a qq entités, qq aggregate, mais on a surtout bcp de value object
+
+						</aside>
 					</p>
 				</section>
 				<section>
@@ -107,11 +157,20 @@
 					<p>
 						Représente un service à l’intérieur du domaine.
 					</p>
+					<aside data-markdown class="notes">
+						Par opposition aux application services qui représente un usecase
+						un domain service est niché DANS le domaine, et à du sens pour le domaine aux yeux du modèle qu'on a créé
+					</aside>
 				</section>
 				<section>
 					<p><span class="highlight">Calculer</span> une taxe selon le pays.</p>
 					<p><span class="highlight">Mettre au point</span> un itinéraire terrestre.</p>
 					<p><span class="highlight">Déterminer</span> le prix d’un trajet.</p>
+					<aside data-markdown class="notes">
+						Voici quelques exemples.
+						Ca va pas vraiment être calculer dans des objets, mais calculer dans des services qui vont produire ces objets
+
+					</aside>
 				</section>
 				<section>
 					<p>Il doit avoir du sens aux yeux des <span class="highlight">non-devs</span>.</p>
@@ -126,6 +185,12 @@
 				<section>
 					<h3>Ports & Adapters</h3>
 					<img class="r-frame" src="./img/part2/clean-architecture.png" width="110%" />
+					<aside data-markdown class="notes">
+						Un usecase ? c'est une opération que peut réaliser un utilisateur. En général c'est une commande. (ex : créer un compte, réserver une table, participer à un voyage)
+						La couche application est une couche d'orchestration !
+						un usecase est généralement un verbe d'action, la où un domain service reste généralement un nom (ex : guichet, calcul, ...)
+						Un domain service va prendre une responsabilité qui ne tient pas dans un objet.
+					</aside>
 				</section>
 				<section>
 					<p><span class="highlight">Application Services</span></p>
@@ -139,7 +204,19 @@
 				<section>
 					<h2>Exercice pratique</h2>
 					<aside data-markdown class="notes">
+						Consignes :
+						- vous avez différents nom d'objets
+						- il faut les classer dans les différentes zones (App service, domain, etc...)
+						- durée : 10-15 min
+						- au milieu de l'exercice, rajouter le "user service"
 
+						Correction : 
+						regarder la vidéo à 2h03 !
+						- cas de "passengers" => c'est un collection oriented services. (ce n'est pas une liste de passagers). Ca peut être un repository, ou alors un simple tableau
+						- faire un point sur le user service
+						- faire un point sur la différence fondamentale entre architecture Hexagonale et Clean Architecture
+						- en DDD, on accepte la duplication (de code). On a du mal à l'accepter car on est formaté par la méthode Merise, et la pensée relationnelle
+						- Ca renvoie à la notion de BC (dimension socio-technique multi équipe timecode 2h26)
 					</aside>
 				</section>
 			</div>
