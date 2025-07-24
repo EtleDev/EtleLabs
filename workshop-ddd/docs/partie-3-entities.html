@@ -19,6 +19,10 @@
 			<div class="slides">
 				<section>
 					<h1>Domain-Driven Design</h1>
+
+					<aside data-markdown class="notes">
+
+					</aside>
 				</section>
 				<section>
 					<h1>ENTITIES</h1>
@@ -47,6 +51,8 @@
 					<aside data-markdown class="notes">
 						Memento pattern
 						snapshot pattern
+
+						Qui dit entité, dit repository
 					</aside>
 				</section>
 				<section>
@@ -79,13 +85,19 @@
 								// 
 							}
 						}
-					</code></pre>	
+					</code></pre>
+					<aside data-markdown class="notes">
+						C'est un DETAIL ! Ca n'a pas d'importance de connaître la nature de Trips ici (même si on se doute que c'est un repo)
+					</aside>
 				</section>
 				<section>
 					<h5>Repository</h5>
 					<p>
 						Se situe dans l’implémentation, pas dans l’utilisation
 					</p>
+					<aside data-markdown class="notes">
+						Lorsque j'utilise une interface Trips, je ne sais pas si c'est un repository ou un domain service
+					</aside>
 				</section>
 				<section>
 					<h5>Repository</h5>
@@ -104,10 +116,20 @@
 					<p>
 						Un Repository est un Domain Service
 					</p>
+					<aside data-markdown class="notes">
+						Un repository est une sorte de Domain service, c'est un type spécifique de domain service
+					</aside>
 				</section>
 				<section>
 					<p><span class="highlight">Collection-Oriented</span> Repository</p>
-					<p><span class="highlight">Persistence-Oriented</span> Repository</p>								
+					<p><span class="highlight">Persistence-Oriented</span> Repository</p>	
+					<aside data-markdown class="notes">
+						Comment faire la distinction entre les deux ?
+						La différence se situe dans les méthodes de ces interfaces, qui sont soit apparenté à une collection (ex : add, comme juste après)
+						Ou alors orienté persistence (ex : save)
+						En DDD, on va préférer le collection-oriented car il n'y a pas de notion de persistence (qui est un élément plutôt infra)
+
+					</aside>		
 				</section>
 				<section>					
 					<pre><code data-trim data-noescape data-line-numbers class="language-javascript">
@@ -127,9 +149,28 @@
 				</section>
 				<section>
 					<h2>Exercice pratique</h2>
+					<aside data-markdown class="notes">
+						Porte sur le trilema (ou trilème) du DDD
+						On a ici, 2 implémentations du système de paiement.
+
+						Consignes :
+						- Donner les points positifs et négatif de ces 2 implémentations
+						- Est-ce qu'il y en a une 3ème ? Quelle serait-elle ?
+						- Durée : 10 min
+
+						La grosse différence de ces 2 implémentations est que l'appel vers l'extérieur est fait dans la couche domaine pour l'une, et dans la couche applicative pour l'autre
+
+						Correction :
+						- On va essayer dans le cas du DDD de rester dans le cas 2 ou 3, pour garder un domaine pur
+						quite à dupliquer de la logique dans la couche applicative pour gagner en performance.
+						Et éviter un fort couplage
+					</aside>
 				</section>
 				<section>
-					<h1>POLICY PATTERN</h1>					
+					<h1>POLICY PATTERN</h1>
+					<aside data-markdown class="notes">
+
+					</aside>	
 				</section>
 				<section>
 					<h5>Policy</h5>
@@ -161,6 +202,34 @@
 							// code ...
 						}
 					</code></pre>
+				</section>
+				<section>
+					<h2>Exercice pratique</h2>
+					<aside data-markdown class="notes">
+						à droite, c'est un strategy pattern
+						à gauche, c'est un template method
+
+						La différence, c'est que le template methode internalise l'algorithme, et délègue la variabilité dans des méthodes abstraites qui seront implémentées dans des classes filles.
+
+						QUESTION : est-ce que vous connaissez la principale différence entre ces deux approches ?
+
+
+					</aside>
+				</section>
+				<section>
+					<h2>Exercice pratique</h2>
+					<aside data-markdown class="notes">
+
+						On va implémenter ce pattern policy. Se concentrer sur l'exercice et non le contexte.
+						Le but est d'implémenter les besoins métier AU FUR ET A MESURE qu'il arrive, et non pas de sauter directement à la fin.
+						
+						Consignes :
+						- 
+						- durée : 20-25 min
+
+						Design émergeant du DDD
+
+					</aside>
 				</section>
 			</div>
 		</div>
