@@ -8,7 +8,7 @@
 
 		<link rel="stylesheet" href="dist/reset.css">
 		<link rel="stylesheet" href="dist/reveal.css">
-		<link rel="stylesheet" href="dist/theme/black.css">
+		<link rel="stylesheet" href="dist/theme/moon.css">
 		<link rel="stylesheet" href="css/customization.css">
 
 		<!-- Theme used for syntax highlighted code -->
@@ -23,13 +23,25 @@
 				<section>
 					<h1>ENTITIES</h1>
 				</section>
-				<section><p>Définition :</p>Représente un concept qui évolue avec le temps</section>
-				<section><p>Définition :</p>Possède une identité unique, identifiable dans le système</section>
 				<section>
-					<p>Un utilisateur dans le système d’authentification</p>
-					<p>Un voyage dans le système de planification de voyage</p>								
+					<h5>Définition</h5>
+					<p>
+						Représente un concept qui évolue avec le temps
+					</p>
 				</section>
-				<section>Diapo 6</section>
+				<section>
+					<h5>Définition</h5>
+					<p>
+						Possède une identité unique, identifiable dans le système
+					</p>
+				</section>
+				<section>
+					<p><span class="highlight">Un utilisateur</span> dans le système d’authentification</p>
+					<p><span class="highlight">Un voyage</span> dans le système de planification de voyage</p>								
+				</section>
+				<section>
+					<img class="r-frame" src="./img/part3/entities-value-objects.png" />
+				</section>
 				<section>
 					<h1>REPOSITORIES</h1>
 					<aside data-markdown class="notes">
@@ -37,27 +49,119 @@
 						snapshot pattern
 					</aside>
 				</section>
-				<section>Diapo 8</section>
-				<section>Diapo 9</section>
-				<section><p>REPOSITORY :</p>Se situe dans l’implémentation, pas dans l’utilisation</section>
-				<section><p>REPOSITORY :</p>Source d’entités ou de value objects</section>
-				<section><p>REPOSITORY :</p>Destination de sauvegarde (mais pas toujours)</section>
-				<section><p>REPOSITORY :</p>Un Repository est un Domain Service</section>
 				<section>
-					<p>Collection-Oriented Repository</p>
-					<p>Persistence-Oriented Repository</p>								
+					<h3>Domain Service or Repository ?</h3>
+					<pre><code data-trim data-noescape data-line-numbers class="language-javascript">
+						class TripPriceCalculator {
+							// Repository or Domain Service ?
+							private readonly trips: Trips;
+
+							calculate(){
+								const monthlyTrips = this.trips.monthlyTrips(userId, date);
+							}
+						}
+					</code></pre>					
 				</section>
-				<section>Diapo 15</section>
-				<section>Diapo 16</section>
+				<section>
+					<h3>It's a detail !</h3>
+					<pre><code data-trim data-noescape data-line-numbers class="language-javascript">
+						interface Trips {
+							add(trip: Trip): void;
+							monthlyTrips(userId: string, date: Date): MonthlyTrips;
+						}
+
+						class InMemoryTrips implements Trips {
+							add(trip: Trip){
+								//
+							}
+
+							monthlyTrips(userId: string, date: Date): MonthlyTrips {
+								// 
+							}
+						}
+					</code></pre>	
+				</section>
+				<section>
+					<h5>Repository</h5>
+					<p>
+						Se situe dans l’implémentation, pas dans l’utilisation
+					</p>
+				</section>
+				<section>
+					<h5>Repository</h5>
+					<p>
+						Source d’entités ou de value objects
+					</p>
+				</section>
+				<section>
+					<h5>Repository</h5>
+					<p>
+						Destination de sauvegarde (mais pas toujours)
+					</p>
+				</section>
+				<section>
+					<h5>Repository</h5>
+					<p>
+						Un Repository est un Domain Service
+					</p>
+				</section>
+				<section>
+					<p><span class="highlight">Collection-Oriented</span> Repository</p>
+					<p><span class="highlight">Persistence-Oriented</span> Repository</p>								
+				</section>
+				<section>					
+					<pre><code data-trim data-noescape data-line-numbers class="language-javascript">
+						interface Trips {
+							add(trip: Trip): void;
+							monthlyTrips(userId: string, date: Date): MonthlyTrips;
+						}
+					</code></pre>	
+				</section>
+				<section>
+					<pre><code data-trim data-noescape data-line-numbers class="language-javascript">
+						interface Trips {
+							save(trip: Trip): void;
+							findMonthlyTrips(userId: string, date: Date): MonthlyTrips;
+						}
+					</code></pre>
+				</section>
 				<section>
 					<h2>Exercice pratique</h2>
 				</section>
 				<section>
 					<h1>POLICY PATTERN</h1>					
 				</section>
-				<section><p>POLICY :</p>Implémente un choix / algorithme variable</section>
-				<section><p>POLICY :</p>Fait varier le code à exécuter selon des conditions métier</section>
-				<section>Diapo 21</section>
+				<section>
+					<h5>Policy</h5>
+					<p>
+						Implémente un choix / algorithme variable
+					</p>
+				</section>
+				<section>
+					<h5>Policy</h5>
+					<p>
+						Fait varier le code à exécuter selon des conditions métier
+					</p>
+				</section>
+				<section>
+					<pre><code data-trim data-noescape data-line-numbers class="language-javascript">
+						interface ItineraryFinder {
+							findItinerary(spec: Specification): Itinerary
+						}
+
+						class CheapestItineraryFinder implements ItineraryFinder{
+							// code ...
+						}
+						
+						class QuickestItineraryFinder implements ItineraryFinder{
+							// code ...
+						}
+						
+						class TouristicItineraryFinder implements ItineraryFinder{
+							// code ...
+						}
+					</code></pre>
+				</section>
 			</div>
 		</div>
 
