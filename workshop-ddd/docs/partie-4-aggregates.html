@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/moon.css">
+		<link rel="stylesheet" href="css/customization.css">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h1>Domain-Driven Design</h1>
+
+					<aside data-markdown class="notes">
+
+					</aside>
+				</section>
+				<section>
+					<h1>PATTERNS TACTIQUES</h1>
+				</section>
+				<section>
+					<h1>AGGREGATES</h1>
+				</section>
+				<section>
+					<h2>Exercice pratique</h2>
+					<aside data-markdown class="notes">
+
+					</aside>
+				</section>
+				<section>
+					<h5>Responsabilité</h5>
+					<p>
+						Protège les <span class="highlight">invariants</span> d’un ensemble d’objets
+					</p>
+				</section>
+				<section>
+					<h5>Responsabilité</h5>
+					<p>
+						Délimite la concurrence du système
+					</p>
+				</section>
+				<section>Diapo 6</section>
+				<section>Diapo 7</section>
+				<section>Diapo 8</section>
+				<section>Gardez vos Aggregates aussi <span class="highlight">petit que nécessaire</span></section>
+				<section>
+					Gros Aggregate = <span class="highlight">Faible Concurrence</span>
+					<aside data-markdown class="notes">
+						Mettre le faible concurrence en ROUGE !
+					</aside>
+				</section>
+				<section>Diapo 11</section>
+				<section>
+					<h5>Responsabilité</h5>
+					<p>
+						Le design est guidé par les <span class="highlight">UseCases</span> et les <span class="highlight">Invariants</span>						
+					</p>
+				</section>				
+				<section>
+					<h2>Démonstration</h2>
+					<aside data-markdown class="notes">
+						Fin du cours 1 (1ère session sur les Aggregates)
+					</aside>
+				</section>
+				<section>
+					<h1>REGLES DES AGGREGATES</h1>
+				</section>
+				<section>
+					<h5>Règle 1</h5>
+					<p>
+						Designer vos Aggregates à partir de vos invariants
+					</p>
+				</section>
+				<section>
+					<h5>Règle 2</h5>
+					<p>
+						Garder les Aggregates aussi petit que nécessaire
+					</p>
+				</section>
+				<section>
+					<h5>Règle 3</h5>
+					<p>
+						Référencer les autres Aggregates uniquement par leur ID
+					</p>
+				</section>
+				<section>
+					<h1>DOMAIN EVENTS</h1>
+				</section>
+				<section>
+					<h5>Responsabilité</h5>
+					<p>
+						Représente un évènement émis dans notre domaine
+					</p>
+				</section>
+				<section>
+					<h5>Responsabilité</h5>
+					<p>
+						Un fait immuable, quelque chose qui s’est produit
+					</p>
+				</section>
+				<section>
+					<h5>Responsabilité</h5>
+					<p>
+						Important dans le cadre du domaine
+					</p>
+				</section>
+				<section>
+					<h5>Responsabilité</h5>
+					<p>
+						Langage métier
+					</p>
+				</section>
+				<section>Diapo 11</section>
+				<section>Diapo 12</section>
+				<section>
+					<h2>Exercice pratique</h2>
+				</section>
+				<section>
+					<h1>LA DERNIERE REGLE DES AGGREGATES</h1>
+				</section>
+				<section>
+					<h5>Règle 4</h5>
+					<p>
+						Utiliser <span class="highlight">l’Eventual Consistency</span> pour mettre à jour d’autres Aggregates
+					</p>
+				</section>				
+				<section><span class="highlight">Transactional Consistency</span> : tout est mis à jour dans une même transaction</section>
+				<section><span class="highlight">Eventual Consistency</span> : certains Aggregates sont mis à jour ultérieurement</section>
+				<section><span class="highlight">Eventual</span> ne signifie pas <span class="highlight">“éventuellement”</span></section>
+				<section><span class="highlight"></span>Eventual</span> signifie <span class="highlight">“tôt ou tard”</span> ! On peut parler de consistence retardée ou à retardement</section>
+				<section>
+					<p>
+						Dans 5ms…
+					</p>
+					<p class="fragment">
+						100ms…
+					</p>
+					<p class="fragment">
+						1 seconde…
+					</p>
+					<p class="fragment">
+						1 minute…
+					</p>
+				</section>
+				<section>Diapo 12</section>
+				<section>Est-ce grave si le compte bancaire reflète le dépôt <span class="highlight">après</span> avoir déposé les fonds ?</section>
+				<section>
+					<p>
+						Dans 5ms…
+					</p>
+					<p class="fragment">
+						100ms…
+					</p>
+					<p class="fragment">
+						1 seconde…
+					</p>
+					<p class="fragment">
+						1 minute…
+					</p>
+					<p class="fragment">
+						1 jour !
+					</p>
+				</section>
+				<section>
+					<h2>Exercice pratique</h2>
+				</section>
+			</div>			
+		</div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				hash: true,
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+			});
+		</script>
+	</body>
+</html>
