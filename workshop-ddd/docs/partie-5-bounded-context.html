@@ -38,25 +38,42 @@
 					<p>
 						Maintenir un modèle qui a vocation à devenir de plus en <span class="highlight">plus large</span>
 					</p>
+					<aside data-markdown class="notes">
+						L'intérêt des BC est de faire de la découpe, dans une base de code devenue trop grosse (ou qui va le devenir)
+
+					</aside>
 				</section>	
 				<section>
 					<h5>Objectif</h5>
 					<p>
 						Maximiser <span class="highlight">l’indépendance de développement</span> et de <span class="highlight">déploiement</span>
 					</p>
+					<aside data-markdown class="notes">
+						C'est pour cela qu'on veut minimiser l'interface de communication et de dépendance entre BC et se limiter à une API publique et aux évènements
+					</aside>
 				</section>
 				<section>
 					<img class="r-frame" src="./img/part5/monolith-bounded-context.png" width="80%"/>
 				</section>
 				<section>
 					<img class="r-frame" src="./img/part5/monolith-multiple-bounded-contexts.png" width="80%"/>
+					<aside data-markdown class="notes">
+						Ce qu'on veut ici, c'est diviser en plusieurs BC qui vont récupérer chacun une responabilité au sein du système.
+					</aside>
 				</section>
 				<section>Un Bounded Context est un <span class="highlight">organisme vivant</span> qui <span class="highlight">accepte des inputs</span> et <span class="highlight">possède une interface publique</span></section>
 				<section>
 					<img class="r-frame" src="./img/part5/bounded-context-black-box.png"/>
+					<aside data-markdown class="notes">
+						un BC est donc une boîte noire vis à vis de l'extérieur
+					</aside>
 				</section>
 				<section>
 					<img class="r-frame" src="./img/part5/bounded-context-white-box.png"/>
+					<aside data-markdown class="notes">
+						Tout ce qui se passe à l'intérieur du bounded context, est privé au BC.
+						C'est son degré de liberté, ce qui va lui permettre de faire ce qu'il a à faire sans impacter le monde extérieur
+					</aside>
 				</section>
 				<section>Les Bounded Contexts communiquent uniquement via leur <span class="highlight">interface publique</span></section>
 				<section>Comment se matérialisent-ils ?</section>
@@ -72,19 +89,35 @@
 					<h2>Services / Microservices</h2>
 					<img class="r-frame" src="./img/part5/organization-microservices.png"/>
 				</section>
-				<section>La décomposition se fait autour du <span class="highlight">domain model</span></section>
+				<section>
+					La décomposition se fait autour du <span class="highlight">domain model</span>
+					<aside data-markdown class="notes">
+						Extrêmement important ! L'intérêt d'un BC c'est de diviser notre application d'un point de vue de notre domain modèle
+					</aside>
+				</section>
 				<section>C’est une <span class="highlight">décomposition métier</span></section>
 				<section>Un <span class="highlight">Bounded Context</span> a une responsabilité sur toute la <span class="highlight">verticalité du produit</span></section>
 				<section>
 					<img class="r-frame" src="./img/part5/bounded-context-verticality.png" width="80%"/>
+					<aside data-markdown class="notes">
+						principe des micro front-end pour gérer la verticialité entre front et back
+					</aside>
 				</section>
 				<section>
 					<h1>DELIMITER LES CONTEXTS</h1>
 				</section>
 				<section>
 					<h1>HEURISTIQUES</h1>
+					<aside data-markdown class="notes">
+						Définition : L'heuristique est une méthode ou un processus visant à faciliter la recherche, la découverte ou la résolution de problèmes en utilisant des approches approximatives plutôt que des analyses exhaustives, souvent pour obtenir des solutions rapides ou acceptables.
+					</aside>
 				</section>
-				<section>Relève plus de <span class="highlight">l’art</span> que de la <span class="highlight">science</span></section>
+				<section>
+					Relève plus de <span class="highlight">l’art</span> que de la <span class="highlight">science</span>
+					<aside data-markdown class="notes">
+						Donc il n'y a pas de bonnes réponses, mais il y en a des mauvaises
+					</aside>
+				</section>
 				<section>Comment savoir si notre décomposition est bonne ?</section>
 				<section>
 					<h5>Heuristique</h5>
@@ -173,12 +206,24 @@
 				</section>
 				<section>
 					<img class="r-frame" src="./img/part5/bounded-context-shared-model.png" width="60%"/>
+					<aside data-markdown class="notes">
+						anti-pattern.
+						C'est quand un BC va référencer des classes d'un autre BC. Il y a un semblant de découpe dans la structure de fichiers.
+						A éviter au maximum.
+					</aside>
 				</section>
 				<section>
 					<img class="r-frame" src="./img/part5/bounded-context-direct-comunication.png" width="60%"/>
+					<aside data-markdown class="notes">
+						2 BC qui vont communiquer via leur interfaces publique, directement en point à point.
+						Cette approche est plus facile à mettre en oeuvre dans un monolithe modulaire
+					</aside>
 				</section>
 				<section>
 					<img class="r-frame" src="./img/part5/bounded-context-async.png" width="60%"/>
+					<aside data-markdown class="notes">
+						Approche à privilégier dans un système distribué
+					</aside>
 				</section>
 				<section>
 					<h2>Exercice pratique</h2>
