@@ -149,28 +149,63 @@
 
 						Correction : timecode 2h05 => solution 2h14
 
+						Il y a de fortes chances qu'un aggregate soit créé à partir d'un autre aggregate (ex : note depuis Journey)
+
+						Notion de "select for update" (en pgsql) et d'optimistic concurrency.
+
+						La discussion invariance VS concurence est une discussion METIER !
+
+						Si on relaxe un invariant, on peut mettre en place des mesures compensatoire
+
 					</aside>
 				</section>
 				<section>
 					<h1>REGLES DES AGGREGATES</h1>
+					<aside data-markdown class="notes">
+						RAPPELS :
+						Différencier la création d'un objet (responsabilité des factories) et la gestion de son cycle de vie (responsabilité d'un aggrégat)
+						Les aggregates est UN pattern pour protéger des invariants, ce n'est pas le seul !
+						Les value object permmettent aussi de protéger des invariants
+						L'aggregate intervient surtout lorsqu'on a un invariant à protéger vis-à-vis de la concurrence.
+						Les invariants métier (= non-concurrent) sont protéger par des values objects (qui peuvent être réutilisé, dans des domain services par exemple)
+						Une factory est un domain service
+						Les invariants doivent TOUJOURS être dans des aggregates ou des value object
+
+						Je passe volontairement sur les patterns de transaction. Ce qu'il faut retenir, c'est qu'en DDD, on va avoir tendance à centrer la transaction sur le usecase.
+					</aside>
 				</section>
 				<section>
 					<h5>Règle 1</h5>
 					<p>
 						Designer vos Aggregates à partir de vos invariants
 					</p>
+					<aside data-markdown class="notes">
+						Pas d'invariant = pas d'aggregate
+						RAPPEL : un aggregate protège un invariant vis-à-vis de la concurrence
+					</aside>
 				</section>
 				<section>
 					<h5>Règle 2</h5>
 					<p>
 						Garder les Aggregates aussi petit que nécessaire
 					</p>
+					<aside data-markdown class="notes">
+						Car qui dit gros aggregate dit faible concurrence.
+						Car mon aggregate va poser un lock sur tous ses objets subséquents
+						Et si j'ai 10 000 requêtes en même temps, on va avoir des problème
+					</aside>
 				</section>
 				<section>
 					<h5>Règle 3</h5>
 					<p>
 						Référencer les autres Aggregates uniquement par leur ID
 					</p>
+					<aside data-markdown class="notes">
+						Règle fondamentale pour garder l'indépendance des aggregates.
+						On parle alors de bounded context
+
+						Il y a une 4ème règle, mais il faut d'abord comprendre la notion de domain events
+					</aside>
 				</section>
 				<section>
 					<h1>DOMAIN EVENTS</h1>
@@ -180,12 +215,18 @@
 					<p>
 						Représente un évènement émis dans notre domaine
 					</p>
+					<aside data-markdown class="notes">
+						qqch qui a une signification métier
+					</aside>
 				</section>
 				<section>
 					<h5>Responsabilité</h5>
 					<p>
 						Un fait immuable, quelque chose qui s’est produit
 					</p>
+					<aside data-markdown class="notes">
+						Et oui ! le passé est immuable !
+					</aside>
 				</section>
 				<section>
 					<h5>Responsabilité</h5>
@@ -204,23 +245,75 @@
 				</section>
 				<section>
 					<img class="r-frame" src="./img/part4/bank-account-events.png" />
+					<aside data-markdown class="notes">
+						ici on a un event par usecase, mais il est possible d'avoir bcp plus d'events par usecase
+						Très souvent, les domains events sont lancés par les aggregates
+					</aside>
 				</section>
 				<section>
 					<h2>Exercice pratique</h2>
+					<aside data-markdown class="notes">
+						Domain events pattern
+
+						Consignes :
+						- on a 3 approches (décrire les 3 approches)
+						- donner les points positifs et négatif de chaque approche
+						- durée : 7 minutes
+
+						Correction :
+						- notion de transactionnal outbox pattern => pour garantir que l'event a bien été délivré à son destinataire
+						- notion de transactionnal inbox pattern => pour garantir que l'event a bien été géré par son destinataire
+						- pour l'outbox, on sauvegarde les events en BDD dans la même transaction que les changements du usecase
+					</aside>
+				</section>
+				<section>
+					<h2>Exercice pratique</h2>
+					<aside data-markdown class="notes">
+						Domain events
+
+						Consignes :
+						- Lire le brief
+						- Compléter le code avec une gestion des domain events pour implémenter les fonctionalités
+						- durée : 15 minutes
+
+						Correction :
+						- Certains event handlers vont être dans l'application layer, et d'autres dans la domain layer
+						- la logique d'un event handler est (doit être) extrêmement faible
+						- on peut nommer les handler vis à vis de la source ou de la destination
+						- en général, on aura tendance à les rapprocher des conséquences plutôt que des cause
+						- le domain event s'execute dans la même transaction (ils sont in process)
+						- a contrario des integration events qui ne sont pas dans la même transaction, et donc peuvent venir d'une infra dédiée (ex : rmq, kafka, ...) ou d'un autre bounded context
+					</aside>
 				</section>
 				<section>
 					<h1>LA DERNIERE REGLE DES AGGREGATES</h1>
+					<aside data-markdown class="notes">
+						RAPPEL et discussion :
+						- injecter un datetime provider quand on en a besoin pour rendre testablele code
+						- loi de Démeter 
+
+						Rule pattern :
+						- différent de policy => une policy est une implémentation différente d'une même interface (timecode 0h23)
+					</aside>
 				</section>
 				<section>
 					<h5>Règle 4</h5>
 					<p>
 						Utiliser <span class="highlight">l’Eventual Consistency</span> pour mettre à jour d’autres Aggregates
 					</p>
+					<aside data-markdown class="notes">
+						Ca peut être 2 aggregates dans le même BC, ou même dans 2 BC différents
+					</aside>
 				</section>				
 				<section><span class="highlight">Transactional Consistency</span> : tout est mis à jour dans une même transaction</section>
 				<section><span class="highlight">Eventual Consistency</span> : certains Aggregates sont mis à jour ultérieurement</section>
 				<section><span class="highlight">Eventual</span> ne signifie pas <span class="highlight">“éventuellement”</span></section>
-				<section><span class="highlight"></span>Eventual</span> signifie <span class="highlight">“tôt ou tard”</span> ! On peut parler de consistence retardée ou à retardement</section>
+				<section>
+					<span class="highlight"></span>Eventual</span> signifie <span class="highlight">“tôt ou tard”</span> ! On peut parler de consistence retardée ou à retardement
+					<aside data-markdown class="notes">
+						Vient des systèmes distribués
+					</aside>
+				</section>
 				<section>
 					<p>
 						Dans 5ms…
@@ -238,7 +331,12 @@
 				<section>
 					<img class="r-frame" src="./img/part4/bank-account-eventual-consistency.png" />
 				</section>
-				<section>Est-ce grave si le compte bancaire reflète le dépôt <span class="highlight">après</span> avoir déposé les fonds ?</section>
+				<section>
+					Est-ce grave si le compte bancaire reflète le dépôt <span class="highlight">après</span> avoir déposé les fonds ?
+					<aside data-markdown class="notes">
+						exemple : lors d'un virement SEPA, il faut 48h
+					</aside>
+				</section>
 				<section>
 					<p>
 						Dans 5ms…
@@ -258,6 +356,12 @@
 				</section>
 				<section>
 					<h2>Exercice pratique</h2>
+					<aside data-markdown class="notes">
+						On ne modifie JAMAIS la données en BDD, on passe TOUJOURS par le logiciel
+						Un event est un stimulus du système, un point d'entrée au même titre qu'un usecase.
+						Donc un évènement = un test
+						Garder les events sérialisable
+					</aside>
 				</section>
 			</div>			
 		</div>
