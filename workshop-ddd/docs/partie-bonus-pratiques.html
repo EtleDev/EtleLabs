@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/moon.css">
+		<link rel="stylesheet" href="css/customization.css">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h1>Pratiques d'ingénierie logicielle</h1>
+					<aside data-markdown class="notes">
+
+					</aside>
+				</section>
+				<section>
+					<h1>EVENT STORMING</h1>
+				</section>
+				<section>
+					<h5>Définition</h5>
+					<p>						
+						L’Event Storming est un atelier <span class="highlight">visuel collaboratif</span> pour modéliser un domain ou un processus métier à partir <span class="highlight">d’événements</span> (passé).
+					</p>
+				</section>
+				<section>
+					<h5>Objectif</h5>
+					<p>						
+						Il vise à révéler les <span class="highlight">étapes clés</span>, <span class="highlight">acteurs</span> et <span class="highlight">règles métier</span> en cassant les silos entre technique et métier.
+					</p>
+				</section>
+				<section>
+					<h5>Objectif</h5>
+					<p>						
+						Utilisé en phase de cadrage, refonte métier ou pour aligner équipes sur un modèle commun.
+					</p>
+				</section>
+				<section>
+					<h5>Mise en oeuvre / méthode</h5>
+					<p>						
+						On utilise des post-its colorés pour représenter : événements, commandes, acteurs, vues, règles, read model, ...
+					</p>
+					<aside data-markdown class="notes">
+						Mettre les mots dans la couleur des post-it utilisé
+					</aside>
+				</section>
+				<section>
+					<h5>Mise en oeuvre / méthode</h5>
+					<p>						
+						On commence par une frise d’événements métier, que l’on enrichit en groupe de manière itérative.
+					</p>
+					<aside data-markdown class="notes">
+						
+					</aside>
+				</section>
+				<section>
+					<h5>Mise en oeuvre / méthode</h5>
+					<p>						
+						Participants : Tous les profils sont invités (métier, développeurs …) pour maximiser la connaissance partagée.
+					</p>
+					<aside data-markdown class="notes">
+						
+					</aside>
+				</section>
+				<section>
+					<h5>Bénéfices</h5>
+					<p>						
+						Il fait émerger les incohérences, zones d’ombre, et opportunités d’amélioration dans les processus.
+					</p>
+					<aside data-markdown class="notes">
+						
+					</aside>
+				</section>
+				<section>
+					<h2>Exercice pratique</h2>
+				</section>
+				<section>
+					<h1>TEST DRIVEN DEVELOPMENT</h1>
+				</section>
+				<section>
+					<h1>PAIR PROGRAMMING</h1>
+				</section>
+				<section>
+					<h1>CQRS</h1>
+				</section>
+		</div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				hash: true,
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+			});
+		</script>
+	</body>
+</html>
