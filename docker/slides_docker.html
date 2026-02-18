@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formation Docker - 2h</title>
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.css"> -->
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/theme/black.min.css"> -->
+    <link rel="stylesheet" href="../presentation-set/dist/reset.css">
+	<link rel="stylesheet" href="../presentation-set/dist/reveal.css">
+	<link rel="stylesheet" href="../presentation-set/dist/theme/moon.css">
+    <link rel="stylesheet" href="../presentation-set/plugin/highlight/monokai.css">
+    <style>
+        .reveal h1, .reveal h2, .reveal h3 { text-transform: none; }
+        .reveal pre { width: 100%; font-size: 0.55em; }
+        .reveal code { padding: 2px 6px; background: rgba(255,255,255,0.1); }
+        .two-columns { display: flex; gap: 40px; }
+        .two-columns > div { flex: 1; }
+        .highlight { color: #42affa; font-weight: bold; }
+        .problem { color: #ff6b6b; }
+        .success { color: #51cf66; }
+        table { margin: 20px auto; font-size: 0.8em; }
+        .timeline { text-align: left; margin: 20px 0; }
+        .timeline div { margin: 10px 0; padding-left: 20px; border-left: 3px solid #42affa; }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- SLIDE 1: Title -->
+            <section>
+                <h1>🐳 Docker</h1>
+                <h3>Conteneurisation & Orchestration</h3>
+                <p>Formation 2h</p>
+                <p><small>Développeurs & QA (niveau zéro)</small></p>
+            </section>
+
+            <!-- SLIDE 2: Agenda -->
+            <section>
+                <h2>📋 Plan de la Formation</h2>
+                <div class="timeline">
+                    <div><strong>I. Contexte & Conteneurisation</strong> (20 min)</div>
+                    <div><strong>II. Docker en Détail</strong> (30 min)</div>
+                    <div><strong>III. Orchestration</strong> (25 min)</div>
+                    <div><strong>IV. Conclusion & Q&R</strong> (5 min)</div>
+                </div>
+            </section>
+
+            <!-- ========== PARTIE I: CONTEXTE ========== -->
+            <section>
+                <h2>Partie I: Contexte & Conteneurisation</h2>
+                <p><small>Comprendre le problème et la solution</small></p>
+            </section>
+
+            <!-- SLIDE 3: Le Problème -->
+            <section>
+                <h2>🔴 Le Problème</h2>
+                <ul>
+                    <li class="problem"><strong>"Ça marche sur ma machine"</strong></li>
+                    <li>Environnements différents (dev, test, prod)</li>
+                    <li>Versions incompatibles de dépendances</li>
+                    <li>Onboarding lent (installation complexe)</li>
+                    <li>Bataille dev/ops lors des déploiements</li>
+                </ul>
+            </section>
+
+            <!-- SLIDE 4: Historique -->
+            <section>
+                <h2>📚 Historique de la Conteneurisation</h2>
+                <div class="timeline">
+                    <div><strong>2000s:</strong> VMs dominent (VMware, Hyper-V) - lourd, lent</div>
+                    <div><strong>2010:</strong> LXC (Linux Containers) - premiers conteneurs</div>
+                    <div><strong>2013:</strong> Docker lance - conteneurs accessibles et standardisés</div>
+                    <div><strong>2014+:</strong> Explosion : Kubernetes, Docker Compose, écosystème</div>
+                </div>
+                <p><small class="highlight">Docker a révolutionné le déploiement en rendant les conteneurs simples</small></p>
+            </section>
+
+            <!-- SLIDE 5: Comparaison Bare Metal vs VM vs Conteneurs -->
+            <section>
+                <h2>⚖️ Bare Metal vs VM vs Conteneurs</h2>
+                <table>
+                    <tr>
+                        <th>Aspect</th>
+                        <th>Bare Metal</th>
+                        <th>VM</th>
+                        <th>Conteneur</th>
+                    </tr>
+                    <tr>
+                        <td>OS</td>
+                        <td>1 OS</td>
+                        <td>OS + OS invités</td>
+                        <td>1 OS partagé</td>
+                    </tr>
+                    <tr>
+                        <td>Taille</td>
+                        <td>-</td>
+                        <td>3-10 GB</td>
+                        <td>10-500 MB</td>
+                    </tr>
+                    <tr>
+                        <td>Démarrage</td>
+                        <td>-</td>
+                        <td>30-60s</td>
+                        <td>&lt;1s</td>
+                    </tr>
+                    <tr>
+                        <td>Densité</td>
+                        <td>1</td>
+                        <td>10-20</td>
+                        <td>100+</td>
+                    </tr>
+                </table>
+            </section>
+
+            <!-- SLIDE 6: Comment ça marche -->
+            <section>
+                <h2>🔧 Comment Ça Marche ?</h2>
+                <ul>
+                    <li><strong>Noyau partagé:</strong> Conteneurs utilisent le kernel Linux/Windows</li>
+                    <li><strong>Isolation:</strong> Namespaces (processus, réseau, fichiers)</li>
+                    <li><strong>Ressources limitées:</strong> cgroups (CPU, mémoire)</li>
+                    <li><strong>Système de fichiers:</strong> Couches (layers) empilées</li>
+                </ul>
+                <p><small>➜ <span class="highlight">Analogie: Conteneur = boîte hermétique + légère</span></small></p>
+            </section>
+
+            <!-- SLIDE 7: CRI-O et Runtimes -->
+            <section>
+                <h2>🎯 Runtimes & CRI</h2>
+                <ul>
+                    <li><strong>Docker Engine:</strong> Runtime populaire (ce qu'on utilise)</li>
+                    <li><strong>Containerd:</strong> Runtime plus léger (utilisé par Kubernetes)</li>
+                    <li><strong>CRI-O:</strong> Container Runtime Interface (standard Kubernetes)</li>
+                    <li><strong>Registries:</strong> Stockent les images (Docker Hub, GitHub Container Registry)</li>
+                </ul>
+                <p><small>Tous implémentent le même standard : les conteneurs sont interopérables</small></p>
+            </section>
+
+            <!-- SLIDE 8: Mini-Démo Docker -->
+            <section>
+                <h2>⚡ Mini-Démo: Hello-World</h2>
+                <pre><code class="language-bash">$ docker run hello-world
+
+Hello from Docker!
+This message shows that your installation works correctly.
+...</code></pre>
+                <p><small>✓ Image téléchargée ✓ Conteneur créé ✓ Exécuté ✓ Arrêté (tout en &lt;1s)</small></p>
+            </section>
+
+            <!-- SLIDE 9: Docker Host & Réseau -->
+            <section>
+                <h2>🌐 Docker Host & Réseau</h2>
+                <ul>
+                    <li><strong>Docker Host:</strong> Démon qui gère les conteneurs</li>
+                    <li><strong>Port Mapping:</strong> Exposer les ports du conteneur à l'hôte</li>
+                    <li><strong>Réseau interne:</strong> Conteneurs communiquent par nom (DNS interne)</li>
+                    <li><strong>Bridge Network:</strong> Réseau par défaut qui relie les conteneurs</li>
+                </ul>
+                <p><small>Exemple: <code>docker run -p 8000:3000 mon-app</code> → port 3000 conteneur = 8000 hôte</small></p>
+            </section>
+
+            <!-- ========== PARTIE II: DOCKER DÉTAIL ========== -->
+            <section>
+                <h2>Partie II: Docker en Détail</h2>
+                <p><small>Images, Dockerfile, et commandes essentielles</small></p>
+            </section>
+
+            <!-- SLIDE 10: Image vs Conteneur -->
+            <section>
+                <h2>📦 Image vs Conteneur</h2>
+                <div class="two-columns">
+                    <div>
+                        <h4>🖼️ Image</h4>
+                        <ul>
+                            <li>Template immuable</li>
+                            <li>Recette</li>
+                            <li>Shareable</li>
+                            <li>Statique</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4>🏃 Conteneur</h4>
+                        <ul>
+                            <li>Instance vivante</li>
+                            <li>Plat cuisiné</li>
+                            <li>Executable</li>
+                            <li>Dynamique</li>
+                        </ul>
+                    </div>
+                </div>
+                <p><small>➜ 100 conteneurs peuvent venir de la MÊME image</small></p>
+            </section>
+
+            <!-- SLIDE 11: Dockerfile -->
+            <section>
+                <h2>📝 Dockerfile: Qu'est-ce que c'est ?</h2>
+                <ul>
+                    <li>Fichier texte avec instructions pour construire une image</li>
+                    <li>Chaque ligne = une instruction = une couche</li>
+                    <li>Instructions courantes:</li>
+                </ul>
+                <pre><code class="language-dockerfile">FROM base-image          # Image de base
+WORKDIR /app            # Répertoire de travail
+COPY . .                # Copier les fichiers
+RUN apt-get install ... # Exécuter une commande
+EXPOSE 8000             # Port exposé (doc)
+CMD ["command"]         # Commande par défaut</code></pre>
+            </section>
+
+            <!-- SLIDE 12: Layers -->
+            <section>
+                <h2>🔗 Concept: Les Layers (Couches)</h2>
+                <pre><code>┌─────────────────────────────────┐
+│ Votre application (READ-WRITE) │ ← Couche finale
+├─────────────────────────────────┤
+│ COPY /app (read-only)           │
+├─────────────────────────────────┤
+│ RUN dotnet build (read-only)    │
+├─────────────────────────────────┤
+│ RUN apt-get install (read-only) │
+├─────────────────────────────────┤
+│ Base OS (Ubuntu/Alpine)         │
+└─────────────────────────────────┘</code></pre>
+                <p><small class="highlight">• En cache • Réutilisables • Modifier ligne 5 → reconstruire 6+</small></p>
+            </section>
+
+            <!-- SLIDE 13: Build & Multi-Stage -->
+            <section>
+                <h2>🏗️ Build & Multi-Stage Build</h2>
+                <p><strong>Problème:</strong> Dockerfile simple = image lourde</p>
+                <p><strong>Solution:</strong> Multi-stage build (Visual Studio le fait pour vous)</p>
+                <ul>
+                    <li><strong>Stage 1 (build):</strong> Compile avec SDK lourd</li>
+                    <li><strong>Stage 2 (final):</strong> Copie binaires dans image légère</li>
+                </ul>
+                <p><span class="highlight">Résultat:</span> <span class="success">Image finale 5-10x plus petite !</span></p>
+            </section>
+
+            <!-- SLIDE 14: Démo Dockerfile -->
+            <section>
+                <h2>🎬 Démo: Dockerfile Multi-Stage (.NET)</h2>
+                <p><small>⏱️ Voir la démo live sur machine</small></p>
+                <ul>
+                    <li>Montrer Dockerfile généré par VS</li>
+                    <li>Expliquer les 3 stages</li>
+                    <li><code>docker build -t mon-app .</code></li>
+                    <li>Montrer les layers générées</li>
+                    <li>Taille finale de l'image</li>
+                </ul>
+            </section>
+
+            <!-- SLIDE 15: Docker Commands -->
+            <section>
+                <h2>⌨️ Commandes Essentielles</h2>
+                <pre><code class="language-bash"># Images
+docker pull mcr.microsoft.com/dotnet/sdk:8.0
+docker build -t mon-app:v1 .
+docker images
+
+# Conteneurs
+docker run -d -p 8000:5000 mon-app:v1
+docker ps                    # Conteneurs actifs
+docker logs nom-conteneur    # Afficher logs
+docker exec -it nom-conteneur bash  # Entrer dedans
+docker stop mon-conteneur
+docker rm mon-conteneur</code></pre>
+            </section>
+
+            <!-- SLIDE 16: Docker Hub & Registries -->
+            <section>
+                <h2>🌐 Docker Hub & Registries</h2>
+                <ul>
+                    <li><strong>Docker Hub:</strong> Registry public (images officielles)</li>
+                    <li><strong>Images officielles:</strong> Ubuntu, .NET, PostgreSQL, Redis, etc.</li>
+                    <li><strong>Tags:</strong> Versions des images (ex: <code>ubuntu:24.04</code>)</li>
+                    <li><strong>Pull:</strong> Télécharger une image</li>
+                    <li><strong>Push:</strong> Uploader votre image</li>
+                </ul>
+                <p><small>Exemple: <code>docker pull mcr.microsoft.com/dotnet/aspnet:8.0</code></small></p>
+            </section>
+
+            <!-- SLIDE 17: UI - Docker Desktop -->
+            <section>
+                <h2>🖥️ Interface: Docker Desktop</h2>
+                <ul>
+                    <li><strong>Dashboard:</strong> Voir les conteneurs en court</li>
+                    <li><strong>Images:</strong> Gérer les images</li>
+                    <li><strong>Logs:</strong> Voir les logs en temps réel</li>
+                    <li><strong>Exec:</strong> Terminal dans le conteneur</li>
+                    <li><strong>Inspect:</strong> Détails du conteneur</li>
+                </ul>
+                <p><small>➜ Plus facile que la ligne de commande pour déboguer !</small></p>
+            </section>
+
+            <!-- ========== PARTIE III: ORCHESTRATION ========== -->
+            <section>
+                <h2>Partie III: Orchestration</h2>
+                <p><small>Du single conteneur à la stack complète</small></p>
+            </section>
+
+            <!-- SLIDE 18: Problème Multi-Services -->
+            <section>
+                <h2>🤔 Problème: Multi-Services</h2>
+                <p><strong>Situation:</strong> Vous avez 3 conteneurs à lancer</p>
+                <ul>
+                    <li>Frontend (port 3000)</li>
+                    <li>Backend API (port 5000)</li>
+                    <li>PostgreSQL (port 5432)</li>
+                </ul>
+                <p class="problem">❌ 3 commandes docker run</p>
+                <p class="problem">❌ Gérer les ports manuellement</p>
+                <p class="problem">❌ Gérer les variables d'environnement</p>
+                <p class="problem">❌ Les conteneurs se trouvent comment ?</p>
+                <p class="highlight">➜ Solution: Docker Compose !</p>
+            </section>
+
+            <!-- SLIDE 19: Docker Compose -->
+            <section>
+                <h2>🎭 Docker Compose: Concept</h2>
+                <ul>
+                    <li><strong>Fichier YAML:</strong> Décrit votre stack</li>
+                    <li><strong>Services:</strong> Chaque service = 1 conteneur</li>
+                    <li><strong>Networking:</strong> Conteneurs communiquent par nom</li>
+                    <li><strong>Volumes:</strong> Données persistantes</li>
+                    <li><strong>Une commande:</strong> <code>docker-compose up</code></li>
+                </ul>
+                <p class="highlight">➜ Orchestration locale (dev/test), pas pour la prod (voir Kubernetes)</p>
+            </section>
+
+            <!-- SLIDE 20: docker-compose.yml -->
+            <section>
+                <h2>📋 Anatomie du docker-compose.yml</h2>
+                <pre><code class="language-yaml">version: '3.8'
+services:
+  backend:
+    image: mon-api:latest
+    ports:
+      - "5000:5000"
+    environment:
+      DB_HOST: postgres
+      
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_PASSWORD: secret
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+volumes:
+  db_data:</code></pre>
+                <p><small>Services se trouvent par nom ("postgres", "backend")</small></p>
+            </section>
+
+            <!-- SLIDE 21: Démo Docker Compose -->
+            <section>
+                <h2>🎬 Démo: Docker Compose Complète</h2>
+                <p><small>⏱️ Voir la démo live sur machine</small></p>
+                <ul>
+                    <li><code>docker-compose up</code> → tout démarre</li>
+                    <li>Frontend accède au backend</li>
+                    <li>Backend accède à PostgreSQL</li>
+                    <li><code>docker-compose logs -f</code> → logs temps réel</li>
+                    <li><code>docker-compose exec postgres psql</code> → accès BDD</li>
+                    <li><code>docker-compose down</code> → arrêt</li>
+                </ul>
+            </section>
+
+            <!-- SLIDE 22: Participation -->
+            <section>
+                <h2>👥 À Votre Tour!</h2>
+                <p><strong>Repo GitHub:</strong> Lien fourni</p>
+                <ul>
+                    <li>Clonez le repo</li>
+                    <li><code>docker-compose up</code> dans le répertoire</li>
+                    <li>Testez l'application</li>
+                    <li>Explorez avec Docker Desktop</li>
+                </ul>
+                <p><small>Pendant ce temps, je continue la démo sur ma machine</small></p>
+            </section>
+
+            <!-- SLIDE 23: Cas d'Usage Concrets -->
+            <section>
+                <h2>💼 Cas d'Usage Concrets</h2>
+                <div class="two-columns">
+                    <div>
+                        <h4>👨‍💻 DEV</h4>
+                        <ul>
+                            <li>Stack complète en 1 cmd</li>
+                            <li>Env identique</li>
+                            <li>Onboarding facile</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4>🧪 QA</h4>
+                        <ul>
+                            <li>BDD propre par version</li>
+                            <li>Pas d'attendre nightly</li>
+                            <li>Tester en parallèle</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 24: Ouverture - Orchestration Prod -->
+            <section>
+                <h2>🚀 Au-Delà: Pour la Production</h2>
+                <ul>
+                    <li><strong>Docker Compose:</strong> 1 machine, 5-10 conteneurs max</li>
+                    <li><strong>Docker Swarm:</strong> Cluster simple, built-in Docker</li>
+                    <li><strong>Kubernetes:</strong> Production, multi-cloud, auto-scaling</li>
+                </ul>
+                <p class="highlight">Votre docker-compose.yml peut évoluer vers K8s !</p>
+                <p><small>Continuum: Dev (compose) → Staging (Swarm/K8s) → Prod (K8s)</small></p>
+            </section>
+
+            <!-- SLIDE 25: Workflows Futurs -->
+            <section>
+                <h2>🔮 Workflows Possibles Chez Vous</h2>
+                <ul>
+                    <li><strong>CI/CD:</strong> Build image à chaque commit, tests dans conteneur</li>
+                    <li><strong>Validation:</strong> QA teste image finale (comme en prod)</li>
+                    <li><strong>Déploiement:</strong> Même image dev → staging → prod</li>
+                    <li><strong>Scaling:</strong> Besoin de puissance ? Ajouter des conteneurs</li>
+                </ul>
+                <p><small>À discuter avec chaque équipe selon vos besoins</small></p>
+            </section>
+
+            <!-- SLIDE 26: Recap -->
+            <section>
+                <h2>📋 Recap en 5 Points</h2>
+                <ol>
+                    <li><strong>Conteneur:</strong> Boîte hermétique + légère pour votre app</li>
+                    <li><strong>Image:</strong> Template → Conteneur instance vivante</li>
+                    <li><strong>Dockerfile:</strong> Recette pour construire l'image</li>
+                    <li><strong>Docker Compose:</strong> Orchestrer plusieurs conteneurs</li>
+                    <li><strong>Prod:</strong> K8s/Swarm pour scaler et orchestrer</li>
+                </ol>
+            </section>
+
+            <!-- SLIDE 27: Ressources & Q&R -->
+            <section>
+                <h2>🔗 Ressources & Questions</h2>
+                <ul>
+                    <li>📘 <strong>Fiche Récap:</strong> A4 2 colonnes (remise)</li>
+                    <li>🔗 <strong>Repo GitHub:</strong> Lien remis avec docker-compose.yml</li>
+                    <li>🎓 <strong>KodeKloud:</strong> Cours Docker gratuit (formation approfondie)</li>
+                    <li>📚 <strong>Docs Docker:</strong> docs.docker.com</li>
+                </ul>
+                <hr>
+                <p><strong>Questions ?</strong></p>
+            </section>
+
+            <!-- SLIDE 28: Merci -->
+            <section>
+                <h1>Merci! 🙏</h1>
+                <p>Des questions ? Des cas d'usage ?</p>
+                <p><small>Échangeons sur Docker et vos workflows!</small></p>
+            </section>
+
+        </div>
+    </div>
+
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.js"></script> -->
+    <script src="../presentation-set/dist/reveal.js"></script>
+	<script src="../presentation-set/plugin/notes/notes.js"></script>
+	<script src="../presentation-set/plugin/markdown/markdown.js"></script>
+	<script src="../presentation-set/plugin/highlight/highlight.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            width: 960,
+            height: 700,
+            margin: 0.1,
+            minScale: 0.2,
+            maxScale: 2.0,
+            transition: 'slide',
+            plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+        });
+    </script>
+</body>
+</html>
