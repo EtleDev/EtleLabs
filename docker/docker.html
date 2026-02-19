@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formation Docker - 2h</title>
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.css"> -->
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/theme/black.min.css"> -->
+    <link rel="stylesheet" href="../presentation-set/dist/reset.css">
+	<link rel="stylesheet" href="../presentation-set/dist/reveal.css">
+	<link rel="stylesheet" href="../presentation-set/dist/theme/league.css">
+    <link rel="stylesheet" href="../presentation-set/plugin/highlight/monokai.css">
+    <style>
+        .reveal h1, .reveal h2, .reveal h3 { text-transform: none; }
+        .reveal pre { width: 100%; font-size: 0.55em; }
+        .reveal code { padding: 2px 6px; background: rgba(255,255,255,0.1); }
+        .two-columns { display: flex; gap: 40px; }
+        .two-columns > div { flex: 1; }
+        .highlight { color: #42affa; font-weight: bold; }
+        .problem { color: #ff6b6b; }
+        .success { color: #51cf66; }
+        table { margin: 20px auto; font-size: 0.8em; }
+        .timeline { text-align: left; margin: 20px 0; }
+        .timeline div { margin: 10px 0; padding-left: 20px; border-left: 3px solid #42affa; }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- SLIDE 1: Title -->
+            <section>
+                <h1>Conteneurisation</h1>
+                <h3>🐳 Docker</h3>
+            </section>
+            <!-- SLIDE 2: Introduction -->
+            <section>
+                <h3>INTRODUCTION</h3>
+                <p>Qui connaît Docker ?</p>
+                <p>Qui l'a déjà utilisé?</p>
+
+                <aside data-markdown class="notes">
+                    But : 
+                    
+                    - vous donner une fondation solide de ce qu’est la conteneurisation
+                    - à quoi ça sert ? 
+                    - comment ça peut vous aider 
+                    
+                    => pour que vous ayez envie de vous former
+                </aside>
+            </section>
+
+            <!-- ========== PARTIE I: Contexte & cadre général ========== -->
+            <section>
+                <h2>Contexte & cadre général</h2>
+            </section>
+
+            <!-- SLIDE 3: Le Problème -->
+            <section>
+                <section>
+                    <h3>🔴 Problématique 1</h3>
+                    <blockquote>Ca marche sur mon poste !</blockquote>
+                    <p><em>Un dév pas fort malin</em></p>
+                    <blockquote>Ok ! Alors emballe ton poste, on l'envoie au client</blockquote>
+                    <p><em>Son chef de projet</em></p>
+
+                    <p>=> problème liés à l'environnement et/ou aux données</p>
+                </section>
+
+                <section>
+                    <h3>🔴 Problématique 2</h3>
+                    <p>Bataille entre Dev et Ops lorsque la MeP a foiré (et le rollback aussi)</p>
+                    <p>=> problème de dépendances, et parfois de compétences transverses</p>
+
+                    <aside data-markdown class="notes">
+                        - La MeP a foiré, t’es un gros noeud, tu sais pas déployer une app ? C’est pas la base de ton job ?
+                        - Mon serveur est up, mon OS est à jour, c’est ta doc qui est pourrie !
+                        - Ca marche nickel sur l’intégration !
+                        - Il y a un problème de dépendances, ton app c’est de la merde. T’es sur que tu sais coder ?
+                        - T’as fait un rollback au moins ?
+                        - Oui, mais il a foiré, il est mal documenté
+                    </aside>
+                </section>
+
+                <section>
+                    <h3>🔴 Problématique 3</h3>
+                    <blockquote>Ca rame... met plus de RAM !</blockquote>
+                    <p><em>Un dév en panique</em></p>
+                    <p></p>
+                </section>
+            </section>
+
+            <!-- SLIDE 4: Historique -->
+            <section>
+                <section>
+                    <h3>Historique</h3>
+                    <blockquote>Avant le commencement des temps, il y avait le Kube</blockquote>
+                    <p><small><em>Optimus prime</em></small></p>
+
+                    <p> Bah en fait non !</p>
+                </section>
+                <section>
+                    <h3>Historique</h3>
+                    <div class="timeline">
+                        <div><strong>&#8249;2000s:</strong> Bare metal</div>
+                        <div><strong>2000s:</strong> Virtualisation / machines virutelles (VMware, Hyper-V)</div>
+                        <div><strong>2010:</strong> LXC (Linux Containers) - premiers conteneurs</div>
+                        <div><strong>2013:</strong> Lancement de Docker</div>
+                        <div><strong>2014+:</strong> Orchestration de conteneurs : Kubernetes, Docker Compose, Docker Swarm, Mesos, écosystème</div>
+                    </div>
+                <p><small class="highlight">Docker a révolutionné le déploiement</small></p>                    
+                </section>
+                <section>
+                    <h2>⚖️ Comparaison</h2>
+                    <img src="img/comparison.png" data-preview-image>
+                </section>
+
+            </section>
+
+            <!-- SLIDE 5: Principe généraux -->
+            <section>
+                <h3>Principe fondamentaux</h3>
+                <img src="img/containerized.png" data-preview-image class="r-frame" width="30%">
+                <ul>
+                    <li>Communication avec le kernel (Linux OU Windows)</li>
+                    <li>Isolation processus</li>
+                    <li>Isolation réseau</li>
+                    <li>Runtime alternatif : CRI-O, Containerd, runc, ...</li>
+                </ul>
+            </section>
+
+            <!-- ========== PARTIE II: DOCKER ========== -->
+            <section>
+                <h2>Docker en détail</h2>
+                <p><small>Images, Dockerfile, et commandes essentielles</small></p>
+                <img src="img/docker-logo.png" data-preview-image width="70%">
+            </section>
+
+            <!-- SLIDE 6: Runtime -->
+            <section>
+                <section>
+                    <h3>Composants</h3>
+                    <p><small class="highlight">Le runtime de Docker est open-source (mais pas le reste)</small></p>
+                    <ul>
+                        <li>Docker client & docker daemon</li>
+                        <li>Docker Host</li>
+                        <li>Interface graphique => Docker desktop (pas open-source...) et Lazydocker</li>
+                        <li>Possibilité de faire tourner des conteneurs Linux (la plupart des conteneurs) sous windows via WSL</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Architecture</h3>
+                    <img src="img/docker-architecture.png" data-preview-image class="r-frame" width="70%">
+                </section>
+                <section>
+                    <h3>Docker host & network</h3>
+                    <img src="img/docker-host.png" data-preview-image class="r-frame" width="70%">
+                </section>                
+            </section>
+
+            <!-- SLIDE 7: Run -->
+            <section>
+                <section>
+                    <h3>Run</h3>
+                    <pre><code data-trim class="powershell">
+                        # Permet de lancer un conteneur
+                        docker run ${repository/image}
+                        docker run hello-world
+                        docker run -it --rm -p 8000:8080 --name aspnetcore_sample mcr.microsoft.com/dotnet/samples:aspnetapp
+                        docker run -d --rm -p 8000:8080 --name aspnetcore_sample mcr.microsoft.com/dotnet/samples:aspnetapp
+
+                        # Permet de voir les conteneurs qui tourner
+                        docker ps -a
+
+                        # Permet d'afficher les logs de la sortie standard du conteneur
+                        docker log ${SHA du conteneur}
+
+                        # Permet de se connect en mode termnial au conteneur
+                        docker exec -it ${SHA du conteneur} cmd
+
+                        # Permet de stopper un conteneur
+                        docker stop ${SHA du conteneur}
+                    </code></pre>
+                </section>
+                <section>
+                    <h3>Démo time</h3>                    
+                </section>
+                <section>
+                    <h3>Pour plus d'info</h3>
+                    <code class="powershell">docker --help</code>
+
+                    <p><a href="https://docs.docker.com/reference/cli/docker" data-preview-link>Docker CLI Reference</a></p>
+                    
+                </section>       
+            </section>
+
+
+            <!-- SLIDE 7: Build -->
+            <section>
+                <section>
+                    <h3>Build</h3>
+                    <p>Image docker ⇒ image ≠ conteneur</p>
+                    <p>Dockerfile</p>
+                    <p>Docker build</p>
+                    <p>Multi-stage build => Build X / Bake</p>
+                    <p>Docker registry => docker Hub</p>
+                    <p>Bonus : lien avec VS => hot reload</p> 
+                </section>
+                <section>
+                    <h3>Dockerfile</h3>
+                    tag
+                </section>
+                <section>
+                    <h3>Dockerfile</h3>
+                    <pre><code data-trim class="dockerfile">
+                        # Permet de lancer un conteneur
+                    </code></pre>
+                </section>
+                <section>
+                    <h3>Dockerfile avancé</h3>
+                    <pre><code data-trim class="dockerfile">
+                        # Permet de lancer un conteneur
+                    </code></pre>                
+                </section>
+                <section>
+                    <h3>Pour plus d'info</h3>
+                    
+                    <p><a href="https://docs.docker.com/reference/dockerfile" data-preview-link>Dockerfile Reference</a></p>
+                    
+                </section>       
+            </section>
+
+            <!-- ========== PARTIE III: ORCHESTRATION ========== -->
+            <section>
+                <h2>Orchestration</h2>
+                <p><small>Du single conteneur à la stack complète</small></p>
+            </section>
+
+            <!-- SLIDE 8: Docker compose -->
+            <section>
+                <section>
+                    <h3>Docker compose</h3>
+                    un peu d’historique
+                    c’est faire une stack
+                    docker-compose.yml + overrides
+                    fichier .env
+                    notion de volume
+                    notion de network
+                </section>
+                <section>
+                    <h3>docker-compose.yml</h3>
+                    <pre><code data-trim class="yml">
+                        # Permet de lancer un conteneur
+                    </code></pre>
+                </section>
+                <section>
+                    <h3>Démo time</h3>
+                    <pre><code data-trim class="powershell">
+                        # Permet de lancer une stack
+                        docker compose up -d
+
+                        # Permet d'arrêter une stack
+                        docker compose down
+                        docker compose down --rmi all
+
+                        # Permet de juste build des images
+                        docker compose build
+
+                        # Bonus : nettoyer son système
+                        docker image prune -af
+                        docker system prune -af
+                    </code></pre>                
+                </section>
+                <section>
+                    <h3>Pour plus d'info</h3>
+                    
+                    <p><a href="https://docs.docker.com/reference/compose-file" data-preview-link>Compose file Reference</a></p>
+                    <p><a href="https://docs.docker.com/reference/cli/docker/compose" data-preview-link>Docker compose CLI Reference</a></p>
+                    
+                </section>
+                <section>
+                    <h3>Et le Kube ?</h3>
+                    <p>Docker Swarm</p>
+                    <p>Kubernetes</p>
+                    <p>Bonus : <a href="https://landscape.cncf.io/" data-preview-link>CNCF Landscape</a></p>
+                </section>   
+            </section>
+
+            <!-- ========== PARTIE IV: Pour aller plus loin ========== -->
+            <section>
+                <h2>Pour aller plus loin...</h2>
+            </section>
+
+            <!-- SLIDE 9: Bénéfices -->
+             <section>
+                <h3>Bénéfices</h3>
+                <ul>
+                    <li>stacks ISO entre dev et prod</li>
+                    <li>facilité d’onboarding</li>
+                    <li>facilité de travail sur plusieurs versions</li>
+                    <li>facilité de travail inter-équipe</li>
+                    <li>facilité de debug</li>
+                    <li>facilité de déploiement pour les QA</li>
+                    <li>MeP plus sereine avec des déploiement blue-green</li>
+                    <li>Renforce la culture DevOps</li>
+                </ul>
+             </section>
+
+             <!-- SLIDE 10: A vous de jouer -->
+             <section>
+                <h3>A vous de jouer !</h3>
+                <a href="https://learn.kodekloud.com/courses/crash-course-docker-for-absolute-beginner" data-preview-link>Formation KodeKloud</a>
+                <p><small class="highlight">Bonus : vous pouvez l'utiliser pour des projets perso chez vous !</small></p>
+             </section>
+
+             <!-- SLIDE 11: Et maintenant ? -->
+             <section>
+                <h3>Et maintenant ?</h3>
+                <p>Suite des travaux prévus</p>
+                <p>Adaptation de vos workflows</p>
+             </section>
+
+             <!-- ========== PARTIE V: Conclusion ========== -->
+            <section>
+                <h2>Conclusion</h2>
+                <h5>TL;DR</h5>
+                <ol>
+                    <li>Forme toi !</li>
+                    <li>Installe Docker sur ton poste via le script d'installation (Solution GC/build/local)</li>
+                    <li><code>docker compose up -d</code></li>
+                    <li>Teste que tout fonctionne bien</li>
+                    <li>Happy coding !!!</li>
+                </ol>
+            </section>
+
+            <!-- SLIDE 12: Merci -->
+            <section>
+                <h1>Merci ! 🙏</h1>
+                <p>Des questions ?</p>
+                <p><small>Et réponses (si vous êtes sages)</small></p>
+            </section>
+
+        </div>
+    </div>
+
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.js"></script> -->
+    <script src="../presentation-set/dist/reveal.js"></script>
+	<script src="../presentation-set/plugin/notes/notes.js"></script>
+	<script src="../presentation-set/plugin/markdown/markdown.js"></script>
+	<script src="../presentation-set/plugin/highlight/highlight.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            width: 960,
+            height: 700,
+            margin: 0.1,
+            minScale: 0.2,
+            maxScale: 2.0,
+            transition: 'slide',
+            plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+        });
+    </script>
+</body>
+</html>

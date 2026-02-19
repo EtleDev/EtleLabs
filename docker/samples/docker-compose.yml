@@ -1,0 +1,64 @@
+#version: '3.9'
+# x-bake:
+#   enabled: false
+
+services:
+  is_gc_app:
+    image: mcr.microsoft.com/dotnet/samples:aspnetapp
+    container_name: isgcweb
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80;http://+:8080 #;https://+:443 # => on peut allouer plusieurs ports HTTP      - VersionNumber=${APP_VERSION_NUMBER}
+    ports:
+      - "9999:8080"
+      - "9443:443"
+      - "9080:80"
+    networks:
+      local_demonstration_net:
+    # entrypoint: ["GC.Service.NetCore.exe"] # à commenter si on utilise le web plutôt que le service
+    
+  is_co_app:
+    image: ${DOCKER_REGISTRY-}another-image:presque
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        BUILD_CONFIGURATION: "Release"
+        BASE_IMAGE: mcr.microsoft.com/dotnet/aspnet
+        BASE_TAG: 8.0-nanoserver-ltsc2025
+
+  sql_helper:
+    image: mcr.microsoft.com/windows/nanoserver:ltsc2025
+    container_name: gchelper
+    volumes:
+      - c:\dev\tools\sqlcmd:c:\app      
+    command: ["cmd", "/c","ping","-t","localhost",">","NUL"]
+    networks:
+      local_demonstration_net:
+
+  mongo:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - 9081:8081
+    environment:
+      ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo:27017/
+      ME_CONFIG_BASICAUTH_ENABLED: true
+      ME_CONFIG_BASICAUTH_USERNAME: mongoexpressuser
+      ME_CONFIG_BASICAUTH_PASSWORD: mongoexpresspass
+
+networks:
+  local_demonstration_net:
+    # driver: bridge (default on Linux) or nat (default on Windows)
+    driver: nat
+    ipam:
+      config:
+        - subnet: 192.168.84.0/24
+          gateway: 192.168.84.1 # => a variabiliser dans le .env

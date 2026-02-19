@@ -1,0 +1,7 @@
+FROM mcr.microsoft.com/windows/nanoserver:ltsc2025
+
+WORKDIR /app
+
+COPY test.txt .
+
+CMD ["cmd", "/c","ping","-t","localhost",">","NUL"]
