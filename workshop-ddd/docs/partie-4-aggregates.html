@@ -13,6 +13,23 @@
 
 		<!-- Theme used for syntax highlighted code -->
 		<link rel="stylesheet" href="../../presentation-set/plugin/highlight/monokai.css">
+
+		<style>
+			.reveal .highlight {
+				/* background-color: rgba(26,115,232,0.13);  teinte du lien reveal.js plus transparent pour fond */
+				color: #1cd2ff; /* couleur du lien */
+				/* padding: 0.1em 0.4em; */
+				border-radius: 0.3em;
+				font-weight: bold;
+			}
+			.reveal .highlight-red {
+				/* background-color: rgba(26,115,232,0.13);  teinte du lien reveal.js plus transparent pour fond */
+				color: red; /* couleur du lien */
+				/* padding: 0.1em 0.4em; */
+				border-radius: 0.3em;
+				font-weight: bold;
+			}
+		</style>
 	</head>
 	<body>
 		<div class="reveal">
@@ -33,22 +50,27 @@
 				<section>
 					<h2>Exercice pratique</h2>
 					<aside data-markdown class="notes">
-						Exercice d'introduction
+						## Exercice d'introduction  
 						C'est juste un exercice d'intro qui servira pour les exercices d'après
 
-						Consignes : 
+						### Consignes :  
 						- Créer un graphe d'objet correspondant au brief sur la gauche
 						- pas d'obligations de mettre des indications sur les flèches
 						- il n'y a pas de piège
 						- Durée : 5-10 minutes
 
-						A la fin de l'exo :
+						### A la fin de l'exo :
 						- si on a du mal à faire un "beau" graphe objet, c'est peut être qu'il y a un problème
-						- Que peut-on dire de ce graphe d'objets ? => il est "costaud", gros 
+						- Que peut-on dire de ce graphe d'objets ?  
+						=> il est "costaud", gros 
 						- Et encore, on s'est arrété à ce brief là, qui pourrait être bcp plus complet
-						- si on transforme ce graphe en MPD, qu'est-ce que ça implique de récupérer un Journey ? Et qu'est-ce qu'on voulait récupérer comme information, ou faire à la base ?
-						- Comment fait-on en SQL pour charger tout l'objet Journey ? => une grosse jointure SQL => Bravo, tu viens de charger toute ta base
-						- Autre solution, utiliser le lazy loading, et le configurer par contexte pour ne pas tout charger. Inconvénient => on peut se retrouver avec des NullRef
+						- si on transforme ce graphe en MPD, qu'est-ce que ça implique de récupérer un Journey ?  
+						Et qu'est-ce qu'on voulait récupérer comme information, ou faire à la base ?
+						- Comment fait-on en SQL pour charger tout l'objet Journey ?  
+						=> une grosse jointure SQL  
+						=> Bravo, tu viens de charger toute ta base
+						- Autre solution, utiliser le lazy loading, et le configurer par contexte pour ne pas tout charger.  
+						Inconvénient => on peut se retrouver avec des NullRef
 						- On ne peut pas partir de ce graphe pour modéliser le comportement de l'application
 						- Le graphe d'objet doit venir en complément de l'ES par exemple
 						  - l'event storming permet de détailler les intéractions
@@ -71,45 +93,52 @@
 				<section>
 					<img class="r-frame" src="./img/part4/bank-account.png" />
 					<aside data-markdown class="notes">
-						Exemple : un compte bancaire
+						## Exemple : un compte bancaire
 						- On veut retirer de l'argent de ce compte bancaire => 100€
 						- Et on a une règle, ne pas être à découvert => donc si j'ai 100€, ça passe
 						- on voit ici qu'on a 
 						  - une frontière (qui s'appelle le compte bancaire)
 						  - des actions possibles (appelée stimulus)
-						- ce stiumulus (retirer de l'argent) va executer des règles métier et va faire en sorte que quelque soit le stimulus que tu vas envoyer, l'état du compte bancaire soit toujours consistant avec les règles du compte bancaire
+						- ce stimulus (retirer de l'argent) va executer des règles métier et va faire en sorte que quelque soit le stimulus que tu vas envoyer, l'état du compte bancaire soit toujours consistant avec les règles du compte bancaire
 						- Dans notre cas, il fera en sortie qu'on ait toujours un minimum de 0€ sur le compte
-						- invariant = quelque chose qui ne varie pas => quelque chose qui doit toujours être vrai, quelque soit les circonstances. C'est une règle extrêmement rigide. (ex : une quantité ne peut être inférieure à 0).
+						- invariant = quelque chose qui ne varie pas  
+						  - **quelque chose qui doit toujours être vrai**, quelque soit les circonstances.  
+						  - C'est une règle extrêmement rigide. (ex : une quantité ne peut être inférieure à 0).
 						- les invariants sont des règles métiers (mais les règles métier ne sont pas toutes des invariants)
-						- invariant  = notion fondamentale en DDD => car ils vont guider le design de notre système
+						- **invariant  = notion fondamentale en DDD** => car ils vont guider le design de notre système
 					</aside>
 				</section>
 				<section>
 					<img class="r-frame" src="./img/part4/bank-account-withdrawal.png" />
 					<aside data-markdown class="notes">
 						Exemple : un compte bancaire
-						- Alice et Bob veulent retirer de l'argent, qu'est-ce qui peut mal se passer ? Que la somme des deux retraits dépasse le solde du compte
-						- Comment éviter que ça arrive ? (solution, tu en tue un des deux :p ) => un système de sémaphore (ou autrement dit un lock)
+						- Alice et Bob veulent retirer de l'argent, qu'est-ce qui peut mal se passer ?  
+						=> Que la somme des deux retraits dépasse le solde du compte
+						- Comment éviter que ça arrive ?  
+						=> (solution, tu en tue un des deux :p )  
+						=> un système de sémaphore (ou autrement dit un lock)
 						- C'est à dire que le compte en banque va limiter son usage à une seule personne à la fois (pour contrecarrer le risque de violer l'invariant)
-						- Donc premier problème : lorsqu'on a des invariants, on est obligé de limiter la concurence dans notre système
+						- Donc premier problème : lorsqu'on a des invariants, **on est obligé de limiter la concurence dans notre système**
 					</aside>
 				</section>
 				<section>
 					<img class="r-frame" src="./img/part4/concert-buy-ticket.png" />
 					<aside data-markdown class="notes">
-						Autre exemple : un système de réservation de place de concert (ou de train)
+						## Autre exemple : un système de réservation de place de concert (ou de train)  
+
 						On va voir que selon le contexte, selon le besoin (toujours drivé par le métier), parfois on va vouloir remettre en question un invariant
 						- exemple : est-ce que c'est vraiment un invariant ? Est-ce qu'on ne peut pas vraiment acheter plus de tickets que disponible ? Que se passe-t-il si cela arrive ?
 						- est-ce qu'on peut faire de la survente ? (comme dans les billets d'avions, ou de train)
-						- un invariant est là pour bloquer la concurence d'un système. Mais que lorsque le besoin est d'avoir de la concurrence (ex : fort traffic), il faut éventuellement RELAXER ces invariants
+						- un invariant est là pour bloquer la concurence d'un système. Mais lorsque le besoin est d'avoir de la concurrence (ex : fort traffic), 
+						il faut éventuellement **RELAXER** ces invariants
 
-						Un aggregate est un pattern qui est intéressant ponctuellement, lorsqu'on a des invariants
+						Un aggregate est un pattern qui est intéressant ponctuellement, lorsqu'on a des invariants  
 						=> si tu peux relaxer ton invariant, tu peux modéliser ton système autrement
 					</aside>
 				</section>
 				<section>Gardez vos Aggregates aussi <span class="highlight">petit que nécessaire</span></section>
 				<section>
-					Gros Aggregate = <span class="highlight">Faible Concurrence</span>
+					Gros Aggregate = <span class="highlight-red">Faible Concurrence</span>
 					<aside data-markdown class="notes">
 						En effet, si tu charges un aggregate, tu met un lock dessus, et surtout TOUS les objets en dessous !
 
@@ -119,7 +148,9 @@
 				<section>
 					<img class="r-frame" src="./img/part4/objects.png" />
 					<aside data-markdown class="notes">
-						Est-ce normal qu'on ne puisse pas me rembourser de l'argent pendant que je suis en train de faire un paiement ?
+						### Question :  
+						Est-ce normal qu'on ne puisse pas me rembourser de l'argent pendant que je suis en train de faire un paiement ?  
+
 						Donc la consistence du système va avoir un impact direct sur la façon dont on va modéliser nos aggregates (et donc notre système)
 					</aside>
 				</section>
@@ -140,36 +171,37 @@
 				<section>
 					<h2>Exercice pratique</h2>
 					<aside data-markdown class="notes">
-						Time code : 2h02
-						Consignes : 
+						*Time code : 2h02*
+
+						## Exercice
+
+						### Consignes : 
 						- On a les usecases, les règles métier, et la concurrence nécessaire
 						- Créer les aggregates
 						- On se concentre sur la délimitation
 						- Durée : 20 minutes
 
-						Correction : timecode 2h05 => solution 2h14
+						### Correction :  
+						*(timecode 2h05 => solution 2h14)*
 
-						Il y a de fortes chances qu'un aggregate soit créé à partir d'un autre aggregate (ex : note depuis Journey)
-
-						Notion de "select for update" (en pgsql) et d'optimistic concurrency.
-
-						La discussion invariance VS concurence est une discussion METIER !
-
-						Si on relaxe un invariant, on peut mettre en place des mesures compensatoire
+						- Il y a de fortes chances qu'un aggregate soit créé à partir d'un autre aggregate (ex : note depuis Journey)
+						- Notion de "select for update" (en pgsql) et d'optimistic concurrency
+						- La discussion invariance VS concurence est une **discussion METIER !**
+						- Si on relaxe un invariant, on peut mettre en place des mesures compensatoire
 
 					</aside>
 				</section>
 				<section>
 					<h1>REGLES DES AGGREGATES</h1>
 					<aside data-markdown class="notes">
-						RAPPELS :
-						Différencier la création d'un objet (responsabilité des factories) et la gestion de son cycle de vie (responsabilité d'un aggrégat)
-						Les aggregates est UN pattern pour protéger des invariants, ce n'est pas le seul !
-						Les value object permmettent aussi de protéger des invariants
-						L'aggregate intervient surtout lorsqu'on a un invariant à protéger vis-à-vis de la concurrence.
-						Les invariants métier (= non-concurrent) sont protéger par des values objects (qui peuvent être réutilisé, dans des domain services par exemple)
-						Une factory est un domain service
-						Les invariants doivent TOUJOURS être dans des aggregates ou des value object
+						**RAPPELS :**  
+						- Différencier la création d'un objet (responsabilité des factories) et la gestion de son cycle de vie (responsabilité d'un aggrégat)
+						- Les aggregates est **UN** pattern pour protéger des invariants, **ce n'est pas le seul !**
+						- Les *value objects* permmettent aussi de **protéger des invariants**
+						- L'aggregate intervient **surtout** lorsqu'on a un invariant à protéger vis-à-vis de la **concurrence**.
+						- Les invariants métier (= non-concurrent) sont protégés par des *values objects* (qui peuvent être réutilisé, dans des domain services par exemple)
+						- Une *factory* est un **domain service**
+						- Les invariants doivent **TOUJOURS** être dans des aggregates ou des value objects
 
 						Je passe volontairement sur les patterns de transaction. Ce qu'il faut retenir, c'est qu'en DDD, on va avoir tendance à centrer la transaction sur le usecase.
 					</aside>
@@ -180,8 +212,9 @@
 						Designer vos Aggregates à partir de vos invariants
 					</p>
 					<aside data-markdown class="notes">
-						Pas d'invariant = pas d'aggregate
-						RAPPEL : un aggregate protège un invariant vis-à-vis de la concurrence
+						Pas d'invariant = pas d'aggregate  
+
+						**RAPPEL : un aggregate protège un invariant vis-à-vis de la concurrence**
 					</aside>
 				</section>
 				<section>
@@ -190,9 +223,9 @@
 						Garder les Aggregates aussi petit que nécessaire
 					</p>
 					<aside data-markdown class="notes">
-						Car qui dit gros aggregate dit faible concurrence.
-						Car mon aggregate va poser un lock sur tous ses objets subséquents
-						Et si j'ai 10 000 requêtes en même temps, on va avoir des problème
+						Car qui dit gros aggregate dit faible concurrence.  
+						Car mon aggregate va poser un lock sur tous ses objets subséquents  
+						Et si j'ai 10 000 requêtes en même temps, on va avoir des problèmes
 					</aside>
 				</section>
 				<section>
@@ -201,8 +234,8 @@
 						Référencer les autres Aggregates uniquement par leur ID
 					</p>
 					<aside data-markdown class="notes">
-						Règle fondamentale pour garder l'indépendance des aggregates.
-						On parle alors de bounded context
+						**Règle fondamentale** pour garder *l'indépendance* des aggregates.  
+						=> On parle alors de bounded context
 
 						Il y a une 4ème règle, mais il faut d'abord comprendre la notion de domain events
 					</aside>
@@ -246,21 +279,21 @@
 				<section>
 					<img class="r-frame" src="./img/part4/bank-account-events.png" />
 					<aside data-markdown class="notes">
-						ici on a un event par usecase, mais il est possible d'avoir bcp plus d'events par usecase
+						Ici on a un event par usecase, mais il est possible d'avoir beaucoup plus d'events par usecase  
 						Très souvent, les domains events sont lancés par les aggregates
 					</aside>
 				</section>
 				<section>
 					<h2>Exercice pratique</h2>
 					<aside data-markdown class="notes">
-						Domain events pattern
+						## Exercice : Domain events pattern
 
-						Consignes :
+						### Consignes :
 						- on a 3 approches (décrire les 3 approches)
 						- donner les points positifs et négatif de chaque approche
 						- durée : 7 minutes
 
-						Correction :
+						### Correction :
 						- notion de transactionnal outbox pattern => pour garantir que l'event a bien été délivré à son destinataire
 						- notion de transactionnal inbox pattern => pour garantir que l'event a bien été géré par son destinataire
 						- pour l'outbox, on sauvegarde les events en BDD dans la même transaction que les changements du usecase
@@ -269,28 +302,28 @@
 				<section>
 					<h2>Exercice pratique</h2>
 					<aside data-markdown class="notes">
-						Domain events
+						## Exercice : Domain events
 
-						Consignes :
+						### Consignes :
 						- Lire le brief
 						- Compléter le code avec une gestion des domain events pour implémenter les fonctionalités
 						- durée : 15 minutes
 
-						Correction :
+						### Correction :
 						- Certains event handlers vont être dans l'application layer, et d'autres dans la domain layer
 						- la logique d'un event handler est (doit être) extrêmement faible
 						- on peut nommer les handler vis à vis de la source ou de la destination
-						- en général, on aura tendance à les rapprocher des conséquences plutôt que des cause
-						- le domain event s'execute dans la même transaction (ils sont in process)
+						- en *général*, on aura tendance à les rapprocher des conséquences plutôt que des causes
+						- le domain event s'execute dans la même transaction (ils sont *in process*)
 						- a contrario des integration events qui ne sont pas dans la même transaction, et donc peuvent venir d'une infra dédiée (ex : rmq, kafka, ...) ou d'un autre bounded context
 					</aside>
 				</section>
 				<section>
 					<h1>LA DERNIERE REGLE DES AGGREGATES</h1>
 					<aside data-markdown class="notes">
-						RAPPEL et discussion :
-						- injecter un datetime provider quand on en a besoin pour rendre testablele code
-						- loi de Démeter 
+						## RAPPEL et discussion :
+						- injecter un *DatetimeProvider* quand on en a besoin pour rendre le code **testable**
+						- loi de **Démeter** => Tell don't ask
 
 						Rule pattern :
 						- différent de policy => une policy est une implémentation différente d'une même interface (timecode 0h23)
@@ -357,9 +390,10 @@
 				<section>
 					<h2>Exercice pratique</h2>
 					<aside data-markdown class="notes">
-						On ne modifie JAMAIS la données en BDD, on passe TOUJOURS par le logiciel
-						Un event est un stimulus du système, un point d'entrée au même titre qu'un usecase.
-						Donc un évènement = un test
+						On ne modifie **JAMAIS** la données en BDD,  
+						=> on passe **TOUJOURS** par le logiciel  
+						Un event est un stimulus du système, un point d'entrée au même titre qu'un usecase.  
+						Donc un évènement = un test  
 						Garder les events sérialisable
 					</aside>
 				</section>
