@@ -1,0 +1,1224 @@
+<!doctype html>
+<html lang="fr">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>DDD côté métier</title>
+
+		<link rel="stylesheet" href="../../presentation-set/dist/reset.css">
+		<link rel="stylesheet" href="../../presentation-set/dist/reveal.css">
+		<link rel="stylesheet" href="../../presentation-set/dist/theme/moon.css">
+		<link rel="stylesheet" href="../../presentation-set-custom/css/reveal-extended.css">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="../../presentation-set/dist/plugin/highlight/monokai.css">
+
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h1>Parlons-nous le même langage&nbsp;?</h1>
+					<h3>Le DDD côté métier</h3>
+				</section>
+
+				<section>
+					<h1>Domain-Driven Design</h1>
+
+					<aside data-markdown class="notes">
+						# Rappel :
+						Lien du board : https://lucid.app/lucidspark/9e5d21e5-8bdc-4866-89b7-9440d7b7e50f/edit?page=0_0&invitationId=inv_ac8285ef-760a-4ad6-936d-47069b310112#
+
+						Lien d'invitation : https://lucid.app/lucidspark/9e5d21e5-8bdc-4866-89b7-9440d7b7e50f/edit?viewport_loc=-2481%2C26%2C12203%2C5894%2C0_0&invitationId=inv_ac8285ef-760a-4ad6-936d-47069b310112
+
+						Qu'attendez-vous de ce workshop ?
+						=> Faire un questionnaire en ligne ?
+						=> faire une rubrique sur le board ?
+
+						Si je vous parle du livre bleu, ça vous parle ?
+
+						But du workshop => vous enseigner le DDD pour pouvoir le mettre en pratique dans le contexte pro et vous rendre suffisamment autonome pour comprendre le DDD, et comprendre les ressources à son sujet
+						Donner la base nécessaire pour évoluer dans le DDD.
+						A la fin de ce workshop, vous ne serez pas des Eric Evans ambulants (aka pas des experts)
+
+						C'est la première fois que j'enseigne ce workshop et je ne suis pas formateur de métier.
+						Merci de bien vouloir faire des retours constructifs pour améliorer cet atelier.
+						Il y aura donc sûrement des erreurs et des soucis techniques, c'est inévitable.
+
+						Pause de 10-15 min toutes les heures
+
+						Je reste à dispo.
+
+						N'hésitez pas à poser des questions, il n'y a pas de questions bêtes
+					</aside>
+				</section>
+				<section>
+					Quels sont les problèmes récurrents du développement logiciel ?
+				</section>
+				<section>
+					<h5>Problème 1</h5>
+					<p>
+						La complexité évolue avec le temps
+					</p>
+
+					<aside data-markdown class="notes">
+						Donc on parle bien ici de logiciels "vivants", pas de PoC ou de petits scripts
+					</aside>					
+				</section>
+				<section>
+					<img class="r-frame" src="./img/part1/complexity-over-time.png" height="80%" />
+					<aside data-markdown class="notes">
+						Au départ, la complexité reste très basse. Mais elle croit EXPONENTIELLEMENT
+
+						Exemple : sur EZEP, rajouter un usecase nous faisait une exponentielle de 2
+
+						Ca arrive systèmatiquement sans design
+
+						C'est ça le but du design : faire du design constant permet de conserver notre productivité / vélocité dans le temps ! (de la garder constante)
+
+						Le problème, c'est que pour lancer une boîte, souvent on ne fait pas de design, car ça prend du temps. Et il y a un écart important au départ. Cet écart est rentabilisé sur la durée.
+
+						Ca demande donc de l'expérience de savoir quand commencer à faire du design, et sur quelle partie du code (car toutes les parties du code ne mérite pas le même niveau de design)
+					</aside>	
+				</section>
+				<section>
+					<img class="r-frame" src="./img/part1/productivity-over-time.png" height="80%" />
+					<aside data-markdown class="notes">
+						le design a donc un impact sur la productivité
+						La perte de productivité intervient assez rapidement (env. 6 mois / 1 an). C'est quelque chose d'extrêmement commun. (Ca vous est surement déjà arrivé dans d'autres boites)
+					</aside>
+				</section>
+				<section>
+					<h5>Question</h5>
+					<p>
+						Comment maintenir le contrôle sur la complexité du logiciel ?
+					</p>
+				</section>
+				<section>
+					<div class="slide-2col-container">
+						<div class="slide-2col-text">
+							<h5>Problème 2</h5>
+							<p>
+								Le développement se fait en Silo
+							</p>							
+						</div>
+						<div class="slide-2col-image">
+							<img class="r-frame" src="./img/part1/dev-client-hit.png"/>
+						</div>
+					</div>
+					<aside data-markdown class="notes">
+						souvent les experts métier vont voir les dévs (ou pas) mais ne parle pas le même langage.
+						Occasionnant quasiment systèmatiquement de la traduction, et donc le code produit n'est pas ce qui est attendu
+					</aside>
+				</section>
+				<section>
+					<blockquote cite="http://">
+						&ldquo;Les développeurs implémentent ce qu’ils comprennent de la spécification, pas ce qui est spécifié et attendu&rdquo;
+					</blockquote>
+					<p><em>Eric Evans</em></p>
+				</section>
+				<section>
+					<blockquote cite="https://youtu.be/sZbmP0JZHBs?feature=shared&t=2155">
+						&ldquo;Ce qui part en production, c'est ce que les développeurs ont compris&rdquo;
+					</blockquote>
+					<p><em>Arnaud Lemaire</em></p>
+				</section>				
+				<section>
+					<div class="slide-2col-container">
+						<div class="slide-2col-text">
+							<h5>Problème</h5>
+							<p>
+								Décalage entre développeurs et clients
+							</p>
+						</div>
+						<div class="slide-2col-image">
+							<img class="r-frame" src="./img/part1/isolated-teams.png"/>
+						</div>
+					</div>
+				</section>
+				<section>
+					<div class="slide-2col-container">
+						<div class="slide-2col-text">
+							<h5>Problème</h5>
+							<p>
+								Produit non conforme
+							</p>
+							<p class="fragment">
+								Difficile à maintenir
+							</p>
+							<p class="fragment">
+								Pénible à utiliser
+							</p>
+						</div>
+						<div class="slide-2col-image">
+							<img class="r-frame" src="./img/part1/broken-product.png"/>
+						</div>
+					</div>
+				</section>	
+				<section>
+					<h5>Question</h5>
+					<p>
+						Comment unifier la <span class="highlight">compréhension du besoin</span>  entre devs et business ?
+					</p>
+				</section>				
+				<section><h1>TERRITOIRE DU DOMAIN-DRIVEN DESIGN</h1></section>
+				<section>
+					<h5>Définition</h5>
+					<p>
+						Discipline centrée sur le <span class="highlight">métier</span>
+					</p>
+				</section>
+				<section>
+					<h5>Définition</h5>
+					<p>
+						Unifier le <span class="highlight">modèle mental</span> des <span class="highlight">développeurs</span> et des <span class="highlight">experts métier</span>
+					</p>
+
+					<aside data-markdown class="notes">
+						au delà de parler le même langage, le but du DDD est de PENSER de la même façon
+					</aside>
+				</section>
+				<section>
+					<h5>Définition</h5>
+					<p>
+						Partager un <span class="highlight">langage commun</span>
+					</p>
+				</section>
+				<section>
+					<h5>Définition</h5>
+					<p>
+						Contrôler la <span class="highlight">complexité</span> du logiciel
+					</p>
+				</section>
+				<section>
+					<h5>Définition</h5>
+					<p>
+						Décomposer cette complexité dans des <span class="highlight">contextes</span>
+					</p>
+
+					<aside data-markdown class="notes">
+						principe du "divide and conquer"
+
+						Exemple : vous connaissez l'Elephant carpaccio ?
+						C'est un atelier qui vise à décomposer un gros problème en plus petit problèmes.
+						Globalement, si tu dois bouffer un éléphant, soit pas con, coupe le en petit morceau
+						Ca c'est le sujet des bounded contexts
+					</aside>
+				</section>				
+				<section>
+					<h3>Territoire</h3>
+					<img class="r-frame" src="./img/part1/territory.png" width="80%" />
+					<aside data-markdown class="notes">
+						Problem space => orienté produit
+					</aside>
+				</section>
+				<section>
+					<h3>Territoire</h3>
+					<img class="r-frame" src="./img/part1/territory-2.png" width="80%" />
+				</section>
+
+				<!-- <section>
+					<h1>TERRITOIRE</h1>
+					<div class="slide-flex">
+						<div class="col-left titled-frame">
+						<strong class="frame-title">Problem space</strong>
+						<p>Comprendre le domaine, la vision de l'entreprise, ses objectifs et ses besoins</p>
+						</div>
+						<div class="col-right titled-frame">
+							<strong class="frame-title">Solution space</strong>
+							<div class="frame-top titled-frame">
+								<strong class="frame-title">Stratégique</strong>
+								<p>Décomposer le problème en différentes parties et établir les relations entre ces parties</p>
+							</div>
+							<div class="frame-bottom titled-frame">
+								<strong class="frame-title">Tactique</strong>
+								<p>Implémenter la solution avec des patterns de code</p>
+							</div>
+						</div>
+					</div>
+				</section> -->
+
+
+				<!-- <section>
+					<h1>TERRITOIRE</h1>
+					<div class="slide-flex">
+						<div class="col-left titled-frame">
+						<strong class="frame-title">Problem space</strong>
+						 <ul>
+							<li>Domain Discovery</li>
+							<li>Subdomains</li>
+							<li>Domain Vision</li>
+							<li>Ubiquitous Language</li>
+							<li>Event Storming</li>
+							<li>Example Mapping</li>							
+						</ul> -->
+						<!-- <p>Domain Discovery</p>
+						<p>Subdomains</p>
+						<p>Domain Vision</p>
+						<p>Ubiquitous Language</p>
+						<p>Event Storming</p>
+						<p>Example Mapping</p> 
+						<p>Domain Discovery, Subdomains, Domain Vision, Ubiquitous Language, Event Storming, Example Mapping</p>
+						</div>
+						<div class="col-right titled-frame">
+							<strong class="frame-title">Solution space</strong>
+							<div class="frame-top titled-frame">
+								<strong class="frame-title">Stratégique</strong>
+								<p>Bounded Context, Context Mapping, Teaming Patterns</p>
+							</div>
+							<div class="frame-bottom titled-frame">
+								<strong class="frame-title">Tactique</strong>
+								<p>Aggregates, Entities, Value Objects, Domain Events, Domain Services, Repositories</p>
+							</div>
+						</div>
+					</div>
+				</section> -->
+				<section>
+					<h1>Problem space</h1>
+				</section>
+				<section>
+					<h5>Définition</h5>
+					<p>
+						Comprendre les <span class="highlight">problèmes</span> que l’entreprise essaye de résoudre
+					</p>
+				</section>
+				<section>
+					<div class="slide-2col-container">
+						<div class="slide-2col-text">							
+							<p>
+								Déterminer les aspects <span class="highlight">les plus importants</span>
+							</p>
+						</div>
+						<div class="slide-2col-image">
+							<img class="r-frame" src="./img/part1/activity-sectors.png"/>
+						</div>
+					</div>
+				</section>
+				<section>Investir le maximum d’effort sur ce qui <span class="highlight">rapporte de l’argent</span></section>
+				<section>
+					Comprendre intensément le domaine
+
+					<aside data-markdown class="notes">
+						C'est ça notre boulot de développeur : plus que de comprendre notre code, il est important de comprendre POURQUOI on le code, et ce que ça rapporte à l'entreprise
+					</aside>
+				</section>
+				<section>
+					<h2>Techniques</h1>
+						<p class="fragment">Distillation</p>
+						<p class="fragment">Domain Vision</p>
+						<p class="fragment">Knowledge Crunching</p>
+						<p class="fragment">Impact Mapping</p>
+
+						<aside data-markdown class="notes">
+							
+							**Distillation** : fait de prendre toute la richesse du problème et de la distiller en une compréhension vraiment claire uniquement de ce qui est important pour ce problème
+
+							**Domain vision** : comprendre la vision de l'entreprise, la direction qu'elle veut prendre
+
+							**Knowledge Crunching** : toutes les activités qui permettent de comprendre ce que fait l'entreprise
+
+							**Impact mapping** : déterminer les actions qui auront le plus d'impact sur le bénéfice de l'entreprise à un moment donné
+						</aside>
+					</section>
+				<section>
+					<h1>Solution space</h1>
+				</section>
+				<section>
+					<h5>Définition</h5>
+					<p>
+						Concevoir une <span class="highlight">solution technique</span> aux différents problèmes
+					</p>
+				</section>
+				<section>
+					<div class="slide-2col-container">
+						<div class="slide-2col-text">							
+							<p>
+								Décomposer la solution en <span class="highlight">sous-solutions</span>
+							</p>
+						</div>
+						<div class="slide-2col-image">
+							<img class="r-frame" src="./img/part1/subsolutions.png"/>
+						</div>
+					</div>
+
+					<aside data-markdown class="notes">
+						cf. divide and conquer
+					</aside>
+				</section>
+				<section>
+					<p>
+						Développer chaque solution selon son <span class="highlight">importance</span>
+					</p>
+				</section>
+				<section>
+					<h3>Territoire</h3>
+					<img class="r-frame" src="./img/part1/territory-3.png" width="80%" />
+
+					<aside data-markdown class="notes">
+						dans ce cours on va surtout aborder le problem space
+					</aside>
+				</section>
+				<section>
+					<h1>Le domain</h1>
+				</section>
+				<section>
+					<h5>Question</h5>
+					<p>
+						Que signifie le terme Domaine ?
+					</p>
+
+					<aside data-markdown class="notes">
+						TRAVAIL :
+						Qui peut me donner une définition du domaine ? Un mot clé ? Une phrase ?
+					</aside>
+				</section>
+				<section>
+					<blockquote cite="http://">
+						&ldquo;Une sphère de savoir, d’influence ou d’activité, la partie du sujet sur lequel <span class="highlight">l’utilisateur applique le logiciel</span>&rdquo;
+					</blockquote>
+					<p><em>Eric Evans</em></p>
+					<aside data-markdown class="notes">
+						certaines choses ne font pas partie du domaine (d'un point de vue DDD) si l'utilisateur n'y est pas confronté.
+						Donc la raison de faire du DDD, c'est pour comprendre le besoin de l'entreprise vis-à-vis de ses utilisateurs ou acteurs du système.
+						Donc ce qui nous intéresse, c'est la partie qui est au contact des utilisateurs.
+					</aside>
+				</section>
+				<section>
+					<h3>Domain</h3>
+					<img class="r-frame" src="./img/part1/enterprise-activities.png" width="70%" />
+
+					<aside data-markdown class="notes">
+						Exemple : application de restauration qui a un domaine divisé en plusieurs sections (ex : réservation, topologie, ... lis ta diapo bordel)
+						Tout ne fait pas partie du domaine du point de vue du logiciel que l'on veut développer.
+						Nous on veut développer une application de réservation de table sur un restaurant.
+					</aside>
+				</section>
+				<section>Le domain peut-être <span class="highlight">très large</span></section>
+				<section>
+					<h3>Domain</h3>
+					<img class="r-frame" src="./img/part1/selected-enterprise-activities.png" width="70%" />
+
+					<aside data-markdown class="notes">
+						dans ce cas (dvpt d'app de résa) seul ces 4 sous-domaines nous intéresse
+						Le reste est en DEHORS de notre sphère d'Analyse
+						Exemple : la cuisine ne nous concerne pas pour le moment.
+						Mais c'est évolutif dans le temps ! Ca pourrait le devenir à termes.
+					</aside>
+				</section>
+				<section>
+					<h3>Domain</h3>
+					<img class="r-frame" src="./img/part1/chosen-enterprise-activities.png" width="70%" />
+				</section>
+				<section>
+					Le Domaine <span class="highlight">existe déjà</span>, il n’est pas conçu / designé
+
+					<aside data-markdown class="notes">
+						ce n'est pas quelque chose qu'on va construire, c'est quelque chose qu'on va analyser. C'est une analyse de l'existant.
+					</aside>
+				</section>
+				<section>
+					<blockquote cite="http://">
+						&ldquo;Le Domaine est hors de portée de l’influence du designer&rdquo;
+					</blockquote>
+					<p><em>Gien Verschatse</em></p>
+				</section>
+				<section>
+					<h1>SUBDOMAINS</h1>
+				</section>
+				<section>Le domain peut-être <span class="highlight">très large</span></section>
+				<section>
+					<h5>Subdomain</h5>
+					<p>
+						Partie distincte du domain
+					</p>
+					<aside data-markdown class="notes">
+						Donc dans l'analyse du domaine, on va faire une première subdivision
+						Car il est plus simple d'apréhender quelque chose qui est plus petit
+						cf. elephant carpaccio, chaos report
+					</aside>
+				</section>
+				<section>Tous les subdomains <span class="highlight">ne se valent pas</span></section>
+				<section>Le plus important est le <span class="highlight">Core Subdomain</span></section>
+				<section>
+					<h5>Question</h5>
+					<p>
+						Comment déterminer quelle partie du Domaine fait partie de son coeur ?
+					</p>
+					<aside data-markdown class="notes">
+						TRAVAIL : laisser les étudiants répondre !
+						Comment détermine-t-on quelle partie du domaine est importante ?
+					</aside>
+				</section>
+				<section>Source de revenus principale <br/> Coeur de métier <br/> Avantage Compétitif
+					<aside data-markdown class="notes">
+						c'est la raison pour laquelle tu as des clients, pour laquelle des clients viennent (pour laquelle ils sont prêt à tuer !)
+						ce qui est important pour déterminer le core domaine, c'est comprendre pourquoi tes clients te donne de l'argent
+					</aside>
+				</section>
+				<section>
+					<h3>Core subdomains</h3>
+					<img class="r-frame" src="./img/part1/chosen-enterprise-activities.png" width="70%" />
+				</section>
+				<section>
+					<h3>Core subdomains</h3>
+					<img class="r-frame" src="./img/part1/chosen-core-subdomain.png" width="70%" />
+					<aside data-markdown class="notes">
+						dans le cadre de notre exemple, c'est le système de réservation
+					</aside>
+				</section>
+				<section>
+					<h5>Question</h5>
+					<p>
+						Core Domain de Amazon ?
+					</p>
+					<aside data-markdown class="notes">
+						Faire une animation
+						TRAVAIL : laisser les étudiants répondre
+						qu'est-ce qui fait que VOUS vous commandez sur amazon ? (car il existe pleins de site e-commerce)
+						donc la question n'est pas si évidente
+						la question n'est pas objective
+						le but de l'exercice est de vous donner des heuristiques, de vous mettre dans la peau des clients, et de se dire "la valeur ajoutée de ma boite elle se situe ici, c'est là que je dois mettre du pognon" pour faire en sorte qu'aucun de mes concurrent ne me rattrape
+						car si ton avantage compétitif est facile à rattraper, est-ce vraiment un avantage compétitif ?
+						Ton core domain d'aujourd'hui, n'est pas forcément ton core domain de demain
+						Exemple : Kodak (à ne pas suivre, à développer), Yamaha, Nokia, Google (on y revient après)
+					</aside>
+				</section>
+				<section>
+					<h5>Question</h5>
+					<p>
+						Core Domain de LinkedIn ?
+					</p>
+					<aside data-markdown class="notes">
+						Pourquoi donne-t-on de l'argent à LinkedIn ? Qui paye pour LinkedIn ?
+						core domain : capacité à fournir des profils complet de personne qui cherche du travail
+						2eme core domain : capacité à sélectionner les bons profils lors d'une recherche
+						Ce sont 2 sujets très proche l'un de l'autre, mais qui n'ont pas forcément les mêmes Acteurs (celui qui créé son profil est rarement celui qui fait une recherche)
+						C'est généralement le cas dans toutes les applications de matching (ex: air b'n'b, application de rencontre, uber, covoiturage, ...)
+					</aside>
+				</section>
+				<section>
+					<h5>Question</h5>
+					<p>
+						Core Domain de Google ?
+					</p>
+				</section>
+				<section>D’autres subdomains sont importants pour <span class="highlight">soutenir</span> ce Core</section>
+				<section>Moins complexes et pas nécessairement avantageux
+					<aside data-markdown class="notes">
+						exemple : système de publication
+					</aside>
+				</section>
+				<section>
+					<h5>Question</h5>
+					<p>
+						Citez un supporting subdomain de LinkedIn
+					</p>					
+				</section>
+				<section>
+					<h3>Supporting subdomains</h3>
+					<img class="r-frame" src="./img/part1/supporting-subdomain.png" width="80%" />
+				</section>
+				<section>
+					<h3>Supporting subdomains</h3>
+					<img class="r-frame" src="./img/part1/selected-supporting-subdomain.png" width="80%" />
+					<aside data-markdown class="notes">
+						dans notre exemple
+					</aside>
+				</section>
+				<section>D’autres subdomains sont importants mais n’ont rien de <span class="highlight">spécifique</span> à notre business</section>
+				<section>Ce sont des <span class="highlight">Generic Subdomains</span></section>
+				<section>
+					<h5>Question</h5>
+					<p>
+						Citez un generic subdomain de LinkedIn
+					</p>
+					<aside data-markdown class="notes">
+						exemple : système de paiement, système d'inscription, gestion utilisateurs, authentification, hébergement des images, messagerie, ...
+					</aside>
+				</section>
+				<section>
+					<h3>Generic subdomains</h3>
+					<img class="r-frame" src="./img/part1/generic-subdomain.png" width="90%" />
+					<aside data-markdown class="notes">
+						dans notre exemple, gestion du personnel administratif
+					</aside>
+				</section>
+				<section>
+					<img class="r-frame" src="./img/part1/subdomains-topology.png" width="90%" />
+					<aside data-markdown class="notes">
+						ca, c'est une charte qui permet de positionner un subdomain en fonction de sa complexité et sa différenciation métier
+					</aside>
+				</section>
+				<section>
+					<img class="r-frame" src="./img/part1/subdomains-alignement-axis.png" width="80%" />
+					<aside data-markdown class="notes">
+						voici l'axe sur lequel idéalement, tout subdomain devrait se situer
+						plus un subdomain est complexe, plus on a intérêt à ce que sa différenciation soit forte
+						complexité = complexité du code qu'on a écrit, la complexité du système qu'on essaye de Concevoir
+						si vous avez un modèle avec 2-3 objets dans un ORM qui font du CRUD, votre complexité est très faible
+						si vous avez un modèle avec beaucoup d'objets qui font beaucoup de règle de calcul, votre complexité est très forte
+						plus la différenciation métier est forte, plus il est acceptable que la complexité soit élevée
+						Si on a une forte complexité et une faible différenciation métier, pourquoi est-ce qu'on le fait ?
+						A l'inverse, s'il y a une forte différenciation métier, et que la solution est simple à implémenter, tout le monde va le faire
+						Exception : si on est le premier à le faire (cf. exo d'après), c'est un avantage compétitif court-terme.
+						On peut commencer par là, mais il faudra très vite ettoffer sa fonctionnalité, ou trouver autre chose
+					</aside>
+				</section>
+				<section>
+					<h1>SUBDOMAINS PATTERNS</h1>
+					<aside data-markdown class="notes">PAUSE de 10-15 min</aside>
+				</section>
+				<section>
+					<img class="r-frame" src="./img/part1/subdomains-graph-core.png" width="80%" />
+					<aside data-markdown class="notes">
+						EXERCICE : Que dire d'un subdomain qui se situe dans la zone du losange rouge ?						
+					</aside>
+				</section>
+				<section>
+					<div class="slide-2col-container">
+						<div class="slide-2col-text">
+							<h5>DECISIVE CORE</h5>						
+							<p>
+								Position idéale pour un Core.
+							</p>	
+							<aside data-markdown class="notes">
+								REPONSE : c'est un core subdomain, il est clé pour l'entreprise. C'est à ce subdomain qu'on doit apporté le plus grand soin, qui le plus de valeur
+								Il est dit décisif car il a une très grande complexité et une forte différenciation métier, et l'entreprise a une forte expérience et compétence sur ce sujet
+								Si vous avez un truc qui se trouve là, vous avez tout gagné, ce qui n'est pas évident
+							</aside>						
+						</div>
+						<div class="slide-2col-image">
+							<img class="r-frame" src="./img/part1/subdomains-graph-core.png"/>
+						</div>
+					</div>
+				</section>
+				<section>
+					<img class="r-frame" src="./img/part1/short-advantage-subdomain.png" width="80%" />
+					<aside data-markdown class="notes">
+						EXERCICE : Que dire d'un subdomain qui se situe dans la zone du losange rouge ?						
+					</aside>
+				</section>
+				<section>
+					<div class="slide-2col-container">
+						<div class="slide-2col-text">
+							<h5>AVANTAGE COURT-TERME</h5>						
+							<p>
+								La compétition finira par rattraper.
+							</p>
+						</div>
+						<div class="slide-2col-image">
+							<img class="r-frame" src="./img/part1/short-advantage-subdomain.png"/>
+						</div>
+					</div>
+					<aside data-markdown class="notes">
+						REPONSE : on va vite se faire copier, on peut y investir des sous, mais pas trop longtemps
+						C'est ce qu'on appelle un avantage court-terme, la compétition finira par le rattraper,
+						car il n'y a pas vraiment de complexité inhérente à l'avantage
+					</aside>	
+				</section>
+				<section>
+					<img class="r-frame" src="./img/part1/hidden-core-subdomain.png" width="80%" />
+					<aside data-markdown class="notes">
+						EXERCICE : Que dire d'un subdomain qui se situe dans la zone du losange rouge ?						
+					</aside>
+				</section>
+				<section>
+					<div class="slide-2col-container">
+						<div class="slide-2col-text">
+							<h5>CORE CACHÉ</h5>						
+							<p>
+								Grosse différenciation mais modèle simple, mauvais usage de la technologie ?
+							</p>
+						</div>
+						<div class="slide-2col-image">
+							<img class="r-frame" src="./img/part1/moving-hidden-core-subdomain.png"/>
+						</div>
+					</div>
+					<aside data-markdown class="notes">
+						REPONSE : c'est potentiellement un core caché. c'est-à-dire qu'il y a une grosse différenciation, clairement ça apporte quelque chose, mais peut-être qu'en fait le modèle qu'on a actuellement de ce problème c'est-à-dire, la façon dont il a été codé aujourd'hui.
+						La façon dont il est compris aujourd'hui n'est pas en adéquation avec la véritable complexité du problème
+						Exemple : 
+						je m'appelle la Sncf, j'ai un algorithme qui te permet de savoir qui est le train le moins cher. Le problème, c'est que cet algorithme. Là, il fait 100.000 lignes de code, Il utilise une vieille base de données Oracle
+						des années 90 avec 300 tables et des procédures stockées. Personne n'y comprend pas grand chose, donc c'est vraiment codé
+						ces codés à l'arrache, en fait, et ça n'est pas forcément représentatif de la richesse du véritable modèle sous-jacent.
+
+						Y quelque chose, une valeur ajoutée, mais la technologie n'est pas forcément suffisamment bien exploitée pour le faire correctement. C'est typiquement le cas des entreprises qui fonctionnent, mais qui sont dans une grosse dette technique
+					</aside>
+				</section>
+				<section>
+					<div class="slide-2col-container">
+						<div class="slide-2col-text">
+							<h5>BASELINE EX-CORE</h5>						
+							<p>
+								Était notre avantage compétitif, maintenant c’est le minimum attendu de nos clients.
+							</p>
+						</div>
+						<div class="slide-2col-image">
+							<img class="r-frame" src="./img/part1/baseline-ex-core.png"/>
+						</div>
+					</div>
+					<aside data-markdown class="notes">
+						Pattern de subdomain inventé. Il a un autre nom bien plus complexe.
+						C'était un avantage compétitif, mais maintenant, c'est un attendu classique des clients / du domaine
+						Exemple : les filtres de SnapChat repris par instagram, puis les réels
+					</aside>
+				</section>
+				<section>
+					<div class="slide-2col-container">
+						<div class="slide-2col-text">
+							<h5>CORE COMMODITÉ</h5>						
+							<p>
+								Une SaaS ou un plugin implémente cette fonctionnalité.
+							</p>
+						</div>
+						<div class="slide-2col-image">
+							<img class="r-frame" src="./img/part1/core-commodite.png"/>
+						</div>
+					</div>
+					<aside data-markdown class="notes">
+						Core domain rendu accessible à tout le monde par la concurrence.
+						Exemple : logistique d'Amazon prime avec ses entrepots.
+
+						On est des développeurs, mais là on n'est pas encore en train de parler de développement, c'est pour ça qu'il faut être extrêmement attentif à l'avantage compétitif, ce qui apporte de l'argent versus ce que sont en train de faire nos concurrents et qu'ils leur apportent à eux de l'argent.
+
+						CONCLUSION :
+						ce qui est un core aujourd'hui, peut être un supporting ou un generic demain
+						ce qui est un supporting aujourd'hui, peut être un core demain
+						Il y a des core qu'on a peut être pas encore découvert, ou que la technologie ne permet pas d'adresser (exemple : l'IA)
+						Il est important de rester à l'affût de la concurrence, et de sortir la tête du guidon (pour ne pas se prendre le mur)
+						Exemple : camaieu. => adapte toi ou meurs
+
+						Il y a une dimension dans le DDD, qui dépassent toutes les autres pratiques de développement logiciel
+						=> c'est une dimension socio-technique !
+					</aside>
+				</section>
+				<section>
+					<h2>Exercice pratique</h2>
+					<aside data-markdown class="notes">
+						Notes :
+
+						Poser la question de savoir si l'exercice a été compliqué 
+						Notion d'utilisateur à BANNIR ! On parle de conducteur, covoitureur, passager, ...
+						Se poser la question : est-ce que c'est pour ça que j'utilise Movéo et pas une autre ?
+
+						Consignes : 
+						10 min (possible recave de 5 min)
+						Lire le brief et identifié les core subdomain, supporting subdomain et generic subdomain
+
+
+						PAUSE : de 10-15 min à la fin de l'exercice
+					</aside>
+				</section>
+				<section>
+					<h1>IMPÉDANCE DE LANGAGE</h1>
+					<aside data-markdown class="notes">
+						Poser la question : Qu'est-ce qu'une impédance ? (autre que le réglage d'un ampli de guitare)
+					</aside>
+				</section>
+				<section>
+					<h5>IMPÉDANCE DE LANGAGE</h5>
+					<p>
+						Différents langages, différentes perceptions.
+					</p>
+					<aside data-markdown class="notes">
+						### Impédance : 
+
+						**Définition :**
+
+						*L'impédance est une caractéristique physique d'un système, le rapport entre deux grandeurs, caractérisant l'une son excitation et l'autre sa réponse.* (Wikipédia)
+						
+						Deux choses qui ne sont pas équilibrées, adaptée, qui ne sont pas au même niveau.
+						
+						Quand on parle d'impédance de langage, c'est quand on a 2 groupes qui parlent 2 langages différents pour parler du même sujet
+						C'est le début des problèmes
+						
+						Rajouter l'image de la tour de Babel (comme dans le cour original)
+					</aside>
+				</section>
+				<section>
+					<h6>IMPÉDANCE DE LANGAGE</h6>
+					<img class="r-frame" src="./img/part1/language-impedance.png" />
+					<aside data-markdown class="notes">
+						Dès qu'on introduit une couche de traduction, on perd du sens !
+
+						Exemple : la bible ?
+						se référer à la vidéo de LinkTheSun sur les traductions : exemple, la reine des neiges => let it go
+
+						cette couche de traduction nous pose énormément de problèmes pour parler de la même chose et pour avoir un consensus sur ce qu'on est en train de faire
+					</aside>
+				</section>
+				<section>
+					<h2>Impédance de langage</h1>
+					<p>Difficultés à se comprendre</p>
+					<p class="fragment">L’essence du besoin se perd</p>
+					<p class="fragment">Langage appauvri</p>
+					<p class="fragment">Produit non conforme</p>
+					<aside data-markdown class="notes">
+						Ajouter une animation, se reférer au cours original
+					</aside>
+				</section>
+				<section><span class="highlight">Unifier le langage</span> et éliminer tout besoin de <span class="highlight">traduction</span></section>
+				<section>Créer un langage en <span class="highlight">collaboration</span> avec les experts métier</section>
+				<section>
+					<h6>Langage ubiquitaire</h6>
+					<img class="r-frame" src="./img/part1/ubiquitous-language.png" />
+					<aside data-markdown class="notes">
+						se mettre d'accord sur un langage ubiquaire, parler la même langue dans lequel les développeurs et les métiers et les experts métiers emploient les mêmes termes
+						et dans lequel le code lui-même emploie ces termes.
+
+						Exemple : pas de "Create Reservation" mais plutôt "Réserver Table"
+					</aside>					
+				</section>
+				<section>Ce langage participe a créer un <span class="highlight">modèle partagé</span></section>
+				<section>
+					<h1>LE MODÈLE</h1>
+				</section>
+				<section>
+					<h5>Question</h5>
+					<p>
+						Qu’est-ce qu’un Modèle ?
+					</p>
+					<aside data-markdown class="notes">
+						EXERCICE : poser la question aux étudiants et les laisser répondre
+
+						Pouvez-vous me donner un exemple de modèle ?
+
+						On a toujours 3 acteurs dans la composition d'un modèle : expression du besoin + l'information dont on a besoin = le modèle lui-même
+
+						Exemple : travaux dans la salle de bain pour poser le receveur de douche. il est arrivé en retard, j'ai donc utiliser un carton découper aux bonnes dimensions pour représenter mon receveur et poser le carrelage
+						le carton a servi de modèle. Je n'avais pas besoin du receveur pour poser le parquet, juste de ses dimensions
+					</aside>
+				</section>
+				<section>Abstraire <span class="highlight">l’essentiel</span> et mettre de côté le <span class="highlight">superflu</span></section>
+				<section>
+					<h6>Modèle trop riche</h6>
+					<img class="r-frame" src="./img/part1/too-rich-model.png" />
+					<aside data-markdown class="notes">
+						Ici, on a toutes les informations d'une table
+						Dans le cadre de la réservation, je n'ai pas besoin de la moitié de ces informations
+
+						C'est une erreur courante chez les dévs
+					</aside>
+				</section>
+				<section>
+					<h6>Modèle distillé</h6>
+					<img class="r-frame" src="./img/part1/distilled-model.png" />
+					<aside data-markdown class="notes">
+						Modèle distillé ne contenant que les informations strictement nécessaires
+					</aside>
+				</section>
+				<section>
+					<h6>Modèle d'un autre domaine</h6>
+					<img class="r-frame" src="./img/part1/other-domain-model.png" />
+					<aside data-markdown class="notes">
+						autre modèle, autre domaine, je suis Ikéa, les informations nécessaire ne sont pas les mêmes si je dois vendre une table
+					</aside>
+				</section>
+				<section>
+					<span class="highlight">Créer</span> un modèle qui sert les activités de la boite
+					<aside data-markdown class="notes">
+						C'est ça qu'il faut toujours garder en tête à chaque fois que l'on vous dit le mot modèle, la première chose, la première question qui doit vous venir en tête, c'est quel problème on veut résoudre.
+					</aside>
+				</section>
+				<section>
+					<h1>CRÉER LE LANGAGE</h1>
+				</section>
+				<section>Analyse de <span class="highlight">Verbes</span> et de <span class="highlight">Noms</span></section>
+				<section><span class="highlight">Ecouter</span> les experts métier</section>
+				<section>
+					<blockquote cite="http://">
+						&ldquo;Nous aimerions développer une application pour automatiser les différents aspects de notre <span class="highlight">restaurant</span>&rdquo;
+					</blockquote>
+					<p><em>Le client</em></p>
+				</section>
+				<section>
+					<blockquote cite="http://">
+						&ldquo;La première chose à automatiser est la réservation de table&rdquo;
+					</blockquote>
+					<p><em>Le client</em></p>
+				</section>
+				<section>
+					<blockquote cite="http://">
+						&ldquo;Nos clients peuvent réserver une table soit au rez-de-chaussée, soit en terrasse, soit au premier étage&rdquo;
+					</blockquote>
+					<p><em>Le client</em></p>
+				</section>
+				<section>
+					<blockquote cite="http://">
+						&ldquo;Certaines tables ne peuventêtre réservées qu’à condition qu’il y ai plusieurs clients sur la réservation&rdquo;
+					</blockquote>
+					<p><em>Le client</em></p>
+
+					<aside data-markdown class="notes">
+						Lorsque vous voyez "condition" ou lorsque vous voyez lorsque le mot "lorsque" soyez attentifs.
+						parce que ce sont des mots qui indiquent des invariants ou de la consistance éventuelle.
+					</aside>
+				</section>
+				<section>
+					<blockquote cite="http://">
+						&ldquo;On a des tables couple au rez-de-chaussée et au premier étage, uniquement pour deux personnes&rdquo;
+					</blockquote>
+					<p><em>Le client</em></p>
+				</section>
+				<section>
+					<blockquote cite="http://">
+						&ldquo;Et on a des tables de groupe pour des réservations de trois personnes minimum&rdquo;
+					</blockquote>
+					<p><em>Le client</em></p>
+				</section>
+				<section>
+					<blockquote cite="http://">
+						&ldquo;On aimerait garder une trace de nos clients et de leurs réservation dans notre base d’informations&rdquo;
+					</blockquote>
+					<p><em>Le client</em></p>
+				</section>
+				<section>
+					<blockquote cite="http://">
+						&ldquo;Nous voudrions assez rapidement savoir lesquels de nos clients honorent leur réservation et pénaliser les autres&rdquo;
+					</blockquote>
+					<p><em>Le client</em></p>
+				</section>
+				<section>
+					<blockquote cite="http://">
+						&ldquo;L’application sera intégralement gérée par nos administrateurs, notamment par notre hôte d’accueil&rdquo;
+					</blockquote>
+					<p><em>Le client</em></p>
+				</section>
+				<section>
+					<h6>Langage ubiquitaire</h6>
+					<img class="r-frame" src="./img/part1/enriched-ubiquitous-language.png" width="70%"/>
+					<aside data-markdown class="notes">
+						exemple d'adjectif : table de couple
+					</aside>
+				</section>
+				<section>Les noms sont des <span class="highlight">candidats d’objets</span></section>
+				<section>Les verbes sont des <span class="highlight">candidats de comportement</span></section>
+				<section>Les adjectifs sont des <span class="highlight">candidats de spécialisations</span></section>
+				<section>
+					<h6>Verbes & Noms</h6>
+					<img class="r-frame" src="./img/part1/verbs-and-nouns.png" width="60%"/>
+				</section>
+				<section>
+					<h1>RENDRE L’IMPLICITE EXPLICITE</h1>
+				</section>
+				<section>
+					<h5>Problème</h5>
+					<p>
+						Le brief manque énormément d’informations
+					</p>
+				</section>
+				<section>Certaines choses sont <span class="highlight">évidentes</span> pour les experts</section>
+				<section>Mais dans le monde du logiciel, <span class="highlight">l’évidence n’existe pas</span> (comme la cuillère dans Matrix, image ?)</section>
+				<section>Tout ce qui n’est pas <span class="highlight">explicite</span> n’existe pas</section>
+				<section>
+					<h6>Vision du développeur</h6>
+					<img class="r-frame" src="./img/part1/dev-vision.png" />
+				</section>
+				<section>
+					<h6>Vision de l'expert</h6>
+					<img class="r-frame" src="./img/part1/expert-vision.png" />
+				</section>
+				<section>
+					<h5>Problème</h5>
+					<p>
+						Comment rendre l’implicite <span class="highlight">explicite</span> ?
+					</p>
+				</section>
+				<section>
+					<h5>Solution 1</h5>
+					<p>
+						Poser beaucoup de questions. Il faut s'étonner de tout ! (ex : pourquoi le ciel est-il bleu ?)
+					</p>
+					<aside data-markdown class="notes">
+						Faire une animation
+					</aside>
+				</section>
+				<section>
+					<h5>Solution 2</h5>
+					<p>
+						Challenger le besoin
+					</p>
+				</section>
+				<section>
+					<h5>Solution 3</h5>
+					<p>
+						Observer le travail des experts métier
+					</p>
+				</section>
+				<section>
+					<h5>Solution 4</h5>
+					<p>
+						Faire des ateliers de groupe
+					</p>
+				</section>
+				<section>
+					<h2>Knowledge Crunching</h2>
+					<aside data-markdown class="notes">
+						De manière globale, on va faire du Knowledge Crunching
+						De l'acumulation de savoir
+					</aside>
+				</section>
+				<section>
+					<h2>Outils de Knowledge Crunching</h1>
+					<p>Domain Vision</p>
+					<p>Domain Storytelling</p>
+					<p>Event Storming</p>
+					<p>Impact Mapping</p>
+					<p>Specification by Example</p>
+					<aside data-markdown class="notes">
+						Domain Storytelling : consiste à raconter une histoire un scénario utilisateur avec des icônes et des verbes.
+						Event storming : on y reviens en jour 5
+						Specification by example : autrement appelé Behaviour driven development (BDD). C'est spécificier le comportement attendu du logiciel en utilisant des exemples. Très proche du domain Storytelling
+
+						Quoi faire quand les devs ont contaminé le langage métier : redécouvrir le métier, en posant la question, que souhaitez-vous vraiment faire ?
+						Il faut avoir une pensée orienté outcome => ce n'est pas, comment est-ce qu'on fait les choses, c'est quel résultat est-ce que tu veux obtenir. Centrer la discussion autour du bénéfice client, et non sur la solution
+						Exemple : bordereau chez faire-savoir
+					</aside>
+				</section>
+				<section>
+					<h5>Conseil</h5>
+					<p>
+						Comprendre intimement le besoin avant d’imaginer une solution
+					</p>
+				</section>
+				<!-- <section>
+					<h2>Exercice pratique</h2>
+				</section> -->
+				<section>
+					<h1>ANALYSER LES USE CASES</h1>
+				</section>
+				<section>
+					<h5>Définition</h5>
+					<p>
+						Description d’une <span class="highlight">interaction</span> entre un <span class="highlight">acteur</span> et notre système
+					</p>
+				</section>
+				<section>
+					<h5>Acteur</h5>
+					<p>
+						Une personne</span> ou un autre <span class="highlight">système</span> avec un intérêt vis à vis de notre application
+					</p>
+				</section>
+				<section>
+					<h5>Usecases</h5>
+					<p>
+						Approche pour récolter le <span class="highlight">besoin</span>
+					</p>
+				</section>
+				<section>
+					<h3>USECASE</h3>	
+					<h6>Template</h6>	
+					<div class="slide-2col-container">
+						<div class="slide-2col-text" style="text-align: right; font-size: 1em;">
+							Nom : <br/>
+							Description : <br/>
+							Acteurs : <br/>
+							Déclencheurs : <br/>
+							Informations requises : <br/>
+							Préconditions : <br/>
+							Postcondition : <br/>
+							Main course : <br/>
+							Alternative courses : <br/>
+						</div>
+						<div class="slide-2col-image" >
+						</div>
+					</div>
+					<aside data-markdown class="notes">
+						main course = cas nominal
+						alternative course = cas alternatif != cas d'erreur
+						un cas d'erreur est un cas alternatif, mais un cas alternatif n'est pas forcément un cas d'erreur
+						Précondition, c'est ce qui doit être vrai avant, et les postconditions, ce qui doit être vrai après
+						une postcondition peut être vue comme un résultat
+						Les invariants c'est ce qui est maintenu tout au long de l'execution de ton main course
+					</aside>
+				</section>
+				<section>
+					<h3>USECASE</h3>	
+					<h6>Réserver une table</h6>	
+					<div class="slide-2col-container">
+						<div class="slide-2col-text" style="text-align: left; font-size: 0.6em;">
+							<p>
+								<span class="highlight">Nom</span><br/>
+								Réserver une table 
+							</p>
+							<p>
+								<span class="highlight">Acteurs</span><br/>
+								Hôte d'accueil
+							</p>
+							<p>
+								<span class="highlight">Informations requises</span><br/>
+								Table, Clients, Date
+							</p>
+							<p>
+								<span class="highlight">Préconditions</span><br/>
+								Table existe<br/>
+								Table disponible à la date
+							</p>
+							<p>
+								<span class="highlight">Postcondition</span><br/>
+								La table est réservée
+							</p>
+						</div>
+						<div class="slide-2col-text" style="text-align: left; font-size: 0.6em;">
+							<p>
+								<span class="highlight">Main course</span><br/>
+								L'hôte vérifie la disponibilité de la table <br/>
+								Une réservation est créée
+							</p>
+							<p>
+								<span class="highlight">Alternative course</span><br/>
+								La table est occupée
+							</p>
+							<p>
+								<span class="highlight">Alternative course</span><br/>
+								Le client a déjà une réservation à cette date
+							</p>
+							<p>
+								<span class="highlight">Alternative course</span><br/>
+								Le client est pénalisé
+							</p>
+						</div>
+					</div>
+				</section>
+				<section>
+					<img class="r-frame" src="./img/part1/usecase-book-table.png" />
+				</section>
+				<section>
+					<img class="r-frame" src="./img/part1/usecases-list.png" />
+					<aside data-markdown class="notes">
+						Les usecase en jaune sont des usecase implicites. Ils n'ont pas été énoncé pendant le brief, mais on en aura besoin pour les autres cas
+					</aside>
+				</section>
+				<section>Avons-nous toutes les informations pour commencer à coder ?
+					<aside data-markdown class="notes">
+						Evidement NON ! ...
+					</aside>
+				</section>
+				<section>
+					<h3>USECASE</h3>	
+					<h6>Réserver une table</h6>	
+					<div class="slide-2col-container">
+						<div class="slide-2col-text" style="text-align: left; font-size: 0.6em;">
+							<p>
+								<span class="highlight">Nom</span><br/>
+								Réserver une <span class="fragment highlight-green" data-fragment-index="1">table</span>
+							</p>
+							<p>
+								<span class="highlight">Acteurs</span><br/>
+								Hôte d'accueil
+							</p>
+							<p>
+								<span class="highlight">Informations requises</span><br/>
+								<span class="fragment highlight-green" data-fragment-index="1">Table</span>, Clients, Date
+							</p>
+							<p>
+								<span class="highlight">Préconditions</span><br/>
+								<span class="fragment highlight-green" data-fragment-index="1">Table</span> existe<br/>
+								<span class="fragment highlight-green" data-fragment-index="1">Table</span> disponible à la date
+							</p>
+							<p>
+								<span class="highlight">Postcondition</span><br/>
+								La <span class="fragment highlight-green" data-fragment-index="1">table</span> est réservée
+							</p>
+						</div>
+						<div class="slide-2col-text" style="text-align: left; font-size: 0.6em;">
+							<p>
+								<span class="highlight">Main course</span><br/>
+								L'hôte vérifie la disponibilité de la table <br/>
+								Une réservation est créée
+							</p>
+							<p>
+								<span class="highlight">Alternative course</span><br/>
+								La <span class="fragment highlight-green" data-fragment-index="1">table</span> est occupée
+							</p>
+							<p>
+								<span class="highlight">Alternative course</span><br/>
+								Le client a déjà une réservation à cette date
+							</p>
+							<p>
+								<span class="highlight">Alternative course</span><br/>
+								Le client est pénalisé
+							</p>
+						</div>
+					</div>
+					<aside data-markdown class="notes">
+						... car on a un terme qui revient très souvent, c'est "table"
+					</aside>
+				</section>
+				<section>Qu’est-ce qu’une table ?</section>
+				<section>Comment sont gérées les tables ?</section>
+				<section>
+					<blockquote cite="http://">
+						&ldquo;Chère cliente, auriez-vous l’amabilité de me dire d’où viennent vos tables ?&rdquo;
+					</blockquote>
+					<p><em>Un mauvais développeur (Pas vous, j’espère...)</em></p>
+				</section>
+				<section>
+					<blockquote cite="http://">
+						&ldquo;Pourriez-vous m’en dire plus sur la topologie de votre restaurant ? Est-elle fixe ? Déplacez-vous parfois les tables ?&rdquo;
+					</blockquote>
+					<p><em>Un bon développeur (Définitivement vous)</em></p>
+					<aside data-markdown class="notes">
+						Ce qui est important dans le métier de développeur c'est l'art de poser les bonnes questions pour obtenir les informations dont on a besoin
+					</aside>
+				</section>
+				<section>
+					<blockquote cite="http://">
+						&ldquo;Comme je vous l’ai déjà dis, nous avez trois emplacements : la terrasse, le rez-de-chaussée et le premier étage Client&rdquo;
+					</blockquote>
+					<p><em>Le client</em></p>
+				</section>
+				<section>
+					<blockquote cite="http://">
+						&ldquo;Mais la topologie du restaurant peut varier, il n’est pas rare de monter / descendre une table, d’en ajouter ou d’en retirer&rdquo;
+					</blockquote>
+					<p><em>Le client</em></p>
+				</section>
+				<section>
+					<blockquote cite="http://">
+						&ldquo;Qui s’occupe de cela ?&rdquo;
+					</blockquote>
+					<p><em>Le boss final des devs</em></p>
+				</section>
+				<section>
+					<blockquote cite="http://">
+						&ldquo;Les serveurs bien sûr, mais ils doivent rendre des comptes à notre hôte d’accueil qui met à jour son registre.&rdquo;
+					</blockquote>
+					<p><em>Le client</em></p>
+				</section>
+				<section>
+					<img class="r-frame" src="./img/part1/full-usecases-list.png" />
+					<aside data-markdown class="notes">
+						En posant simplement 2 nouvelles questions, on découvre 3 nouveaux usecases
+					</aside>
+				</section>
+				<section>
+					<h2>Exercice pratique</h2>
+					<aside data-markdown class="notes">
+						On peut se poser la question de savoir si Conducteur n'est pas anticipatoire comme nom.
+						Feature != Usecase !
+						Enfin, c'est pas vraiment un Uscase, c'est une fonctionnalité du système, tout n'est pas Usecase en fait, tu ne définis pas l'intégralité du fonctionnement de ton système à travers des Usecase.
+						Usecase : C'est un outil de compréhension d'utilisation du système par ses utilisateurs
+					</aside>
+				</section>
+			</div>
+		</div>
+
+		<script src="../../presentation-set/dist/reveal.js"></script>
+		<script src="../../presentation-set/dist/plugin/notes.js"></script>
+		<script src="../../presentation-set/dist/plugin/markdown.js"></script>
+		<script src="../../presentation-set/dist/plugin/highlight.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				hash: true,
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+			});
+		</script>
+	</body>
+</html>
