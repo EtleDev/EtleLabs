@@ -56,5 +56,6 @@
     --ext-accent: var(--hf-caribbean);
     --ext-accent-2: var(--hf-fox);
     --ext-highlight: var(--hf-cyan);
+    --ext-highlight-orange: var(--hf-fox);
     --ext-warning: var(--hf-fox);
 }

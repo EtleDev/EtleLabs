@@ -9,6 +9,7 @@
     --ext-accent: #3399cc;
     --ext-accent-2: #ff8904;
     --ext-highlight: #1cd2ff;
+    --ext-highlight-orange: #ff8904;
     --ext-ok: #2ecc71;
     --ext-warning: #ff8904;
     --ext-danger: #e74c3c;
@@ -131,6 +132,12 @@
 
 .reveal .slides .highlight-red {
     color: red;
+    border-radius: 0.3em;
+    font-weight: bold;
+}
+
+.reveal .slides .highlight-orange {
+    color: var(--ext-highlight-orange);
     border-radius: 0.3em;
     font-weight: bold;
 }
