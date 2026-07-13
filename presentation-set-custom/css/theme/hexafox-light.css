@@ -41,6 +41,12 @@
     --r-selection-color: #fff;
 }
 
+/* Sous-titres neutres : ne concurrencent plus les titres bleus */
+.reveal h3 {
+    color: var(--r-main-color);
+    font-weight: normal;
+}
+
 /*
  * Accents de reveal-extended.css alignés sur le thème.
  * Spécificité volontairement supérieure à `.reveal` pour gagner quel

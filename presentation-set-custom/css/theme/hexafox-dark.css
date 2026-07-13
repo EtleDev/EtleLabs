@@ -42,6 +42,12 @@
     --r-selection-color: #1B1F22;
 }
 
+/* Sous-titres neutres : ne concurrencent plus les titres cyan */
+.reveal h3 {
+    color: var(--r-main-color);
+    font-weight: normal;
+}
+
 /* Touche signature : barre de progression orange (les contrôles restent cyan) */
 .reveal .progress {
     color: var(--hf-fox);
