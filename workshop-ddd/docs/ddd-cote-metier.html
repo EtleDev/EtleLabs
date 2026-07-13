@@ -1269,7 +1269,14 @@
 				chart: {
 					defaults: {
 						color: "#D7DEE1",
-						scale: { grid: { color: "#3A4249" } }
+						font: { size: 20 },
+						scale: {
+							grid: { color: "#3A4249" },
+							title: { font: { size: 22, weight: "bold" } }
+						},
+						plugins: {
+							legend: { labels: { font: { size: 22 } } }
+						}
 					},
 					line: { borderColor: [ "#1CD2FF", "#FF8904" ], backgroundColor: [ "#1CD2FF", "#FF8904" ] }
 				},
