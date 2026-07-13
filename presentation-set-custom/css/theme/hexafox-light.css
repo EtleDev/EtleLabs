@@ -50,7 +50,8 @@
 .reveal-viewport .reveal {
     --ext-accent: var(--hf-caribbean);
     --ext-accent-2: var(--hf-fox);
-    --ext-highlight: var(--hf-caribbean-deep);
-    --ext-highlight-orange: var(--hf-fox-deep);
+    /* L'highlight intégré du thème, c'est l'orange renard */
+    --ext-highlight: var(--hf-fox-deep);
+    --ext-highlight-blue: var(--hf-caribbean-deep);
     --ext-warning: var(--hf-fox);
 }
