@@ -1,0 +1,109 @@
+/**
+ * Custom styles for presentation.
+ */
+
+.reveal .slide-flex {
+      display: flex;
+      gap: 2em;
+      align-items: stretch;
+      height: 40vh;
+      /* max-height: 40vh;  */
+}
+.reveal .col-gauche {
+    flex: 1;
+    border: 2px solid #3399cc;
+    padding: 1em;
+    /* background: #f8fafc; */
+    border-radius: 8px;
+    min-width: 200px;
+    /* height: 90%; */
+    min-height: 0;
+    /* font-size: 50%; */
+}
+.reveal .col-droite {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    border: 2px solid #3399cc;
+    padding: 1em;
+    border-radius: 8px;
+    gap: 1em;
+    min-width: 250px;
+    /* height: 90%; */
+}
+.reveal .cadre-haut, .cadre-bas {
+    flex: 1;
+    /* border: 2px solid #ffc107; */
+    border: 2px solid #ff8904;
+    padding: 1em;
+    /* background: #fdf6e3; */
+    border-radius: 8px;
+    min-height: 0;
+    /* font-size: 2cqh; */
+    font-size: 50%;
+}
+
+.reveal .cadre-avec-titre {
+    position: relative;
+    /* border: 2px solid #3399cc; */
+    border-radius: 8px;
+    padding: 2em 1em 1em 1em;
+    /* margin-top: 2em; */
+    /* background: #f8fafc; */
+    box-sizing: border-box;
+    flex: 1;
+    min-height: 0;
+}
+.reveal .titre-cadre {
+    position: absolute;
+    top: -1.2em;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #3399cc;
+    color: white;
+    padding: 0.3em 1.2em;
+    border-radius: 2px;
+    font-weight: bold;
+    /* font-size: 1.1em; */
+    font-size: 2cqh;
+    /* border: 2px solid #3399cc; */
+    z-index: 2;
+    white-space: nowrap;
+}
+
+.reveal .slide-2col-container {
+      display: flex;
+      align-items: stretch;
+      justify-content: space-between;
+      gap: 2em;
+       height: 90%;  /*Ajuste selon ton besoin ou adapte avec clamp/min() pour la responsivité */
+      align-items: center;
+    }
+.reveal .slide-2col-texte {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 1.2em;
+}
+.reveal .slide-2col-image {
+    flex: 1;
+    display: flex;
+    /* align-items: center; */
+    justify-content: flex-end;
+}
+.reveal .slide-2col-image img {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+    border-radius: 0.5em;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.09);
+}
+
+.reveal .highlight {
+  /* background-color: rgba(26,115,232,0.13);  teinte du lien reveal.js plus transparent pour fond */
+  color: #1cd2ff; /* couleur du lien */
+  /* padding: 0.1em 0.4em; */
+  border-radius: 0.3em;
+  font-weight: bold;
+}
