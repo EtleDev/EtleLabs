@@ -1,109 +1,133 @@
 /**
- * Custom styles for presentation.
+ * reveal-extended.css — shared layout extensions for reveal.js decks.
+ *
+ * Load after the theme stylesheet. All rules are scoped under .reveal
+ * (and .slides for inline emphasis) so they only affect slide content.
  */
 
+.reveal {
+    --ext-accent: #3399cc;
+    --ext-accent-2: #ff8904;
+    --ext-highlight: #1cd2ff;
+    --ext-radius: 8px;
+}
+
+/* -------------------------------------------------------------------
+ * Two-column flex layout with framed columns
+ * ------------------------------------------------------------------- */
+
 .reveal .slide-flex {
-      display: flex;
-      gap: 2em;
-      align-items: stretch;
-      height: 40vh;
-      /* max-height: 40vh;  */
+    display: flex;
+    gap: 2em;
+    align-items: stretch;
+    height: 40vh;
 }
-.reveal .col-gauche {
+
+.reveal .col-left {
     flex: 1;
-    border: 2px solid #3399cc;
+    border: 2px solid var(--ext-accent);
+    border-radius: var(--ext-radius);
     padding: 1em;
-    /* background: #f8fafc; */
-    border-radius: 8px;
     min-width: 200px;
-    /* height: 90%; */
     min-height: 0;
-    /* font-size: 50%; */
 }
-.reveal .col-droite {
+
+.reveal .col-right {
     flex: 1;
     display: flex;
     flex-direction: column;
-    border: 2px solid #3399cc;
-    padding: 1em;
-    border-radius: 8px;
     gap: 1em;
-    min-width: 250px;
-    /* height: 90%; */
-}
-.reveal .cadre-haut, .cadre-bas {
-    flex: 1;
-    /* border: 2px solid #ffc107; */
-    border: 2px solid #ff8904;
+    border: 2px solid var(--ext-accent);
+    border-radius: var(--ext-radius);
     padding: 1em;
-    /* background: #fdf6e3; */
-    border-radius: 8px;
+    min-width: 250px;
+}
+
+.reveal .frame-top,
+.reveal .frame-bottom {
+    flex: 1;
+    border: 2px solid var(--ext-accent-2);
+    border-radius: var(--ext-radius);
+    padding: 1em;
     min-height: 0;
-    /* font-size: 2cqh; */
     font-size: 50%;
 }
 
-.reveal .cadre-avec-titre {
+/* -------------------------------------------------------------------
+ * Frame with a floating title
+ * ------------------------------------------------------------------- */
+
+.reveal .titled-frame {
     position: relative;
-    /* border: 2px solid #3399cc; */
-    border-radius: 8px;
+    border-radius: var(--ext-radius);
     padding: 2em 1em 1em 1em;
-    /* margin-top: 2em; */
-    /* background: #f8fafc; */
     box-sizing: border-box;
     flex: 1;
     min-height: 0;
 }
-.reveal .titre-cadre {
+
+.reveal .frame-title {
     position: absolute;
     top: -1.2em;
     left: 50%;
     transform: translateX(-50%);
-    background: #3399cc;
+    background: var(--ext-accent);
     color: white;
     padding: 0.3em 1.2em;
     border-radius: 2px;
     font-weight: bold;
-    /* font-size: 1.1em; */
-    font-size: 2cqh;
-    /* border: 2px solid #3399cc; */
+    /* svh: sized against the real viewport, unaffected by reveal's scaling */
+    font-size: 2svh;
     z-index: 2;
     white-space: nowrap;
 }
 
+/* -------------------------------------------------------------------
+ * Text + image two-column layout
+ * ------------------------------------------------------------------- */
+
 .reveal .slide-2col-container {
-      display: flex;
-      align-items: stretch;
-      justify-content: space-between;
-      gap: 2em;
-       height: 90%;  /*Ajuste selon ton besoin ou adapte avec clamp/min() pour la responsivité */
-      align-items: center;
-    }
-.reveal .slide-2col-texte {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2em;
+    height: 90%;
+}
+
+.reveal .slide-2col-text {
     flex: 2;
     display: flex;
     flex-direction: column;
     justify-content: center;
     font-size: 1.2em;
 }
+
 .reveal .slide-2col-image {
     flex: 1;
     display: flex;
-    /* align-items: center; */
     justify-content: flex-end;
 }
+
 .reveal .slide-2col-image img {
     max-height: 100%;
     max-width: 100%;
     object-fit: contain;
     border-radius: 0.5em;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.09);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.09);
 }
 
-.reveal .highlight {
-  /* background-color: rgba(26,115,232,0.13);  teinte du lien reveal.js plus transparent pour fond */
-  color: #1cd2ff; /* couleur du lien */
-  /* padding: 0.1em 0.4em; */
-  border-radius: 0.3em;
-  font-weight: bold;
+/* -------------------------------------------------------------------
+ * Inline emphasis
+ * ------------------------------------------------------------------- */
+
+.reveal .slides .highlight {
+    color: var(--ext-highlight);
+    border-radius: 0.3em;
+    font-weight: bold;
+}
+
+.reveal .slides .highlight-red {
+    color: red;
+    border-radius: 0.3em;
+    font-weight: bold;
 }
