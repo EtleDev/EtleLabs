@@ -9,20 +9,11 @@
 		<link rel="stylesheet" href="../../presentation-set/dist/reset.css">
 		<link rel="stylesheet" href="../../presentation-set/dist/reveal.css">
 		<link rel="stylesheet" href="../../presentation-set/dist/theme/moon.css">
-		<link rel="stylesheet" href="../../customization.css">
+		<link rel="stylesheet" href="../../presentation-set-custom/css/reveal-extended.css">
 
 		<!-- Theme used for syntax highlighted code -->
 		<link rel="stylesheet" href="../../presentation-set/dist/plugin/highlight/monokai.css">
 
-		<style>
-			.reveal .highlight {
-				/* background-color: rgba(26,115,232,0.13);  teinte du lien reveal.js plus transparent pour fond */
-				color: #1cd2ff; /* couleur du lien */
-				/* padding: 0.1em 0.4em; */
-				border-radius: 0.3em;
-				font-weight: bold;
-			}
-		</style>
 	</head>
 	<body>
 		<div class="reveal">
@@ -101,7 +92,7 @@
 				</section>
 				<section>
 					<div class="slide-2col-container">
-						<div class="slide-2col-texte">
+						<div class="slide-2col-text">
 							<h5>Problème 2</h5>
 							<p>
 								Le développement se fait en Silo
@@ -130,7 +121,7 @@
 				</section>				
 				<section>
 					<div class="slide-2col-container">
-						<div class="slide-2col-texte">
+						<div class="slide-2col-text">
 							<h5>Problème</h5>
 							<p>
 								Décalage entre développeurs et clients
@@ -143,7 +134,7 @@
 				</section>
 				<section>
 					<div class="slide-2col-container">
-						<div class="slide-2col-texte">
+						<div class="slide-2col-text">
 							<h5>Problème</h5>
 							<p>
 								Produit non conforme
@@ -225,18 +216,18 @@
 				<!-- <section>
 					<h1>TERRITOIRE</h1>
 					<div class="slide-flex">
-						<div class="col-gauche cadre-avec-titre">
-						<strong class="titre-cadre">Problem space</strong>
+						<div class="col-left titled-frame">
+						<strong class="frame-title">Problem space</strong>
 						<p>Comprendre le domaine, la vision de l'entreprise, ses objectifs et ses besoins</p>
 						</div>
-						<div class="col-droite cadre-avec-titre">
-							<strong class="titre-cadre">Solution space</strong>
-							<div class="cadre-haut cadre-avec-titre">
-								<strong class="titre-cadre">Stratégique</strong>
+						<div class="col-right titled-frame">
+							<strong class="frame-title">Solution space</strong>
+							<div class="frame-top titled-frame">
+								<strong class="frame-title">Stratégique</strong>
 								<p>Décomposer le problème en différentes parties et établir les relations entre ces parties</p>
 							</div>
-							<div class="cadre-bas cadre-avec-titre">
-								<strong class="titre-cadre">Tactique</strong>
+							<div class="frame-bottom titled-frame">
+								<strong class="frame-title">Tactique</strong>
 								<p>Implémenter la solution avec des patterns de code</p>
 							</div>
 						</div>
@@ -247,8 +238,8 @@
 				<!-- <section>
 					<h1>TERRITOIRE</h1>
 					<div class="slide-flex">
-						<div class="col-gauche cadre-avec-titre">
-						<strong class="titre-cadre">Problem space</strong>
+						<div class="col-left titled-frame">
+						<strong class="frame-title">Problem space</strong>
 						 <ul>
 							<li>Domain Discovery</li>
 							<li>Subdomains</li>
@@ -265,14 +256,14 @@
 						<p>Example Mapping</p> 
 						<p>Domain Discovery, Subdomains, Domain Vision, Ubiquitous Language, Event Storming, Example Mapping</p>
 						</div>
-						<div class="col-droite cadre-avec-titre">
-							<strong class="titre-cadre">Solution space</strong>
-							<div class="cadre-haut cadre-avec-titre">
-								<strong class="titre-cadre">Stratégique</strong>
+						<div class="col-right titled-frame">
+							<strong class="frame-title">Solution space</strong>
+							<div class="frame-top titled-frame">
+								<strong class="frame-title">Stratégique</strong>
 								<p>Bounded Context, Context Mapping, Teaming Patterns</p>
 							</div>
-							<div class="cadre-bas cadre-avec-titre">
-								<strong class="titre-cadre">Tactique</strong>
+							<div class="frame-bottom titled-frame">
+								<strong class="frame-title">Tactique</strong>
 								<p>Aggregates, Entities, Value Objects, Domain Events, Domain Services, Repositories</p>
 							</div>
 						</div>
@@ -289,7 +280,7 @@
 				</section>
 				<section>
 					<div class="slide-2col-container">
-						<div class="slide-2col-texte">							
+						<div class="slide-2col-text">							
 							<p>
 								Déterminer les aspects <span class="highlight">les plus importants</span>
 							</p>
@@ -336,7 +327,7 @@
 				</section>
 				<section>
 					<div class="slide-2col-container">
-						<div class="slide-2col-texte">							
+						<div class="slide-2col-text">							
 							<p>
 								Décomposer la solution en <span class="highlight">sous-solutions</span>
 							</p>
@@ -581,7 +572,7 @@
 				</section>
 				<section>
 					<div class="slide-2col-container">
-						<div class="slide-2col-texte">
+						<div class="slide-2col-text">
 							<h5>DECISIVE CORE</h5>						
 							<p>
 								Position idéale pour un Core.
@@ -605,7 +596,7 @@
 				</section>
 				<section>
 					<div class="slide-2col-container">
-						<div class="slide-2col-texte">
+						<div class="slide-2col-text">
 							<h5>AVANTAGE COURT-TERME</h5>						
 							<p>
 								La compétition finira par rattraper.
@@ -629,7 +620,7 @@
 				</section>
 				<section>
 					<div class="slide-2col-container">
-						<div class="slide-2col-texte">
+						<div class="slide-2col-text">
 							<h5>CORE CACHÉ</h5>						
 							<p>
 								Grosse différenciation mais modèle simple, mauvais usage de la technologie ?
@@ -652,7 +643,7 @@
 				</section>
 				<section>
 					<div class="slide-2col-container">
-						<div class="slide-2col-texte">
+						<div class="slide-2col-text">
 							<h5>BASELINE EX-CORE</h5>						
 							<p>
 								Était notre avantage compétitif, maintenant c’est le minimum attendu de nos clients.
@@ -670,7 +661,7 @@
 				</section>
 				<section>
 					<div class="slide-2col-container">
-						<div class="slide-2col-texte">
+						<div class="slide-2col-text">
 							<h5>CORE COMMODITÉ</h5>						
 							<p>
 								Une SaaS ou un plugin implémente cette fonctionnalité.
@@ -1014,7 +1005,7 @@
 					<h3>USECASE</h3>	
 					<h6>Template</h6>	
 					<div class="slide-2col-container">
-						<div class="slide-2col-texte" style="text-align: right; font-size: 1em;">
+						<div class="slide-2col-text" style="text-align: right; font-size: 1em;">
 							Nom : <br/>
 							Description : <br/>
 							Acteurs : <br/>
@@ -1041,7 +1032,7 @@
 					<h3>USECASE</h3>	
 					<h6>Réserver une table</h6>	
 					<div class="slide-2col-container">
-						<div class="slide-2col-texte" style="text-align: left; font-size: 0.6em;">
+						<div class="slide-2col-text" style="text-align: left; font-size: 0.6em;">
 							<p>
 								<span class="highlight">Nom</span><br/>
 								Réserver une table 
@@ -1064,7 +1055,7 @@
 								La table est réservée
 							</p>
 						</div>
-						<div class="slide-2col-texte" style="text-align: left; font-size: 0.6em;">
+						<div class="slide-2col-text" style="text-align: left; font-size: 0.6em;">
 							<p>
 								<span class="highlight">Main course</span><br/>
 								L'hôte vérifie la disponibilité de la table <br/>
@@ -1103,7 +1094,7 @@
 					<h3>USECASE</h3>	
 					<h6>Réserver une table</h6>	
 					<div class="slide-2col-container">
-						<div class="slide-2col-texte" style="text-align: left; font-size: 0.6em;">
+						<div class="slide-2col-text" style="text-align: left; font-size: 0.6em;">
 							<p>
 								<span class="highlight">Nom</span><br/>
 								Réserver une <span class="fragment highlight-green" data-fragment-index="1">table</span>
@@ -1126,7 +1117,7 @@
 								La <span class="fragment highlight-green" data-fragment-index="1">table</span> est réservée
 							</p>
 						</div>
-						<div class="slide-2col-texte" style="text-align: left; font-size: 0.6em;">
+						<div class="slide-2col-text" style="text-align: left; font-size: 0.6em;">
 							<p>
 								<span class="highlight">Main course</span><br/>
 								L'hôte vérifie la disponibilité de la table <br/>

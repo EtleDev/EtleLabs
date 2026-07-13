@@ -1,0 +1,57 @@
+/**
+ * hexafox-light — thème clair de la famille hexafox.
+ *
+ * Construit par-dessus le thème officiel "white" (importé ci-dessous),
+ * qui fournit la structure du thème et Source Sans Pro embarquée ;
+ * hexafox ne fait que redéfinir les variables.
+ *
+ * Palette hexafox
+ * ---------------
+ * Couleurs de référence d'origine (à conserver précieusement) :
+ *   bleu caraïbes : #3399cc
+ *   orange renard : #ff8904
+ * Déclinaison affinée pour le contraste sur fonds gris :
+ *   caraïbes #1799C6 · caraïbes profond #0E7396 · cyan vif #1CD2FF
+ *   renard #FF8904 · renard profond #C96A00
+ */
+
+@import url(../../../presentation-set/dist/theme/white.css);
+
+:root {
+    --hf-caribbean: #1799C6;
+    --hf-caribbean-deep: #0E7396;
+    --hf-cyan: #1CD2FF;
+    --hf-fox: #FF8904;
+    --hf-fox-deep: #C96A00;
+
+    /* Fond : dégradé central, atténué pour ne pas éblouir en projection */
+    --r-background: radial-gradient(circle at 50% 42%, #E7ECEE 0%, #DBE2E5 55%, #C9D2D6 100%);
+    --r-background-color: #DBE2E5;
+
+    --r-main-color: #313A3F;
+
+    --r-heading-color: var(--hf-caribbean-deep);
+    --r-heading-text-transform: none;
+
+    --r-link-color: var(--hf-caribbean);
+    --r-link-color-dark: var(--hf-caribbean-deep);
+    --r-link-color-hover: var(--hf-cyan);
+
+    --r-selection-background-color: var(--hf-fox);
+    --r-selection-color: #fff;
+}
+
+/*
+ * Accents de reveal-extended.css alignés sur le thème.
+ * Spécificité volontairement supérieure à `.reveal` pour gagner quel
+ * que soit l'ordre de chargement des deux feuilles.
+ * Le cyan vif par défaut de .highlight serait illisible sur gris clair.
+ */
+.reveal-viewport .reveal {
+    --ext-accent: var(--hf-caribbean);
+    --ext-accent-2: var(--hf-fox);
+    /* L'highlight intégré du thème, c'est l'orange renard */
+    --ext-highlight: var(--hf-fox-deep);
+    --ext-highlight-blue: var(--hf-caribbean-deep);
+    --ext-warning: var(--hf-fox);
+}

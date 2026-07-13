@@ -1,0 +1,62 @@
+/**
+ * hexafox-dark — thème sombre de la famille hexafox.
+ *
+ * Construit par-dessus le thème officiel "black" (importé ci-dessous),
+ * qui fournit la structure du thème et Source Sans Pro embarquée ;
+ * hexafox ne fait que redéfinir les variables.
+ *
+ * Palette hexafox
+ * ---------------
+ * Couleurs de référence d'origine (à conserver précieusement) :
+ *   bleu caraïbes : #3399cc
+ *   orange renard : #ff8904
+ * Déclinaison affinée pour le contraste sur fonds gris :
+ *   caraïbes #1799C6 · caraïbes profond #0E7396 · cyan vif #1CD2FF
+ *   renard #FF8904 · renard profond #C96A00
+ */
+
+@import url(../../../presentation-set/dist/theme/black.css);
+
+:root {
+    --hf-caribbean: #1799C6;
+    --hf-caribbean-deep: #0E7396;
+    --hf-cyan: #1CD2FF;
+    --hf-fox: #FF8904;
+    --hf-fox-deep: #C96A00;
+
+    /* Fond : même dégradé central que le light, en gris foncés */
+    --r-background: radial-gradient(circle at 50% 42%, #31383D 0%, #24292D 55%, #1B1F22 100%);
+    --r-background-color: #22272B;
+
+    --r-main-color: #D7DEE1;
+
+    /* Sur fond sombre, le cyan vif prend le relais du bleu profond */
+    --r-heading-color: var(--hf-cyan);
+    --r-heading-text-transform: none;
+
+    --r-link-color: var(--hf-cyan);
+    --r-link-color-dark: var(--hf-caribbean);
+    --r-link-color-hover: #6FE3FF;
+
+    --r-selection-background-color: var(--hf-fox);
+    --r-selection-color: #1B1F22;
+}
+
+/* Touche signature : barre de progression orange (les contrôles restent cyan) */
+.reveal .progress {
+    color: var(--hf-fox);
+}
+
+/*
+ * Accents de reveal-extended.css alignés sur le thème.
+ * Spécificité volontairement supérieure à `.reveal` pour gagner quel
+ * que soit l'ordre de chargement des deux feuilles.
+ */
+.reveal-viewport .reveal {
+    --ext-accent: var(--hf-caribbean);
+    --ext-accent-2: var(--hf-fox);
+    /* L'highlight intégré du thème, c'est l'orange renard */
+    --ext-highlight: var(--hf-fox);
+    --ext-highlight-blue: var(--hf-cyan);
+    --ext-warning: var(--hf-fox);
+}

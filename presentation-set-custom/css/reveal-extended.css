@@ -1,0 +1,206 @@
+/**
+ * reveal-extended.css — shared layout extensions for reveal.js decks.
+ *
+ * Load after the theme stylesheet. All rules are scoped under .reveal
+ * (and .slides for inline emphasis) so they only affect slide content.
+ */
+
+.reveal {
+    --ext-accent: #3399cc;
+    --ext-accent-2: #ff8904;
+    --ext-highlight: #1cd2ff;
+    --ext-highlight-blue: #3399cc;
+    --ext-ok: #2ecc71;
+    --ext-warning: #ff8904;
+    --ext-danger: #e74c3c;
+    --ext-radius: 8px;
+}
+
+/* -------------------------------------------------------------------
+ * Two-column flex layout with framed columns
+ * ------------------------------------------------------------------- */
+
+.reveal .slide-flex {
+    display: flex;
+    gap: 2em;
+    align-items: stretch;
+    height: 40vh;
+}
+
+.reveal .col-left {
+    flex: 1;
+    border: 2px solid var(--ext-accent);
+    border-radius: var(--ext-radius);
+    padding: 1em;
+    min-width: 200px;
+    min-height: 0;
+}
+
+.reveal .col-right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    border: 2px solid var(--ext-accent);
+    border-radius: var(--ext-radius);
+    padding: 1em;
+    min-width: 250px;
+}
+
+.reveal .frame-top,
+.reveal .frame-bottom {
+    flex: 1;
+    border: 2px solid var(--ext-accent-2);
+    border-radius: var(--ext-radius);
+    padding: 1em;
+    min-height: 0;
+    font-size: 50%;
+}
+
+/* -------------------------------------------------------------------
+ * Frame with a floating title
+ * ------------------------------------------------------------------- */
+
+.reveal .titled-frame {
+    position: relative;
+    border-radius: var(--ext-radius);
+    padding: 2em 1em 1em 1em;
+    box-sizing: border-box;
+    flex: 1;
+    min-height: 0;
+}
+
+.reveal .frame-title {
+    position: absolute;
+    top: -1.2em;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--ext-accent);
+    color: white;
+    padding: 0.3em 1.2em;
+    border-radius: 2px;
+    font-weight: bold;
+    /* svh: sized against the real viewport, unaffected by reveal's scaling */
+    font-size: 2svh;
+    z-index: 2;
+    white-space: nowrap;
+}
+
+/* -------------------------------------------------------------------
+ * Text + image two-column layout
+ * ------------------------------------------------------------------- */
+
+.reveal .slide-2col-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2em;
+    height: 90%;
+}
+
+.reveal .slide-2col-text {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 1.2em;
+}
+
+.reveal .slide-2col-image {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.reveal .slide-2col-image img {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+    border-radius: 0.5em;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.09);
+}
+
+/* -------------------------------------------------------------------
+ * Inline emphasis
+ * ------------------------------------------------------------------- */
+
+.reveal .slides .highlight {
+    color: var(--ext-highlight);
+    border-radius: 0.3em;
+    font-weight: bold;
+}
+
+.reveal .slides .highlight-red {
+    color: red;
+    border-radius: 0.3em;
+    font-weight: bold;
+}
+
+.reveal .slides .highlight-blue {
+    color: var(--ext-highlight-blue);
+    border-radius: 0.3em;
+    font-weight: bold;
+}
+
+/* -------------------------------------------------------------------
+ * Semantic frame variants
+ *
+ * Combine with any framed element to convey meaning through color,
+ * e.g. class="frame-top frame--warning" or "titled-frame frame--ok".
+ * The frame title follows the tint: "frame-title" inside a tinted
+ * frame picks up the same color.
+ * ------------------------------------------------------------------- */
+
+.reveal .frame--info {
+    border: 2px solid var(--ext-accent);
+}
+
+.reveal .frame--ok {
+    border: 2px solid var(--ext-ok);
+}
+
+.reveal .frame--warning {
+    border: 2px solid var(--ext-warning);
+}
+
+.reveal .frame--danger {
+    border: 2px solid var(--ext-danger);
+}
+
+.reveal .frame--ok .frame-title {
+    background: var(--ext-ok);
+}
+
+.reveal .frame--warning .frame-title {
+    background: var(--ext-warning);
+}
+
+.reveal .frame--danger .frame-title {
+    background: var(--ext-danger);
+}
+
+/* -------------------------------------------------------------------
+ * Sources and captions
+ * ------------------------------------------------------------------- */
+
+/* Credit line for a quote or diagram, e.g. <p class="source">Eric Evans, DDD (2003)</p> */
+.reveal .slides .source {
+    display: block;
+    margin-top: 0.5em;
+    font-size: 0.45em;
+    font-style: italic;
+    opacity: 0.6;
+    text-align: right;
+}
+
+.reveal .slides figure {
+    margin: 0;
+}
+
+.reveal .slides figcaption {
+    margin-top: 0.4em;
+    font-size: 0.5em;
+    font-style: italic;
+    opacity: 0.7;
+    text-align: center;
+}
