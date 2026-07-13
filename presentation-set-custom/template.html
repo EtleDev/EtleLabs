@@ -113,7 +113,10 @@
 				<!-- ===== Graphique Chart.js (plugin chart, hors ligne) ===== -->
 				<section>
 					<h2>Graphique</h2>
-					<canvas data-chart="bar" style="max-height: 400px">
+					<!-- height (not max-height) is required: a canvas with no explicit
+					     height collapses to its default ~150px box, so a max-height
+					     ceiling alone never has anything to clamp. -->
+					<canvas data-chart="bar" style="height: 70vh; width: 100%; display: block;">
 					<!--
 					{
 						"data": {
