@@ -8,7 +8,7 @@
 
 		<link rel="stylesheet" href="../../presentation-set/dist/reset.css">
 		<link rel="stylesheet" href="../../presentation-set/dist/reveal.css">
-		<link rel="stylesheet" href="../../presentation-set/dist/theme/moon.css">
+		<link rel="stylesheet" href="../../presentation-set-custom/css/theme/hexafox-dark.css">
 		<link rel="stylesheet" href="../../presentation-set-custom/css/reveal-extended.css">
 
 		<!-- Theme used for syntax highlighted code -->
@@ -116,13 +116,13 @@
 					<blockquote cite="http://">
 						&ldquo;Les développeurs implémentent ce qu’ils comprennent de la spécification, pas ce qui est spécifié et attendu&rdquo;
 					</blockquote>
-					<p><em>Eric Evans</em></p>
+					<p class="source">Eric Evans</p>
 				</section>
 				<section>
 					<blockquote cite="https://youtu.be/sZbmP0JZHBs?feature=shared&t=2155">
 						&ldquo;Ce qui part en production, c'est ce que les développeurs ont compris&rdquo;
 					</blockquote>
-					<p><em>Arnaud Lemaire</em></p>
+					<p class="source">Arnaud Lemaire</p>
 				</section>				
 				<section>
 					<div class="slide-2col-container">
@@ -377,7 +377,7 @@
 					<blockquote cite="http://">
 						&ldquo;Une sphère de savoir, d’influence ou d’activité, la partie du sujet sur lequel <span class="highlight">l’utilisateur applique le logiciel</span>&rdquo;
 					</blockquote>
-					<p><em>Eric Evans</em></p>
+					<p class="source">Eric Evans</p>
 					<aside data-markdown class="notes">
 						certaines choses ne font pas partie du domaine (d'un point de vue DDD) si l'utilisateur n'y est pas confronté.
 						Donc la raison de faire du DDD, c'est pour comprendre le besoin de l'entreprise vis-à-vis de ses utilisateurs ou acteurs du système.
@@ -421,7 +421,7 @@
 					<blockquote cite="http://">
 						&ldquo;Le Domaine est hors de portée de l’influence du designer&rdquo;
 					</blockquote>
-					<p><em>Gien Verschatse</em></p>
+					<p class="source">Gien Verschatse</p>
 				</section>
 				<section>
 					<h1>SUBDOMAINS</h1>
@@ -830,25 +830,25 @@
 					<blockquote cite="http://">
 						&ldquo;Nous aimerions développer une application pour automatiser les différents aspects de notre <span class="highlight">restaurant</span>&rdquo;
 					</blockquote>
-					<p><em>Le client</em></p>
+					<p class="source">Le client</p>
 				</section>
 				<section>
 					<blockquote cite="http://">
 						&ldquo;La première chose à automatiser est la réservation de table&rdquo;
 					</blockquote>
-					<p><em>Le client</em></p>
+					<p class="source">Le client</p>
 				</section>
 				<section>
 					<blockquote cite="http://">
 						&ldquo;Nos clients peuvent réserver une table soit au rez-de-chaussée, soit en terrasse, soit au premier étage&rdquo;
 					</blockquote>
-					<p><em>Le client</em></p>
+					<p class="source">Le client</p>
 				</section>
 				<section>
 					<blockquote cite="http://">
 						&ldquo;Certaines tables ne peuventêtre réservées qu’à condition qu’il y ai plusieurs clients sur la réservation&rdquo;
 					</blockquote>
-					<p><em>Le client</em></p>
+					<p class="source">Le client</p>
 
 					<aside data-markdown class="notes">
 						Lorsque vous voyez "condition" ou lorsque vous voyez lorsque le mot "lorsque" soyez attentifs.
@@ -859,31 +859,31 @@
 					<blockquote cite="http://">
 						&ldquo;On a des tables couple au rez-de-chaussée et au premier étage, uniquement pour deux personnes&rdquo;
 					</blockquote>
-					<p><em>Le client</em></p>
+					<p class="source">Le client</p>
 				</section>
 				<section>
 					<blockquote cite="http://">
 						&ldquo;Et on a des tables de groupe pour des réservations de trois personnes minimum&rdquo;
 					</blockquote>
-					<p><em>Le client</em></p>
+					<p class="source">Le client</p>
 				</section>
 				<section>
 					<blockquote cite="http://">
 						&ldquo;On aimerait garder une trace de nos clients et de leurs réservation dans notre base d’informations&rdquo;
 					</blockquote>
-					<p><em>Le client</em></p>
+					<p class="source">Le client</p>
 				</section>
 				<section>
 					<blockquote cite="http://">
 						&ldquo;Nous voudrions assez rapidement savoir lesquels de nos clients honorent leur réservation et pénaliser les autres&rdquo;
 					</blockquote>
-					<p><em>Le client</em></p>
+					<p class="source">Le client</p>
 				</section>
 				<section>
 					<blockquote cite="http://">
 						&ldquo;L’application sera intégralement gérée par nos administrateurs, notamment par notre hôte d’accueil&rdquo;
 					</blockquote>
-					<p><em>Le client</em></p>
+					<p class="source">Le client</p>
 				</section>
 				<section>
 					<h6>Langage ubiquitaire</h6>
@@ -1152,13 +1152,13 @@
 					<blockquote cite="http://">
 						&ldquo;Chère cliente, auriez-vous l’amabilité de me dire d’où viennent vos tables ?&rdquo;
 					</blockquote>
-					<p><em>Un mauvais développeur (Pas vous, j’espère...)</em></p>
+					<p class="source">Un mauvais développeur (Pas vous, j’espère...)</p>
 				</section>
 				<section>
 					<blockquote cite="http://">
 						&ldquo;Pourriez-vous m’en dire plus sur la topologie de votre restaurant ? Est-elle fixe ? Déplacez-vous parfois les tables ?&rdquo;
 					</blockquote>
-					<p><em>Un bon développeur (Définitivement vous)</em></p>
+					<p class="source">Un bon développeur (Définitivement vous)</p>
 					<aside data-markdown class="notes">
 						Ce qui est important dans le métier de développeur c'est l'art de poser les bonnes questions pour obtenir les informations dont on a besoin
 					</aside>
@@ -1167,25 +1167,25 @@
 					<blockquote cite="http://">
 						&ldquo;Comme je vous l’ai déjà dis, nous avez trois emplacements : la terrasse, le rez-de-chaussée et le premier étage Client&rdquo;
 					</blockquote>
-					<p><em>Le client</em></p>
+					<p class="source">Le client</p>
 				</section>
 				<section>
 					<blockquote cite="http://">
 						&ldquo;Mais la topologie du restaurant peut varier, il n’est pas rare de monter / descendre une table, d’en ajouter ou d’en retirer&rdquo;
 					</blockquote>
-					<p><em>Le client</em></p>
+					<p class="source">Le client</p>
 				</section>
 				<section>
 					<blockquote cite="http://">
 						&ldquo;Qui s’occupe de cela ?&rdquo;
 					</blockquote>
-					<p><em>Le boss final des devs</em></p>
+					<p class="source">Le boss final des devs</p>
 				</section>
 				<section>
 					<blockquote cite="http://">
 						&ldquo;Les serveurs bien sûr, mais ils doivent rendre des comptes à notre hôte d’accueil qui met à jour son registre.&rdquo;
 					</blockquote>
-					<p><em>Le client</em></p>
+					<p class="source">Le client</p>
 				</section>
 				<section>
 					<img class="r-frame" src="./img/part1/full-usecases-list.png" />
