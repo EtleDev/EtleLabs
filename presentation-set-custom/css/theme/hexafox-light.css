@@ -24,9 +24,9 @@
     --hf-fox: #FF8904;
     --hf-fox-deep: #C96A00;
 
-    /* Fond : dégradé central, clair au centre, légèrement vignetté */
-    --r-background: radial-gradient(circle at 50% 42%, #FBFDFD 0%, #EDF1F3 55%, #DFE6E9 100%);
-    --r-background-color: #EFF3F4;
+    /* Fond : dégradé central, atténué pour ne pas éblouir en projection */
+    --r-background: radial-gradient(circle at 50% 42%, #E7ECEE 0%, #DBE2E5 55%, #C9D2D6 100%);
+    --r-background-color: #DBE2E5;
 
     --r-main-color: #313A3F;
 
@@ -50,6 +50,7 @@
 .reveal-viewport .reveal {
     --ext-accent: var(--hf-caribbean);
     --ext-accent-2: var(--hf-fox);
-    --ext-highlight: var(--hf-caribbean);
+    --ext-highlight: var(--hf-caribbean-deep);
+    --ext-highlight-orange: var(--hf-fox-deep);
     --ext-warning: var(--hf-fox);
 }
