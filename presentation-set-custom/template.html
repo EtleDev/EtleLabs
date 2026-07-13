@@ -20,6 +20,9 @@
 
 		<!-- Thème de coloration syntaxique du code -->
 		<link rel="stylesheet" href="../presentation-set/dist/plugin/highlight/monokai.css">
+
+		<!-- Plugin chalkboard (annotation des slides) -->
+		<link rel="stylesheet" href="plugin/chalkboard/style.css">
 	</head>
 	<body>
 		<div class="reveal">
@@ -107,6 +110,50 @@
 					</figure>
 				</section>
 
+				<!-- ===== Graphique Chart.js (plugin chart, hors ligne) ===== -->
+				<section>
+					<h2>Graphique</h2>
+					<canvas data-chart="bar" style="max-height: 400px">
+					<!--
+					{
+						"data": {
+							"labels": ["Core", "Supporting", "Generic"],
+							"datasets": [
+								{ "label": "Complexité", "data": [9, 5, 2] },
+								{ "label": "Différenciation", "data": [9, 3, 1] }
+							]
+						},
+						"options": { "scales": { "y": { "beginAtZero": true } } }
+					}
+					-->
+					</canvas>
+				</section>
+
+				<!-- ===== Diagramme mermaid (plugin mermaid, hors ligne) ===== -->
+				<section>
+					<h2>Diagramme</h2>
+					<div class="mermaid">
+						<pre>
+							flowchart LR
+								A[Commande] --> B{Stock ?}
+								B -- oui --> C[Expédition]
+								B -- non --> D[Réassort]
+								D --> C
+						</pre>
+					</div>
+				</section>
+
+				<!-- ===== Chalkboard : annoter pendant la présentation ===== -->
+				<section>
+					<h2>Annoter en direct</h2>
+					<ul style="font-size: 0.8em">
+						<li><span class="highlight">B</span> — ouvrir/fermer le tableau noir</li>
+						<li><span class="highlight">C</span> — dessiner sur la slide courante</li>
+						<li><span class="highlight">SUPPR</span> — effacer la slide, <span class="highlight">X</span>/<span class="highlight">Y</span> — changer de couleur</li>
+						<li><span class="highlight">D</span> — télécharger les annotations</li>
+					</ul>
+				</section>
+
 				<!-- ===== Code coloré + helpers reveal natifs ===== -->
 				<section>
 					<h2>Code</h2>
@@ -124,12 +171,28 @@
 		<script src="../presentation-set/dist/plugin/notes.js"></script>
 		<script src="../presentation-set/dist/plugin/markdown.js"></script>
 		<script src="../presentation-set/dist/plugin/highlight.js"></script>
+		<!-- Plugins vendorisés (hors ligne, sans serveur) -->
+		<script src="plugin/chart/chart.umd.js"></script>
+		<script src="plugin/chart/plugin.js"></script>
+		<script src="plugin/chalkboard/plugin.js"></script>
+		<script src="plugin/mermaid/mermaid.js"></script>
 		<script>
 			Reveal.initialize({
 				hash: true,
 
+				// Palette hexafox pour les graphiques
+				chart: {
+					defaults: {
+						color: "#313A3F",
+						scale: { grid: { color: "#B8C2C7" } }
+					},
+					bar: { backgroundColor: [ "#1799C6", "#FF8904", "#0E7396", "#C96A00" ] },
+					line: { borderColor: [ "#1799C6", "#FF8904", "#0E7396", "#C96A00" ] },
+					pie: { backgroundColor: [ [ "#1799C6", "#FF8904", "#0E7396", "#C96A00" ] ] }
+				},
+
 				// Learn about plugins: https://revealjs.com/plugins/
-				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealChalkboard, RevealChart, RevealMermaid ]
 			});
 		</script>
 	</body>
