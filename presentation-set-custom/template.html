@@ -113,10 +113,12 @@
 				<!-- ===== Graphique Chart.js (plugin chart, hors ligne) ===== -->
 				<section>
 					<h2>Graphique</h2>
-					<!-- height (not max-height) is required: a canvas with no explicit
-					     height collapses to its default ~150px box, so a max-height
-					     ceiling alone never has anything to clamp. -->
-					<canvas data-chart="bar" style="height: 70vh; width: 100%; display: block;">
+					<!-- r-stretch (not height/vh): reveal computes the actual space
+					     left in the slide and sizes the canvas to fill it. vh is
+					     relative to the real browser window, not reveal's virtual
+					     slide box, so it either collapses (with only max-height) or
+					     overflows the slide (with a fixed height). -->
+					<canvas data-chart="bar" class="r-stretch">
 					<!--
 					{
 						"data": {
