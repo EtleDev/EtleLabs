@@ -154,6 +154,22 @@
 					</ul>
 				</section>
 
+				<!-- ===== Chapitre vertical + rappel de chapitre (plugin chapter-footer) ===== -->
+				<section>
+					<section>
+						<h1>Un chapitre</h1>
+						<h3>et son sous-titre</h3>
+					</section>
+					<section>
+						<h2>Slide du chapitre</h2>
+						<p>
+							Regarde en bas à gauche : le rappel
+							<span class="highlight">UN CHAPITRE</span> – <em>et son sous-titre</em>.
+						</p>
+						<p>Navigation : ↔ change de chapitre, ↕ déroule les slides.</p>
+					</section>
+				</section>
+
 				<!-- ===== Code coloré + helpers reveal natifs ===== -->
 				<section>
 					<h2>Code</h2>
@@ -176,6 +192,7 @@
 		<script src="plugin/chart/plugin.js"></script>
 		<script src="plugin/chalkboard/plugin.js"></script>
 		<script src="plugin/mermaid/mermaid.js"></script>
+		<script src="plugin/chapter-footer/plugin.js"></script>
 		<script>
 			Reveal.initialize({
 				hash: true,
@@ -192,7 +209,7 @@
 				},
 
 				// Learn about plugins: https://revealjs.com/plugins/
-				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealChalkboard, RevealChart, RevealMermaid ]
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealChalkboard, RevealChart, RevealMermaid, RevealChapterFooter ]
 			});
 		</script>
 	</body>

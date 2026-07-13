@@ -233,3 +233,8 @@
 .reveal .chapter-footer.visible {
     opacity: 0.45;
 }
+
+.reveal .chapter-footer .subtitle {
+    font-style: italic;
+    text-transform: none;
+}
