@@ -204,3 +204,32 @@
     opacity: 0.7;
     text-align: center;
 }
+
+/* -------------------------------------------------------------------
+ * Chapter footer (plugin chapter-footer)
+ *
+ * Hors de .slides : il n'est pas mis à l'échelle par reveal, les
+ * tailles sont donc en pixels, comme la barre de progression.
+ * ------------------------------------------------------------------- */
+
+.reveal .chapter-footer {
+    position: absolute;
+    bottom: 10px;
+    left: 16px;
+    z-index: 10;
+    max-width: 45vw;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 15px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--r-main-color, currentColor);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.reveal .chapter-footer.visible {
+    opacity: 0.45;
+}
