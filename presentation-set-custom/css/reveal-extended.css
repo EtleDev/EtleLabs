@@ -34,6 +34,8 @@
     padding: 1em;
     min-width: 200px;
     min-height: 0;
+    /* matches frame-top/frame-bottom's font-size so paired boxes read consistently */
+    font-size: 50%;
 }
 
 .reveal .col-right {
@@ -84,6 +86,19 @@
     font-size: 2svh;
     z-index: 2;
     white-space: nowrap;
+}
+
+/*
+ * Title hierarchy: a top-level frame-title (e.g. wrapping a whole
+ * titled-frame that itself contains nested titled-frames) reads as
+ * bigger and more prominent than the nested ones inside it, e.g.
+ * class="frame-title frame-title--major" on the outer labels while
+ * inner labels stay plain "frame-title".
+ */
+.reveal .frame-title--major {
+    font-size: 2.8svh;
+    padding: 0.4em 1.6em;
+    letter-spacing: 0.02em;
 }
 
 /* -------------------------------------------------------------------
