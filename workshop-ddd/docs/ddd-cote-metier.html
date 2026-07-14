@@ -184,7 +184,7 @@
 					<section data-auto-animate>
 						<div class="slide-2col-container">
 							<div class="slide-2col-text">
-								<h5>Problème</h5>
+								<h5>Résultat</h5>
 								<p>
 									Produit non conforme
 								</p>
@@ -211,42 +211,27 @@
 					<section><h1>TERRITOIRE DU DOMAIN-DRIVEN DESIGN</h1></section>
 					<section>
 						<h5>Définition</h5>
-						<p>
+						<p class="fragment fade-in-then-semi-out">
 							Discipline centrée sur le <span class="highlight">métier</span>
 						</p>
-					</section>
-					<section>
-						<h5>Définition</h5>
-						<p>
+						<p class="fragment fade-in-then-semi-out">
 							Unifier le <span class="highlight">modèle mental</span> des <span class="highlight">développeurs</span> et des <span class="highlight">experts métier</span>
 						</p>
-
-						<aside data-markdown class="notes">
-							au delà de parler le même langage, le but du DDD est de PENSER de la même façon
-						</aside>
-					</section>
-					<section>
-						<h5>Définition</h5>
-						<p>
+						<p class="fragment fade-in-then-semi-out">
 							Partager un <span class="highlight">langage commun</span>
 						</p>
-					</section>
-					<section>
-						<h5>Définition</h5>
-						<p>
+						<p class="fragment fade-in-then-semi-out">
 							Contrôler la <span class="highlight">complexité</span> du logiciel
 						</p>
-					</section>
-					<section>
-						<h5>Définition</h5>
-						<p>
+						<p class="fragment fade-in-then-semi-out">
 							Décomposer cette complexité dans des <span class="highlight">contextes</span>
 						</p>
-
 						<aside data-markdown class="notes">
+							au delà de parler le même langage, le but du DDD est de PENSER de la même façon   
+
 							principe du "divide and conquer"
 
-							Exemple : vous connaissez l'Elephant carpaccio ?
+							Exemple : vous connaissez l'Elephant carpaccio ? 
 							C'est un atelier qui vise à décomposer un gros problème en plus petit problèmes.
 							Globalement, si tu dois bouffer un éléphant, soit pas con, coupe le en petit morceau
 							Ca c'est le sujet des bounded contexts
@@ -254,7 +239,23 @@
 					</section>				
 					<section>
 						<h3>Territoire</h3>
-						<img class="r-frame" src="./img/part1/territory.png" width="80%" />
+						<div class="slide-flex">
+							<div class="col-left titled-frame">
+								<strong class="frame-title">Problem space</strong>
+								<p>Comprendre le domaine, la vision de l'entreprise, ses objectifs et ses besoins</p>
+							</div>
+							<div class="col-right titled-frame">
+								<strong class="frame-title">Solution space</strong>
+								<div class="frame-top titled-frame">
+									<strong class="frame-title">Stratégique</strong>
+									<p>Décomposer le problème en différentes parties et établir les relations entre ces parties</p>
+								</div>
+								<div class="frame-bottom titled-frame">
+									<strong class="frame-title">Tactique</strong>
+									<p>Implémenter la solution avec des patterns de code</p>
+								</div>
+							</div>
+						</div>
 						<aside data-markdown class="notes">
 							Problem space => orienté produit
 						</aside>
@@ -265,27 +266,6 @@
 					</section>
 
 				</section>
-				<!-- <section>
-					<h1>TERRITOIRE</h1>
-					<div class="slide-flex">
-						<div class="col-left titled-frame">
-						<strong class="frame-title">Problem space</strong>
-						<p>Comprendre le domaine, la vision de l'entreprise, ses objectifs et ses besoins</p>
-						</div>
-						<div class="col-right titled-frame">
-							<strong class="frame-title">Solution space</strong>
-							<div class="frame-top titled-frame">
-								<strong class="frame-title">Stratégique</strong>
-								<p>Décomposer le problème en différentes parties et établir les relations entre ces parties</p>
-							</div>
-							<div class="frame-bottom titled-frame">
-								<strong class="frame-title">Tactique</strong>
-								<p>Implémenter la solution avec des patterns de code</p>
-							</div>
-						</div>
-					</div>
-				</section> -->
-
 
 				<!-- <section>
 					<h1>TERRITOIRE</h1>
