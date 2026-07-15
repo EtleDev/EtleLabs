@@ -103,7 +103,10 @@
  * inflating anything.
  */
 .reveal .frame-title--ghost {
-    background: transparent;
+    /* opaque, not transparent: it must occlude the frame's own top
+       border where the pill straddles it, or that line visibly cuts
+       through the label text */
+    background: var(--r-background-color, #000);
     color: var(--ext-accent-2);
     border: 2px solid var(--ext-accent-2);
 }
