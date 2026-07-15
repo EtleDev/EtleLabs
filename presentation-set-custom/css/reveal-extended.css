@@ -669,3 +669,69 @@
     white-space: nowrap;
     color: var(--node-accent, var(--r-heading-color));
 }
+
+/* -----------------------------------------------------------------
+ * Quadrant chart marker + arrow: pinpoints a subdomain's position
+ * on the .quadrant-chart (e.g. "Subdomains patterns" exercises) and,
+ * optionally, connects it to a second position it moved from/to.
+ * Both are positioned per-usage via inline style, since every
+ * pattern places them differently:
+ *
+ *   <div class="quadrant-chart">
+ *     ... axes/labels/ticks/zones as above ...
+ *     <div class="quadrant-marker" style="left: 90%; top: 12%;"></div>
+ *     <!-- with a second, "ghost" position and a connecting arrow: -->
+ *     <div class="quadrant-marker quadrant-marker--ghost" style="left: 90%; top: 13%;"></div>
+ *     <div class="quadrant-arrow" style="left: 90%; top: 13%; width: 53%; transform: rotate(148.1deg);"></div>
+ *     <div class="quadrant-marker" style="left: 45%; top: 55%;"></div>
+ *   </div>
+ *
+ * The arrow's left/top/width/rotate are derived from the two marker
+ * points (xA/yA -> xB/yB, in % of the chart box) accounting for its
+ * fixed 3:2 aspect-ratio:
+ *   dx = xB - xA; dy = (yB - yA) * 2/3
+ *   length = hypot(dx, dy)  (in %, same unit as the box width)
+ *   rotate = atan2(dy, dx)  (in degrees)
+ * Inset both ends by a few % so the line/arrowhead don't disappear
+ * under the markers: left/top move `inset/length` of the way from A
+ * to B, and width shrinks by 2x that same fraction.
+ * ------------------------------------------------------------------- */
+
+.reveal .quadrant-marker {
+    /* % of the chart box, not em: stays proportional if the chart
+       itself is resized. Width:height is 1:1.5 (not 1:1) because the
+       box's own aspect-ratio is 3:2 - at that ratio the two come out
+       as an equal-px, undistorted square (rotated into a diamond). */
+    position: absolute;
+    width: 7%;
+    height: 10.5%;
+    transform: translate(-50%, -50%) rotate(45deg);
+    background: var(--ext-danger);
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+}
+
+.reveal .quadrant-marker--ghost {
+    background: var(--r-main-color, #fff);
+    opacity: 0.5;
+}
+
+.reveal .quadrant-arrow {
+    position: absolute;
+    height: 0.4em;
+    transform-origin: 0% 50%;
+    background-image: radial-gradient(circle 0.045em, var(--r-main-color, #fff) 99%, transparent 100%);
+    background-size: 0.4em 100%;
+    background-repeat: repeat-x;
+    background-position: left center;
+}
+
+.reveal .quadrant-arrow::after {
+    content: '';
+    position: absolute;
+    right: -1px;
+    top: 50%;
+    transform: translateY(-50%);
+    border-top: 0.28em solid transparent;
+    border-bottom: 0.28em solid transparent;
+    border-left: 0.4em solid var(--r-main-color, #fff);
+}
