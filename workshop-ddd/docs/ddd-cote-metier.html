@@ -451,18 +451,13 @@
 							Développer chaque solution selon son <span class="highlight">importance</span>
 						</p>
 					</section>
-					<section>
-						<h3>Territoire</h3>
-						<img class="r-frame" src="./img/part1/territory-3.png" width="80%" />
-
-						<aside data-markdown class="notes">
-							dans ce cours on va surtout aborder le problem space
-						</aside>
-					</section>
 				</section>
 				<section>
 					<section>
 						<h1>Le domain</h1>
+						<aside data-markdown class="notes">
+							dans ce cours on va surtout aborder le problem space
+						</aside>
 					</section>
 					<section>
 						<h5>Question</h5>
@@ -480,6 +475,7 @@
 							&ldquo;Une sphère de savoir, d’influence ou d’activité, la partie du sujet sur lequel <span class="highlight">l’utilisateur applique le logiciel</span>&rdquo;
 						</blockquote>
 						<p class="source">Eric Evans</p>
+						<p class="fragment fade-down">Le domain peut-être <span class="highlight">très large</span></p>
 						<aside data-markdown class="notes">
 							certaines choses ne font pas partie du domaine (d'un point de vue DDD) si l'utilisateur n'y est pas confronté.
 							Donc la raison de faire du DDD, c'est pour comprendre le besoin de l'entreprise vis-à-vis de ses utilisateurs ou acteurs du système.
@@ -488,7 +484,22 @@
 					</section>
 					<section>
 						<h3>Domain</h3>
-						<img class="r-frame" src="./img/part1/enterprise-activities.png" width="70%" />
+						<div class="r-frame r-frame--rounded r-frame--accent" style="display: inline-block; padding: 1em;">
+							<div class="node-grid" style="--node-grid-cols: 3;">
+								<div class="node">Réservation</div>
+								<div class="node">Topologie</div>
+								<div class="node">Client</div>
+								<div class="node">Gestion du Personnel</div>
+								<div class="node">Cuisine</div>
+								<div class="node">Comptabilité</div>
+								<div class="node">Ressources Humaines</div>
+								<div class="node">Marketing</div>
+								<div class="node">Finances</div>
+								<div class="node">Juridique</div>
+								<div class="node">Evènementiel</div>
+								<div class="node">Sécurité</div>
+							</div>
+						</div>
 
 						<aside data-markdown class="notes">
 							Exemple : application de restauration qui a un domaine divisé en plusieurs sections (ex : réservation, topologie, ... lis ta diapo bordel)
@@ -496,10 +507,25 @@
 							Nous on veut développer une application de réservation de table sur un restaurant.
 						</aside>
 					</section>
-					<section>Le domain peut-être <span class="highlight">très large</span></section>
+					
 					<section>
 						<h3>Domain</h3>
-						<img class="r-frame" src="./img/part1/selected-enterprise-activities.png" width="70%" />
+						<div class="r-frame r-frame--rounded r-frame--accent" style="display: inline-block; padding: 1em;">
+							<div class="node-grid" style="--node-grid-cols: 3;">
+								<div class="node node--filled">Réservation<span class="node-badge">✓</span></div>
+								<div class="node node--filled">Topologie<span class="node-badge">✓</span></div>
+								<div class="node node--filled">Client<span class="node-badge">✓</span></div>
+								<div class="node node--filled">Gestion du Personnel<span class="node-badge">✓</span></div>
+								<div class="node node--dim">Cuisine</div>
+								<div class="node node--dim">Comptabilité</div>
+								<div class="node node--dim">Ressources Humaines</div>
+								<div class="node node--dim">Marketing</div>
+								<div class="node node--dim">Finances</div>
+								<div class="node node--dim">Juridique</div>
+								<div class="node node--dim">Evènementiel</div>
+								<div class="node node--dim">Sécurité</div>
+							</div>
+						</div>
 
 						<aside data-markdown class="notes">
 							dans ce cas (dvpt d'app de résa) seul ces 4 sous-domaines nous intéresse
@@ -510,7 +536,14 @@
 					</section>
 					<section>
 						<h3>Domain</h3>
-						<img class="r-frame" src="./img/part1/chosen-enterprise-activities.png" width="70%" />
+						<div class="r-frame r-frame--rounded r-frame--accent" style="display: inline-block; padding: 1em;">
+							<div class="node-grid" style="--node-grid-cols: 2;">
+								<div class="node">Réservation</div>
+								<div class="node">Topologie</div>
+								<div class="node">Gestion du Personnel</div>
+								<div class="node">Client</div>
+							</div>
+						</div>
 					</section>
 					<section>
 						Le Domaine <span class="highlight">existe déjà</span>, il n’est pas conçu / designé
