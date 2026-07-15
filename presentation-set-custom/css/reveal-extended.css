@@ -80,10 +80,18 @@
 }
 
 .reveal .frame-title {
+    /* centered via left:0/right:0/margin:auto rather than
+       left:50%+transform:translateX(-50%) - auto-animate drives its
+       own FLIP transform on matched elements, which stomps on (or
+       conflicts with) any transform already used for layout; the
+       official reveal.js auto-animate examples center elements with
+       margins for the same reason. */
     position: absolute;
     top: -1.2em;
-    left: 50%;
-    transform: translateX(-50%);
+    left: 0;
+    right: 0;
+    width: fit-content;
+    margin: 0 auto;
     background: var(--ext-accent);
     color: white;
     padding: 0.3em 1.2em;
@@ -108,10 +116,14 @@
  * </div>
  */
 .reveal .frame-title-group {
+    /* see .frame-title above for why this centers via margin:auto
+       instead of transform:translateX(-50%) */
     position: absolute;
     top: -1.2em;
-    left: 50%;
-    transform: translateX(-50%);
+    left: 0;
+    right: 0;
+    width: fit-content;
+    margin: 0 auto;
     display: flex;
     z-index: 2;
     white-space: nowrap;
@@ -119,6 +131,8 @@
 
 .reveal .frame-title-group .frame-title {
     position: static;
+    width: auto;
+    margin: 0;
     transform: none;
     border-radius: 0;
 }
