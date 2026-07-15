@@ -65,11 +65,18 @@
 
 .reveal .titled-frame {
     position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     border-radius: var(--ext-radius);
     padding: 2em 1em 1em 1em;
     box-sizing: border-box;
     flex: 1;
     min-height: 0;
+}
+
+.reveal .titled-frame > p {
+    margin: 0;
 }
 
 .reveal .frame-title {
@@ -80,7 +87,7 @@
     background: var(--ext-accent);
     color: white;
     padding: 0.3em 1.2em;
-    border-radius: 2px;
+    border-radius: 999px;
     font-weight: bold;
     /* svh: sized against the real viewport, unaffected by reveal's scaling */
     font-size: 2svh;
@@ -89,16 +96,16 @@
 }
 
 /*
- * Title hierarchy: a top-level frame-title (e.g. wrapping a whole
- * titled-frame that itself contains nested titled-frames) reads as
- * bigger and more prominent than the nested ones inside it, e.g.
- * class="frame-title frame-title--major" on the outer labels while
- * inner labels stay plain "frame-title".
+ * Ghost variant: a hollow, secondary-looking title for a frame nested
+ * inside another titled-frame (e.g. Stratégique/Tactique inside a
+ * Solution space box) - contrasts with the solid fill of its parent's
+ * own title through style, not size, so nesting stays legible without
+ * inflating anything.
  */
-.reveal .frame-title--major {
-    font-size: 2.8svh;
-    padding: 0.4em 1.6em;
-    letter-spacing: 0.02em;
+.reveal .frame-title--ghost {
+    background: transparent;
+    color: var(--ext-accent-2);
+    border: 2px solid var(--ext-accent-2);
 }
 
 /* -------------------------------------------------------------------
