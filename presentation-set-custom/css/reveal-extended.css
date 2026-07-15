@@ -205,6 +205,24 @@
 }
 
 /* -------------------------------------------------------------------
+ * Title note
+ *
+ * A small aside right under a chapter's h1 (a pun, a wink, a light
+ * remark) - NOT a subtitle: chapter-footer only looks for h2/h3, so
+ * a title-note never gets picked up and repeated on every slide.
+ * Deliberately less prominent than a subtitle: smaller, italic, and
+ * muted rather than the theme's heading color.
+ * ------------------------------------------------------------------- */
+
+.reveal .title-note {
+    font-size: 0.5em !important;
+    font-style: italic;
+    font-weight: normal;
+    color: var(--r-main-color);
+    opacity: 0.6;
+}
+
+/* -------------------------------------------------------------------
  * Sources and captions
  * ------------------------------------------------------------------- */
 
