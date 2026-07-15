@@ -457,10 +457,10 @@
  *   <div class="quadrant-zone quadrant-zone--supporting" style="left:0; width:100%; top:0; height:100%;">
  *     <span class="quadrant-zone-label" style="position:absolute; left:38%; top:78%;">SUPPORTING</span>
  *   </div>
- *   <div class="quadrant-zone quadrant-zone--generic" style="left:0; width:18%; top:0; height:100%;">
+ *   <div class="quadrant-zone quadrant-zone--generic" style="left:0; width:25%; top:0; height:100%;">
  *     <span class="quadrant-zone-label quadrant-zone-label--vertical">GENERIC</span>
  *   </div>
- *   <div class="quadrant-zone quadrant-zone--core" style="left:53%; width:47%; top:0; height:60%;">
+ *   <div class="quadrant-zone quadrant-zone--core" style="left:50%; right:0; top:0; height:75%;">
  *     <span class="quadrant-zone-label">CORE</span>
  *   </div>
  * </div>
@@ -478,10 +478,11 @@
        collapse on top of each other. */
     position: relative;
     height: 100%;
-    /* 5:4 so that, with generic at 20% width and core at 60% height,
-       both "core" and "core + supporting" come out as perfect
-       squares - see the usage example below for the derivation. */
-    aspect-ratio: 5 / 4;
+    /* 3:2, matching the original diagram: with generic at 25% width,
+       core spans the right half (left:50%) at 75% height, so
+       core's width (50% of W) equals its height (75% of H) exactly
+       when W = 1.5H - see the usage example above for the shape. */
+    aspect-ratio: 3 / 2;
     max-width: 100%;
     box-sizing: border-box;
 }
