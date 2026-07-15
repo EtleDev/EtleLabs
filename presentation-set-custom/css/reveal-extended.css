@@ -289,6 +289,10 @@
     color: var(--node-accent, var(--r-heading-color));
     font-weight: bold;
     padding: 0.9em;
+    /* keeps every box the same height regardless of label length
+       (grid rows otherwise size to their tallest cell only, so a
+       two-line label makes its own row taller than the others) */
+    min-height: 3.2em;
 }
 
 /* Highlighted / selected node, e.g. the core or revenue-generating one */
