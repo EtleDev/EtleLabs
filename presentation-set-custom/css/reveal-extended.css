@@ -303,6 +303,18 @@
     opacity: 0.35;
 }
 
+/* Fragment that dims an element to de-emphasize it, e.g. graying out
+   one side of a diagram to draw focus to the other. Like reveal's
+   own "semi-fade-out" but more pronounced (0.5 read as too subtle). */
+.reveal .fragment.dim-out {
+    opacity: 1;
+    visibility: inherit;
+}
+
+.reveal .fragment.dim-out.visible {
+    opacity: 0.25;
+}
+
 /* Small corner badge on a node, e.g. a checkmark or an icon */
 .reveal .node-badge {
     position: absolute;
