@@ -735,3 +735,35 @@
     border-bottom: 0.28em solid transparent;
     border-left: 0.4em solid var(--r-main-color, #fff);
 }
+
+/* -------------------------------------------------------------------
+ * Word cloud: a loose, staggered list of terms of varying emphasis
+ * inside a .titled-frame (e.g. contrasting how two audiences name the
+ * same concepts). Deliberately not a grid/list - stagger left margins
+ * per-item via inline style to get the organic, scattered feel of the
+ * reference word clouds this reproduces.
+ *
+ * <div class="titled-frame frame--info">
+ *   <div class="frame-title">Développeurs</div>
+ *   <div class="word-cloud">
+ *     <p class="word-cloud-item word-cloud-item--big">User</p>
+ *     <p class="word-cloud-item" style="margin-left: 1.5em;">Emplacement de type "Terrasse"</p>
+ *   </div>
+ * </div>
+ * ------------------------------------------------------------------- */
+
+.reveal .word-cloud {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+}
+
+.reveal .word-cloud-item {
+    margin: 0;
+    font-weight: bold;
+    line-height: 1.2;
+}
+
+.reveal .word-cloud-item--big {
+    font-size: 1.7em;
+}
