@@ -64,9 +64,15 @@
     border-radius: var(--ext-radius);
 }
 
-/* Rounded corners on quotes too, same reasoning as r-frame above */
+/*
+ * Rounded corners on quotes too, same reasoning as r-frame above.
+ * Left accent bar as a visual quotation mark, since the italic text
+ * alone reads a bit flat against the theme's other framed elements.
+ */
 .reveal blockquote {
     border-radius: var(--ext-radius);
+    border-left: 4px solid var(--ext-accent);
+    padding-left: 1em;
 }
 
 /*

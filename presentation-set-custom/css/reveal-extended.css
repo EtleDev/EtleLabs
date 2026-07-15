@@ -370,14 +370,24 @@
  * Sources and captions
  * ------------------------------------------------------------------- */
 
-/* Credit line for a quote or diagram, e.g. <p class="source">Eric Evans, DDD (2003)</p> */
+/*
+ * Credit line for a quote or diagram, e.g. <p class="source">Eric Evans, DDD (2003)</p>
+ * Assumes it directly follows a <blockquote> (width: 70%, centered):
+ * positioned so its own horizontal center lands on the blockquote's
+ * right edge (15% + 70% = 85% of the shared containing block), like
+ * a small label anchored to that corner, sitting close underneath.
+ */
 .reveal .slides .source {
     display: block;
-    margin-top: 0.5em;
+    position: relative;
+    left: 85%;
+    transform: translateX(-50%);
+    width: max-content;
+    max-width: 90%;
+    margin-top: 0.2em;
     font-size: 0.45em;
     font-style: italic;
     opacity: 0.6;
-    text-align: right;
 }
 
 .reveal .slides figure {
