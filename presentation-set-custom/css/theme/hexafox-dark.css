@@ -54,13 +54,14 @@
 }
 
 /*
- * Essai : cadre des médias (r-frame) en bleu caraïbes plutôt que le
- * gris texte par défaut du thème. Placé ici (et non dans
- * reveal-extended.css) pour ne tester l'effet que sur les decks
- * hexafox-dark, sans affecter les decks encore sous le thème moon.
+ * Cadre des médias (r-frame) : bleu caraïbes et coins arrondis du
+ * thème plutôt que le gris texte et les angles vifs par défaut.
+ * Placé ici (et non dans reveal-extended.css) car l'effet est propre
+ * à hexafox-dark, sans affecter les decks encore sous le thème moon.
  */
 .reveal .r-frame {
     border-color: var(--ext-accent);
+    border-radius: var(--ext-radius);
 }
 
 /*
