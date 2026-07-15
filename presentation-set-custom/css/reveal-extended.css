@@ -435,3 +435,177 @@
     font-style: italic;
     text-transform: none;
 }
+
+/* -------------------------------------------------------------------
+ * Quadrant chart: a 2-axis classification plane (e.g. business
+ * differentiation vs. model complexity, positioning Generic /
+ * Supporting / Core subdomains). Zones are plain rectangles - no
+ * diagonals or curves - positioned via inline left/width/top/height
+ * percentages, so the same chart can be reused with different zone
+ * shapes across a whole chapter.
+ *
+ * <div class="quadrant-chart">
+ *   <div class="quadrant-axis-y"></div>
+ *   <div class="quadrant-axis-x"></div>
+ *   <div class="quadrant-axis-label quadrant-axis-label--y">Complexité<br>du<br>Modèle</div>
+ *   <div class="quadrant-axis-label quadrant-axis-label--x">Différenciation Métier</div>
+ *   <span class="quadrant-tick quadrant-tick--y-low">Faible</span>
+ *   <span class="quadrant-tick quadrant-tick--y-high">Fort</span>
+ *   <span class="quadrant-tick quadrant-tick--x-low">Faible</span>
+ *   <span class="quadrant-tick quadrant-tick--x-high">Fort</span>
+ *   <!-- painted first, so generic/core (below) draw over it -->
+ *   <div class="quadrant-zone quadrant-zone--supporting" style="left:0; width:100%; top:0; height:100%;">
+ *     <span class="quadrant-zone-label" style="position:absolute; left:38%; top:78%;">SUPPORTING</span>
+ *   </div>
+ *   <div class="quadrant-zone quadrant-zone--generic" style="left:0; width:18%; top:0; height:100%;">
+ *     <span class="quadrant-zone-label quadrant-zone-label--vertical">GENERIC</span>
+ *   </div>
+ *   <div class="quadrant-zone quadrant-zone--core" style="left:53%; width:47%; top:0; height:60%;">
+ *     <span class="quadrant-zone-label">CORE</span>
+ *   </div>
+ * </div>
+ * ------------------------------------------------------------------- */
+
+.reveal .quadrant-chart {
+    /* height is the concrete anchor dimension: r-stretch computes the
+       wrapper's height to exactly fill the remaining slide space, so
+       deriving width from it (via aspect-ratio) uses that space fully
+       instead of flattening to whatever width:100% happens to be.
+       A concrete size here is required: every child is
+       position:absolute, so none of them contribute to this
+       element's own intrinsic size - without a real height, the box
+       collapses to ~0 and all the (percentage-positioned) children
+       collapse on top of each other. */
+    position: relative;
+    height: 100%;
+    /* 5:4 so that, with generic at 20% width and core at 60% height,
+       both "core" and "core + supporting" come out as perfect
+       squares - see the usage example below for the derivation. */
+    aspect-ratio: 5 / 4;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.reveal .quadrant-axis-y,
+.reveal .quadrant-axis-x {
+    position: absolute;
+    z-index: 1;
+    background: var(--node-accent, var(--r-heading-color));
+}
+
+.reveal .quadrant-axis-y {
+    left: 0;
+    top: -0.6em;
+    bottom: 0;
+    width: 3px;
+}
+
+.reveal .quadrant-axis-y::after {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-bottom: 11px solid var(--node-accent, var(--r-heading-color));
+}
+
+.reveal .quadrant-axis-x {
+    left: 0;
+    right: -0.6em;
+    bottom: 0;
+    height: 3px;
+}
+
+.reveal .quadrant-axis-x::after {
+    content: '';
+    position: absolute;
+    right: -1px;
+    top: 50%;
+    transform: translateY(-50%);
+    border-top: 7px solid transparent;
+    border-bottom: 7px solid transparent;
+    border-left: 11px solid var(--node-accent, var(--r-heading-color));
+}
+
+.reveal .quadrant-axis-label {
+    position: absolute;
+    font-size: 0.6em;
+    font-weight: bold;
+    text-align: center;
+    color: var(--r-main-color);
+}
+
+.reveal .quadrant-axis-label--y {
+    left: -6em;
+    top: 50%;
+    width: 5.2em;
+    transform: translateY(-50%);
+}
+
+.reveal .quadrant-axis-label--x {
+    left: 0;
+    right: 0;
+    bottom: -3em;
+}
+
+.reveal .quadrant-tick {
+    position: absolute;
+    font-size: 0.55em;
+    font-weight: bold;
+    color: var(--node-accent, var(--r-heading-color));
+}
+
+.reveal .quadrant-tick--y-low {
+    left: -3.2em;
+    bottom: 0;
+}
+
+.reveal .quadrant-tick--y-high {
+    left: -3.2em;
+    top: 0;
+}
+
+.reveal .quadrant-tick--x-low {
+    left: 0;
+    bottom: -1.9em;
+}
+
+.reveal .quadrant-tick--x-high {
+    right: 0;
+    bottom: -1.9em;
+}
+
+.reveal .quadrant-zone {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+.reveal .quadrant-zone--supporting {
+    background: var(--ext-accent, var(--r-heading-color));
+}
+
+.reveal .quadrant-zone--generic {
+    background: #6b6b6b;
+}
+
+.reveal .quadrant-zone--core {
+    background: var(--ext-accent-2, var(--hf-fox));
+}
+
+.reveal .quadrant-zone-label {
+    font-weight: bold;
+    color: #fff;
+    text-align: center;
+    letter-spacing: 0.05em;
+}
+
+.reveal .quadrant-zone-label--vertical {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    letter-spacing: 0.15em;
+}
