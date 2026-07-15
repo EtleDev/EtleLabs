@@ -96,6 +96,43 @@
 }
 
 /*
+ * Two titles sharing one frame, side by side (e.g. once two audiences
+ * converge on a single ubiquitous language, their two former frames
+ * merge into one, but both labels stay attached to show whose words
+ * these are) - same look as .frame-title, but laid out as a row
+ * instead of one centered pill, with a thin seam between the two.
+ *
+ * <div class="frame-title-group">
+ *   <div class="frame-title">Développeurs</div>
+ *   <div class="frame-title">Experts Métier</div>
+ * </div>
+ */
+.reveal .frame-title-group {
+    position: absolute;
+    top: -1.2em;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    z-index: 2;
+    white-space: nowrap;
+}
+
+.reveal .frame-title-group .frame-title {
+    position: static;
+    transform: none;
+    border-radius: 0;
+}
+
+.reveal .frame-title-group .frame-title:first-child {
+    border-radius: var(--ext-radius) 0 0 var(--ext-radius);
+}
+
+.reveal .frame-title-group .frame-title:last-child {
+    border-radius: 0 var(--ext-radius) var(--ext-radius) 0;
+    border-left: 2px solid var(--r-background-color, #10171a);
+}
+
+/*
  * Ghost variant: a hollow, secondary-looking title for a frame nested
  * inside another titled-frame (e.g. Stratégique/Tactique inside a
  * Solution space box) - contrasts with the solid fill of its parent's
