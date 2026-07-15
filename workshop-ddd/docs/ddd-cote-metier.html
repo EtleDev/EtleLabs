@@ -1301,9 +1301,52 @@
 							le carton a servi de modèle. Je n'avais pas besoin du receveur pour poser le parquet, juste de ses dimensions
 						</aside>
 					</section>					
-					<section>
-						<h6>Modèle trop riche</h6>
-						<img class="r-frame" src="./img/part1/too-rich-model.png" />
+					<section data-auto-animate>
+						<h6 data-id="title">Modèle trop riche</h6>
+						<div class="r-stretch" style="display: flex; align-items: stretch; justify-content: center; gap: 1.2em; padding: 1.5em 1em 1em 1em; box-sizing: border-box; font-size: 0.48em;">
+							<div data-id="booking" class="titled-frame" style="border: 2px solid var(--ext-highlight-blue); flex: 1; min-width: 0;">
+								<div class="frame-title">Réservation</div>
+								<div class="word-cloud">
+									<p class="word-cloud-item">Table</p>
+									<p class="word-cloud-item">Date de demande</p>
+									<p class="word-cloud-item">Date de réservation</p>
+									<p class="word-cloud-item">Heure</p>
+									<p class="word-cloud-item">Clients</p>
+									<p class="word-cloud-item">Numéro de téléphone</p>
+									<p class="word-cloud-item">Ville d'appel</p>
+								</div>
+							</div>
+							<div data-id="table" class="titled-frame" style="border: 2px solid var(--ext-highlight-blue); flex: 1; min-width: 0;">
+								<div class="frame-title">Table</div>
+								<div class="word-cloud">
+									<p class="word-cloud-item">Hauteur</p>
+									<p class="word-cloud-item">Largeur</p>
+									<p class="word-cloud-item">Profondeur</p>
+									<p class="word-cloud-item">Magasin d'achat</p>
+									<p class="word-cloud-item">Type de bois</p>
+									<p class="word-cloud-item">Couleur</p>
+									<p class="word-cloud-item">Prix d'achat</p>
+									<p class="word-cloud-item">Hauteur des pieds</p>
+									<p class="word-cloud-item">Chaises</p>
+									<p class="word-cloud-item">Rayures</p>
+								</div>
+							</div>
+							<div data-id="client" class="titled-frame" style="border: 2px solid var(--ext-highlight-blue); flex: 1; min-width: 0;">
+								<div class="frame-title">Client</div>
+								<div class="word-cloud">
+									<p class="word-cloud-item">Prénom</p>
+									<p class="word-cloud-item">Nom</p>
+									<p class="word-cloud-item">Date de naissance</p>
+									<p class="word-cloud-item">Métier</p>
+									<p class="word-cloud-item">Historique d'activité</p>
+									<p class="word-cloud-item">Taille</p>
+									<p class="word-cloud-item">Poids</p>
+									<p class="word-cloud-item">Genre</p>
+									<p class="word-cloud-item">Repas de la veille</p>
+									<p class="word-cloud-item">Date dernière douche</p>
+								</div>
+							</div>
+						</div>
 						<aside data-markdown class="notes">
 							Ici, on a toutes les informations d'une table
 							Dans le cadre de la réservation, je n'ai pas besoin de la moitié de ces informations
@@ -1311,16 +1354,98 @@
 							C'est une erreur courante chez les dévs
 						</aside>
 					</section>
-					<section>
-						<h6>Modèle distillé</h6>
-						<img class="r-frame" src="./img/part1/distilled-model.png" />
+					<section data-auto-animate>
+						<h6 data-id="title">Modèle distillé</h6>
+						<div class="r-stretch" style="display: flex; align-items: stretch; justify-content: center; gap: 1.2em; padding: 1.5em 1em 1em 1em; box-sizing: border-box; font-size: 0.48em;">
+							<div data-id="booking" class="titled-frame" style="border: 2px solid var(--ext-highlight-blue); flex: 1; min-width: 0;">
+								<div class="frame-title">Réservation</div>
+								<div class="word-cloud">
+									<p class="word-cloud-item">Table</p>
+									<p class="word-cloud-item">Date de demande</p>
+									<p class="word-cloud-item">Date de réservation</p>
+									<p class="word-cloud-item">Heure</p>
+									<p class="word-cloud-item">Clients</p>
+									<p class="word-cloud-item" style="opacity: 0.35;">Numéro de téléphone</p>
+									<p class="word-cloud-item" style="opacity: 0.35;">Ville d'appel</p>
+								</div>
+							</div>
+							<div data-id="table" class="titled-frame" style="border: 2px solid var(--ext-highlight-blue); flex: 1; min-width: 0;">
+								<div class="frame-title">Table</div>
+								<div class="word-cloud">
+									<p class="word-cloud-item">Capacité Minimale</p>
+									<p class="word-cloud-item">Capacité Maximale</p>
+									<p class="word-cloud-item">Emplacement</p>
+									<p class="word-cloud-item" style="opacity: 0.35;">Magasin d'Achat</p>
+									<p class="word-cloud-item" style="opacity: 0.35;">Type de bois</p>
+									<p class="word-cloud-item" style="opacity: 0.35;">Couleur</p>
+									<p class="word-cloud-item" style="opacity: 0.35;">Prix d'Achat</p>
+									<p class="word-cloud-item" style="opacity: 0.35;">Hauteur des pieds</p>
+									<p class="word-cloud-item" style="opacity: 0.35;">Chaises</p>
+									<p class="word-cloud-item" style="opacity: 0.35;">Rayures</p>
+								</div>
+							</div>
+							<div data-id="client" class="titled-frame" style="border: 2px solid var(--ext-highlight-blue); flex: 1; min-width: 0;">
+								<div class="frame-title">Client</div>
+								<div class="word-cloud">
+									<p class="word-cloud-item">Prénom</p>
+									<p class="word-cloud-item">Nom</p>
+									<p class="word-cloud-item">Date de naissance</p>
+									<p class="word-cloud-item" style="opacity: 0.35;">Métier</p>
+									<p class="word-cloud-item" style="opacity: 0.35;">Historique d'Activité</p>
+									<p class="word-cloud-item" style="opacity: 0.35;">Taille</p>
+									<p class="word-cloud-item" style="opacity: 0.35;">Poids</p>
+									<p class="word-cloud-item" style="opacity: 0.35;">Genre</p>
+									<p class="word-cloud-item" style="opacity: 0.35;">Repas de la veille</p>
+									<p class="word-cloud-item" style="opacity: 0.35;">Date dernière douche</p>
+								</div>
+							</div>
+						</div>
 						<aside data-markdown class="notes">
 							Modèle distillé ne contenant que les informations strictement nécessaires
 						</aside>
 					</section>
-					<section>
-						<h6>Modèle d'un autre domaine</h6>
-						<img class="r-frame" src="./img/part1/other-domain-model.png" />
+					<section data-auto-animate>
+						<h6 data-id="title">Modèle d'un autre domaine</h6>
+						<div class="r-stretch" style="display: flex; align-items: stretch; justify-content: center; gap: 1.2em; padding: 1.5em 1em 1em 1em; box-sizing: border-box; font-size: 0.48em;">
+							<div data-id="booking" class="titled-frame" style="border: 2px solid var(--ext-highlight-blue); flex: 1; min-width: 0;">
+								<div class="frame-title">Commande</div>
+								<div class="word-cloud">
+									<p class="word-cloud-item">Table</p>
+									<p class="word-cloud-item">Quantité</p>
+									<p class="word-cloud-item">Date de commande</p>
+									<p class="word-cloud-item">Prix Total</p>
+								</div>
+							</div>
+							<div data-id="table" class="titled-frame" style="border: 2px solid var(--ext-highlight-blue); flex: 1; min-width: 0;">
+								<div class="frame-title">Table</div>
+								<div class="word-cloud">
+									<p class="word-cloud-item">Hauteur</p>
+									<p class="word-cloud-item">Largeur</p>
+									<p class="word-cloud-item">Profondeur</p>
+									<p class="word-cloud-item">Type de Bois</p>
+									<p class="word-cloud-item">Couleur</p>
+									<p class="word-cloud-item">Prix</p>
+									<p class="word-cloud-item" style="opacity: 0.35;">Emplacement</p>
+									<p class="word-cloud-item" style="opacity: 0.35;">Fourchettes</p>
+									<p class="word-cloud-item" style="opacity: 0.35;">Assiettes</p>
+								</div>
+							</div>
+							<div data-id="client" class="titled-frame" style="border: 2px solid var(--ext-highlight-blue); flex: 1; min-width: 0;">
+								<div class="frame-title">Client</div>
+								<div class="word-cloud">
+									<p class="word-cloud-item">Prénom</p>
+									<p class="word-cloud-item">Nom</p>
+									<p class="word-cloud-item">Adresse e-mail</p>
+									<p class="word-cloud-item">Historique d'Achat</p>
+									<p class="word-cloud-item">Moyen de paiement</p>
+									<p class="word-cloud-item" style="opacity: 0.35;">Historique d'Activité</p>
+									<p class="word-cloud-item" style="opacity: 0.35;">Taille</p>
+									<p class="word-cloud-item" style="opacity: 0.35;">Poids</p>
+									<p class="word-cloud-item" style="opacity: 0.35;">Genre</p>
+									<p class="word-cloud-item" style="opacity: 0.35;">Repas de la veille</p>
+								</div>
+							</div>
+						</div>
 						<aside data-markdown class="notes">
 							autre modèle, autre domaine, je suis Ikéa, les informations nécessaire ne sont pas les mêmes si je dois vendre une table
 						</aside>
