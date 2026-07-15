@@ -295,6 +295,21 @@
     min-height: 3.2em;
 }
 
+/*
+ * Shared subtle background for every framed box (titled-frame and
+ * node), matching the faint wash reveal's own theme already applies
+ * to <blockquote> (background: #ffffff0d) - makes framed content
+ * stand out slightly from the plain slide background without
+ * introducing a new visual language. Declared right after the base
+ * rules (and before node--filled) so solid-filled variants still
+ * override it correctly.
+ */
+.reveal .titled-frame,
+.reveal .node {
+    background: #ffffff0d;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+}
+
 /* Highlighted / selected node, e.g. the core or revenue-generating one */
 .reveal .node--filled {
     background: var(--node-accent, var(--r-heading-color));
