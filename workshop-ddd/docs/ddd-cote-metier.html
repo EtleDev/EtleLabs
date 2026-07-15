@@ -1590,13 +1590,67 @@
 					<section>Certaines choses sont <span class="highlight">évidentes</span> pour les experts</section>
 					<section>Mais dans le monde du logiciel, <span class="highlight">l’évidence n’existe pas</span> (comme la cuillère dans Matrix, image ?)</section>
 					<section>Tout ce qui n’est pas <span class="highlight">explicite</span> n’existe pas</section>
-					<section>
-						<h6>Vision du développeur</h6>
-						<img class="r-frame" src="./img/part1/dev-vision.png" />
+					<section data-auto-animate>
+						<h6 data-id="title">Vision du développeur</h6>
+						<div class="r-stretch" style="display: flex; align-items: flex-start; justify-content: center; gap: 3em; padding: 1em 1em 1em 1em; box-sizing: border-box; font-size: 0.42em;">
+							<div style="display: flex; flex-direction: column; align-items: center; gap: 1em;">
+								<div class="node-root" data-id="dev-root">Développeurs</div>
+								<div class="node-grid" style="--node-grid-cols: 1; width: 13em;">
+									<div class="node" data-id="dev-col-reserver">Réserver une table pour un jour donné</div>
+									<div class="node" data-id="dev-col-honorer">Honorer sa réservation</div>
+									<div class="node" data-id="dev-col-couple">Table de Couple</div>
+									<div class="node" data-id="dev-col-rdc">Rez-de-Chaussée</div>
+								</div>
+							</div>
+							<div style="display: flex; flex-direction: column; align-items: center; gap: 1em;">
+								<div class="node-root" data-id="exp-root">Experts Métier</div>
+								<div style="display: flex; gap: 1em;">
+									<div class="node-grid" style="--node-grid-cols: 1; width: 13em;">
+										<div class="node" data-id="exp-known-reserver">Réserver une table pour un jour donné</div>
+										<div class="node" data-id="exp-known-honorer">Honorer sa réservation</div>
+										<div class="node" data-id="exp-known-couple">Table de Couple</div>
+										<div class="node" data-id="exp-known-rdc">Rez-de-Chaussée</div>
+									</div>
+									<div class="node-grid" style="--node-grid-cols: 1; width: 13em;">
+										<div class="node" data-id="exp-hidden-annulable" style="opacity: 0.08;">Réservation annulable la veille sans pénalité</div>
+										<div class="node" data-id="exp-hidden-etage" style="opacity: 0.08;">Premier Etage n'a que 17 tables</div>
+										<div class="node" data-id="exp-hidden-couple-terrasse" style="opacity: 0.08;">Pas de table de couple en terrasse</div>
+										<div class="node" data-id="exp-hidden-groupes" style="opacity: 0.08;">Table de groupes</div>
+									</div>
+								</div>
+							</div>
+						</div>
 					</section>
-					<section>
-						<h6>Vision de l'expert</h6>
-						<img class="r-frame" src="./img/part1/expert-vision.png" />
+					<section data-auto-animate>
+						<h6 data-id="title">Vision de l'expert</h6>
+						<div class="r-stretch" style="display: flex; align-items: flex-start; justify-content: center; gap: 3em; padding: 1em 1em 1em 1em; box-sizing: border-box; font-size: 0.42em;">
+							<div style="display: flex; flex-direction: column; align-items: center; gap: 1em;">
+								<div class="node-root" data-id="dev-root">Développeurs</div>
+								<div class="node-grid" style="--node-grid-cols: 1; width: 13em;">
+									<div class="node" data-id="dev-col-reserver">Réserver une table pour un jour donné</div>
+									<div class="node" data-id="dev-col-honorer">Honorer sa réservation</div>
+									<div class="node" data-id="dev-col-couple">Table de Couple</div>
+									<div class="node" data-id="dev-col-rdc">Rez-de-Chaussée</div>
+								</div>
+							</div>
+							<div style="display: flex; flex-direction: column; align-items: center; gap: 1em;">
+								<div class="node-root" data-id="exp-root">Experts Métier</div>
+								<div style="display: flex; gap: 1em;">
+									<div class="node-grid" style="--node-grid-cols: 1; width: 13em;">
+										<div class="node" data-id="exp-known-reserver">Réserver une table pour un jour donné</div>
+										<div class="node" data-id="exp-known-honorer">Honorer sa réservation</div>
+										<div class="node" data-id="exp-known-couple">Table de Couple</div>
+										<div class="node" data-id="exp-known-rdc">Rez-de-Chaussée</div>
+									</div>
+									<div class="node-grid" style="--node-grid-cols: 1; width: 13em;">
+										<div class="node" data-id="exp-hidden-annulable">Réservation annulable la veille sans pénalité</div>
+										<div class="node" data-id="exp-hidden-etage">Premier Etage n'a que 17 tables</div>
+										<div class="node" data-id="exp-hidden-couple-terrasse">Pas de table de couple en terrasse</div>
+										<div class="node" data-id="exp-hidden-groupes">Table de groupes</div>
+									</div>
+								</div>
+							</div>
+						</div>
 					</section>
 					<section>
 						<h5>Problème</h5>
