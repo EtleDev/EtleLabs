@@ -87,7 +87,7 @@
     background: var(--ext-accent);
     color: white;
     padding: 0.3em 1.2em;
-    border-radius: 999px;
+    border-radius: var(--ext-radius);
     font-weight: bold;
     /* svh: sized against the real viewport, unaffected by reveal's scaling */
     font-size: 2svh;
