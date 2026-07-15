@@ -812,13 +812,22 @@
 						</aside>
 					</section>
 					<section>
-						<img class="r-frame" src="./img/part1/subdomains-topology.png" width="90%" />
-						<aside data-markdown class="notes">
-							ca, c'est une charte qui permet de positionner un subdomain en fonction de sa complexité et sa différenciation métier
-						</aside>
-					</section>
-					<section>
-						<img class="r-frame" src="./img/part1/subdomains-alignement-axis.png" width="80%" />
+						<div class="r-stretch" style="font-size: 0.7em; padding: 1.2em 2em 4em 6.5em; box-sizing: border-box; display: flex; align-items: center; justify-content: center;">
+							<div class="quadrant-chart">
+								<div class="quadrant-axis-y"></div>
+								<div class="quadrant-axis-x"></div>
+								<div class="quadrant-axis-label quadrant-axis-label--y">Complexité<br>du<br>Modèle</div>
+								<div class="quadrant-axis-label quadrant-axis-label--x">Différenciation Métier</div>
+								<span class="quadrant-tick quadrant-tick--y-low">Faible</span>
+								<span class="quadrant-tick quadrant-tick--y-high">Fort</span>
+								<span class="quadrant-tick quadrant-tick--x-low">Faible</span>
+								<span class="quadrant-tick quadrant-tick--x-high">Fort</span>
+								<div class="quadrant-zone quadrant-zone--plain" style="left: 0; width: 100%; top: 0; height: 100%;"></div>
+								<div class="quadrant-diagonal">
+									<span class="quadrant-diagonal-label">Axe d'alignement</span>
+								</div>
+							</div>
+						</div>
 						<aside data-markdown class="notes">
 							voici l'axe sur lequel idéalement, tout subdomain devrait se situer
 							plus un subdomain est complexe, plus on a intérêt à ce que sa différenciation soit forte
@@ -1168,7 +1177,7 @@
 						</aside>
 					</section>
 					<section>
-						<p class="fragment">Les noms sont des <span class="highlight">candidats d’objets</span></p>
+						<p>Les noms sont des <span class="highlight">candidats d’objets</span></p>
 						<p class="fragment fade-down">Les verbes sont des <span class="highlight">candidats de comportement</span></p>
 						<p class="fragment fade-down">Les adjectifs sont des <span class="highlight">candidats de spécialisations</span></p>
 					</section>

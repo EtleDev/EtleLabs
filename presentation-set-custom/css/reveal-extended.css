@@ -610,3 +610,62 @@
     transform: rotate(180deg);
     letter-spacing: 0.15em;
 }
+
+/* -----------------------------------------------------------------
+ * Quadrant chart diagonal: an alternative to the zone rectangles
+ * above - reuses the same .quadrant-chart/axis/label/tick markup,
+ * with a plain background rect (the usual faint frame wash, see
+ * .titled-frame/.node above) standing in for the zones, and a single
+ * dotted "alignment axis" running from the bottom-left corner to the
+ * top-right corner.
+ *
+ *   <div class="quadrant-chart">
+ *     ... axes/labels/ticks as above ...
+ *     <div class="quadrant-zone quadrant-zone--plain" style="left:0; width:100%; top:0; height:100%;"></div>
+ *     <div class="quadrant-diagonal">
+ *       <span class="quadrant-diagonal-label">Axe d'alignement</span>
+ *     </div>
+ *   </div>
+ * ------------------------------------------------------------------- */
+
+.reveal .quadrant-zone--plain {
+    background: #ffffff0d;
+}
+
+.reveal .quadrant-diagonal {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    /* the box is a fixed 3:2, so its corner-to-corner diagonal is a
+       constant multiple of the width - hypot(3, 2) / 3 - regardless
+       of the container's rendered size. */
+    width: 120.19%;
+    height: 0.6em;
+    transform-origin: 0% 100%;
+    transform: rotate(-33.69deg);
+    background-image: radial-gradient(circle 0.16em, var(--node-accent, var(--r-heading-color)) 99%, transparent 100%);
+    background-size: 1.5em 100%;
+    background-repeat: repeat-x;
+    background-position: left center;
+}
+
+.reveal .quadrant-diagonal::after {
+    content: '';
+    position: absolute;
+    right: -1px;
+    top: 50%;
+    transform: translateY(-50%);
+    border-top: 0.3em solid transparent;
+    border-bottom: 0.3em solid transparent;
+    border-left: 0.45em solid var(--node-accent, var(--r-heading-color));
+}
+
+.reveal .quadrant-diagonal-label {
+    position: absolute;
+    left: 40%;
+    top: -1.3em;
+    font-weight: bold;
+    font-style: italic;
+    white-space: nowrap;
+    color: var(--node-accent, var(--r-heading-color));
+}
