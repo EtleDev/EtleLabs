@@ -75,6 +75,13 @@
     padding-left: 1em;
 }
 
+/* Experiment: matching accent bar on the source line, opposite side */
+.reveal .source {
+    border-right: 3px solid var(--ext-accent-2);
+    border-radius: var(--ext-radius);
+    padding-right: 0.5em;
+}
+
 /*
  * Accents de reveal-extended.css alignés sur le thème.
  * Spécificité volontairement supérieure à `.reveal` pour gagner quel
