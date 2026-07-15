@@ -223,6 +223,119 @@
 }
 
 /* -------------------------------------------------------------------
+ * Node grid: hierarchy / classification diagrams reproduced as HTML
+ * instead of a bitmap (e.g. "Entreprise" -> its activity sectors,
+ * enterprise activities selected among the full list, subdomains
+ * grouped by type). One recurring visual family, several diagrams -
+ * built as a reusable set rather than styling a single slide.
+ *
+ * Uses --r-heading-color (matches the deck's own title color) rather
+ * than --ext-accent, which reads duller next to a bright heading;
+ * override --node-accent locally to use a different color.
+ *
+ * <div class="node-root">Entreprise</div>
+ * <div class="node-arrow-down"></div>
+ * <div class="node-grid" style="--node-grid-cols: 3">
+ *   <div class="node">Secteur</div>
+ *   <div class="node node--filled">Secteur<span class="node-badge">💰</span></div>
+ *   <div class="node node--dim">Secteur non retenu</div>
+ * </div>
+ * ------------------------------------------------------------------- */
+
+.reveal .node-root {
+    display: inline-block;
+    background: var(--node-accent, var(--r-heading-color));
+    color: var(--r-background-color, #10171a);
+    border-radius: var(--ext-radius);
+    padding: 0.5em 1.4em;
+    font-weight: bold;
+    text-align: center;
+}
+
+.reveal .node-arrow-down {
+    position: relative;
+    width: 3px;
+    height: 1.6em;
+    margin: 0.3em auto;
+    background: var(--node-accent, var(--r-heading-color));
+}
+
+.reveal .node-arrow-down::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -1px;
+    transform: translateX(-50%);
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 12px solid var(--node-accent, var(--r-heading-color));
+}
+
+.reveal .node-grid {
+    display: grid;
+    grid-template-columns: repeat(var(--node-grid-cols, 3), 1fr);
+    gap: 0.8em;
+    width: 100%;
+}
+
+.reveal .node {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border: 2px solid var(--node-accent, var(--r-heading-color));
+    border-radius: var(--ext-radius);
+    color: var(--node-accent, var(--r-heading-color));
+    font-weight: bold;
+    padding: 0.9em;
+}
+
+/* Highlighted / selected node, e.g. the core or revenue-generating one */
+.reveal .node--filled {
+    background: var(--node-accent, var(--r-heading-color));
+    color: var(--r-background-color, #10171a);
+    border-color: transparent;
+}
+
+/* De-emphasized node, e.g. an activity not part of the current selection */
+.reveal .node--dim {
+    opacity: 0.35;
+}
+
+/* Small corner badge on a node, e.g. a checkmark or an icon */
+.reveal .node-badge {
+    position: absolute;
+    top: -0.6em;
+    right: -0.6em;
+    z-index: 2;
+    width: 1.7em;
+    height: 1.7em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--node-accent, var(--r-heading-color));
+    border-radius: 50%;
+    font-size: 0.7em;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+}
+
+/* Rounded variant of reveal's own .r-frame (border + shadow around
+   media): .r-frame alone is square-cornered by default, and that
+   default must stay untouched since photos elsewhere in the deck
+   rely on it. */
+.reveal .r-frame--rounded {
+    border-radius: var(--ext-radius);
+}
+
+/* Accent-colored variant of .r-frame: its default border color is
+   --r-main-color (plain body text color), too bright/neutral next to
+   an HTML diagram that already carries its own accent color. */
+.reveal .r-frame--accent {
+    border-color: var(--ext-accent);
+}
+
+/* -------------------------------------------------------------------
  * Sources and captions
  * ------------------------------------------------------------------- */
 
