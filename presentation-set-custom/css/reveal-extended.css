@@ -24,7 +24,15 @@
     display: flex;
     gap: 2em;
     align-items: stretch;
-    height: 40vh;
+    /* em, not vh: reveal.js scales the whole slide with a CSS
+       transform to fit whatever the real screen is, but vh/vw are
+       measured against the real viewport and ignore that transform -
+       so a vh-based height drifts out of proportion with the rest of
+       the (transform-scaled) slide on any screen shaped differently
+       from the one it was tuned on (this is what caused boxes like
+       this to look flattened when presenting on another screen/
+       projector). em scales together with everything else instead. */
+    height: 15em;
 }
 
 .reveal .col-left {
