@@ -386,6 +386,14 @@
     min-height: 3.2em;
 }
 
+/* Shorter box, same text size - for long single-column lists where
+   the default min-height/padding would push the list off the slide
+   well before the font-size does. */
+.reveal .node--compact {
+    padding: 0.4em 0.9em;
+    min-height: 0;
+}
+
 /*
  * Shared subtle background for every framed box (titled-frame and
  * node), matching the faint wash reveal's own theme already applies

@@ -1602,7 +1602,32 @@
 					</section>
 					<section>
 						<h6>Verbes & Noms</h6>
-						<img class="r-frame" src="./img/part1/verbs-and-nouns.png" width="60%"/>
+						<div class="r-stretch" style="display: flex; align-items: flex-start; justify-content: center; gap: 2.5em; padding: 0.6em 1em; box-sizing: border-box; font-size: 0.42em;">
+							<div style="display: flex; flex-direction: column; align-items: center; gap: 0.4em;">
+								<div class="node-root">Objets</div>
+								<div class="node-grid" style="--node-grid-cols: 1; width: 16em; gap: 0.4em;">
+									<div class="node node--compact">Administrateur</div>
+									<div class="node node--compact">Hôte d'Accueil</div>
+									<div class="node node--compact">Réservation</div>
+									<div class="node node--compact">Rez-de-chaussée</div>
+									<div class="node node--compact">Premier Etage</div>
+									<div class="node node--compact">Terrasse</div>
+									<div class="node node--compact">Table de Couple</div>
+									<div class="node node--compact">Client</div>
+									<div class="node node--compact">Pénalité</div>
+								</div>
+							</div>
+							<div style="display: flex; flex-direction: column; align-items: center; gap: 0.4em;">
+								<div class="node-root">Comportements</div>
+								<div class="node-grid" style="--node-grid-cols: 1; width: 16em; gap: 0.4em;">
+									<div class="node node--compact">Gérer les administrateurs</div>
+									<div class="node node--compact">Réserver une table</div>
+									<div class="node node--compact">Honorer sa réservation</div>
+									<div class="node node--compact">Rater sa réservation</div>
+									<div class="node node--compact">Pénaliser un client</div>
+								</div>
+							</div>
+						</div>
 					</section>
 				</section>
 				<section>
@@ -1966,6 +1991,9 @@
 			Reveal.initialize({
 				hash: true,
 
+				// Ne pas éclater chaque fragment sur sa propre page à l'export PDF
+				pdfSeparateFragments: false,
+
 				// Palette hexafox pour les graphiques
 				chart: {
 					defaults: {
@@ -1986,6 +2014,30 @@
 				// Learn about plugins: https://revealjs.com/plugins/
 				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealChapterFooter, RevealChart ]
 			});
+
+			// A l'export PDF (?print-pdf), Chart.js construit les graphiques avec
+			// son détecteur de taille "responsive" habituel, qui ne capte jamais
+			// la bonne taille dans ce mode d'impression (canvas figés à 0px de
+			// haut, donc invisibles). On attend le chargement complet de la page
+			// (c'est à ce moment que reveal.js bascule en mise en page PDF), puis
+			// on recrée chaque graphique en lui donnant explicitement la taille
+			// réelle de son conteneur plutôt que de compter sur l'auto-détection.
+			if ( /print-pdf/i.test( window.location.search ) ) {
+				window.addEventListener('load', function() {
+					setTimeout( function() {
+						document.querySelectorAll('canvas[data-chart]').forEach( function( canvas ) {
+							if ( canvas.chart ) {
+								var rect = canvas.parentElement.getBoundingClientRect();
+								var config = canvas.chart.config;
+								canvas.chart.destroy();
+								canvas.width = rect.width;
+								canvas.height = rect.height;
+								canvas.chart = new Chart( canvas.getContext('2d'), config );
+							}
+						});
+					}, 300 );
+				});
+			}
 		</script>
 	</body>
 </html>
