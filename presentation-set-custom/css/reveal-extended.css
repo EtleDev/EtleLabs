@@ -24,7 +24,15 @@
     display: flex;
     gap: 2em;
     align-items: stretch;
-    height: 40vh;
+    /* em, not vh: reveal.js scales the whole slide with a CSS
+       transform to fit whatever the real screen is, but vh/vw are
+       measured against the real viewport and ignore that transform -
+       so a vh-based height drifts out of proportion with the rest of
+       the (transform-scaled) slide on any screen shaped differently
+       from the one it was tuned on (this is what caused boxes like
+       this to look flattened when presenting on another screen/
+       projector). em scales together with everything else instead. */
+    height: 15em;
 }
 
 .reveal .col-left {
@@ -34,6 +42,8 @@
     padding: 1em;
     min-width: 200px;
     min-height: 0;
+    /* matches frame-top/frame-bottom's font-size so paired boxes read consistently */
+    font-size: 50%;
 }
 
 .reveal .col-right {
@@ -63,6 +73,9 @@
 
 .reveal .titled-frame {
     position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     border-radius: var(--ext-radius);
     padding: 2em 1em 1em 1em;
     box-sizing: border-box;
@@ -70,20 +83,91 @@
     min-height: 0;
 }
 
+.reveal .titled-frame > p {
+    margin: 0;
+}
+
 .reveal .frame-title {
+    /* centered via left:0/right:0/margin:auto rather than
+       left:50%+transform:translateX(-50%) - auto-animate drives its
+       own FLIP transform on matched elements, which stomps on (or
+       conflicts with) any transform already used for layout; the
+       official reveal.js auto-animate examples center elements with
+       margins for the same reason. */
     position: absolute;
     top: -1.2em;
-    left: 50%;
-    transform: translateX(-50%);
+    left: 0;
+    right: 0;
+    width: fit-content;
+    margin: 0 auto;
     background: var(--ext-accent);
     color: white;
     padding: 0.3em 1.2em;
-    border-radius: 2px;
+    border-radius: var(--ext-radius);
     font-weight: bold;
     /* svh: sized against the real viewport, unaffected by reveal's scaling */
     font-size: 2svh;
     z-index: 2;
     white-space: nowrap;
+}
+
+/*
+ * Two titles sharing one frame, side by side (e.g. once two audiences
+ * converge on a single ubiquitous language, their two former frames
+ * merge into one, but both labels stay attached to show whose words
+ * these are) - same look as .frame-title, but laid out as a row
+ * instead of one centered pill, with a thin seam between the two.
+ *
+ * <div class="frame-title-group">
+ *   <div class="frame-title">Développeurs</div>
+ *   <div class="frame-title">Experts Métier</div>
+ * </div>
+ */
+.reveal .frame-title-group {
+    /* see .frame-title above for why this centers via margin:auto
+       instead of transform:translateX(-50%) */
+    position: absolute;
+    top: -1.2em;
+    left: 0;
+    right: 0;
+    width: fit-content;
+    margin: 0 auto;
+    display: flex;
+    z-index: 2;
+    white-space: nowrap;
+}
+
+.reveal .frame-title-group .frame-title {
+    position: static;
+    width: auto;
+    margin: 0;
+    transform: none;
+    border-radius: 0;
+}
+
+.reveal .frame-title-group .frame-title:first-child {
+    border-radius: var(--ext-radius) 0 0 var(--ext-radius);
+}
+
+.reveal .frame-title-group .frame-title:last-child {
+    border-radius: 0 var(--ext-radius) var(--ext-radius) 0;
+    border-left: 2px solid var(--r-background-color, #10171a);
+}
+
+/*
+ * Ghost variant: a hollow, secondary-looking title for a frame nested
+ * inside another titled-frame (e.g. Stratégique/Tactique inside a
+ * Solution space box) - contrasts with the solid fill of its parent's
+ * own title through style, not size, so nesting stays legible without
+ * inflating anything.
+ */
+.reveal .frame-title--ghost {
+    /* opaque, not transparent: it must occlude the frame's own top
+       border where the pill straddles it, or that line visibly cuts
+       through the label text */
+    background: var(--r-background-color, #000);
+    color: var(--ext-accent-2);
+    border: 2px solid var(--ext-accent-2);
 }
 
 /* -------------------------------------------------------------------
@@ -180,17 +264,237 @@
 }
 
 /* -------------------------------------------------------------------
+ * Title note
+ *
+ * A small aside right under a chapter's h1 (a pun, a wink, a light
+ * remark) - NOT a subtitle: chapter-footer only looks for h2/h3, so
+ * a title-note never gets picked up and repeated on every slide.
+ * Deliberately less prominent than a subtitle: smaller, italic, and
+ * muted rather than the theme's heading color.
+ * ------------------------------------------------------------------- */
+
+.reveal .title-note {
+    font-size: 0.5em !important;
+    font-style: italic;
+    font-weight: normal;
+    color: var(--r-main-color);
+    opacity: 0.6;
+}
+
+/* -------------------------------------------------------------------
+ * Node grid: hierarchy / classification diagrams reproduced as HTML
+ * instead of a bitmap (e.g. "Entreprise" -> its activity sectors,
+ * enterprise activities selected among the full list, subdomains
+ * grouped by type). One recurring visual family, several diagrams -
+ * built as a reusable set rather than styling a single slide.
+ *
+ * Uses --r-heading-color (matches the deck's own title color) rather
+ * than --ext-accent, which reads duller next to a bright heading;
+ * override --node-accent locally to use a different color.
+ *
+ * <div class="node-root">Entreprise</div>
+ * <div class="node-arrow-down"></div>
+ * <div class="node-grid" style="--node-grid-cols: 3">
+ *   <div class="node">Secteur</div>
+ *   <div class="node node--filled">Secteur<span class="node-badge">💰</span></div>
+ *   <div class="node node--dim">Secteur non retenu</div>
+ * </div>
+ * ------------------------------------------------------------------- */
+
+.reveal .node-root {
+    display: inline-block;
+    background: var(--node-accent, var(--r-heading-color));
+    color: var(--r-background-color, #10171a);
+    border-radius: var(--ext-radius);
+    padding: 0.5em 1.4em;
+    font-weight: bold;
+    text-align: center;
+}
+
+.reveal .node-arrow-down {
+    position: relative;
+    width: 3px;
+    height: 1.6em;
+    margin: 0.3em auto;
+    background: var(--node-accent, var(--r-heading-color));
+}
+
+.reveal .node-arrow-down::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -1px;
+    transform: translateX(-50%);
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 12px solid var(--node-accent, var(--r-heading-color));
+}
+
+/* Same arrow, pointing up - e.g. two parties both reaching for a
+   broken link in the middle. */
+.reveal .node-arrow-up {
+    position: relative;
+    width: 3px;
+    height: 1.6em;
+    margin: 0.3em auto;
+    background: var(--node-accent, var(--r-heading-color));
+}
+
+.reveal .node-arrow-up::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: -1px;
+    transform: translateX(-50%);
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 12px solid var(--node-accent, var(--r-heading-color));
+}
+
+/* -------------------------------------------------------------------
+ * Small inline-SVG icons (people group, broken link, cracked screen)
+ * for the "communication breakdown" slides - colored via `color`
+ * (SVGs use fill/stroke="currentColor"), sized via font-size on the
+ * wrapping element.
+ * ------------------------------------------------------------------- */
+
+.reveal .icon {
+    display: inline-block;
+    width: 2.6em;
+    height: 2.2em;
+}
+
+.reveal .icon svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.reveal .node-grid {
+    display: grid;
+    grid-template-columns: repeat(var(--node-grid-cols, 3), 1fr);
+    gap: 0.8em;
+    width: 100%;
+}
+
+.reveal .node {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border: 2px solid var(--node-accent, var(--r-heading-color));
+    border-radius: var(--ext-radius);
+    color: var(--node-accent, var(--r-heading-color));
+    font-weight: bold;
+    padding: 0.9em;
+    /* keeps every box the same height regardless of label length
+       (grid rows otherwise size to their tallest cell only, so a
+       two-line label makes its own row taller than the others) */
+    min-height: 3.2em;
+}
+
+/* Shorter box, same text size - for long single-column lists where
+   the default min-height/padding would push the list off the slide
+   well before the font-size does. */
+.reveal .node--compact {
+    padding: 0.4em 0.9em;
+    min-height: 0;
+}
+
+/*
+ * Shared subtle background for every framed box (titled-frame and
+ * node), matching the faint wash reveal's own theme already applies
+ * to <blockquote> (background: #ffffff0d) - makes framed content
+ * stand out slightly from the plain slide background without
+ * introducing a new visual language. Declared right after the base
+ * rules (and before node--filled) so solid-filled variants still
+ * override it correctly.
+ */
+.reveal .titled-frame,
+.reveal .node {
+    background: #ffffff0d;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Highlighted / selected node, e.g. the core or revenue-generating one */
+.reveal .node--filled {
+    background: var(--node-accent, var(--r-heading-color));
+    color: var(--r-background-color, #10171a);
+    border-color: transparent;
+}
+
+/* De-emphasized node, e.g. an activity not part of the current selection */
+.reveal .node--dim {
+    opacity: 0.35;
+}
+
+/* Fragment that dims an element to de-emphasize it, e.g. graying out
+   one side of a diagram to draw focus to the other. Like reveal's
+   own "semi-fade-out" but more pronounced (0.5 read as too subtle). */
+.reveal .fragment.dim-out {
+    opacity: 1;
+    visibility: inherit;
+}
+
+.reveal .fragment.dim-out.visible {
+    opacity: 0.25;
+}
+
+/* Small corner badge on a node, e.g. a checkmark or an icon */
+.reveal .node-badge {
+    position: absolute;
+    top: -0.6em;
+    right: -0.6em;
+    z-index: 2;
+    width: 1.7em;
+    height: 1.7em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--node-accent, var(--r-heading-color));
+    border-radius: 50%;
+    font-size: 0.7em;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+}
+
+/* Rounded variant of reveal's own .r-frame (border + shadow around
+   media): .r-frame alone is square-cornered by default, and that
+   default must stay untouched since photos elsewhere in the deck
+   rely on it. */
+.reveal .r-frame--rounded {
+    border-radius: var(--ext-radius);
+}
+
+/* Accent-colored variant of .r-frame: its default border color is
+   --r-main-color (plain body text color), too bright/neutral next to
+   an HTML diagram that already carries its own accent color. */
+.reveal .r-frame--accent {
+    border-color: var(--ext-accent);
+}
+
+/* -------------------------------------------------------------------
  * Sources and captions
  * ------------------------------------------------------------------- */
 
-/* Credit line for a quote or diagram, e.g. <p class="source">Eric Evans, DDD (2003)</p> */
+/*
+ * Credit line for a quote or diagram, e.g. <p class="source">Eric Evans, DDD (2003)</p>
+ * Assumes it directly follows a <blockquote> (width: 70%, centered):
+ * positioned so its own horizontal center lands on the blockquote's
+ * right edge (15% + 70% = 85% of the shared containing block), like
+ * a small label anchored to that corner, sitting close underneath.
+ */
 .reveal .slides .source {
     display: block;
-    margin-top: 0.5em;
+    position: relative;
+    left: 85%;
+    transform: translateX(-50%);
+    width: max-content;
+    max-width: 90%;
+    margin-top: 0.2em;
     font-size: 0.45em;
     font-style: italic;
     opacity: 0.6;
-    text-align: right;
 }
 
 .reveal .slides figure {
@@ -203,4 +507,370 @@
     font-style: italic;
     opacity: 0.7;
     text-align: center;
+}
+
+/* -------------------------------------------------------------------
+ * Chapter footer (plugin chapter-footer)
+ *
+ * Hors de .slides : il n'est pas mis à l'échelle par reveal, les
+ * tailles sont donc en pixels, comme la barre de progression.
+ * ------------------------------------------------------------------- */
+
+.reveal .chapter-footer {
+    position: absolute;
+    bottom: 10px;
+    left: 16px;
+    z-index: 10;
+    max-width: 45vw;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 15px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--r-main-color, currentColor);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.reveal .chapter-footer.visible {
+    opacity: 0.45;
+}
+
+.reveal .chapter-footer .subtitle {
+    font-style: italic;
+    text-transform: none;
+}
+
+/* -------------------------------------------------------------------
+ * Quadrant chart: a 2-axis classification plane (e.g. business
+ * differentiation vs. model complexity, positioning Generic /
+ * Supporting / Core subdomains). Zones are plain rectangles - no
+ * diagonals or curves - positioned via inline left/width/top/height
+ * percentages, so the same chart can be reused with different zone
+ * shapes across a whole chapter.
+ *
+ * <div class="quadrant-chart">
+ *   <div class="quadrant-axis-y"></div>
+ *   <div class="quadrant-axis-x"></div>
+ *   <div class="quadrant-axis-label quadrant-axis-label--y">Complexité<br>du<br>Modèle</div>
+ *   <div class="quadrant-axis-label quadrant-axis-label--x">Différenciation Métier</div>
+ *   <span class="quadrant-tick quadrant-tick--y-low">Faible</span>
+ *   <span class="quadrant-tick quadrant-tick--y-high">Fort</span>
+ *   <span class="quadrant-tick quadrant-tick--x-low">Faible</span>
+ *   <span class="quadrant-tick quadrant-tick--x-high">Fort</span>
+ *   <!-- painted first, so generic/core (below) draw over it -->
+ *   <div class="quadrant-zone quadrant-zone--supporting" style="left:0; width:100%; top:0; height:100%;">
+ *     <span class="quadrant-zone-label" style="position:absolute; left:38%; top:78%;">SUPPORTING</span>
+ *   </div>
+ *   <div class="quadrant-zone quadrant-zone--generic" style="left:0; width:25%; top:0; height:100%;">
+ *     <span class="quadrant-zone-label quadrant-zone-label--vertical">GENERIC</span>
+ *   </div>
+ *   <div class="quadrant-zone quadrant-zone--core" style="left:50%; right:0; top:0; height:75%;">
+ *     <span class="quadrant-zone-label">CORE</span>
+ *   </div>
+ * </div>
+ * ------------------------------------------------------------------- */
+
+.reveal .quadrant-chart {
+    /* height is the concrete anchor dimension: r-stretch computes the
+       wrapper's height to exactly fill the remaining slide space, so
+       deriving width from it (via aspect-ratio) uses that space fully
+       instead of flattening to whatever width:100% happens to be.
+       A concrete size here is required: every child is
+       position:absolute, so none of them contribute to this
+       element's own intrinsic size - without a real height, the box
+       collapses to ~0 and all the (percentage-positioned) children
+       collapse on top of each other. */
+    position: relative;
+    height: 100%;
+    /* 3:2, matching the original diagram: with generic at 25% width,
+       core spans the right half (left:50%) at 75% height, so
+       core's width (50% of W) equals its height (75% of H) exactly
+       when W = 1.5H - see the usage example above for the shape. */
+    aspect-ratio: 3 / 2;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.reveal .quadrant-axis-y,
+.reveal .quadrant-axis-x {
+    position: absolute;
+    z-index: 1;
+    background: var(--node-accent, var(--r-heading-color));
+}
+
+.reveal .quadrant-axis-y {
+    left: 0;
+    top: -0.6em;
+    bottom: 0;
+    width: 3px;
+}
+
+.reveal .quadrant-axis-y::after {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-bottom: 11px solid var(--node-accent, var(--r-heading-color));
+}
+
+.reveal .quadrant-axis-x {
+    left: 0;
+    right: -0.6em;
+    bottom: 0;
+    height: 3px;
+}
+
+.reveal .quadrant-axis-x::after {
+    content: '';
+    position: absolute;
+    right: -1px;
+    top: 50%;
+    transform: translateY(-50%);
+    border-top: 7px solid transparent;
+    border-bottom: 7px solid transparent;
+    border-left: 11px solid var(--node-accent, var(--r-heading-color));
+}
+
+.reveal .quadrant-axis-label {
+    position: absolute;
+    font-size: 0.6em;
+    font-weight: bold;
+    text-align: center;
+    color: var(--r-main-color);
+}
+
+.reveal .quadrant-axis-label--y {
+    left: -6em;
+    top: 50%;
+    width: 5.2em;
+    transform: translateY(-50%);
+}
+
+.reveal .quadrant-axis-label--x {
+    left: 0;
+    right: 0;
+    bottom: -3em;
+}
+
+.reveal .quadrant-tick {
+    position: absolute;
+    font-size: 0.55em;
+    font-weight: bold;
+    color: var(--node-accent, var(--r-heading-color));
+}
+
+.reveal .quadrant-tick--y-low {
+    left: -3.2em;
+    bottom: 0;
+}
+
+.reveal .quadrant-tick--y-high {
+    left: -3.2em;
+    top: 0;
+}
+
+.reveal .quadrant-tick--x-low {
+    left: 0;
+    bottom: -1.9em;
+}
+
+.reveal .quadrant-tick--x-high {
+    right: 0;
+    bottom: -1.9em;
+}
+
+.reveal .quadrant-zone {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+.reveal .quadrant-zone--supporting {
+    background: var(--ext-accent, var(--r-heading-color));
+}
+
+.reveal .quadrant-zone--generic {
+    background: #6b6b6b;
+}
+
+.reveal .quadrant-zone--core {
+    background: var(--ext-accent-2, var(--hf-fox));
+}
+
+.reveal .quadrant-zone-label {
+    font-weight: bold;
+    color: #fff;
+    text-align: center;
+    letter-spacing: 0.05em;
+}
+
+.reveal .quadrant-zone-label--vertical {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    letter-spacing: 0.15em;
+}
+
+/* -----------------------------------------------------------------
+ * Quadrant chart diagonal: an alternative to the zone rectangles
+ * above - reuses the same .quadrant-chart/axis/label/tick markup,
+ * with a plain background rect (the usual faint frame wash, see
+ * .titled-frame/.node above) standing in for the zones, and a single
+ * dotted "alignment axis" running from the bottom-left corner to the
+ * top-right corner.
+ *
+ *   <div class="quadrant-chart">
+ *     ... axes/labels/ticks as above ...
+ *     <div class="quadrant-zone quadrant-zone--plain" style="left:0; width:100%; top:0; height:100%;"></div>
+ *     <div class="quadrant-diagonal">
+ *       <span class="quadrant-diagonal-label">Axe d'alignement</span>
+ *     </div>
+ *   </div>
+ * ------------------------------------------------------------------- */
+
+.reveal .quadrant-zone--plain {
+    background: #ffffff0d;
+}
+
+.reveal .quadrant-diagonal {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    /* the box is a fixed 3:2, so its corner-to-corner diagonal is a
+       constant multiple of the width - hypot(3, 2) / 3 - regardless
+       of the container's rendered size. */
+    width: 120.19%;
+    height: 0.6em;
+    transform-origin: 0% 100%;
+    transform: rotate(-33.69deg);
+    background-image: radial-gradient(circle 0.16em, var(--node-accent, var(--r-heading-color)) 99%, transparent 100%);
+    background-size: 1.5em 100%;
+    background-repeat: repeat-x;
+    background-position: left center;
+}
+
+.reveal .quadrant-diagonal::after {
+    content: '';
+    position: absolute;
+    right: -1px;
+    top: 50%;
+    transform: translateY(-50%);
+    border-top: 0.3em solid transparent;
+    border-bottom: 0.3em solid transparent;
+    border-left: 0.45em solid var(--node-accent, var(--r-heading-color));
+}
+
+.reveal .quadrant-diagonal-label {
+    position: absolute;
+    left: 40%;
+    top: -1.3em;
+    font-weight: bold;
+    font-style: italic;
+    white-space: nowrap;
+    color: var(--node-accent, var(--r-heading-color));
+}
+
+/* -----------------------------------------------------------------
+ * Quadrant chart marker + arrow: pinpoints a subdomain's position
+ * on the .quadrant-chart (e.g. "Subdomains patterns" exercises) and,
+ * optionally, connects it to a second position it moved from/to.
+ * Both are positioned per-usage via inline style, since every
+ * pattern places them differently:
+ *
+ *   <div class="quadrant-chart">
+ *     ... axes/labels/ticks/zones as above ...
+ *     <div class="quadrant-marker" style="left: 90%; top: 12%;"></div>
+ *     <!-- with a second, "ghost" position and a connecting arrow: -->
+ *     <div class="quadrant-marker quadrant-marker--ghost" style="left: 90%; top: 13%;"></div>
+ *     <div class="quadrant-arrow" style="left: 90%; top: 13%; width: 53%; transform: rotate(148.1deg);"></div>
+ *     <div class="quadrant-marker" style="left: 45%; top: 55%;"></div>
+ *   </div>
+ *
+ * The arrow's left/top/width/rotate are derived from the two marker
+ * points (xA/yA -> xB/yB, in % of the chart box) accounting for its
+ * fixed 3:2 aspect-ratio:
+ *   dx = xB - xA; dy = (yB - yA) * 2/3
+ *   length = hypot(dx, dy)  (in %, same unit as the box width)
+ *   rotate = atan2(dy, dx)  (in degrees)
+ * Inset both ends by a few % so the line/arrowhead don't disappear
+ * under the markers: left/top move `inset/length` of the way from A
+ * to B, and width shrinks by 2x that same fraction.
+ * ------------------------------------------------------------------- */
+
+.reveal .quadrant-marker {
+    /* % of the chart box, not em: stays proportional if the chart
+       itself is resized. Width:height is 1:1.5 (not 1:1) because the
+       box's own aspect-ratio is 3:2 - at that ratio the two come out
+       as an equal-px, undistorted square (rotated into a diamond). */
+    position: absolute;
+    width: 7%;
+    height: 10.5%;
+    transform: translate(-50%, -50%) rotate(45deg);
+    background: var(--ext-danger);
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+}
+
+.reveal .quadrant-marker--ghost {
+    background: var(--r-main-color, #fff);
+    opacity: 0.5;
+}
+
+.reveal .quadrant-arrow {
+    position: absolute;
+    height: 0.4em;
+    transform-origin: 0% 50%;
+    background-image: radial-gradient(circle 0.045em, var(--r-main-color, #fff) 99%, transparent 100%);
+    background-size: 0.4em 100%;
+    background-repeat: repeat-x;
+    background-position: left center;
+}
+
+.reveal .quadrant-arrow::after {
+    content: '';
+    position: absolute;
+    right: -1px;
+    top: 50%;
+    transform: translateY(-50%);
+    border-top: 0.28em solid transparent;
+    border-bottom: 0.28em solid transparent;
+    border-left: 0.4em solid var(--r-main-color, #fff);
+}
+
+/* -------------------------------------------------------------------
+ * Word cloud: a loose, staggered list of terms of varying emphasis
+ * inside a .titled-frame (e.g. contrasting how two audiences name the
+ * same concepts). Deliberately not a grid/list - stagger left margins
+ * per-item via inline style to get the organic, scattered feel of the
+ * reference word clouds this reproduces.
+ *
+ * <div class="titled-frame frame--info">
+ *   <div class="frame-title">Développeurs</div>
+ *   <div class="word-cloud">
+ *     <p class="word-cloud-item word-cloud-item--big">User</p>
+ *     <p class="word-cloud-item" style="margin-left: 1.5em;">Emplacement de type "Terrasse"</p>
+ *   </div>
+ * </div>
+ * ------------------------------------------------------------------- */
+
+.reveal .word-cloud {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+}
+
+.reveal .word-cloud-item {
+    margin: 0;
+    font-weight: bold;
+    line-height: 1.2;
+}
+
+.reveal .word-cloud-item--big {
+    font-size: 1.7em;
 }

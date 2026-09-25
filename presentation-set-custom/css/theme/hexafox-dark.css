@@ -42,9 +42,44 @@
     --r-selection-color: #1B1F22;
 }
 
+/* Sous-titres neutres : ne concurrencent plus les titres cyan */
+.reveal h3 {
+    color: var(--r-main-color);
+    font-weight: normal;
+}
+
 /* Touche signature : barre de progression orange (les contrôles restent cyan) */
 .reveal .progress {
     color: var(--hf-fox);
+}
+
+/*
+ * Cadre des médias (r-frame) : bleu caraïbes et coins arrondis du
+ * thème plutôt que le gris texte et les angles vifs par défaut.
+ * Placé ici (et non dans reveal-extended.css) car l'effet est propre
+ * à hexafox-dark, sans affecter les decks encore sous le thème moon.
+ */
+.reveal .r-frame {
+    border-color: var(--ext-accent);
+    border-radius: var(--ext-radius);
+}
+
+/*
+ * Rounded corners on quotes too, same reasoning as r-frame above.
+ * Left accent bar as a visual quotation mark, since the italic text
+ * alone reads a bit flat against the theme's other framed elements.
+ */
+.reveal blockquote {
+    border-radius: var(--ext-radius);
+    border-left: 4px solid var(--ext-accent);
+    padding-left: 1em;
+}
+
+/* Experiment: matching accent bar on the source line, opposite side */
+.reveal .source {
+    border-right: 3px solid var(--ext-accent-2);
+    border-radius: var(--ext-radius);
+    padding-right: 0.5em;
 }
 
 /*

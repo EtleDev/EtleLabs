@@ -1,0 +1,2043 @@
+<!doctype html>
+<html lang="fr">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>DDD côté métier</title>
+
+		<link rel="stylesheet" href="../../presentation-set/dist/reset.css">
+		<link rel="stylesheet" href="../../presentation-set/dist/reveal.css">
+		<link rel="stylesheet" href="../../presentation-set-custom/css/theme/hexafox-dark.css">
+		<link rel="stylesheet" href="../../presentation-set-custom/css/reveal-extended.css">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="../../presentation-set/dist/plugin/highlight/monokai.css">
+
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h1>Parlons-nous le même langage&nbsp;?</h1>
+					<h3>Le DDD côté métier</h3>
+				</section>
+
+				<section>
+					<section>
+						<h1>Domain-Driven Design</h1>
+						<h3>INTRODUCTION</h3>
+
+						<aside data-markdown class="notes">
+							# Rappel :
+							Lien du board : https://lucid.app/lucidspark/9e5d21e5-8bdc-4866-89b7-9440d7b7e50f/edit?page=0_0&invitationId=inv_ac8285ef-760a-4ad6-936d-47069b310112#
+
+							Lien d'invitation : https://lucid.app/lucidspark/9e5d21e5-8bdc-4866-89b7-9440d7b7e50f/edit?viewport_loc=-2481%2C26%2C12203%2C5894%2C0_0&invitationId=inv_ac8285ef-760a-4ad6-936d-47069b310112
+
+							Qu'attendez-vous de ce workshop ?
+							=> Faire un questionnaire en ligne ?
+							=> faire une rubrique sur le board ?
+
+							Si je vous parle du livre bleu, ça vous parle ?
+
+							But du workshop => vous enseigner le DDD pour pouvoir le mettre en pratique dans le contexte pro et vous rendre suffisamment autonome pour comprendre le DDD, et comprendre les ressources à son sujet
+							Donner la base nécessaire pour évoluer dans le DDD.
+							A la fin de ce workshop, vous ne serez pas des Eric Evans ambulants (aka pas des experts)
+
+							C'est la première fois que j'enseigne ce workshop et je ne suis pas formateur de métier.
+							Merci de bien vouloir faire des retours constructifs pour améliorer cet atelier.
+							Il y aura donc sûrement des erreurs et des soucis techniques, c'est inévitable.
+
+							Pause de 10-15 min toutes les heures
+
+							Je reste à dispo.
+
+							N'hésitez pas à poser des questions, il n'y a pas de questions bêtes
+						</aside>
+					</section>
+					<section>
+						Quels sont les problèmes récurrents du développement logiciel ?
+					</section>
+					<section>
+						<h5>Problème 1</h5>
+						<p>
+							La complexité évolue avec le temps
+						</p>
+
+						<aside data-markdown class="notes">
+							Donc on parle bien ici de logiciels "vivants", pas de PoC ou de petits scripts
+						</aside>					
+					</section>
+					<section>
+						<div class="r-stretch" style="padding: 30px; box-sizing: border-box;">
+						<canvas data-chart="line" style="width: 100%; height: 100%; display: block;">
+						<!--
+						{
+							"data": {
+								"labels": ["", "", "", "", "", "", "", "", "", "", ""],
+								"datasets": [
+									{ "label": "Avec effort de design", "data": [3, 3.8, 4.6, 5.2, 5.6, 5.8, 5.85, 5.9, 5.9, 5.9, 5.9], "tension": 0.4, "pointRadius": 0, "borderWidth": 4, "fill": false },
+									{ "label": "Sans design", "data": [1, 1.05, 1.15, 1.35, 1.7, 2.3, 3.3, 4.8, 6.8, 9.2, 12], "tension": 0.4, "pointRadius": 0, "borderWidth": 4, "fill": false }
+								]
+							},
+							"options": {
+								"scales": {
+									"x": { "grid": { "display": false }, "ticks": { "display": false }, "title": { "display": true, "text": "Temps" } },
+									"y": { "grid": { "display": false }, "ticks": { "display": false }, "title": { "display": true, "text": "Complexité" }, "max": 10 }
+								},
+								"plugins": { "legend": { "position": "top" } }
+							}
+						}
+						-->
+						</canvas>
+						</div>
+						<aside data-markdown class="notes">
+							Au départ, la complexité reste très basse. Mais elle croit EXPONENTIELLEMENT
+
+							Exemple : sur EZEP, rajouter un usecase nous faisait une exponentielle de 2
+
+							Ca arrive systèmatiquement sans design
+
+							C'est ça le but du design : faire du design constant permet de conserver notre productivité / vélocité dans le temps ! (de la garder constante)
+
+							Le problème, c'est que pour lancer une boîte, souvent on ne fait pas de design, car ça prend du temps. Et il y a un écart important au départ. Cet écart est rentabilisé sur la durée.
+
+							Ca demande donc de l'expérience de savoir quand commencer à faire du design, et sur quelle partie du code (car toutes les parties du code ne mérite pas le même niveau de design)
+						</aside>	
+					</section>
+					<section>
+						<div class="r-stretch" style="padding: 30px; box-sizing: border-box;">
+						<canvas data-chart="line" style="width: 100%; height: 100%; display: block;">
+						<!--
+						{
+							"data": {
+								"labels": ["", "", "", "", "", "", "", "", "", "", ""],
+								"datasets": [
+									{ "label": "Avec effort de design", "data": [2.5, 3.3, 4.2, 5, 5.6, 6, 6.3, 6.5, 6.6, 6.65, 6.6], "tension": 0.4, "pointRadius": 0, "borderWidth": 4, "fill": false },
+									{ "label": "Sans design", "data": [9, 8.5, 7.8, 7, 6.1, 5.1, 4.1, 3.1, 2.2, 1.4, 0.8], "tension": 0.4, "pointRadius": 0, "borderWidth": 4, "fill": false }
+								]
+							},
+							"options": {
+								"scales": {
+									"x": { "grid": { "display": false }, "ticks": { "display": false }, "title": { "display": true, "text": "Temps" } },
+									"y": { "grid": { "display": false }, "ticks": { "display": false }, "title": { "display": true, "text": "Productivité" }, "max": 10 }
+								},
+								"plugins": { "legend": { "position": "top" } }
+							}
+						}
+						-->
+						</canvas>
+						</div>
+						<aside data-markdown class="notes">
+							le design a donc un impact sur la productivité
+							La perte de productivité intervient assez rapidement (env. 6 mois / 1 an). C'est quelque chose d'extrêmement commun. (Ca vous est surement déjà arrivé dans d'autres boites)
+						</aside>
+					</section>
+					<section>
+						<h5>Question</h5>
+						<p>
+							Comment maintenir le contrôle sur la complexité du logiciel ?
+						</p>
+					</section>
+					<section>
+						<div class="slide-2col-container">
+							<div class="slide-2col-text">
+								<h5>Problème 2</h5>
+								<p>
+									Le développement se fait en Silo
+								</p>							
+							</div>
+							<div class="slide-2col-image">
+								<div style="display: flex; flex-direction: column; align-items: center; gap: 0.5em; font-size: 0.55em; width: 100%;">
+									<span class="icon" style="color: #fff; width: 3.4em; height: 2.8em;"><svg viewBox="0 0 64 56" fill="currentColor"><circle cx="16" cy="14" r="8"/><path d="M2 40c0-9 6-15 14-15s14 6 14 15z"/><circle cx="48" cy="14" r="8"/><path d="M34 40c0-9 6-15 14-15s14 6 14 15z"/><circle cx="32" cy="10" r="10"/><path d="M14 42c0-11 8-18 18-18s18 7 18 18z"/></svg></span>
+									<div class="node-root">Développeurs</div>
+									<div class="node-arrow-down"></div>
+									<span class="icon" style="color: var(--node-accent); width: 1.8em; height: 2.8em;"><svg viewBox="0 0 40 70" fill="none" stroke="currentColor" stroke-width="4"><rect x="10" y="2" width="20" height="26" rx="10"/><rect x="10" y="42" width="20" height="26" rx="10"/><line x1="2" y1="30" x2="8" y2="34" stroke-width="3"/><line x1="38" y1="30" x2="32" y2="34" stroke-width="3"/><line x1="2" y1="40" x2="8" y2="36" stroke-width="3"/><line x1="38" y1="40" x2="32" y2="36" stroke-width="3"/></svg></span>
+									<div class="node-arrow-up"></div>
+									<div class="node-root">Client / Business</div>
+									<span class="icon" style="color: #fff; width: 3.4em; height: 2.8em;"><svg viewBox="0 0 64 56" fill="currentColor"><circle cx="16" cy="14" r="8"/><path d="M2 40c0-9 6-15 14-15s14 6 14 15z"/><circle cx="48" cy="14" r="8"/><path d="M34 40c0-9 6-15 14-15s14 6 14 15z"/><circle cx="32" cy="10" r="10"/><path d="M14 42c0-11 8-18 18-18s18 7 18 18z"/></svg></span>
+								</div>
+							</div>
+						</div>
+						<aside data-markdown class="notes">
+							souvent les experts métier vont voir les dévs (ou pas) mais ne parle pas le même langage.
+							Occasionnant quasiment systèmatiquement de la traduction, et donc le code produit n'est pas ce qui est attendu
+						</aside>
+					</section>
+					<section>
+						<blockquote cite="http://">
+							&ldquo;Les développeurs implémentent ce qu’ils comprennent de la spécification, pas ce qui est spécifié et attendu&rdquo;
+						</blockquote>
+						<p class="source">Eric Evans</p>
+					</section>
+					<section>
+						<blockquote cite="https://youtu.be/sZbmP0JZHBs?feature=shared&t=2155">
+							&ldquo;Ce qui part en production, c'est ce que les développeurs ont compris&rdquo;
+						</blockquote>
+						<p class="source">Arnaud Lemaire</p>
+					</section>				
+					<section data-auto-animate>
+						<div class="slide-2col-container">
+							<div class="slide-2col-text">
+								<h5>Problème</h5>
+								<p>
+									Décalage entre développeurs et clients
+								</p>
+							</div>
+							<div class="slide-2col-image">
+								<div style="display: flex; flex-direction: column; align-items: center; gap: 1.4em; font-size: 0.5em; width: 100%;">
+									<div data-id="card-dev" style="border: 2px solid var(--ext-highlight-blue); border-radius: var(--ext-radius); padding: 1em 1.4em; display: flex; flex-direction: column; align-items: center; gap: 0.7em; width: 14em; box-sizing: border-box;">
+										<span class="icon" style="color: #fff; width: 3.4em; height: 2.8em;"><svg viewBox="0 0 64 56" fill="currentColor"><circle cx="16" cy="14" r="8"/><path d="M2 40c0-9 6-15 14-15s14 6 14 15z"/><circle cx="48" cy="14" r="8"/><path d="M34 40c0-9 6-15 14-15s14 6 14 15z"/><circle cx="32" cy="10" r="10"/><path d="M14 42c0-11 8-18 18-18s18 7 18 18z"/></svg></span>
+										<div class="node-root">Développeurs</div>
+									</div>
+									<div data-id="card-client" style="border: 2px solid var(--ext-highlight-blue); border-radius: var(--ext-radius); padding: 1em 1.4em; display: flex; flex-direction: column; align-items: center; gap: 0.7em; width: 14em; box-sizing: border-box;">
+										<div class="node-root">Client / Business</div>
+										<span class="icon" style="color: #fff; width: 3.4em; height: 2.8em;"><svg viewBox="0 0 64 56" fill="currentColor"><circle cx="16" cy="14" r="8"/><path d="M2 40c0-9 6-15 14-15s14 6 14 15z"/><circle cx="48" cy="14" r="8"/><path d="M34 40c0-9 6-15 14-15s14 6 14 15z"/><circle cx="32" cy="10" r="10"/><path d="M14 42c0-11 8-18 18-18s18 7 18 18z"/></svg></span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+					<section data-auto-animate>
+						<div class="slide-2col-container">
+							<div class="slide-2col-text">
+								<h5>Résultat</h5>
+								<p>
+									Produit non conforme
+								</p>
+								<p class="fragment">
+									Difficile à maintenir
+								</p>
+								<p class="fragment">
+									Pénible à utiliser
+								</p>
+							</div>
+							<div class="slide-2col-image">
+								<div style="display: flex; flex-direction: column; align-items: center; gap: 1em; font-size: 0.5em; width: 100%;">
+									<div data-id="card-dev" style="border: 2px solid var(--ext-highlight-blue); border-radius: var(--ext-radius); padding: 1em 1.4em; display: flex; flex-direction: column; align-items: center; gap: 0.7em; width: 14em; box-sizing: border-box;">
+										<span class="icon" style="color: #fff; width: 3.4em; height: 2.8em;"><svg viewBox="0 0 64 56" fill="currentColor"><circle cx="16" cy="14" r="8"/><path d="M2 40c0-9 6-15 14-15s14 6 14 15z"/><circle cx="48" cy="14" r="8"/><path d="M34 40c0-9 6-15 14-15s14 6 14 15z"/><circle cx="32" cy="10" r="10"/><path d="M14 42c0-11 8-18 18-18s18 7 18 18z"/></svg></span>
+										<div class="node-root">Développeurs</div>
+									</div>
+									<span class="icon" style="color: var(--node-accent); width: 3em; height: 2.5em;"><svg viewBox="0 0 60 50" fill="none" stroke="currentColor" stroke-width="4"><rect x="4" y="4" width="52" height="34" rx="4"/><polyline points="20,4 28,18 20,24 34,38" stroke-width="3"/><line x1="30" y1="38" x2="30" y2="44"/><line x1="18" y1="46" x2="42" y2="46"/></svg></span>
+									<div data-id="card-client" style="border: 2px solid var(--ext-highlight-blue); border-radius: var(--ext-radius); padding: 1em 1.4em; display: flex; flex-direction: column; align-items: center; gap: 0.7em; width: 14em; box-sizing: border-box;">
+										<div class="node-root">Client / Business</div>
+										<span class="icon" style="color: #fff; width: 3.4em; height: 2.8em;"><svg viewBox="0 0 64 56" fill="currentColor"><circle cx="16" cy="14" r="8"/><path d="M2 40c0-9 6-15 14-15s14 6 14 15z"/><circle cx="48" cy="14" r="8"/><path d="M34 40c0-9 6-15 14-15s14 6 14 15z"/><circle cx="32" cy="10" r="10"/><path d="M14 42c0-11 8-18 18-18s18 7 18 18z"/></svg></span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+					<section>
+						<h5>Question</h5>
+						<p>
+							Comment unifier la <span class="highlight">compréhension du besoin</span>  entre devs et business ?
+						</p>
+					</section>				
+				</section>
+				<section>
+					<section><h1>Territoire du Domain-Driven Design</h1></section>
+					<section>
+						<h5>Définition</h5>
+						<p class="fragment fade-in-then-semi-out">
+							Discipline centrée sur le <span class="highlight">métier</span>
+						</p>
+						<p class="fragment fade-in-then-semi-out">
+							Unifier le <span class="highlight">modèle mental</span> des <span class="highlight">développeurs</span> et des <span class="highlight">experts métier</span>
+						</p>
+						<p class="fragment fade-in-then-semi-out">
+							Partager un <span class="highlight">langage commun</span>
+						</p>
+						<p class="fragment fade-in-then-semi-out">
+							Contrôler la <span class="highlight">complexité</span> du logiciel
+						</p>
+						<p class="fragment fade-in-then-semi-out">
+							Décomposer cette complexité dans des <span class="highlight">contextes</span>
+						</p>
+						<aside data-markdown class="notes">
+							au delà de parler le même langage, le but du DDD est de PENSER de la même façon   
+
+							principe du "divide and conquer"
+
+							Exemple : vous connaissez l'Elephant carpaccio ? 
+							C'est un atelier qui vise à décomposer un gros problème en plus petit problèmes.
+							Globalement, si tu dois bouffer un éléphant, soit pas con, coupe le en petit morceau
+							Ca c'est le sujet des bounded contexts
+						</aside>
+					</section>				
+					<section data-auto-animate>
+						<h3>Territoire</h3>
+						<div class="slide-flex">
+							<div data-id="problemspace" class="col-left titled-frame">
+								<strong class="frame-title">Problem space</strong>
+								<p>Comprendre le domaine, la vision de l'entreprise, ses objectifs et ses besoins</p>
+							</div>
+							<div data-id="solutionspace" class="col-right titled-frame">
+								<strong class="frame-title">Solution space</strong>
+								<div class="frame-top titled-frame">
+									<strong class="frame-title frame-title--ghost">Stratégique</strong>
+									<p>Décomposer le problème en différentes parties et établir les relations entre ces parties</p>
+								</div>
+								<div class="frame-bottom titled-frame">
+									<strong class="frame-title frame-title--ghost">Tactique</strong>
+									<p>Implémenter la solution avec des patterns de code</p>
+								</div>
+							</div>
+						</div>
+						<aside data-markdown class="notes">
+							Problem space => orienté produit
+						</aside>
+					</section>
+					<section data-auto-animate>
+						<h3>Territoire</h3>
+						<div class="slide-flex">
+							<div data-id="problemspace" class="col-left titled-frame">
+								<strong class="frame-title">Problem space</strong>
+								<p>Domain Discovery<br>Subdomains<br>Domain Vision<br>Ubiquitous Language<br>Event Storming<br>Example Mapping</p>
+							</div>
+							<div data-id="solutionspace" class="col-right titled-frame">
+								<strong class="frame-title">Solution space</strong>
+								<div class="frame-top titled-frame">
+									<strong class="frame-title frame-title--ghost">Stratégique</strong>
+									<p>Bounded Context<br>Context Mapping<br>Teaming Patterns</p>
+								</div>
+								<div class="frame-bottom titled-frame">
+									<strong class="frame-title frame-title--ghost">Tactique</strong>
+									<p>Aggregates<br>Entities &amp; Value Objects<br>Domain Events<br>Domain Services<br>Repositories</p>
+								</div>
+							</div>
+						</div>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h1>Problem space</h1>
+						<h5 class="title-note">où les problèmes viennent de l'espace</h5>
+					</section>
+					<section data-auto-animate>
+						<div class="slide-flex">
+							<div data-id="problemspace" class="col-left titled-frame">
+								<strong class="frame-title">Problem space</strong>
+								<p>Domain Discovery<br>Subdomains<br>Domain Vision<br>Ubiquitous Language<br>Event Storming<br>Example Mapping</p>
+							</div>
+							<div class="col-right titled-frame fragment dim-out">
+								<strong class="frame-title">Solution space</strong>
+								<div class="frame-top titled-frame">
+									<strong class="frame-title frame-title--ghost">Stratégique</strong>
+									<p>Bounded Context<br>Context Mapping<br>Teaming Patterns</p>
+								</div>
+								<div class="frame-bottom titled-frame">
+									<strong class="frame-title frame-title--ghost">Tactique</strong>
+									<p>Aggregates<br>Entities &amp; Value Objects<br>Domain Events<br>Domain Services<br>Repositories</p>
+								</div>
+							</div>
+						</div>
+					</section>
+					<section data-auto-animate>
+						<div class="slide-flex" style="justify-content: center;">
+							<div data-id="problemspace" class="col-left titled-frame" style="flex: 0 0 auto; width: calc(50% - 1em); font-size: 0.75em; font-weight: bold;">
+								<strong class="frame-title">Problem space</strong>
+								<p>Domain Discovery<br>Subdomains<br>Domain Vision<br>Ubiquitous Language<br>Event Storming<br>Example Mapping</p>
+							</div>
+						</div>
+					</section>
+					<section>
+						<h5>Définition</h5>
+						<p>
+							Comprendre les <span class="highlight">problèmes</span> que l’entreprise essaye de résoudre
+						</p>
+					</section>
+					<section>
+						<div class="slide-2col-container">
+							<div class="slide-2col-text">
+								<p>
+									Déterminer les aspects <span class="highlight">les plus importants</span>
+								</p>
+							</div>
+							<div class="slide-2col-image">
+								<div class="r-frame r-frame--rounded r-frame--accent" style="display: flex; flex-direction: column; align-items: center; width: 100%; padding: 1em;">
+									<div class="node-root">Entreprise</div>
+									<div class="node-arrow-down"></div>
+									<div class="node-grid" style="--node-grid-cols: 3; font-size: 0.5em;">
+										<div class="node">Secteur d'Activité</div>
+										<div class="node">Secteur d'Activité</div>
+										<div class="node node--filled">Secteur d'Activité<span class="node-badge">💰</span></div>
+										<div class="node">Secteur d'Activité</div>
+										<div class="node">Secteur d'Activité</div>
+										<div class="node">Secteur d'Activité</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+					<section>Investir le maximum d’effort sur ce qui <span class="highlight">rapporte de l’argent</span></section>
+					<section>
+						Comprendre intensément le domaine
+
+						<aside data-markdown class="notes">
+							C'est ça notre boulot de développeur : plus que de comprendre notre code, il est important de comprendre POURQUOI on le code, et ce que ça rapporte à l'entreprise
+						</aside>
+					</section>
+					<section>
+						<h2>Techniques</h1>
+							<p class="fragment fade-down">Distillation</p>
+							<p class="fragment fade-down">Domain Vision</p>
+							<p class="fragment fade-down">Knowledge Crunching</p>
+							<p class="fragment fade-down">Impact Mapping</p>
+
+							<aside data-markdown class="notes">
+							
+								**Distillation** : fait de prendre toute la richesse du problème et de la distiller en une compréhension vraiment claire uniquement de ce qui est important pour ce problème
+
+								**Domain vision** : comprendre la vision de l'entreprise, la direction qu'elle veut prendre
+
+								**Knowledge Crunching** : toutes les activités qui permettent de comprendre ce que fait l'entreprise
+
+								**Impact mapping** : déterminer les actions qui auront le plus d'impact sur le bénéfice de l'entreprise à un moment donné
+							</aside>
+						</section>
+				</section>
+				<section>
+					<section>
+						<h1>Solution space</h1>
+						<h5 class="title-note">où les solution prennent de l'espace</h5>
+						<aside data-markdown class="notes">
+							dans ce cours on va surtout aborder le problem space, et non le solution space
+						</aside>
+					</section>
+					
+					<section data-auto-animate>
+						<div class="slide-flex">
+							<div class="col-left titled-frame fragment dim-out">
+								<strong class="frame-title">Problem space</strong>
+								<p>Domain Discovery<br>Subdomains<br>Domain Vision<br>Ubiquitous Language<br>Event Storming<br>Example Mapping</p>
+							</div>
+							<div data-id="solutionspace" class="col-right titled-frame">
+								<strong class="frame-title">Solution space</strong>
+								<div class="frame-top titled-frame">
+									<strong class="frame-title frame-title--ghost">Stratégique</strong>
+									<p>Bounded Context<br>Context Mapping<br>Teaming Patterns</p>
+								</div>
+								<div class="frame-bottom titled-frame">
+									<strong class="frame-title frame-title--ghost">Tactique</strong>
+									<p>Aggregates<br>Entities &amp; Value Objects<br>Domain Events<br>Domain Services<br>Repositories</p>
+								</div>
+							</div>
+						</div>
+					</section>
+
+					<section data-auto-animate>
+						<div class="slide-flex" style="justify-content: center;">
+							<div data-id="solutionspace" class="col-right titled-frame" style="flex: 0 0 auto; width: calc(50% - 1em); font-size: 0.75em; font-weight: bold;">
+								<strong class="frame-title">Solution space</strong>
+								<div class="frame-top titled-frame">
+									<strong class="frame-title frame-title--ghost">Stratégique</strong>
+									<p>Bounded Context<br>Context Mapping<br>Teaming Patterns</p>
+								</div>
+								<div class="frame-bottom titled-frame">
+									<strong class="frame-title frame-title--ghost">Tactique</strong>
+									<p>Aggregates<br>Entities &amp; Value Objects<br>Domain Events<br>Domain Services<br>Repositories</p>
+								</div>
+							</div>
+						</div>
+					</section>
+					<section>
+						<h5>Définition</h5>
+						<p>
+							Concevoir une <span class="highlight">solution technique</span> aux différents problèmes
+						</p>
+					</section>
+					<section>
+						<div class="slide-2col-container">
+							<div class="slide-2col-text">							
+								<p>
+									Décomposer la solution en <span class="highlight">sous-solutions</span>
+								</p>
+							</div>
+							<div class="slide-2col-image">
+								<div class="r-frame r-frame--rounded r-frame--accent" style="display: flex; flex-direction: column; align-items: center; width: 100%; padding: 1em;">
+									<div class="node-root">Solution Technique</div>
+									<div class="node-arrow-down"></div>
+									<div class="node-grid" style="--node-grid-cols: 3; font-size: 0.5em;">
+										<div class="node">Sous Solution</div>
+										<div class="node">Sous Solution</div>
+										<div class="node node--filled">Sous Solution<span class="node-badge">💰</span></div>
+										<div class="node">Sous Solution</div>
+										<div class="node">Sous Solution</div>
+										<div class="node">Sous Solution</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<aside data-markdown class="notes">
+							cf. divide and conquer
+						</aside>
+					</section>
+					<section>
+						<p>
+							Développer chaque solution selon son <span class="highlight">importance</span>
+						</p>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h1>Le domain</h1>
+						<aside data-markdown class="notes">
+							dans ce cours on va surtout aborder le problem space
+						</aside>
+					</section>
+					<section>
+						<h5>Question</h5>
+						<p>
+							Que signifie le terme <em>"<span class="highlight">Domain</span>"</em> ?
+						</p>
+
+						<aside data-markdown class="notes">
+							TRAVAIL :
+							Qui peut me donner une définition du domaine ? Un mot clé ? Une phrase ?
+						</aside>
+					</section>
+					<section>
+						<blockquote cite="http://">
+							&ldquo;Une sphère de savoir, d’influence ou d’activité, la partie du sujet sur lequel <span class="highlight">l’utilisateur applique le logiciel</span>&rdquo;
+						</blockquote>
+						<p class="source">Eric Evans</p>
+						<p class="fragment fade-down">Le domain peut-être <span class="highlight">très large</span></p>
+						<aside data-markdown class="notes">
+							certaines choses ne font pas partie du domaine (d'un point de vue DDD) si l'utilisateur n'y est pas confronté.
+							Donc la raison de faire du DDD, c'est pour comprendre le besoin de l'entreprise vis-à-vis de ses utilisateurs ou acteurs du système.
+							Donc ce qui nous intéresse, c'est la partie qui est au contact des utilisateurs.
+						</aside>
+					</section>
+					<section data-auto-animate>
+						<h3>Domain</h3>
+						<div class="r-stretch" style="padding: 20px 0; box-sizing: border-box;">
+							<div class="r-frame r-frame--rounded r-frame--accent" style="display: flex; width: 100%; height: 100%; padding: 1em; box-sizing: border-box;">
+								<div class="node-grid" style="--node-grid-cols: 3; font-size: 0.42em; width: 100%;">
+									<div data-id="booking" class="node">Réservation</div>
+									<div data-id="topology" class="node">Topologie</div>
+									<div data-id="client" class="node">Client</div>
+									<div data-id="management" class="node">Gestion du Personnel</div>
+									<div data-id="kitchen" class="node">Cuisine</div>
+									<div data-id="accounting" class="node">Comptabilité</div>
+									<div data-id="hr" class="node">Ressources Humaines</div>
+									<div data-id="marketing" class="node">Marketing</div>
+									<div data-id="finance" class="node">Finances</div>
+									<div data-id="legal" class="node">Juridique</div>
+									<div data-id="events" class="node">Evènementiel</div>
+									<div data-id="security" class="node">Sécurité</div>
+								</div>
+							</div>
+						</div>
+
+						<aside data-markdown class="notes">
+							Exemple : application de restauration qui a un domaine divisé en plusieurs sections (ex : réservation, topologie, ... lis ta diapo bordel)
+							Tout ne fait pas partie du domaine du point de vue du logiciel que l'on veut développer.
+							Nous on veut développer une application de réservation de table sur un restaurant.
+						</aside>
+					</section>
+					
+					<section data-auto-animate>
+						<h3>Domain</h3>
+						<div class="r-stretch" style="padding: 20px 0; box-sizing: border-box;">
+							<div class="r-frame r-frame--rounded r-frame--accent" style="display: flex; width: 100%; height: 100%; padding: 1em; box-sizing: border-box;">
+								<div class="node-grid" style="--node-grid-cols: 3; font-size: 0.42em; width: 100%;">
+									<div data-id="booking" class="node node--filled">Réservation<span class="node-badge">✓</span></div>
+									<div data-id="topology" class="node node--filled">Topologie<span class="node-badge">✓</span></div>
+									<div data-id="client" class="node node--filled">Client<span class="node-badge">✓</span></div>
+									<div data-id="management" class="node node--filled">Gestion du Personnel<span class="node-badge">✓</span></div>
+									<div data-id="kitchen" class="node node--dim">Cuisine</div>
+									<div data-id="accounting" class="node node--dim">Comptabilité</div>
+									<div data-id="hr" class="node node--dim">Ressources Humaines</div>
+									<div data-id="marketing" class="node node--dim">Marketing</div>
+									<div data-id="finance" class="node node--dim">Finances</div>
+									<div data-id="legal" class="node node--dim">Juridique</div>
+									<div data-id="events" class="node node--dim">Evènementiel</div>
+									<div data-id="security" class="node node--dim">Sécurité</div>
+								</div>
+							</div>
+						</div>
+
+						<aside data-markdown class="notes">
+							dans ce cas (dvpt d'app de résa) seul ces 4 sous-domaines nous intéresse
+							Le reste est en DEHORS de notre sphère d'Analyse
+							Exemple : la cuisine ne nous concerne pas pour le moment.
+							Mais c'est évolutif dans le temps ! Ca pourrait le devenir à termes.
+						</aside>
+					</section>
+					<section data-auto-animate>
+						<h3>Domain</h3>
+						<div class="r-stretch" style="padding: 20px 0; box-sizing: border-box;">
+							<div class="r-frame r-frame--rounded r-frame--accent" style="display: flex; width: 100%; height: 100%; padding: 1em; box-sizing: border-box;">
+								<div class="node-grid" style="--node-grid-cols: 2; font-size: 0.7em; width: 100%;">
+									<div data-id="booking" class="node">Réservation</div>
+									<div data-id="topology" class="node">Topologie</div>
+									<div data-id="management" class="node">Gestion du Personnel</div>
+									<div data-id="client" class="node">Client</div>
+								</div>
+							</div>
+						</div>
+					</section>
+					<section>
+						<blockquote cite="http://">
+							&ldquo;Le Domaine est hors de portée de l’influence du designer&rdquo;
+						</blockquote>
+						<p class="source">Gien Verschatse</p>
+
+						<p class="fragment fade-down">Le Domaine <span class="highlight">existe déjà</span>, il n’est pas conçu / designé</p>
+
+						<aside data-markdown class="notes">
+							ce n'est pas quelque chose qu'on va construire, c'est quelque chose qu'on va analyser. C'est une analyse de l'existant.
+						</aside>
+					</section>					
+				</section>
+				<section>
+					<section>
+						<h1>Subdomains</h1>
+					</section>
+					<section>
+						<h5>Subdomain</h5>
+						<p class="fragment fade-down">Le domain peut-être <span class="highlight">très large</span></p>
+						<p class="fragment fade-down"><span class="highlight">Subdomain =</span> sous-partie distincte du domain</p>
+						<p class="fragment fade-down">Tous les subdomains <span class="highlight">ne se valent pas</span></p>
+						<p class="fragment fade-down">Le plus important est le <span class="highlight">Core Subdomain</span></p>
+
+						<aside data-markdown class="notes">
+							Donc dans l'analyse du domaine, on va faire une première subdivision
+							Car il est plus simple d'apréhender quelque chose qui est plus petit
+							cf. elephant carpaccio, chaos report
+						</aside>
+					</section>
+					<section>
+						<h5>Question</h5>
+						<p>
+							Comment déterminer quelle partie du Domaine fait partie de son coeur ?
+						</p>
+
+						<h5 class="fragment fade-down"><em>Réponses</em></h5>
+						<p class="fragment fade-down"><em>Source de revenus principale <br/> Coeur de métier <br/> Avantage Compétitif</em></p>
+
+						<aside data-markdown class="notes">
+							TRAVAIL : laisser les étudiants répondre !
+							Comment détermine-t-on quelle partie du domaine est importante ?  
+
+							Réponse :
+
+							
+							c'est la raison pour laquelle tu as des clients, pour laquelle des clients viennent (pour laquelle ils sont prêt à tuer !)
+							ce qui est important pour déterminer le core domaine, c'est comprendre pourquoi tes clients te donne de l'argent
+						</aside>
+					</section>
+					<section data-auto-animate>
+						<h3>Core subdomains</h3>
+						<div class="r-stretch" style="padding: 20px 0; box-sizing: border-box;">
+							<div class="r-frame r-frame--rounded r-frame--accent" style="display: flex; width: 100%; height: 100%; padding: 1em; box-sizing: border-box;">
+								<div class="node-grid" style="--node-grid-cols: 2; font-size: 0.7em; width: 100%;">
+									<div data-id="booking" class="node">Réservation</div>
+									<div data-id="topology" class="node">Topologie</div>
+									<div data-id="management" class="node">Gestion du Personnel</div>
+									<div data-id="client" class="node">Client</div>
+								</div>
+							</div>
+						</div>
+					</section>
+					<section data-auto-animate>
+						<h3>Core subdomains</h3>
+						<div class="r-stretch" style="padding: 20px 0; box-sizing: border-box;">
+							<div class="r-frame r-frame--rounded r-frame--accent" style="display: flex; width: 100%; height: 100%; padding: 1em; box-sizing: border-box;">
+								<div class="node-grid" style="--node-grid-cols: 2; font-size: 0.7em; width: 100%;">
+									<div data-id="booking" class="node node--filled">Réservation<span class="node-badge">❤️</span></div>
+									<div data-id="topology" class="node">Topologie</div>
+									<div data-id="management" class="node">Gestion du Personnel</div>
+									<div data-id="client" class="node">Client</div>
+								</div>
+							</div>
+						</div>
+						<aside data-markdown class="notes">
+							dans le cadre de notre exemple, c'est le système de réservation
+						</aside>
+					</section>
+					<section>
+						<h5>Exercice</h5>
+						<p class="fragment">Core Domain de Amazon ?</p>
+						<p class="fragment">Core Domain de LinkedIn ?</p>
+						<p class="fragment">Core Domain de Google ?</p>
+						<aside data-markdown class="notes">
+							Faire une animation
+							TRAVAIL : laisser les étudiants répondre  
+
+							## Amazon  
+							qu'est-ce qui fait que VOUS vous commandez sur amazon ? (car il existe pleins de site e-commerce)
+							donc la question n'est pas si évidente
+							la question n'est pas objective  
+
+							le but de l'exercice est de vous donner des heuristiques, de vous mettre dans la peau des clients, et de se dire "la valeur ajoutée de ma boite elle se situe ici, c'est là que je dois mettre du pognon" pour faire en sorte qu'aucun de mes concurrent ne me rattrape
+							car si ton avantage compétitif est facile à rattraper, est-ce vraiment un avantage compétitif ?  
+
+
+							## LinkedIn
+							Pourquoi donne-t-on de l'argent à LinkedIn ? Qui paye pour LinkedIn ?  
+							core domain : capacité à fournir des profils complet de personne qui cherche du travail  
+							2eme core domain : capacité à sélectionner les bons profils lors d'une recherche  
+							Ce sont 2 sujets très proche l'un de l'autre, mais qui n'ont pas forcément les mêmes Acteurs (celui qui créé son profil est rarement celui qui fait une recherche)  
+							C'est généralement le cas dans toutes les applications de matching (ex: air b'n'b, application de rencontre, uber, covoiturage, ...)  
+
+							## Google
+							a commencé par le moteur de recherches pour aller vers la régie publicitaire => c'était sûrement le plan à l'origine
+
+							
+							**Ton core domain d'aujourd'hui, n'est pas forcément ton core domain de demain**  
+
+							Exemple : 
+							- Kodak (à ne pas suivre, à développer) => Kodak a dominé la photographie argentique pendant un siècle — le terme "Kodak moment" est même entré dans le langage courant. 
+							Ce qui est fou : c'est un ingénieur Kodak, Steven Sasson, qui invente le premier appareil photo numérique en 1975. 
+							Kodak avait donc la techno en interne, des décennies d'avance. Mais la direction range l'invention dans un tiroir, car le numérique menace leur vraie vache à lait : la vente de pellicules et le développement photo. 
+							Ils ont confondu leur core domain avec une technologie (le film argentique) plutôt qu'avec le vrai besoin client (capturer et partager des souvenirs). 
+							Résultat : faillite en 2012. Question à poser aux participants : si Kodak avait identifié son core domain comme "aider les gens à capturer leurs souvenirs" plutôt que "vendre de la pellicule", qu'auraient-ils dû faire dès 1975 ?  
+							- Yamaha => pourquoi Yamaha fait des motos ? (marque aux diapasons) => 
+							Le diapason dans leur logo n'est pas un hasard : Yamaha démarre en 1887 comme fabricant de pianos et d'orgues. 
+							Pendant la Seconde Guerre mondiale, leurs usines sont réquisitionnées pour fabriquer des hélices en bois d'avion — un savoir-faire de précision en travail du bois et du métal. 
+							Après-guerre, cette expertise mécanique/moteur se retrouve sans débouché... et devient la base d'une toute nouvelle activité : la moto. 
+							Yamaha Motor est officiellement scindée en 1955. Contrairement à Kodak, ce n'est pas un raté : c'est une compétence de support (l'ingénierie de précision) qui devient un nouveau core domain à part entière, dans un tout autre secteur. 
+							Bon exemple pour illustrer qu'un subdomain de soutien peut, avec le temps, devenir lui-même un core domain.
+							- Nokia => meilleure marque de téléphone mondiale qui a loupé le virage du smartphone (comme Palm et BlackBerry) => 
+							Nokia a une histoire encore plus étonnante : fondée en 1865 comme usine de pâte à papier en Finlande, puis caoutchouc (bottes, pneus), puis câbles électriques, puis électronique, 
+							avant de devenir le n°1 mondial du téléphone mobile dans les années 90-2000 (le 3310, indestructible, ~40% de part de marché mondiale au pic). 
+							Donc contrairement à Kodak, Nokia avait déjà pivoté son core domain plusieurs fois avec succès sur 150 ans. 
+							Le vrai raté, c'est plus précis : au lancement de l'iPhone (2007), Nokia reste accroché à son OS Symbian et au clavier physique, pense encore "téléphone" quand Apple pense "plateforme logicielle + écosystème d'apps". 
+							Le rachat tardif par Microsoft (2011) arrive trop tard, la branche mobile est vendue en 2013. 
+							Aujourd'hui Nokia existe toujours, recentré sur les équipements réseaux télécoms (après le rachat d'Alcatel-Lucent). 
+							Palm (le Palm Pilot, pionnier du PDA) et BlackBerry (le clavier physique, l'email sécurisé en entreprise) ont vécu exactement le même raté au même moment, pour la même raison : ils optimisaient leur ancien core domain pendant qu'un concurrent en définissait un nouveau.
+							- Google (on y revient après)  
+
+							## CONCLUSION  
+							Le core subdomain DOIT pouvoir pivoter
+
+
+						</aside>
+					</section>
+					<section>
+						<p>D’autres subdomains sont importants pour <span class="highlight">soutenir</span> ce Core</p>
+						<p class="fragment fade-down">Moins complexes et pas nécessairement avantageux</p>
+						<p class="fragment fade-down">Ce sont les <span class="highlight">Supporting subdomains</span></p>
+
+					</section>					
+					<section data-auto-animate>
+						<h3>Supporting subdomains</h3>
+						<div class="r-stretch" style="padding: 20px 0; box-sizing: border-box;">
+							<div class="r-frame r-frame--rounded r-frame--accent" style="display: flex; width: 100%; height: 100%; padding: 1em; box-sizing: border-box;">
+								<div class="node-grid" style="--node-grid-cols: 2; font-size: 0.7em; width: 100%;">
+									<div data-id="booking" class="node node--dim">Réservation</div>
+									<div data-id="topology" class="node">Topologie</div>
+									<div data-id="management" class="node">Gestion du Personnel</div>
+									<div data-id="client" class="node">Client</div>
+								</div>
+							</div>
+						</div>
+					</section>
+					<section data-auto-animate>
+						<h3>Supporting subdomains</h3>
+						<div class="r-stretch" style="padding: 20px 0; box-sizing: border-box;">
+							<div class="r-frame r-frame--rounded r-frame--accent" style="display: flex; width: 100%; height: 100%; padding: 1em; box-sizing: border-box;">
+								<div class="node-grid" style="--node-grid-cols: 2; font-size: 0.7em; width: 100%;">
+									<div data-id="booking" class="node node--dim">Réservation</div>
+									<div data-id="topology" class="node node--filled">Topologie<span class="node-badge">✋</span></div>
+									<div data-id="management" class="node">Gestion du Personnel</div>
+									<div data-id="client" class="node node--filled">Client<span class="node-badge">✋</span></div>
+								</div>
+							</div>
+						</div>
+						<aside data-markdown class="notes">
+							dans notre exemple
+						</aside>
+					</section>
+					<section>
+						<h5>Exercice</h5>
+						<p>
+							Citez un supporting subdomain d'Amazon
+						</p>		
+												
+						<aside data-markdown class="notes">
+							exemple : système d'avis
+						</aside>
+					</section>
+					<section>
+						<p>D’autres subdomains sont importants mais n’ont rien de <span class="highlight">spécifique</span> à notre business</p>
+						<p class="fragment fade-down">Ce sont des <span class="highlight">Generic Subdomains</span></p>
+					</section>
+					<section data-auto-animate>
+						<h3>Generic subdomains</h3>
+						<div class="r-stretch" style="padding: 20px 0; box-sizing: border-box;">
+							<div class="r-frame r-frame--rounded r-frame--accent" style="display: flex; width: 100%; height: 100%; padding: 1em; box-sizing: border-box;">
+								<div class="node-grid" style="--node-grid-cols: 2; font-size: 0.7em; width: 100%;">
+									<div data-id="booking" class="node node--dim">Réservation</div>
+									<div data-id="topology" class="node node--dim">Topologie</div>
+									<div data-id="management" class="node">Gestion du Personnel</div>
+									<div data-id="client" class="node node--dim">Client</div>
+								</div>
+							</div>
+						</div>
+					</section>
+					<section data-auto-animate>
+						<h3>Generic subdomains</h3>
+						<div class="r-stretch" style="padding: 20px 0; box-sizing: border-box;">
+							<div class="r-frame r-frame--rounded r-frame--accent" style="display: flex; width: 100%; height: 100%; padding: 1em; box-sizing: border-box;">
+								<div class="node-grid" style="--node-grid-cols: 2; font-size: 0.7em; width: 100%;">
+									<div data-id="booking" class="node node--dim">Réservation</div>
+									<div data-id="topology" class="node node--dim">Topologie</div>
+									<div data-id="management" class="node node--filled">Gestion du Personnel</div>
+									<div data-id="client" class="node node--dim">Client</div>
+								</div>
+							</div>
+						</div>
+						<aside data-markdown class="notes">
+							dans notre exemple, gestion du personnel administratif
+						</aside>
+					</section>
+					<section>
+						<h5>Exercice</h5>
+						<p>
+							Citez un generic subdomain d'Amazon
+						</p>
+						<aside data-markdown class="notes">
+							exemple : 
+							- système de paiement
+							- système d'inscription
+							- gestion utilisateurs
+							- authentification
+							- hébergement des images
+							- messagerie
+							- ...  
+
+							NDLR : c'est exactement la même liste que LinkedIn
+						</aside>
+					</section>
+					<section>
+						<div class="r-stretch" style="font-size: 0.7em; padding: 1.2em 2em 4em 6.5em; box-sizing: border-box; display: flex; align-items: center; justify-content: center;">
+							<div class="quadrant-chart">
+								<div class="quadrant-axis-y"></div>
+								<div class="quadrant-axis-x"></div>
+								<div class="quadrant-axis-label quadrant-axis-label--y">Complexité<br>du<br>Modèle</div>
+								<div class="quadrant-axis-label quadrant-axis-label--x">Différenciation Métier</div>
+								<span class="quadrant-tick quadrant-tick--y-low">Faible</span>
+								<span class="quadrant-tick quadrant-tick--y-high">Fort</span>
+								<span class="quadrant-tick quadrant-tick--x-low">Faible</span>
+								<span class="quadrant-tick quadrant-tick--x-high">Fort</span>
+								<div class="quadrant-zone quadrant-zone--supporting" style="left: 0; width: 100%; top: 0; height: 100%;">
+									<span class="quadrant-zone-label" style="position: absolute; left: 38%; top: 78%;">SUPPORTING</span>
+								</div>
+								<div class="quadrant-zone quadrant-zone--generic" style="left: 0; width: 25%; top: 0; height: 100%;">
+									<span class="quadrant-zone-label quadrant-zone-label--vertical">GENERIC</span>
+								</div>
+								<div class="quadrant-zone quadrant-zone--core" style="left: 50%; right: 0; top: 0; height: 75%;">
+									<span class="quadrant-zone-label">CORE</span>
+								</div>
+							</div>
+						</div>
+						<aside data-markdown class="notes">
+							ca, c'est une charte qui permet de positionner un subdomain en fonction de sa complexité et sa différenciation métier
+						</aside>
+					</section>
+					<section>
+						<div class="r-stretch" style="font-size: 0.7em; padding: 1.2em 2em 4em 6.5em; box-sizing: border-box; display: flex; align-items: center; justify-content: center;">
+							<div class="quadrant-chart">
+								<div class="quadrant-axis-y"></div>
+								<div class="quadrant-axis-x"></div>
+								<div class="quadrant-axis-label quadrant-axis-label--y">Complexité<br>du<br>Modèle</div>
+								<div class="quadrant-axis-label quadrant-axis-label--x">Différenciation Métier</div>
+								<span class="quadrant-tick quadrant-tick--y-low">Faible</span>
+								<span class="quadrant-tick quadrant-tick--y-high">Fort</span>
+								<span class="quadrant-tick quadrant-tick--x-low">Faible</span>
+								<span class="quadrant-tick quadrant-tick--x-high">Fort</span>
+								<div class="quadrant-zone quadrant-zone--plain" style="left: 0; width: 100%; top: 0; height: 100%;"></div>
+								<div class="quadrant-diagonal">
+									<span class="quadrant-diagonal-label">Axe d'alignement</span>
+								</div>
+							</div>
+						</div>
+						<aside data-markdown class="notes">
+							voici l'axe sur lequel idéalement, tout subdomain devrait se situer
+							plus un subdomain est complexe, plus on a intérêt à ce que sa différenciation soit forte
+							complexité = complexité du code qu'on a écrit, la complexité du système qu'on essaye de Concevoir
+							si vous avez un modèle avec 2-3 objets dans un ORM qui font du CRUD, votre complexité est très faible
+							si vous avez un modèle avec beaucoup d'objets qui font beaucoup de règle de calcul, votre complexité est très forte
+							plus la différenciation métier est forte, plus il est acceptable que la complexité soit élevée
+							Si on a une forte complexité et une faible différenciation métier, pourquoi est-ce qu'on le fait ?
+							A l'inverse, s'il y a une forte différenciation métier, et que la solution est simple à implémenter, tout le monde va le faire
+							Exception : si on est le premier à le faire (cf. exo d'après), c'est un avantage compétitif court-terme.
+							On peut commencer par là, mais il faudra très vite ettoffer sa fonctionnalité, ou trouver autre chose
+						</aside>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h1>Subdomains patterns</h1>
+						<aside data-markdown class="notes">PAUSE de 10-15 min</aside>
+					</section>
+					<section data-auto-animate>
+						<div class="r-stretch" style="font-size: 0.7em; padding: 1.2em 2em 4em 6.5em; box-sizing: border-box; display: flex; align-items: center; justify-content: center;">
+							<div data-id="graph" class="quadrant-chart">
+								<div class="quadrant-axis-y"></div>
+								<div class="quadrant-axis-x"></div>
+								<div class="quadrant-axis-label quadrant-axis-label--y">Complexité<br>du<br>Modèle</div>
+								<div class="quadrant-axis-label quadrant-axis-label--x">Différenciation Métier</div>
+								<span class="quadrant-tick quadrant-tick--y-low">Faible</span>
+								<span class="quadrant-tick quadrant-tick--y-high">Fort</span>
+								<span class="quadrant-tick quadrant-tick--x-low">Faible</span>
+								<span class="quadrant-tick quadrant-tick--x-high">Fort</span>
+								<div class="quadrant-zone quadrant-zone--supporting" style="left: 0; width: 100%; top: 0; height: 100%;">
+									<span class="quadrant-zone-label" style="position: absolute; left: 38%; top: 78%;">SUPPORTING</span>
+								</div>
+								<div class="quadrant-zone quadrant-zone--generic" style="left: 0; width: 25%; top: 0; height: 100%;">
+									<span class="quadrant-zone-label quadrant-zone-label--vertical">GENERIC</span>
+								</div>
+								<div class="quadrant-zone quadrant-zone--core" style="left: 50%; right: 0; top: 0; height: 75%;">
+									<span class="quadrant-zone-label">CORE</span>
+								</div>
+								<div class="quadrant-marker" style="left: 90%; top: 12%;"></div>
+							</div>
+						</div>
+						<aside data-markdown class="notes">
+							EXERCICE : Que dire d'un subdomain qui se situe dans la zone du losange rouge ?
+						</aside>
+					</section>
+					<section data-auto-animate>
+						<div class="slide-2col-container">
+							<div class="slide-2col-text" style="font-size: 0.75em;">
+								<h5>DECISIVE CORE</h5>
+								<p>
+									Position idéale pour un Core.
+								</p>	
+								<aside data-markdown class="notes">
+									REPONSE : c'est un core subdomain, il est clé pour l'entreprise. C'est à ce subdomain qu'on doit apporté le plus grand soin, qui le plus de valeur
+									Il est dit décisif car il a une très grande complexité et une forte différenciation métier, et l'entreprise a une forte expérience et compétence sur ce sujet
+									Si vous avez un truc qui se trouve là, vous avez tout gagné, ce qui n'est pas évident
+								</aside>						
+							</div>
+							<div class="slide-2col-image">
+								<div data-id="graph" class="quadrant-chart" style="height: 11em; font-size: 0.6em; margin: 1em 2em 3em 5.5em;">
+									<div class="quadrant-axis-y"></div>
+									<div class="quadrant-axis-x"></div>
+									<div class="quadrant-axis-label quadrant-axis-label--y">Complexité<br>du<br>Modèle</div>
+									<div class="quadrant-axis-label quadrant-axis-label--x">Différenciation Métier</div>
+									<span class="quadrant-tick quadrant-tick--y-low">Faible</span>
+									<span class="quadrant-tick quadrant-tick--y-high">Fort</span>
+									<span class="quadrant-tick quadrant-tick--x-low">Faible</span>
+									<span class="quadrant-tick quadrant-tick--x-high">Fort</span>
+									<div class="quadrant-zone quadrant-zone--supporting" style="left: 0; width: 100%; top: 0; height: 100%;">
+										<span class="quadrant-zone-label" style="position: absolute; left: 38%; top: 78%;">SUPPORTING</span>
+									</div>
+									<div class="quadrant-zone quadrant-zone--generic" style="left: 0; width: 25%; top: 0; height: 100%;">
+										<span class="quadrant-zone-label quadrant-zone-label--vertical">GENERIC</span>
+									</div>
+									<div class="quadrant-zone quadrant-zone--core" style="left: 50%; right: 0; top: 0; height: 75%;">
+										<span class="quadrant-zone-label">CORE</span>
+									</div>
+									<div class="quadrant-marker" style="left: 90%; top: 12%;"></div>
+								</div>
+							</div>
+						</div>
+					</section>
+					<section data-auto-animate>
+						<div class="r-stretch" style="font-size: 0.7em; padding: 1.2em 2em 4em 6.5em; box-sizing: border-box; display: flex; align-items: center; justify-content: center;">
+							<div data-id="graph" class="quadrant-chart">
+								<div class="quadrant-axis-y"></div>
+								<div class="quadrant-axis-x"></div>
+								<div class="quadrant-axis-label quadrant-axis-label--y">Complexité<br>du<br>Modèle</div>
+								<div class="quadrant-axis-label quadrant-axis-label--x">Différenciation Métier</div>
+								<span class="quadrant-tick quadrant-tick--y-low">Faible</span>
+								<span class="quadrant-tick quadrant-tick--y-high">Fort</span>
+								<span class="quadrant-tick quadrant-tick--x-low">Faible</span>
+								<span class="quadrant-tick quadrant-tick--x-high">Fort</span>
+								<div class="quadrant-zone quadrant-zone--supporting" style="left: 0; width: 100%; top: 0; height: 100%;">
+									<span class="quadrant-zone-label" style="position: absolute; left: 38%; top: 78%;">SUPPORTING</span>
+								</div>
+								<div class="quadrant-zone quadrant-zone--generic" style="left: 0; width: 25%; top: 0; height: 100%;">
+									<span class="quadrant-zone-label quadrant-zone-label--vertical">GENERIC</span>
+								</div>
+								<div class="quadrant-zone quadrant-zone--core" style="left: 50%; right: 0; top: 0; height: 75%;">
+									<span class="quadrant-zone-label">CORE</span>
+								</div>
+								<div class="quadrant-marker" style="left: 90%; top: 58%;"></div>
+							</div>
+						</div>
+						<aside data-markdown class="notes">
+							EXERCICE : Que dire d'un subdomain qui se situe dans la zone du losange rouge ?
+						</aside>
+					</section>
+					<section data-auto-animate>
+						<div class="slide-2col-container">
+							<div class="slide-2col-text" style="font-size: 0.75em;">
+								<h5>AVANTAGE COURT-TERME</h5>
+								<p>
+									La compétition finira par rattraper.
+								</p>
+							</div>
+							<div class="slide-2col-image">
+								<div data-id="graph" class="quadrant-chart" style="height: 11em; font-size: 0.6em; margin: 1em 2em 3em 5.5em;">
+									<div class="quadrant-axis-y"></div>
+									<div class="quadrant-axis-x"></div>
+									<div class="quadrant-axis-label quadrant-axis-label--y">Complexité<br>du<br>Modèle</div>
+									<div class="quadrant-axis-label quadrant-axis-label--x">Différenciation Métier</div>
+									<span class="quadrant-tick quadrant-tick--y-low">Faible</span>
+									<span class="quadrant-tick quadrant-tick--y-high">Fort</span>
+									<span class="quadrant-tick quadrant-tick--x-low">Faible</span>
+									<span class="quadrant-tick quadrant-tick--x-high">Fort</span>
+									<div class="quadrant-zone quadrant-zone--supporting" style="left: 0; width: 100%; top: 0; height: 100%;">
+										<span class="quadrant-zone-label" style="position: absolute; left: 38%; top: 78%;">SUPPORTING</span>
+									</div>
+									<div class="quadrant-zone quadrant-zone--generic" style="left: 0; width: 25%; top: 0; height: 100%;">
+										<span class="quadrant-zone-label quadrant-zone-label--vertical">GENERIC</span>
+									</div>
+									<div class="quadrant-zone quadrant-zone--core" style="left: 50%; right: 0; top: 0; height: 75%;">
+										<span class="quadrant-zone-label">CORE</span>
+									</div>
+									<div class="quadrant-marker" style="left: 90%; top: 58%;"></div>
+								</div>
+							</div>
+						</div>
+						<aside data-markdown class="notes">
+							REPONSE : on va vite se faire copier, on peut y investir des sous, mais pas trop longtemps
+							C'est ce qu'on appelle un avantage court-terme, la compétition finira par le rattraper,
+							car il n'y a pas vraiment de complexité inhérente à l'avantage
+						</aside>	
+					</section>
+					<section data-auto-animate>
+						<div class="r-stretch" style="font-size: 0.7em; padding: 1.2em 2em 4em 6.5em; box-sizing: border-box; display: flex; align-items: center; justify-content: center;">
+							<div data-id="graph" class="quadrant-chart">
+								<div class="quadrant-axis-y"></div>
+								<div class="quadrant-axis-x"></div>
+								<div class="quadrant-axis-label quadrant-axis-label--y">Complexité<br>du<br>Modèle</div>
+								<div class="quadrant-axis-label quadrant-axis-label--x">Différenciation Métier</div>
+								<span class="quadrant-tick quadrant-tick--y-low">Faible</span>
+								<span class="quadrant-tick quadrant-tick--y-high">Fort</span>
+								<span class="quadrant-tick quadrant-tick--x-low">Faible</span>
+								<span class="quadrant-tick quadrant-tick--x-high">Fort</span>
+								<div class="quadrant-zone quadrant-zone--supporting" style="left: 0; width: 100%; top: 0; height: 100%;">
+									<span class="quadrant-zone-label" style="position: absolute; left: 38%; top: 78%;">SUPPORTING</span>
+								</div>
+								<div class="quadrant-zone quadrant-zone--generic" style="left: 0; width: 25%; top: 0; height: 100%;">
+									<span class="quadrant-zone-label quadrant-zone-label--vertical">GENERIC</span>
+								</div>
+								<div class="quadrant-zone quadrant-zone--core" style="left: 50%; right: 0; top: 0; height: 75%;">
+									<span class="quadrant-zone-label">CORE</span>
+								</div>
+								<div class="quadrant-marker" style="left: 86%; top: 84%;"></div>
+							</div>
+						</div>
+						<aside data-markdown class="notes">
+							EXERCICE : Que dire d'un subdomain qui se situe dans la zone du losange rouge ?
+						</aside>
+					</section>
+					<section data-auto-animate>
+						<div class="slide-2col-container">
+							<div class="slide-2col-text" style="font-size: 0.75em;">
+								<h5>CORE CACHÉ</h5>
+								<p>
+									Grosse différenciation mais modèle simple, mauvais usage de la technologie ?
+								</p>
+							</div>
+							<div class="slide-2col-image">
+								<div data-id="graph" class="quadrant-chart" style="height: 11em; font-size: 0.6em; margin: 1em 2em 3em 5.5em;">
+									<div class="quadrant-axis-y"></div>
+									<div class="quadrant-axis-x"></div>
+									<div class="quadrant-axis-label quadrant-axis-label--y">Complexité<br>du<br>Modèle</div>
+									<div class="quadrant-axis-label quadrant-axis-label--x">Différenciation Métier</div>
+									<span class="quadrant-tick quadrant-tick--y-low">Faible</span>
+									<span class="quadrant-tick quadrant-tick--y-high">Fort</span>
+									<span class="quadrant-tick quadrant-tick--x-low">Faible</span>
+									<span class="quadrant-tick quadrant-tick--x-high">Fort</span>
+									<div class="quadrant-zone quadrant-zone--supporting" style="left: 0; width: 100%; top: 0; height: 100%;">
+										<span class="quadrant-zone-label" style="position: absolute; left: 38%; top: 78%;">SUPPORTING</span>
+									</div>
+									<div class="quadrant-zone quadrant-zone--generic" style="left: 0; width: 25%; top: 0; height: 100%;">
+										<span class="quadrant-zone-label quadrant-zone-label--vertical">GENERIC</span>
+									</div>
+									<div class="quadrant-zone quadrant-zone--core" style="left: 50%; right: 0; top: 0; height: 75%;">
+										<span class="quadrant-zone-label">CORE</span>
+									</div>
+									<div class="quadrant-arrow" style="left: 86%; top: 75%; width: 34.7%; transform: rotate(-90deg);"></div>
+									<div class="quadrant-marker quadrant-marker--ghost" style="left: 86%; top: 14%;"></div>
+									<div class="quadrant-marker" style="left: 86%; top: 84%;"></div>
+								</div>
+							</div>
+						</div>
+						<aside data-markdown class="notes">
+							REPONSE : c'est potentiellement un core caché. c'est-à-dire qu'il y a une grosse différenciation, clairement ça apporte quelque chose, mais peut-être qu'en fait le modèle qu'on a actuellement de ce problème c'est-à-dire, la façon dont il a été codé aujourd'hui.
+							La façon dont il est compris aujourd'hui n'est pas en adéquation avec la véritable complexité du problème
+							Exemple : 
+							je m'appelle la Sncf, j'ai un algorithme qui te permet de savoir qui est le train le moins cher. Le problème, c'est que cet algorithme. Là, il fait 100.000 lignes de code, Il utilise une vieille base de données Oracle
+							des années 90 avec 300 tables et des procédures stockées. Personne n'y comprend pas grand chose, donc c'est vraiment codé
+							ces codés à l'arrache, en fait, et ça n'est pas forcément représentatif de la richesse du véritable modèle sous-jacent.
+
+							Y quelque chose, une valeur ajoutée, mais la technologie n'est pas forcément suffisamment bien exploitée pour le faire correctement. C'est typiquement le cas des entreprises qui fonctionnent, mais qui sont dans une grosse dette technique
+						</aside>
+					</section>
+					<section data-auto-animate>
+						<div class="slide-2col-container">
+							<div class="slide-2col-text" style="font-size: 0.75em;">
+								<h5>BASELINE EX-CORE</h5>
+								<p>
+									Était notre avantage compétitif, maintenant c’est le minimum attendu de nos clients.
+								</p>
+							</div>
+							<div class="slide-2col-image">
+								<div data-id="graph" class="quadrant-chart" style="height: 11em; font-size: 0.6em; margin: 1em 2em 3em 5.5em;">
+									<div class="quadrant-axis-y"></div>
+									<div class="quadrant-axis-x"></div>
+									<div class="quadrant-axis-label quadrant-axis-label--y">Complexité<br>du<br>Modèle</div>
+									<div class="quadrant-axis-label quadrant-axis-label--x">Différenciation Métier</div>
+									<span class="quadrant-tick quadrant-tick--y-low">Faible</span>
+									<span class="quadrant-tick quadrant-tick--y-high">Fort</span>
+									<span class="quadrant-tick quadrant-tick--x-low">Faible</span>
+									<span class="quadrant-tick quadrant-tick--x-high">Fort</span>
+									<div class="quadrant-zone quadrant-zone--supporting" style="left: 0; width: 100%; top: 0; height: 100%;">
+										<span class="quadrant-zone-label" style="position: absolute; left: 38%; top: 78%;">SUPPORTING</span>
+									</div>
+									<div class="quadrant-zone quadrant-zone--generic" style="left: 0; width: 25%; top: 0; height: 100%;">
+										<span class="quadrant-zone-label quadrant-zone-label--vertical">GENERIC</span>
+									</div>
+									<div class="quadrant-zone quadrant-zone--core" style="left: 50%; right: 0; top: 0; height: 75%;">
+										<span class="quadrant-zone-label">CORE</span>
+									</div>
+									<div class="quadrant-arrow" style="left: 84.9%; top: 17.8%; width: 41%; transform: rotate(148.11deg);"></div>
+									<div class="quadrant-marker quadrant-marker--ghost" style="left: 90%; top: 13%;"></div>
+									<div class="quadrant-marker" style="left: 45%; top: 55%;"></div>
+								</div>
+							</div>
+						</div>
+						<aside data-markdown class="notes">
+							Pattern de subdomain inventé. Il a un autre nom bien plus complexe.
+							C'était un avantage compétitif, mais maintenant, c'est un attendu classique des clients / du domaine
+							Exemple : les filtres de SnapChat repris par instagram, puis les réels
+						</aside>
+					</section>
+					<section data-auto-animate>
+						<div class="slide-2col-container">
+							<div class="slide-2col-text" style="font-size: 0.75em;">
+								<h5>CORE COMMODITÉ</h5>
+								<p>
+									Une SaaS ou un plugin implémente cette fonctionnalité.
+								</p>
+							</div>
+							<div class="slide-2col-image">
+								<div data-id="graph" class="quadrant-chart" style="height: 11em; font-size: 0.6em; margin: 1em 2em 3em 5.5em;">
+									<div class="quadrant-axis-y"></div>
+									<div class="quadrant-axis-x"></div>
+									<div class="quadrant-axis-label quadrant-axis-label--y">Complexité<br>du<br>Modèle</div>
+									<div class="quadrant-axis-label quadrant-axis-label--x">Différenciation Métier</div>
+									<span class="quadrant-tick quadrant-tick--y-low">Faible</span>
+									<span class="quadrant-tick quadrant-tick--y-high">Fort</span>
+									<span class="quadrant-tick quadrant-tick--x-low">Faible</span>
+									<span class="quadrant-tick quadrant-tick--x-high">Fort</span>
+									<div class="quadrant-zone quadrant-zone--supporting" style="left: 0; width: 100%; top: 0; height: 100%;">
+										<span class="quadrant-zone-label" style="position: absolute; left: 38%; top: 78%;">SUPPORTING</span>
+									</div>
+									<div class="quadrant-zone quadrant-zone--generic" style="left: 0; width: 25%; top: 0; height: 100%;">
+										<span class="quadrant-zone-label quadrant-zone-label--vertical">GENERIC</span>
+									</div>
+									<div class="quadrant-zone quadrant-zone--core" style="left: 50%; right: 0; top: 0; height: 75%;">
+										<span class="quadrant-zone-label">CORE</span>
+									</div>
+									<div class="quadrant-arrow" style="left: 59%; top: 26%; width: 38%; transform: rotate(180deg);"></div>
+									<div class="quadrant-marker quadrant-marker--ghost" style="left: 65%; top: 26%;"></div>
+									<div class="quadrant-marker" style="left: 15%; top: 26%;"></div>
+								</div>
+							</div>
+						</div>
+						<aside data-markdown class="notes">
+							Core domain rendu accessible à tout le monde par la concurrence.
+							Exemple : logistique d'Amazon prime avec ses entrepots.
+
+							On est des développeurs, mais là on n'est pas encore en train de parler de développement, c'est pour ça qu'il faut être extrêmement attentif à l'avantage compétitif, ce qui apporte de l'argent versus ce que sont en train de faire nos concurrents et qu'ils leur apportent à eux de l'argent.
+
+							CONCLUSION :
+							ce qui est un core aujourd'hui, peut être un supporting ou un generic demain
+							ce qui est un supporting aujourd'hui, peut être un core demain
+							Il y a des core qu'on a peut être pas encore découvert, ou que la technologie ne permet pas d'adresser (exemple : l'IA)
+							Il est important de rester à l'affût de la concurrence, et de sortir la tête du guidon (pour ne pas se prendre le mur)
+							Exemple : camaieu. => adapte toi ou meurs
+
+							Il y a une dimension dans le DDD, qui dépassent toutes les autres pratiques de développement logiciel
+							=> c'est une dimension socio-technique !
+						</aside>
+					</section>
+					<section>
+						<h2>Exercice pratique</h2>
+						<aside data-markdown class="notes">
+							Notes :
+
+							Poser la question de savoir si l'exercice a été compliqué 
+							Notion d'utilisateur à BANNIR ! On parle de conducteur, covoitureur, passager, ...
+							Se poser la question : est-ce que c'est pour ça que j'utilise Movéo et pas une autre ?
+
+							Consignes : 
+							10 min (possible recave de 5 min)
+							Lire le brief et identifié les core subdomain, supporting subdomain et generic subdomain
+
+
+							PAUSE : de 10-15 min à la fin de l'exercice
+						</aside>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h1>Impédance de langage</h1>
+						<aside data-markdown class="notes">
+							Poser la question : Qu'est-ce qu'une impédance ? (autre que le réglage d'un ampli de guitare)
+						</aside>
+					</section>
+					<section>
+						<div class="slide-2col-container">
+							<div class="slide-2col-text">
+								<h5>IMPÉDANCE DE LANGAGE</h5>
+								<p>
+									Différents langages, différentes perceptions.
+								</p>
+							</div>
+							<div class="slide-2col-image">
+								<img class="r-frame" src="./img/part1/babel-tower.jpg"/>
+							</div>
+						</div>
+						<aside data-markdown class="notes">
+							### Impédance :
+
+							**Définition :**
+
+							*L'impédance est une caractéristique physique d'un système, le rapport entre deux grandeurs, caractérisant l'une son excitation et l'autre sa réponse.* (Wikipédia)
+
+							Deux choses qui ne sont pas équilibrées, adaptée, qui ne sont pas au même niveau.
+
+							Quand on parle d'impédance de langage, c'est quand on a 2 groupes qui parlent 2 langages différents pour parler du même sujet
+							C'est le début des problèmes
+
+							*Tour de Babel :*
+
+							Après le Déluge, les hommes ne parlent qu'une seule langue. 
+							Ils décident de construire une tour immense à Babel pour atteindre le ciel — un projet d'orgueil collectif, pour "se faire un nom" et rivaliser avec Dieu. 
+							Pour les arrêter, Dieu ne détruit pas la tour : il brouille leur langage. 
+							Du jour au lendemain, les ouvriers ne se comprennent plus entre eux, le chantier devient chaotique, et l'humanité se dissperse aux quatre coins du monde, chacun avec sa propre langue.
+						</aside>
+					</section>
+					<section>
+						<h6>IMPÉDANCE DE LANGAGE</h6>
+						<div class="r-stretch" style="display: flex; align-items: stretch; justify-content: center; gap: 0.6em; padding: 2em 1em 1em 1em; box-sizing: border-box; font-size: 0.55em;">
+							<div class="titled-frame" style="border: 2px solid var(--ext-highlight-blue); flex: 1; min-width: 0;">
+								<div class="frame-title">Développeurs</div>
+								<div class="word-cloud">
+									<p class="word-cloud-item word-cloud-item--big">User</p>
+									<p class="word-cloud-item" style="margin-left: 1.8em;">Emplacement de type "Terrasse"</p>
+									<p class="word-cloud-item">Table de type "Couple"</p>
+									<p class="word-cloud-item word-cloud-item--big" style="margin-left: 3em;">Root User</p>
+									<p class="word-cloud-item">Créer une réservation</p>
+									<p class="word-cloud-item" style="margin-left: 2em;">Modifier une réservation</p>
+								</div>
+							</div>
+							<div style="background: var(--ext-highlight-blue); color: #10171a; padding: 0.4em 1.1em; border-radius: var(--ext-radius); font-weight: bold; white-space: nowrap; font-size: 0.7em; align-self: center; margin: 0 -0.9em; position: relative; z-index: 1;">Traduction</div>
+							<div class="titled-frame" style="border: 2px solid var(--ext-highlight-blue); flex: 1; min-width: 0;">
+								<div class="frame-title">Experts Métier</div>
+								<div class="word-cloud">
+									<p class="word-cloud-item word-cloud-item--big">Administrateur</p>
+									<div style="display: flex; justify-content: space-between;">
+										<p class="word-cloud-item">Terrasse</p>
+										<p class="word-cloud-item">Rez-de-Chaussée</p>
+									</div>
+									<p class="word-cloud-item word-cloud-item--big">Table de Couple</p>
+									<p class="word-cloud-item word-cloud-item--big" style="margin-left: 3em;">Hôte d'Accueil</p>
+									<p class="word-cloud-item">Réserver une table</p>
+									<p class="word-cloud-item" style="margin-left: 2.5em;">Annuler une réservation</p>
+								</div>
+							</div>
+						</div>
+						<aside data-markdown class="notes">
+							Dès qu'on introduit une couche de traduction, on perd du sens !
+
+							Exemple : la bible ?
+							se référer à la vidéo de LinkTheSun sur les traductions : exemple, la reine des neiges => let it go
+
+							cette couche de traduction nous pose énormément de problèmes pour parler de la même chose et pour avoir un consensus sur ce qu'on est en train de faire
+						</aside>
+					</section>
+					<section>
+						<h2>Impédance de langage</h1>
+						<p>Difficultés à se comprendre</p>
+						<p class="fragment">L’essence du besoin se perd</p>
+						<p class="fragment">Langage appauvri</p>
+						<p class="fragment">Produit non conforme</p>
+						<aside data-markdown class="notes">
+							Ajouter une animation, se reférer au cours original
+						</aside>
+					</section>
+					<section>
+						<h6>Solution</h6>
+						<p><span class="highlight">Unifier le langage</span> et éliminer tout besoin de <span class="highlight">traduction</span></p>
+						<p class="fragment fade-down">Créer un langage en <span class="highlight">collaboration</span> avec les experts métier</p>
+					</section>					
+					<section>
+						<h6>Langage ubiquitaire</h6>
+						<div class="r-stretch" style="display: flex; align-items: center; justify-content: center; padding: 1.5em 1em 1em 1em; box-sizing: border-box; font-size: 0.6em;">
+							<div class="titled-frame" style="border: 2px solid var(--ext-highlight-blue); flex: none; width: 54%; padding-top: 1.6em;">
+								<div class="frame-title-group">
+									<div class="frame-title">Développeurs</div>
+									<div class="frame-title">Experts Métier</div>
+								</div>
+								<div class="word-cloud">
+									<p class="word-cloud-item word-cloud-item--big">Administrateur</p>
+									<div style="display: flex; justify-content: space-between;">
+										<p class="word-cloud-item">Terrasse</p>
+										<p class="word-cloud-item">Rez-de-Chaussée</p>
+									</div>
+									<p class="word-cloud-item word-cloud-item--big">Table de Couple</p>
+									<p class="word-cloud-item word-cloud-item--big" style="margin-left: 3em;">Hôte d'Accueil</p>
+									<p class="word-cloud-item">Réserver une table</p>
+									<p class="word-cloud-item" style="margin-left: 2.5em;">Annuler une réservation</p>
+								</div>
+							</div>
+						</div>
+						<aside data-markdown class="notes">
+							se mettre d'accord sur un langage ubiquaire, parler la même langue dans lequel les développeurs et les métiers et les experts métiers emploient les mêmes termes
+							et dans lequel le code lui-même emploie ces termes.
+
+							Exemple : pas de "Create Reservation" mais plutôt "Réserver Table"
+						</aside>
+					</section>
+					<section>Ce langage participe a créer un <span class="highlight">modèle partagé</span></section>
+				</section>
+				<section>
+					<section>
+						<h1>Le modèle</h1>
+					</section>
+					<section>
+						<h5>Question</h5>
+						<p>
+							Qu’est-ce qu’un Modèle ?
+						</p>
+
+						<h5 class="fragment fade-down"><em>Réponse</em></h5>
+						<p class="fragment fade-down">
+							<em>Abstraire <span class="highlight">l’essentiel</span> et mettre de côté le <span class="highlight">superflu</span></em>
+						</p>
+						<aside data-markdown class="notes">
+							EXERCICE : poser la question aux étudiants et les laisser répondre
+
+							Pouvez-vous me donner un exemple de modèle ?
+
+							On a toujours 3 acteurs dans la composition d'un modèle : expression du besoin + l'information dont on a besoin = le modèle lui-même
+
+							Exemple : travaux dans la salle de bain pour poser le receveur de douche. il est arrivé en retard, j'ai donc utiliser un carton découper aux bonnes dimensions pour représenter mon receveur et poser le carrelage
+							le carton a servi de modèle. Je n'avais pas besoin du receveur pour poser le parquet, juste de ses dimensions
+						</aside>
+					</section>					
+					<section data-auto-animate>
+						<h6 data-id="title">Modèle trop riche</h6>
+						<div class="r-stretch" style="display: flex; align-items: stretch; justify-content: center; gap: 1.2em; padding: 1.5em 1em 1em 1em; box-sizing: border-box; font-size: 0.48em;">
+							<div data-id="booking" class="titled-frame" style="border: 2px solid var(--ext-highlight-blue); flex: 1; min-width: 0;">
+								<div data-id="resa-title" class="frame-title">Réservation</div>
+								<div class="word-cloud">
+									<p class="word-cloud-item" data-id="resa-table">Table</p>
+									<p class="word-cloud-item" data-id="resa-date-demande">Date de demande</p>
+									<p class="word-cloud-item" data-id="resa-date-reservation">Date de réservation</p>
+									<p class="word-cloud-item" data-id="resa-heure">Heure</p>
+									<p class="word-cloud-item" data-id="resa-clients">Clients</p>
+									<p class="word-cloud-item" data-id="resa-tel">Numéro de téléphone</p>
+									<p class="word-cloud-item" data-id="resa-ville">Ville d'appel</p>
+								</div>
+							</div>
+							<div data-id="table" class="titled-frame" style="border: 2px solid var(--ext-highlight-blue); flex: 1; min-width: 0;">
+								<div data-id="tbl-title" class="frame-title">Table</div>
+								<div class="word-cloud">
+									<p class="word-cloud-item" data-id="tbl-hauteur">Hauteur</p>
+									<p class="word-cloud-item" data-id="tbl-largeur">Largeur</p>
+									<p class="word-cloud-item" data-id="tbl-profondeur">Profondeur</p>
+									<p class="word-cloud-item" data-id="tbl-magasin">Magasin d'achat</p>
+									<p class="word-cloud-item" data-id="tbl-type-bois">Type de bois</p>
+									<p class="word-cloud-item" data-id="tbl-couleur">Couleur</p>
+									<p class="word-cloud-item" data-id="tbl-prix">Prix d'achat</p>
+									<p class="word-cloud-item" data-id="tbl-hauteur-pieds">Hauteur des pieds</p>
+									<p class="word-cloud-item" data-id="tbl-chaises">Chaises</p>
+									<p class="word-cloud-item" data-id="tbl-rayures">Rayures</p>
+								</div>
+							</div>
+							<div data-id="client" class="titled-frame" style="border: 2px solid var(--ext-highlight-blue); flex: 1; min-width: 0;">
+								<div data-id="cli-title" class="frame-title">Client</div>
+								<div class="word-cloud">
+									<p class="word-cloud-item" data-id="cli-prenom">Prénom</p>
+									<p class="word-cloud-item" data-id="cli-nom">Nom</p>
+									<p class="word-cloud-item" data-id="cli-date-naissance">Date de naissance</p>
+									<p class="word-cloud-item" data-id="cli-metier">Métier</p>
+									<p class="word-cloud-item" data-id="cli-historique">Historique d'activité</p>
+									<p class="word-cloud-item" data-id="cli-taille">Taille</p>
+									<p class="word-cloud-item" data-id="cli-poids">Poids</p>
+									<p class="word-cloud-item" data-id="cli-genre">Genre</p>
+									<p class="word-cloud-item" data-id="cli-repas">Repas de la veille</p>
+									<p class="word-cloud-item" data-id="cli-douche">Date dernière douche</p>
+								</div>
+							</div>
+						</div>
+						<aside data-markdown class="notes">
+							Ici, on a toutes les informations d'une table
+							Dans le cadre de la réservation, je n'ai pas besoin de la moitié de ces informations
+
+							C'est une erreur courante chez les dévs
+						</aside>
+					</section>
+					<section data-auto-animate>
+						<h6 data-id="title">Modèle distillé</h6>
+						<div class="r-stretch" style="display: flex; align-items: stretch; justify-content: center; gap: 1.2em; padding: 1.5em 1em 1em 1em; box-sizing: border-box; font-size: 0.48em;">
+							<div data-id="booking" class="titled-frame" style="border: 2px solid var(--ext-highlight-blue); flex: 1; min-width: 0;">
+								<div data-id="resa-title" class="frame-title">Réservation</div>
+								<div class="word-cloud">
+									<p class="word-cloud-item" data-id="resa-table">Table</p>
+									<p class="word-cloud-item" data-id="resa-date-demande">Date de demande</p>
+									<p class="word-cloud-item" data-id="resa-date-reservation">Date de réservation</p>
+									<p class="word-cloud-item" data-id="resa-heure">Heure</p>
+									<p class="word-cloud-item" data-id="resa-clients">Clients</p>
+									<p class="word-cloud-item" data-id="resa-tel" style="opacity: 0.35;">Numéro de téléphone</p>
+									<p class="word-cloud-item" data-id="resa-ville" style="opacity: 0.35;">Ville d'appel</p>
+								</div>
+							</div>
+							<div data-id="table" class="titled-frame" style="border: 2px solid var(--ext-highlight-blue); flex: 1; min-width: 0;">
+								<div data-id="tbl-title" class="frame-title">Table</div>
+								<div class="word-cloud">
+									<p class="word-cloud-item" data-id="tbl-capacite-min">Capacité Minimale</p>
+									<p class="word-cloud-item" data-id="tbl-capacite-max">Capacité Maximale</p>
+									<p class="word-cloud-item" data-id="tbl-emplacement">Emplacement</p>
+									<p class="word-cloud-item" data-id="tbl-magasin" style="opacity: 0.35;">Magasin d'Achat</p>
+									<p class="word-cloud-item" data-id="tbl-type-bois" style="opacity: 0.35;">Type de bois</p>
+									<p class="word-cloud-item" data-id="tbl-couleur" style="opacity: 0.35;">Couleur</p>
+									<p class="word-cloud-item" data-id="tbl-prix" style="opacity: 0.35;">Prix d'Achat</p>
+									<p class="word-cloud-item" data-id="tbl-hauteur-pieds" style="opacity: 0.35;">Hauteur des pieds</p>
+									<p class="word-cloud-item" data-id="tbl-chaises" style="opacity: 0.35;">Chaises</p>
+									<p class="word-cloud-item" data-id="tbl-rayures" style="opacity: 0.35;">Rayures</p>
+								</div>
+							</div>
+							<div data-id="client" class="titled-frame" style="border: 2px solid var(--ext-highlight-blue); flex: 1; min-width: 0;">
+								<div data-id="cli-title" class="frame-title">Client</div>
+								<div class="word-cloud">
+									<p class="word-cloud-item" data-id="cli-prenom">Prénom</p>
+									<p class="word-cloud-item" data-id="cli-nom">Nom</p>
+									<p class="word-cloud-item" data-id="cli-date-naissance">Date de naissance</p>
+									<p class="word-cloud-item" data-id="cli-metier" style="opacity: 0.35;">Métier</p>
+									<p class="word-cloud-item" data-id="cli-historique" style="opacity: 0.35;">Historique d'Activité</p>
+									<p class="word-cloud-item" data-id="cli-taille" style="opacity: 0.35;">Taille</p>
+									<p class="word-cloud-item" data-id="cli-poids" style="opacity: 0.35;">Poids</p>
+									<p class="word-cloud-item" data-id="cli-genre" style="opacity: 0.35;">Genre</p>
+									<p class="word-cloud-item" data-id="cli-repas" style="opacity: 0.35;">Repas de la veille</p>
+									<p class="word-cloud-item" data-id="cli-douche" style="opacity: 0.35;">Date dernière douche</p>
+								</div>
+							</div>
+						</div>
+						<aside data-markdown class="notes">
+							Modèle distillé ne contenant que les informations strictement nécessaires
+						</aside>
+					</section>
+					<section data-auto-animate>
+						<h6 data-id="title">Modèle d'un autre domaine</h6>
+						<div class="r-stretch" style="display: flex; align-items: stretch; justify-content: center; gap: 1.2em; padding: 1.5em 1em 1em 1em; box-sizing: border-box; font-size: 0.48em;">
+							<div data-id="booking" class="titled-frame" style="border: 2px solid var(--ext-highlight-blue); flex: 1; min-width: 0;">
+								<div data-id="resa-title" class="frame-title">Commande</div>
+								<div class="word-cloud">
+									<p class="word-cloud-item" data-id="cmd-table">Table</p>
+									<p class="word-cloud-item" data-id="cmd-quantite">Quantité</p>
+									<p class="word-cloud-item" data-id="cmd-date-commande">Date de commande</p>
+									<p class="word-cloud-item" data-id="cmd-prix-total">Prix Total</p>
+								</div>
+							</div>
+							<div data-id="table" class="titled-frame" style="border: 2px solid var(--ext-highlight-blue); flex: 1; min-width: 0;">
+								<div data-id="tbl-title" class="frame-title">Table</div>
+								<div class="word-cloud">
+									<p class="word-cloud-item" data-id="tbl-hauteur">Hauteur</p>
+									<p class="word-cloud-item" data-id="tbl-largeur">Largeur</p>
+									<p class="word-cloud-item" data-id="tbl-profondeur">Profondeur</p>
+									<p class="word-cloud-item" data-id="tbl-type-bois">Type de Bois</p>
+									<p class="word-cloud-item" data-id="tbl-couleur">Couleur</p>
+									<p class="word-cloud-item" data-id="tbl-prix">Prix</p>
+									<p class="word-cloud-item" data-id="tbl-emplacement" style="opacity: 0.35;">Emplacement</p>
+									<p class="word-cloud-item" data-id="tbl-fourchettes" style="opacity: 0.35;">Fourchettes</p>
+									<p class="word-cloud-item" data-id="tbl-assiettes" style="opacity: 0.35;">Assiettes</p>
+								</div>
+							</div>
+							<div data-id="client" class="titled-frame" style="border: 2px solid var(--ext-highlight-blue); flex: 1; min-width: 0;">
+								<div data-id="cli-title" class="frame-title">Client</div>
+								<div class="word-cloud">
+									<p class="word-cloud-item" data-id="cli-prenom">Prénom</p>
+									<p class="word-cloud-item" data-id="cli-nom">Nom</p>
+									<p class="word-cloud-item" data-id="cli-email">Adresse e-mail</p>
+									<p class="word-cloud-item" data-id="cli-historique-achat">Historique d'Achat</p>
+									<p class="word-cloud-item" data-id="cli-paiement">Moyen de paiement</p>
+									<p class="word-cloud-item" data-id="cli-historique" style="opacity: 0.35;">Historique d'Activité</p>
+									<p class="word-cloud-item" data-id="cli-taille" style="opacity: 0.35;">Taille</p>
+									<p class="word-cloud-item" data-id="cli-poids" style="opacity: 0.35;">Poids</p>
+									<p class="word-cloud-item" data-id="cli-genre" style="opacity: 0.35;">Genre</p>
+									<p class="word-cloud-item" data-id="cli-repas" style="opacity: 0.35;">Repas de la veille</p>
+								</div>
+							</div>
+						</div>
+						<aside data-markdown class="notes">
+							autre modèle, autre domaine, je suis Ikéa, les informations nécessaire ne sont pas les mêmes si je dois vendre une table
+						</aside>
+					</section>
+					<section>
+						<span class="highlight">Créer</span> un modèle qui sert les activités de la boite
+						<aside data-markdown class="notes">
+							C'est ça qu'il faut toujours garder en tête à chaque fois que l'on vous dit le mot modèle, la première chose, la première question qui doit vous venir en tête, c'est quel problème on veut résoudre.
+						</aside>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h1>Créer le langage</h1>
+					</section>
+					<section>
+						<h5>Question</h5>
+						<p>
+							Comment créer le langage ubiquitaire ?
+						</p>
+
+						<h5 class="fragment fade-down"><em>Réponse</em></h5>
+						<p class="fragment fade-down">
+							<em>Analyse de <span class="highlight">Verbes</span> et de <span class="highlight">Noms</span></em>
+						</p>
+						<p class="fragment fade-down">
+							<em><span class="highlight">Ecouter</span> les experts métier</em>
+						</p>
+					</section>					
+					<section data-auto-animate>
+						<blockquote data-id="brief" cite="http://">
+							&ldquo;Nous aimerions développer une application pour automatiser les différents aspects de notre <span class="highlight">restaurant</span>&rdquo;
+						</blockquote>
+						<p class="source">Le client</p>
+					</section>
+					<section data-auto-animate>
+						<blockquote data-id="brief" cite="http://">
+							&ldquo;La première chose à automatiser est la réservation de table&rdquo;
+						</blockquote>
+						<p class="source">Le client</p>
+					</section>
+					<section data-auto-animate>
+						<blockquote data-id="brief" cite="http://">
+							&ldquo;Nos clients peuvent réserver une table soit au rez-de-chaussée, soit en terrasse, soit au premier étage&rdquo;
+						</blockquote>
+						<p class="source">Le client</p>
+					</section>
+					<section data-auto-animate>
+						<blockquote data-id="brief" cite="http://">
+							&ldquo;Certaines tables ne peuventêtre réservées qu’à condition qu’il y ai plusieurs clients sur la réservation&rdquo;
+						</blockquote>
+						<p class="source">Le client</p>
+
+						<aside data-markdown class="notes">
+							Lorsque vous voyez "condition" ou lorsque vous voyez lorsque le mot "lorsque" soyez attentifs.
+							parce que ce sont des mots qui indiquent des invariants ou de la consistance éventuelle.
+						</aside>
+					</section>
+					<section data-auto-animate>
+						<blockquote data-id="brief" cite="http://">
+							&ldquo;On a des tables couple au rez-de-chaussée et au premier étage, uniquement pour deux personnes&rdquo;
+						</blockquote>
+						<p class="source">Le client</p>
+					</section>
+					<section data-auto-animate>
+						<blockquote data-id="brief" cite="http://">
+							&ldquo;Et on a des tables de groupe pour des réservations de trois personnes minimum&rdquo;
+						</blockquote>
+						<p class="source">Le client</p>
+					</section>
+					<section data-auto-animate>
+						<blockquote data-id="brief" cite="http://">
+							&ldquo;On aimerait garder une trace de nos clients et de leurs réservation dans notre base d’informations&rdquo;
+						</blockquote>
+						<p class="source">Le client</p>
+					</section>
+					<section data-auto-animate>
+						<blockquote data-id="brief" cite="http://">
+							&ldquo;Nous voudrions assez rapidement savoir lesquels de nos clients honorent leur réservation et pénaliser les autres&rdquo;
+						</blockquote>
+						<p class="source">Le client</p>
+					</section>
+					<section data-auto-animate>
+						<blockquote data-id="brief" cite="http://">
+							&ldquo;L’application sera intégralement gérée par nos administrateurs, notamment par notre hôte d’accueil&rdquo;
+						</blockquote>
+						<p class="source">Le client</p>
+					</section>
+					<section>
+						<h6>Langage ubiquitaire</h6>
+						<div class="r-stretch" style="display: flex; align-items: center; justify-content: center; padding: 1.5em 1em 1em 1em; box-sizing: border-box; font-size: 0.6em;">
+							<div class="titled-frame" style="border: 2px solid var(--ext-highlight-blue); flex: none; width: 54%; padding-top: 1.6em;">
+								<div class="frame-title-group">
+									<div class="frame-title">Développeurs</div>
+									<div class="frame-title">Experts Métier</div>
+								</div>
+								<div class="word-cloud">
+									<p class="word-cloud-item word-cloud-item--big">Administrateur</p>
+									<div style="display: flex; justify-content: space-between;">
+										<p class="word-cloud-item">Terrasse</p>
+										<p class="word-cloud-item">Rez-de-Chaussée</p>
+									</div>
+									<p class="word-cloud-item word-cloud-item--big">Table de Couple</p>
+									<p class="word-cloud-item word-cloud-item--big" style="margin-left: 3em;">Hôte d'Accueil</p>
+									<div style="display: flex; justify-content: space-between;">
+										<p class="word-cloud-item">Réserver une table</p>
+										<p class="word-cloud-item">Pénaliser</p>
+									</div>
+									<p class="word-cloud-item">Honorer</p>
+									<div style="display: flex; justify-content: space-between;">
+										<p class="word-cloud-item word-cloud-item--big">Client</p>
+										<p class="word-cloud-item word-cloud-item--big">Réservation</p>
+									</div>
+									<p class="word-cloud-item" style="margin-left: auto; text-align: right;">Premier Etage</p>
+								</div>
+							</div>
+						</div>
+						<aside data-markdown class="notes">
+							exemple d'adjectif : table de couple
+						</aside>
+					</section>
+					<section>
+						<p>Les noms sont des <span class="highlight">candidats d’objets</span></p>
+						<p class="fragment fade-down">Les verbes sont des <span class="highlight">candidats de comportement</span></p>
+						<p class="fragment fade-down">Les adjectifs sont des <span class="highlight">candidats de spécialisations</span></p>
+					</section>
+					<section>
+						<h6>Verbes & Noms</h6>
+						<div class="r-stretch" style="display: flex; align-items: flex-start; justify-content: center; gap: 2.5em; padding: 0.6em 1em; box-sizing: border-box; font-size: 0.42em;">
+							<div style="display: flex; flex-direction: column; align-items: center; gap: 0.4em;">
+								<div class="node-root">Objets</div>
+								<div class="node-grid" style="--node-grid-cols: 1; width: 16em; gap: 0.4em;">
+									<div class="node node--compact">Administrateur</div>
+									<div class="node node--compact">Hôte d'Accueil</div>
+									<div class="node node--compact">Réservation</div>
+									<div class="node node--compact">Rez-de-chaussée</div>
+									<div class="node node--compact">Premier Etage</div>
+									<div class="node node--compact">Terrasse</div>
+									<div class="node node--compact">Table de Couple</div>
+									<div class="node node--compact">Client</div>
+									<div class="node node--compact">Pénalité</div>
+								</div>
+							</div>
+							<div style="display: flex; flex-direction: column; align-items: center; gap: 0.4em;">
+								<div class="node-root">Comportements</div>
+								<div class="node-grid" style="--node-grid-cols: 1; width: 16em; gap: 0.4em;">
+									<div class="node node--compact">Gérer les administrateurs</div>
+									<div class="node node--compact">Réserver une table</div>
+									<div class="node node--compact">Honorer sa réservation</div>
+									<div class="node node--compact">Rater sa réservation</div>
+									<div class="node node--compact">Pénaliser un client</div>
+								</div>
+							</div>
+						</div>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h1>Rendre l’implicite explicite</h1>
+					</section>
+					<section>
+						<h5>Problème</h5>
+						<p class="fragment fade-down">Le brief manque énormément d’informations</p>
+						<p class="fragment fade-down">Certaines choses sont <span class="highlight">évidentes</span> pour les experts</p>
+						<p class="fragment fade-down">Mais dans le monde du logiciel, <span class="highlight">l’évidence n’existe pas</span></p>
+						<p class="fragment fade-down">Tout ce qui n’est pas <span class="highlight">explicite</span> n’existe pas</p>
+						<img class="r-frame fragment fade-down" src="./img/part1/matrix-spoon.jpg" width="30%" style="margin-top: 0.5em;"/>
+					</section>
+					<section data-auto-animate>
+						<h6 data-id="title">Vision du développeur</h6>
+						<div class="r-stretch" style="display: flex; align-items: flex-start; justify-content: center; gap: 3em; padding: 1em 1em 1em 1em; box-sizing: border-box; font-size: 0.42em;">
+							<div style="display: flex; flex-direction: column; align-items: center; gap: 1em;">
+								<div class="node-root" data-id="dev-root">Développeurs</div>
+								<div class="node-grid" style="--node-grid-cols: 1; width: 13em;">
+									<div class="node" data-id="dev-col-reserver">Réserver une table pour un jour donné</div>
+									<div class="node" data-id="dev-col-honorer">Honorer sa réservation</div>
+									<div class="node" data-id="dev-col-couple">Table de Couple</div>
+									<div class="node" data-id="dev-col-rdc">Rez-de-Chaussée</div>
+								</div>
+							</div>
+							<div style="display: flex; flex-direction: column; align-items: center; gap: 1em;">
+								<div class="node-root" data-id="exp-root">Experts Métier</div>
+								<div style="display: flex; gap: 1em;">
+									<div class="node-grid" style="--node-grid-cols: 1; width: 13em;">
+										<div class="node" data-id="exp-known-reserver">Réserver une table pour un jour donné</div>
+										<div class="node" data-id="exp-known-honorer">Honorer sa réservation</div>
+										<div class="node" data-id="exp-known-couple">Table de Couple</div>
+										<div class="node" data-id="exp-known-rdc">Rez-de-Chaussée</div>
+									</div>
+									<div class="node-grid" style="--node-grid-cols: 1; width: 13em;">
+										<div class="node" data-id="exp-hidden-annulable" style="opacity: 0.08;">Réservation annulable la veille sans pénalité</div>
+										<div class="node" data-id="exp-hidden-etage" style="opacity: 0.08;">Premier Etage n'a que 17 tables</div>
+										<div class="node" data-id="exp-hidden-couple-terrasse" style="opacity: 0.08;">Pas de table de couple en terrasse</div>
+										<div class="node" data-id="exp-hidden-groupes" style="opacity: 0.08;">Table de groupes</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+					<section data-auto-animate>
+						<h6 data-id="title">Vision de l'expert</h6>
+						<div class="r-stretch" style="display: flex; align-items: flex-start; justify-content: center; gap: 3em; padding: 1em 1em 1em 1em; box-sizing: border-box; font-size: 0.42em;">
+							<div style="display: flex; flex-direction: column; align-items: center; gap: 1em;">
+								<div class="node-root" data-id="dev-root">Développeurs</div>
+								<div class="node-grid" style="--node-grid-cols: 1; width: 13em;">
+									<div class="node" data-id="dev-col-reserver">Réserver une table pour un jour donné</div>
+									<div class="node" data-id="dev-col-honorer">Honorer sa réservation</div>
+									<div class="node" data-id="dev-col-couple">Table de Couple</div>
+									<div class="node" data-id="dev-col-rdc">Rez-de-Chaussée</div>
+								</div>
+							</div>
+							<div style="display: flex; flex-direction: column; align-items: center; gap: 1em;">
+								<div class="node-root" data-id="exp-root">Experts Métier</div>
+								<div style="display: flex; gap: 1em;">
+									<div class="node-grid" style="--node-grid-cols: 1; width: 13em;">
+										<div class="node" data-id="exp-known-reserver">Réserver une table pour un jour donné</div>
+										<div class="node" data-id="exp-known-honorer">Honorer sa réservation</div>
+										<div class="node" data-id="exp-known-couple">Table de Couple</div>
+										<div class="node" data-id="exp-known-rdc">Rez-de-Chaussée</div>
+									</div>
+									<div class="node-grid" style="--node-grid-cols: 1; width: 13em;">
+										<div class="node" data-id="exp-hidden-annulable">Réservation annulable la veille sans pénalité</div>
+										<div class="node" data-id="exp-hidden-etage">Premier Etage n'a que 17 tables</div>
+										<div class="node" data-id="exp-hidden-couple-terrasse">Pas de table de couple en terrasse</div>
+										<div class="node" data-id="exp-hidden-groupes">Table de groupes</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+					<section>
+						<h5>Problème</h5>
+						<p>
+							Comment rendre l’implicite <span class="highlight">explicite</span> ?
+						</p>
+					</section>
+					<section>
+						<h5>Solutions</h5>
+						<p class="fragment fade-down">Poser <span class="highlight">beaucoup</span> de questions. Il faut s'étonner de tout ! (ex : pourquoi le ciel est-il bleu ?)</p>
+						<p class="fragment fade-down">Challenger le besoin</p>
+						<p class="fragment fade-down">Observer le travail des experts métier</p>
+						<p class="fragment fade-down">Faire des ateliers de groupe</p>						
+					</section>
+					<section>
+						<h2>Knowledge Crunching</h2>
+						<aside data-markdown class="notes">
+							De manière globale, on va faire du Knowledge Crunching
+							De l'acumulation de savoir
+						</aside>
+					</section>
+					<section>
+						<h2>Outils de Knowledge Crunching</h1>
+						<p>Domain Vision</p>
+						<p>Domain Storytelling</p>
+						<p>Event Storming</p>
+						<p>Impact Mapping</p>
+						<p>Specification by Example</p>
+						<aside data-markdown class="notes">
+							Domain Storytelling : consiste à raconter une histoire un scénario utilisateur avec des icônes et des verbes.
+							Event storming : on y reviens en jour 5
+							Specification by example : autrement appelé Behaviour driven development (BDD). C'est spécificier le comportement attendu du logiciel en utilisant des exemples. Très proche du domain Storytelling
+
+							Quoi faire quand les devs ont contaminé le langage métier : redécouvrir le métier, en posant la question, que souhaitez-vous vraiment faire ?
+							Il faut avoir une pensée orienté outcome => ce n'est pas, comment est-ce qu'on fait les choses, c'est quel résultat est-ce que tu veux obtenir. Centrer la discussion autour du bénéfice client, et non sur la solution
+							Exemple : bordereau chez faire-savoir
+						</aside>
+					</section>
+					<section>
+						<h5>Conseil</h5>
+						<p>
+							Comprendre <span class="highlight">intimement</span> le besoin <span class="highlight">avant</span> d’imaginer une solution
+						</p>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h1>Analyser les use cases</h1>
+					</section>
+					<section>
+						<h5>Définition</h5>
+						<p>
+							Description d’une <span class="highlight">interaction</span> entre un <span class="highlight">acteur</span> et notre système
+						</p>
+					</section>
+					<section>
+						<h5>Acteur</h5>
+						<p>
+							Une personne</span> ou un autre <span class="highlight">système</span> avec un intérêt vis à vis de notre application
+						</p>
+					</section>
+					<section>
+						<h5>Usecases</h5>
+						<p>
+							Approche pour récolter le <span class="highlight">besoin</span>
+						</p>
+					</section>
+					<section>
+						<h3>USECASE</h3>	
+						<h6>Template</h6>	
+						<div class="slide-2col-container">
+							<div class="slide-2col-text" style="text-align: right; font-size: 1em;">
+								Nom : <br/>
+								Description : <br/>
+								Acteurs : <br/>
+								Déclencheurs : <br/>
+								Informations requises : <br/>
+								Préconditions : <br/>
+								Postcondition : <br/>
+								Main course : <br/>
+								Alternative courses : <br/>
+							</div>
+							<div class="slide-2col-image" >
+							</div>
+						</div>
+						<aside data-markdown class="notes">
+							main course = cas nominal
+							alternative course = cas alternatif != cas d'erreur
+							un cas d'erreur est un cas alternatif, mais un cas alternatif n'est pas forcément un cas d'erreur
+							Précondition, c'est ce qui doit être vrai avant, et les postconditions, ce qui doit être vrai après
+							une postcondition peut être vue comme un résultat
+							Les invariants c'est ce qui est maintenu tout au long de l'execution de ton main course
+						</aside>
+					</section>
+					<section>
+						<h3>USECASE</h3>	
+						<h6>Réserver une table</h6>	
+						<div class="slide-2col-container">
+							<div class="slide-2col-text" style="text-align: left; font-size: 0.6em;">
+								<p>
+									<span class="highlight">Nom</span><br/>
+									Réserver une table 
+								</p>
+								<p>
+									<span class="highlight">Acteurs</span><br/>
+									Hôte d'accueil
+								</p>
+								<p>
+									<span class="highlight">Informations requises</span><br/>
+									Table, Clients, Date
+								</p>
+								<p>
+									<span class="highlight">Préconditions</span><br/>
+									Table existe<br/>
+									Table disponible à la date
+								</p>
+								<p>
+									<span class="highlight">Postcondition</span><br/>
+									La table est réservée
+								</p>
+							</div>
+							<div class="slide-2col-text" style="text-align: left; font-size: 0.6em;">
+								<p>
+									<span class="highlight">Main course</span><br/>
+									L'hôte vérifie la disponibilité de la table <br/>
+									Une réservation est créée
+								</p>
+								<p>
+									<span class="highlight">Alternative course</span><br/>
+									La table est occupée
+								</p>
+								<p>
+									<span class="highlight">Alternative course</span><br/>
+									Le client a déjà une réservation à cette date
+								</p>
+								<p>
+									<span class="highlight">Alternative course</span><br/>
+									Le client est pénalisé
+								</p>
+							</div>
+						</div>
+					</section>
+					<section>
+						<img class="r-frame" src="./img/part1/usecase-book-table.png" />
+					</section>
+					<section>
+						<img class="r-frame" src="./img/part1/usecases-list.png" />
+						<aside data-markdown class="notes">
+							Les usecase en jaune sont des usecase implicites. Ils n'ont pas été énoncé pendant le brief, mais on en aura besoin pour les autres cas
+						</aside>
+					</section>
+					<section>Avons-nous toutes les informations pour commencer à coder ?
+						<aside data-markdown class="notes">
+							Evidement NON ! ...
+						</aside>
+					</section>
+					<section>
+						<h3>USECASE</h3>	
+						<h6>Réserver une table</h6>	
+						<div class="slide-2col-container">
+							<div class="slide-2col-text" style="text-align: left; font-size: 0.6em;">
+								<p>
+									<span class="highlight">Nom</span><br/>
+									Réserver une <span class="fragment highlight-green" data-fragment-index="1">table</span>
+								</p>
+								<p>
+									<span class="highlight">Acteurs</span><br/>
+									Hôte d'accueil
+								</p>
+								<p>
+									<span class="highlight">Informations requises</span><br/>
+									<span class="fragment highlight-green" data-fragment-index="1">Table</span>, Clients, Date
+								</p>
+								<p>
+									<span class="highlight">Préconditions</span><br/>
+									<span class="fragment highlight-green" data-fragment-index="1">Table</span> existe<br/>
+									<span class="fragment highlight-green" data-fragment-index="1">Table</span> disponible à la date
+								</p>
+								<p>
+									<span class="highlight">Postcondition</span><br/>
+									La <span class="fragment highlight-green" data-fragment-index="1">table</span> est réservée
+								</p>
+							</div>
+							<div class="slide-2col-text" style="text-align: left; font-size: 0.6em;">
+								<p>
+									<span class="highlight">Main course</span><br/>
+									L'hôte vérifie la disponibilité de la table <br/>
+									Une réservation est créée
+								</p>
+								<p>
+									<span class="highlight">Alternative course</span><br/>
+									La <span class="fragment highlight-green" data-fragment-index="1">table</span> est occupée
+								</p>
+								<p>
+									<span class="highlight">Alternative course</span><br/>
+									Le client a déjà une réservation à cette date
+								</p>
+								<p>
+									<span class="highlight">Alternative course</span><br/>
+									Le client est pénalisé
+								</p>
+							</div>
+						</div>
+						<aside data-markdown class="notes">
+							... car on a un terme qui revient très souvent, c'est "table"
+						</aside>
+					</section>
+					<section>
+						<h6>Questions</h6>
+						<p class="fragment fade-down">Qu’est-ce qu’une table ?</p>
+						<p class="fragment fade-down">Comment sont gérées les tables ?</p>
+					</section>					
+					<section>
+						<blockquote cite="http://">
+							&ldquo;Chère cliente, auriez-vous l’amabilité de me dire d’où viennent vos tables ?&rdquo;
+						</blockquote>
+						<p class="source">Un mauvais développeur (Pas vous, j’espère...)</p>
+					</section>
+					<section>
+						<blockquote cite="http://">
+							&ldquo;Pourriez-vous m’en dire plus sur la topologie de votre restaurant ? Est-elle fixe ? Déplacez-vous parfois les tables ?&rdquo;
+						</blockquote>
+						<p class="source">Un bon développeur (Définitivement vous)</p>
+						<aside data-markdown class="notes">
+							Ce qui est important dans le métier de développeur c'est l'art de poser les bonnes questions pour obtenir les informations dont on a besoin
+						</aside>
+					</section>
+					<section>
+						<blockquote cite="http://">
+							&ldquo;Comme je vous l’ai déjà dis, nous avez trois emplacements : la terrasse, le rez-de-chaussée et le premier étage Client&rdquo;
+						</blockquote>
+						<p class="source">Le client</p>
+					</section>
+					<section>
+						<blockquote cite="http://">
+							&ldquo;Mais la topologie du restaurant peut varier, il n’est pas rare de monter / descendre une table, d’en ajouter ou d’en retirer&rdquo;
+						</blockquote>
+						<p class="source">Le client</p>
+					</section>
+					<section>
+						<blockquote cite="http://">
+							&ldquo;Qui s’occupe de cela ?&rdquo;
+						</blockquote>
+						<p class="source">Le boss final des devs</p>
+					</section>
+					<section>
+						<blockquote cite="http://">
+							&ldquo;Les serveurs bien sûr, mais ils doivent rendre des comptes à notre hôte d’accueil qui met à jour son registre.&rdquo;
+						</blockquote>
+						<p class="source">Le client</p>
+					</section>
+					<section>
+						<img class="r-frame" src="./img/part1/full-usecases-list.png" />
+						<aside data-markdown class="notes">
+							En posant simplement 2 nouvelles questions, on découvre 3 nouveaux usecases
+						</aside>
+					</section>
+					<section>
+						<h2>Exercice pratique</h2>
+						<aside data-markdown class="notes">
+							On peut se poser la question de savoir si Conducteur n'est pas anticipatoire comme nom.
+							Feature != Usecase !
+							Enfin, c'est pas vraiment un Uscase, c'est une fonctionnalité du système, tout n'est pas Usecase en fait, tu ne définis pas l'intégralité du fonctionnement de ton système à travers des Usecase.
+							Usecase : C'est un outil de compréhension d'utilisation du système par ses utilisateurs
+						</aside>
+					</section>
+				</section>
+				<section>
+					<h1>Merci&nbsp;!</h1>
+					<h3>Des <span class="highlight">questions</span>&nbsp;?</h3>
+				</section>
+			</div>
+		</div>
+
+		<script src="../../presentation-set/dist/reveal.js"></script>
+		<script src="../../presentation-set/dist/plugin/notes.js"></script>
+		<script src="../../presentation-set/dist/plugin/markdown.js"></script>
+		<script src="../../presentation-set/dist/plugin/highlight.js"></script>
+		<script src="../../presentation-set-custom/plugin/chapter-footer/plugin.js"></script>
+		<script src="../../presentation-set-custom/plugin/chart/chart.umd.js"></script>
+		<script src="../../presentation-set-custom/plugin/chart/plugin.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				hash: true,
+
+				// Ne pas éclater chaque fragment sur sa propre page à l'export PDF
+				pdfSeparateFragments: false,
+
+				// Palette hexafox pour les graphiques
+				chart: {
+					defaults: {
+						color: "#D7DEE1",
+						font: { size: 20 },
+						scale: {
+							grid: { color: "#3A4249" },
+							border: { color: "#D7DEE1" },
+							title: { font: { size: 22, weight: "bold" } }
+						},
+						plugins: {
+							legend: { labels: { font: { size: 22 } } }
+						}
+					},
+					line: { borderColor: [ "#1CD2FF", "#FF8904" ], backgroundColor: [ "#1CD2FF", "#FF8904" ] }
+				},
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealChapterFooter, RevealChart ]
+			});
+
+			// A l'export PDF (?print-pdf), Chart.js construit les graphiques avec
+			// son détecteur de taille "responsive" habituel, qui ne capte jamais
+			// la bonne taille dans ce mode d'impression (canvas figés à 0px de
+			// haut, donc invisibles). On attend le chargement complet de la page
+			// (c'est à ce moment que reveal.js bascule en mise en page PDF), puis
+			// on recrée chaque graphique en lui donnant explicitement la taille
+			// réelle de son conteneur plutôt que de compter sur l'auto-détection.
+			if ( /print-pdf/i.test( window.location.search ) ) {
+				window.addEventListener('load', function() {
+					setTimeout( function() {
+						document.querySelectorAll('canvas[data-chart]').forEach( function( canvas ) {
+							if ( canvas.chart ) {
+								var rect = canvas.parentElement.getBoundingClientRect();
+								var config = canvas.chart.config;
+								canvas.chart.destroy();
+								canvas.width = rect.width;
+								canvas.height = rect.height;
+								canvas.chart = new Chart( canvas.getContext('2d'), config );
+							}
+						});
+					}, 300 );
+				});
+			}
+		</script>
+	</body>
+</html>
