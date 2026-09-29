@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="fr">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>DDD — Partie 2 — Modéliser le domaine</title>
+
+		<link rel="stylesheet" href="../../presentation-set/dist/reset.css">
+		<link rel="stylesheet" href="../../presentation-set/dist/reveal.css">
+		<link rel="stylesheet" href="../../presentation-set-custom/css/theme/hexafox-dark.css">
+		<link rel="stylesheet" href="../../presentation-set-custom/css/reveal-extended.css">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="../../presentation-set/dist/plugin/highlight/monokai.css">
+
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h1>Domain-Driven Design</h1>
+					<h3>Partie 2 — Modéliser le domaine</h3>
+
+					<aside data-markdown class="notes">
+						Rappel sur les design patterns en général
+						Rappel sur SOLID
+					</aside>
+				</section>
+
+				<section>
+					<section>
+						<h1>Analyser les objets</h1>
+					</section>
+					<section>
+						Un objet est une abstraction d’un concept <span class="highlight">tiré du monde réel</span>
+
+						<aside data-markdown class="notes">
+							Ce n'est pas la représentation réelle / directe de l'objet,
+
+							je vais récupérer uniquement ce qui est intéressant pour le problème que je suis en train de résoudre
+
+							D'où, abstraction du concept
+						</aside>
+					</section>
+					<section>
+						Il encapsule un <span class="highlight">comportement</span> et des <span class="highlight">invariants</span>
+
+						<aside data-markdown class="notes">
+							### Exemple :
+							=> dans le cas d'une distance
+							- le comportement, c'est le fait de pouvoir la convertir en mètre ou en kilomètre
+							- et un invariant, c'est qu'elle ne peut pas être inférieur à 0
+
+							### autre exemple :
+							=> dans le cadre de Movéo (notre application de covoiturage)
+
+							on pourrait se dire qu'une distance ne peut être inférieure à 200m
+							Ce qui est **faux** dans un contexte **général**, mais **pertinent** dans **notre** contexte
+						</aside>
+					</section>
+					<section>
+						Comportement = <span class="highlight">Fonction</span>
+					</section>
+					<section>
+						<h5>Invariant</h5>
+						<p>Une <span class="highlight">propriété</span> qui doit être <span class="highlight">respectée</span> en toutes circonstances</p>
+					</section>
+					<section>
+						<h5>Exemple</h5>
+						<p>La distance d’un trajet doit être positive</p>
+					</section>
+					<section>
+						<h5>Langage ubiquitaire</h5>
+						<p>Analyse de noms</p>
+						<div class="r-stretch" style="display: flex; align-items: center; justify-content: center; padding: 0.5em 0; box-sizing: border-box;">
+							<div style="display: flex; flex-direction: column; align-items: center; font-size: 0.55em;">
+								<div class="node-root">Candidats d’Objets</div>
+								<div class="node-arrow-down"></div>
+								<div class="node-grid" style="--node-grid-cols: 2; width: 26em;">
+									<div class="node node--compact">Administrateur</div>
+									<div class="node node--compact">Réservation</div>
+									<div class="node node--compact">Hôte d’Accueil</div>
+									<div class="node node--compact">Table de Couple</div>
+									<div class="node node--compact">Rez-de-chaussée</div>
+									<div class="node node--compact">Client</div>
+									<div class="node node--compact">Premier Etage</div>
+									<div class="node node--compact">Pénalité</div>
+									<div class="node node--compact">Terrasse</div>
+								</div>
+							</div>
+						</div>
+
+						<aside data-markdown class="notes">
+							l'analyse de noms peut donner de nombreux candidats d'objets ou de classe, mais ça ne veut pas dire qu'ils seront tous représenté dans le code
+						</aside>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h1>Domain Objects</h1>
+					</section>
+					<section>
+						<h5>Définition</h5>
+						<p>Objet qui représente un concept dans le domaine</p>
+					</section>
+					<section>
+						<p>Un concept issu du <span class="highlight">modèle</span></p>
+						<p class="fragment">Fait partie du <span class="highlight">langage ubiquitaire</span></p>
+						<p class="fragment">Catégorisé en tant que <span class="highlight">Pattern Tactique</span></p>
+
+						<aside data-markdown class="notes">
+							Il est conçu pour **le problème en cours** (et pas pour être générique).
+
+							Il fait partie du **langage ubiquitaire**,
+
+							donc il a du sens auprès des experts métier et peut être utilisé pour échanger avec eux
+						</aside>
+					</section>
+					<section>
+						Les Domain Objects contiennent la <span class="highlight">logique métier</span>
+
+						<aside data-markdown class="notes">
+							Ce sont les *domain objects* qui contiennent 99% de la logique métier, **idéalement**
+						</aside>
+					</section>
+					<section>
+						<h2>Exercice pratique</h2>
+
+						<aside data-markdown class="notes">
+							Des questions jusqu'à présent ?
+
+							### Exercice de refacto :
+							**Consignes :**
+							- Prendre le code indiqué, et le refactoriser petit à petit pour introduire des domain objects
+							- ici on a une notion de requête HTTP qui va vous amener à découvrir un autre type de domain objects
+							- le faire commit par commit, le but est d'introduire progressivement des concepts
+							- durée : 15 min
+
+							**Correction :**
+							- sortir l'infra du domaine
+							- sortir le ratio provider pour rendre le code testable
+							- ratioProvider n'est pas un bon nom (ie. il n'est pas compréhensible par le métier) lui préférer *"ratios"*
+							- Notion de *Collection-Oriented* VS *Persistence-Oriented*
+							=> on va préférer le collection en DDD (car on ne sait pas s'il y a une persistence derrière)
+							- Le design logique ne doit pas être influencé par le design physique
+							- Les contraintes logiques sont obligées de se soumettre aux contraintes physiques
+							- les DTO appartiennent à la couche application
+						</aside>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h1>Value Objects</h1>
+					</section>
+					<section>
+						<h5>Définition</h5>
+						<p>Représentent une valeur dans notre modèle</p>
+					</section>
+					<section>
+						<p>La <span class="highlight">distance</span> qui sépare deux endroits</p>
+						<p>Une valeur <span class="highlight">monétaire</span></p>
+						<p>Le <span class="highlight">temps</span> nécessaire à une tâche</p>
+					</section>
+					<section>
+						<p>Un Value Object est <span class="highlight">immuable</span>.</p>
+						<p>5 minutes sera toujours 5 minutes.</p>
+
+						<aside data-markdown class="notes">
+							Si on a besoin de faire passer une course de 1 Km à 2 Km, on ne modifie pas l'objet, on en créé un autre
+						</aside>
+					</section>
+					<section>
+						<p>Un Value Object est défini par ses <span class="highlight">propriétés</span>.</p>
+						<p>Il n’a pas d’identité.</p>
+					</section>
+					<section>
+						<h5>Prédiction</h5>
+						<p>La <span class="highlight">majorité</span> de vos Domain Objects seront des <span class="highlight">Value Objects</span></p>
+
+						<aside data-markdown class="notes">
+							Dans un domaine qui est riche,
+							on a quelques entités,
+							quelques aggregates,
+							mais on a surtout **BEAUCOUP** de value objects
+						</aside>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h1>Domain Services</h1>
+					</section>
+					<section>
+						<h5>Définition</h5>
+						<p>Représente un service à l’intérieur du domaine.</p>
+
+						<aside data-markdown class="notes">
+							Par opposition aux application services qui représente un usecase
+							un domain service est niché DANS le domaine, et à du sens pour le domaine aux yeux du modèle qu'on a créé
+						</aside>
+					</section>
+					<section>
+						<p><span class="highlight">Calculer</span> une taxe selon le pays.</p>
+						<p><span class="highlight">Mettre au point</span> un itinéraire terrestre.</p>
+						<p><span class="highlight">Déterminer</span> le prix d’un trajet.</p>
+
+						<aside data-markdown class="notes">
+							Voici quelques exemples.
+							Ca va pas vraiment être calculé dans des objets,
+							mais calculé dans des services qui vont **produire** ces objets
+						</aside>
+					</section>
+					<section>
+						<p>Il doit avoir du sens aux yeux des <span class="highlight">non-devs</span>.</p>
+						<p>Il parle le <span class="highlight">langage ubiquitaire</span>.</p>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h1>Architecture</h1>
+					</section>
+					<section>
+						<h5>Ports &amp; Adapters</h5>
+						<div class="r-stretch" style="padding: 1em 0; box-sizing: border-box;">
+							<div class="layer-diagram" style="font-size: 0.42em;">
+								<div class="layer-box">
+									<p class="layer-box-label">Monde<br>Extérieur</p>
+								</div>
+								<div class="layer-flow">
+									<div class="layer-flow-label">Requêtes entrantes</div>
+									<div class="layer-arrow"></div>
+								</div>
+								<div class="layer-box layer-box--main">
+									<div class="layer-box-title">Application Services</div>
+									<div class="layer-core">
+										<div class="layer-pill-row">
+											<span class="layer-pill">Domain Object</span>
+											<span class="layer-pill">Domain Object</span>
+										</div>
+										<div class="layer-core-title">Domain Model</div>
+										<div class="layer-pill-row">
+											<span class="layer-pill">Domain Object</span>
+											<span class="layer-pill">Domain Object</span>
+										</div>
+									</div>
+								</div>
+								<div class="layer-flow">
+									<div class="layer-flow-label">Requêtes sortantes</div>
+									<div class="layer-arrow"></div>
+								</div>
+								<div class="layer-box">
+									<p class="layer-box-label">Monde<br>Extérieur</p>
+								</div>
+							</div>
+						</div>
+
+						<aside data-markdown class="notes">
+							Un **usecase** ?
+							c'est une **opération** que peut réaliser un **utilisateur**.
+							En général c'est une *commande*. (ex : créer un compte, réserver une table, participer à un voyage)
+							La couche application est une couche d'**orchestration** !
+							un *usecase* est généralement un **verbe** d'action, la où un domain service reste généralement un **nom** (ex : guichet, calcul, ...)
+							Un *domain service* va prendre une responsabilité qui ne tient pas **dans un objet**.
+						</aside>
+					</section>
+					<section>
+						<p><span class="highlight">Application Services</span></p>
+						<p>Définit les capacités du système du point de vue d’un utilisateur / acteur</p>
+						<p>Ce sont les <span class="highlight">Use Cases</span></p>
+					</section>
+					<section>
+						<p><span class="highlight">Domain Services</span></p>
+						<p>Définit une responsabilité au sein du Domain Model</p>
+					</section>
+					<section>
+						<h2>Exercice pratique</h2>
+
+						<aside data-markdown class="notes">
+							## Exercice
+
+							**Consignes :**
+							- vous avez différents nom d'objets
+							- il faut les classer dans les différentes zones (App service, domain, etc...)
+							- durée : 10-15 min
+							- au milieu de l'exercice, rajouter le "user service"
+
+							**Correction :**
+							regarder la vidéo à 2h03 !
+							- cas de "passengers" => c'est un collection oriented services. (ce n'est pas une liste de passagers). Ca peut être un repository, ou alors un simple tableau
+							- faire un point sur le user service
+							- faire un point sur la différence fondamentale entre architecture Hexagonale et Clean Architecture
+							- en DDD, on accepte la duplication (de code). On a du mal à l'accepter car on est formaté par la méthode Merise, et la pensée relationnelle
+							- Ca renvoie à la notion de BC (dimension socio-technique multi équipe timecode 2h26)
+						</aside>
+					</section>
+				</section>
+
+				<section>
+					<h1>Merci&nbsp;!</h1>
+					<h3>Des <span class="highlight">questions</span>&nbsp;?</h3>
+				</section>
+			</div>
+		</div>
+
+		<script src="../../presentation-set/dist/reveal.js"></script>
+		<script src="../../presentation-set/dist/plugin/notes.js"></script>
+		<script src="../../presentation-set/dist/plugin/markdown.js"></script>
+		<script src="../../presentation-set/dist/plugin/highlight.js"></script>
+		<script src="../../presentation-set-custom/plugin/chapter-footer/plugin.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				hash: true,
+
+				// Ne pas éclater chaque fragment sur sa propre page à l'export PDF
+				pdfSeparateFragments: false,
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealChapterFooter ]
+			});
+		</script>
+	</body>
+</html>
