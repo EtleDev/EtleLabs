@@ -874,3 +874,147 @@
 .reveal .word-cloud-item--big {
     font-size: 1.7em;
 }
+
+/* -------------------------------------------------------------------
+ * Layered architecture diagram (ports & adapters)
+ *
+ * A row of layers - the outside world on either side, the application
+ * layer in the middle wrapping a filled "core" - with labelled flows
+ * between them. Replaces a bitmap of the same diagram.
+ *
+ * <div class="layer-diagram">
+ *   <div class="layer-box"><p class="layer-box-label">Monde Extérieur</p></div>
+ *   <div class="layer-flow">
+ *     <div class="layer-flow-label">Requêtes entrantes</div>
+ *     <div class="layer-arrow"></div>
+ *   </div>
+ *   <div class="layer-box layer-box--main">
+ *     <div class="layer-box-title">Application Services</div>
+ *     <div class="layer-core">
+ *       <div class="layer-pill-row"><span class="layer-pill">Domain Object</span></div>
+ *       <div class="layer-core-title">Domain Model</div>
+ *     </div>
+ *   </div>
+ * </div>
+ * ------------------------------------------------------------------- */
+
+.reveal .layer-diagram {
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    gap: 0.6em;
+    width: 100%;
+    height: 100%;
+}
+
+.reveal .layer-box {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--node-accent, var(--r-heading-color));
+    /* deliberately rounder than --ext-radius: these are large areas,
+       not the small boxes that radius was tuned for */
+    border-radius: 1.4em;
+    background: #ffffff0d;
+    padding: 1em 0.8em;
+    box-sizing: border-box;
+    color: var(--node-accent, var(--r-heading-color));
+    font-weight: bold;
+    text-align: center;
+}
+
+/* The middle layer: wider than the outside-world columns, and stacked
+   from the top so its title sits above the core rather than beside it */
+.reveal .layer-box--main {
+    flex: 3.4;
+    justify-content: flex-start;
+}
+
+.reveal .layer-box-label {
+    margin: 0;
+    font-size: 1.5em;
+    line-height: 1.2;
+}
+
+.reveal .layer-box-title {
+    font-size: 1.1em;
+}
+
+/* Filled layer nested inside another one (the domain model at the
+   heart of the diagram) */
+.reveal .layer-core {
+    flex: 1;
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.6em;
+    min-height: 0;
+    margin-top: 0.8em;
+    padding: 0.8em;
+    box-sizing: border-box;
+    border-radius: var(--ext-radius);
+    background: var(--node-accent, var(--r-heading-color));
+    color: var(--r-background-color, #10171a);
+}
+
+.reveal .layer-core-title {
+    font-size: 1.4em;
+}
+
+.reveal .layer-pill-row {
+    display: flex;
+    justify-content: center;
+    gap: 0.6em;
+    flex-wrap: wrap;
+}
+
+/* Pill sitting on a filled layer: outlined in the background color,
+   since the accent color it would otherwise use is the fill it sits on */
+.reveal .layer-pill {
+    border: 2px solid var(--r-background-color, #10171a);
+    border-radius: var(--ext-radius);
+    padding: 0.35em 0.8em;
+    font-size: 0.7em;
+    white-space: nowrap;
+}
+
+/* Labelled flow from one layer to the next */
+.reveal .layer-flow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5em;
+}
+
+.reveal .layer-flow-label {
+    background: var(--node-accent, var(--r-heading-color));
+    color: var(--r-background-color, #10171a);
+    border-radius: var(--ext-radius);
+    padding: 0.3em 0.7em;
+    font-size: 0.7em;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.reveal .layer-arrow {
+    position: relative;
+    width: 2.6em;
+    height: 3px;
+    background: var(--node-accent, var(--r-heading-color));
+}
+
+.reveal .layer-arrow::after {
+    content: '';
+    position: absolute;
+    right: -1px;
+    top: 50%;
+    transform: translateY(-50%);
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-left: 12px solid var(--node-accent, var(--r-heading-color));
+}
