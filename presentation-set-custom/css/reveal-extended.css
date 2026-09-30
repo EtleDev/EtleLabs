@@ -874,3 +874,156 @@
 .reveal .word-cloud-item--big {
     font-size: 1.7em;
 }
+
+/* -------------------------------------------------------------------
+ * Aggregate diagram
+ *
+ * An aggregate drawn as a large rounded boundary with its name on the
+ * top edge, the commands that stimulate it straddling its left edge,
+ * and inside: invariants (fox orange), state (outlined) and domain
+ * events (pink, with an "Event" tab). Actors and arrows live in an
+ * inline SVG laid over the whole diagram. Replaces the bank account /
+ * concert / eventual consistency bitmaps.
+ *
+ * Every piece is absolutely positioned in % of the diagram, which has
+ * a fixed aspect ratio: give the SVG the same ratio in its viewBox
+ * (default 16:9 -> viewBox="0 0 1600 900") so its coordinates line up
+ * with the boxes. Override --aggregate-ratio for another shape.
+ *
+ * <div class="aggregate-diagram">
+ *   <svg class="aggregate-links" viewBox="0 0 1600 900">...</svg>
+ *   <div class="aggregate-boundary" style="left: 37.5%; top: 10.2%; width: 54.25%; height: 83.7%;">
+ *     <div class="aggregate-name"><span>Bank Account</span></div>
+ *   </div>
+ *   <div class="aggregate-command" style="left: 32.4%; top: 47.6%; width: 16.6%; height: 8.9%;">Withdraw</div>
+ *   <div class="aggregate-invariant" style="...">Ne peut être à découvert</div>
+ *   <div class="aggregate-state" style="...">Argent dans le compte</div>
+ *   <div class="aggregate-event" style="...">Argent Retiré</div>
+ * </div>
+ * ------------------------------------------------------------------- */
+
+.reveal .aggregate-diagram {
+    position: relative;
+    width: 100%;
+    aspect-ratio: var(--aggregate-ratio, 16 / 9);
+    font-size: 0.45em;
+    font-weight: bold;
+    line-height: 1.25;
+    color: var(--aggregate-accent, var(--r-heading-color));
+}
+
+.reveal .aggregate-diagram > * {
+    position: absolute;
+    box-sizing: border-box;
+}
+
+/* Actors and arrows: strokes follow the diagram's accent color */
+.reveal .aggregate-links {
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.reveal .aggregate-links text {
+    fill: currentColor;
+    stroke: none;
+    font-weight: normal;
+}
+
+.reveal .aggregate-boundary {
+    border: 3px solid currentColor;
+    /* deliberately much rounder than --ext-radius: this is a large
+       area, not one of the small boxes that radius was tuned for */
+    border-radius: 5em;
+}
+
+/* Zero-height strip laid on the top border: the pill inside is
+   centered on the line by flex, whatever its height (one or two
+   lines), with no transform - see .frame-title for why */
+.reveal .aggregate-name {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.reveal .aggregate-name > span {
+    min-width: 8.8em;
+    padding: 0.75em 1em;
+    box-sizing: border-box;
+    border-radius: var(--ext-radius);
+    text-align: center;
+}
+
+/* currentColor is the fill above, so the text needs its own color */
+.reveal .aggregate-name > span,
+.reveal .aggregate-command,
+.reveal .aggregate-invariant,
+.reveal .aggregate-event {
+    color: var(--r-background-color, #10171a);
+}
+
+.reveal .aggregate-name > span {
+    background: var(--aggregate-accent, var(--r-heading-color));
+}
+
+.reveal .aggregate-command,
+.reveal .aggregate-invariant,
+.reveal .aggregate-state,
+.reveal .aggregate-event {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0.3em 0.4em;
+    border-radius: var(--ext-radius);
+}
+
+/* Opaque on purpose: it sits on the boundary's left border and must
+   hide it */
+.reveal .aggregate-command {
+    background: var(--aggregate-accent, var(--r-heading-color));
+}
+
+.reveal .aggregate-invariant {
+    background: var(--ext-accent-2);
+}
+
+.reveal .aggregate-state {
+    border: 3px solid currentColor;
+}
+
+.reveal .aggregate-event {
+    background: var(--aggregate-event, #ffc4c4);
+}
+
+.reveal .aggregate-event::before {
+    content: "Event";
+    position: absolute;
+    bottom: calc(100% - 0.55em);
+    left: 0;
+    right: 0;
+    width: fit-content;
+    margin: 0 auto;
+    padding: 0.2em 1.6em;
+    border: 2px solid var(--r-background-color, #10171a);
+    border-radius: var(--ext-radius);
+    background: var(--aggregate-event, #ffc4c4);
+    font-size: 0.7em;
+}
+
+/* Plain text next to a box, e.g. a sample value under a state */
+.reveal .aggregate-caption {
+    text-align: center;
+}
