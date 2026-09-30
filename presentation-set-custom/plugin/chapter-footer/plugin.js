@@ -30,7 +30,11 @@ window.RevealChapterFooter = window.RevealChapterFooter || {
 
 			// Sous-titre du chapitre (h2 ou h3 sur la slide du h1)
 			var chapterSlide = chapter ? chapter.closest( 'section' ) : null;
-			var subtitle = chapterSlide ? chapterSlide.querySelector( 'h2, h3' ) : null;
+			// (en ignorant les notes : leur markdown rendu contient aussi des h2/h3)
+			var subtitle = chapterSlide ? Array.prototype.find.call(
+				chapterSlide.querySelectorAll( 'h2, h3' ),
+				function ( heading ) { return !heading.closest( '.notes' ); }
+			) : null;
 			if ( chapter && subtitle ) {
 				footer.appendChild( document.createTextNode( ' – ' ) );
 				var sub = document.createElement( 'span' );
