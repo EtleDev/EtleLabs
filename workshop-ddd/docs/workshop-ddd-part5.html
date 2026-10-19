@@ -1,0 +1,654 @@
+<!doctype html>
+<html lang="fr">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>DDD — Bounded Contexts</title>
+
+		<link rel="stylesheet" href="../../presentation-set/dist/reset.css">
+		<link rel="stylesheet" href="../../presentation-set/dist/reveal.css">
+		<link rel="stylesheet" href="../../presentation-set-custom/css/theme/hexafox-dark.css">
+		<link rel="stylesheet" href="../../presentation-set-custom/css/reveal-extended.css">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="../../presentation-set/dist/plugin/highlight/monokai.css">
+
+	</head>
+	<body>
+		<!-- Formes partagées par les schémas du deck : nuage « Bounded Context »
+		     (<use href="#bc-cloud"/>) et pointe de flèche (marker-end/start="url(#bc-arrow)") -->
+		<svg width="0" height="0" style="position: absolute;" aria-hidden="true">
+			<defs>
+				<symbol id="bc-cloud" viewBox="0 0 200 140">
+					<path d="M45,112 A23,23 0 0,1 25,75 A26,26 0 0,1 60,40 A42,42 0 0,1 140,40 A26,26 0 0,1 175,75 A23,23 0 0,1 155,112 A30,30 0 0,1 100,116 A30,30 0 0,1 45,112 Z"
+						style="fill: var(--r-heading-color); stroke: var(--hf-caribbean-deep); stroke-width: 4;"/>
+				</symbol>
+				<marker id="bc-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4" markerHeight="4" orient="auto-start-reverse">
+					<path d="M0,0 L10,5 L0,10 Z" style="fill: var(--r-heading-color);"/>
+				</marker>
+			</defs>
+		</svg>
+
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h1>Domain-Driven Design</h1>
+					<h3>Bounded Contexts</h3>
+				</section>
+
+				<section>
+					<section>
+						<h1>Bounded Contexts</h1>
+					</section>
+					<section>
+						<h5>Définition</h5>
+						<p>
+							Représente un <span class="highlight">sous-système indépendant</span> des autres sous-systèmes
+						</p>
+					</section>
+					<section>
+						<p>Bounded Contexts = <span class="highlight">Autonomous</span> Contexts</p>
+					</section>
+					<section>
+						<h5>Objectif</h5>
+						<p>
+							Maintenir un modèle qui a vocation à devenir de plus en <span class="highlight">plus large</span>
+						</p>
+						<aside data-markdown class="notes">
+							L'intérêt des BC est de faire de la découpe, dans une base de code devenue trop grosse (ou qui va le devenir)
+						</aside>
+					</section>
+					<section>
+						<h5>Objectif</h5>
+						<p>
+							Maximiser <span class="highlight">l’indépendance de développement</span> et de <span class="highlight">déploiement</span>
+						</p>
+						<aside data-markdown class="notes">
+							C'est pour cela qu'on veut minimiser l'interface de communication et de dépendance entre BC et se limiter à une API publique et aux évènements
+						</aside>
+					</section>
+					<section>
+						<div style="padding-top: 1.5em; font-size: 0.6em;">
+							<div class="titled-frame" style="border: 2px solid var(--ext-highlight-blue); flex: none; width: 24em; height: 20em; margin: 0 auto; padding: 2em;">
+								<div class="frame-title">Application monolithique</div>
+								<div style="position: relative; width: 17em; aspect-ratio: 200 / 140; margin: 0 auto; display: flex; align-items: center; justify-content: center;">
+									<svg style="position: absolute; inset: 0; width: 100%; height: 100%;"><use href="#bc-cloud"/></svg>
+									<span style="position: relative; color: var(--hf-caribbean-deep); font-weight: bold;">Bounded Context</span>
+								</div>
+							</div>
+						</div>
+					</section>
+					<section>
+						<div style="padding-top: 1.5em; font-size: 0.6em;">
+							<div class="titled-frame" style="border: 2px solid var(--ext-highlight-blue); flex: none; width: 24em; height: 20em; margin: 0 auto; padding: 2em;">
+								<div class="frame-title">Application monolithique</div>
+								<div style="display: grid; grid-template-columns: repeat(2, 7.5em); gap: 2.5em 5em; justify-content: center;">
+									<div style="position: relative; aspect-ratio: 200 / 140; display: flex; align-items: center; justify-content: center;">
+										<svg style="position: absolute; inset: 0; width: 100%; height: 100%;"><use href="#bc-cloud"/></svg>
+										<span style="position: relative; color: var(--hf-caribbean-deep); font-weight: bold; font-size: 0.8em; line-height: 1.2;">Bounded<br>Context</span>
+									</div>
+									<div style="position: relative; aspect-ratio: 200 / 140; display: flex; align-items: center; justify-content: center;">
+										<svg style="position: absolute; inset: 0; width: 100%; height: 100%;"><use href="#bc-cloud"/></svg>
+										<span style="position: relative; color: var(--hf-caribbean-deep); font-weight: bold; font-size: 0.8em; line-height: 1.2;">Bounded<br>Context</span>
+									</div>
+									<div style="position: relative; aspect-ratio: 200 / 140; display: flex; align-items: center; justify-content: center;">
+										<svg style="position: absolute; inset: 0; width: 100%; height: 100%;"><use href="#bc-cloud"/></svg>
+										<span style="position: relative; color: var(--hf-caribbean-deep); font-weight: bold; font-size: 0.8em; line-height: 1.2;">Bounded<br>Context</span>
+									</div>
+									<div style="position: relative; aspect-ratio: 200 / 140; display: flex; align-items: center; justify-content: center;">
+										<svg style="position: absolute; inset: 0; width: 100%; height: 100%;"><use href="#bc-cloud"/></svg>
+										<span style="position: relative; color: var(--hf-caribbean-deep); font-weight: bold; font-size: 0.8em; line-height: 1.2;">Bounded<br>Context</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<aside data-markdown class="notes">
+							Ce qu'on veut ici, c'est diviser en plusieurs BC qui vont récupérer chacun une responsabilité au sein du système.
+						</aside>
+					</section>
+					<section>
+						<p>Un Bounded Context est un <span class="highlight">organisme vivant</span> qui <span class="highlight">accepte des inputs</span> et <span class="highlight">possède une interface publique</span></p>
+					</section>
+					<section>
+						<div style="display: flex; align-items: center; width: 38em; height: 19em; margin: 1.5em auto 0 auto; font-size: 0.55em;">
+							<div style="display: flex; flex-direction: column; gap: 1.2em; width: 10em;">
+								<div style="display: flex; align-items: center;">
+									<div class="node node--filled" style="flex: 1; border-radius: 1em;">Requêtes<br>entrantes</div>
+									<svg viewBox="0 0 30 10" style="width: 3em; height: 1em; flex: none;"><line x1="0" y1="5" x2="28" y2="5" style="stroke: var(--r-heading-color); stroke-width: 1.2;" marker-end="url(#bc-arrow)"/></svg>
+								</div>
+								<div style="display: flex; align-items: center;">
+									<div class="node node--filled" style="flex: 1; border-radius: 1em;">Évènements<br>entrants</div>
+									<svg viewBox="0 0 30 10" style="width: 3em; height: 1em; flex: none;"><line x1="0" y1="5" x2="28" y2="5" style="stroke: var(--r-heading-color); stroke-width: 1.2;" marker-end="url(#bc-arrow)"/></svg>
+								</div>
+								<div style="display: flex; align-items: center;">
+									<div class="node node--filled" style="flex: 1; border-radius: 1em;">Évènements<br>sortants</div>
+									<svg viewBox="0 0 30 10" style="width: 3em; height: 1em; flex: none;"><line x1="2" y1="5" x2="30" y2="5" style="stroke: var(--r-heading-color); stroke-width: 1.2;" marker-start="url(#bc-arrow)"/></svg>
+								</div>
+							</div>
+							<div style="position: relative; flex: 1; align-self: stretch; display: flex;">
+								<div class="titled-frame" style="position: absolute; left: 3.5em; right: 0; top: 0; bottom: 0; border: 2px solid var(--ext-highlight-blue); background: rgba(0, 0, 0, 0.35); padding: 0 0 0 3.5em; align-items: center;">
+									<div class="frame-title">Bounded Context</div>
+									<p style="color: var(--r-heading-color); font-weight: bold;">Boîte<br>noire</p>
+								</div>
+								<div class="node node--filled" style="width: 7em; margin: 1.5em 0; border-radius: 1.5em;">Interface<br>publique</div>
+							</div>
+						</div>
+						<aside data-markdown class="notes">
+							un BC est donc une boîte noire vis à vis de l'extérieur
+						</aside>
+					</section>
+					<section>
+						<div style="display: flex; align-items: center; width: 38em; height: 19em; margin: 1.5em auto 0 auto; font-size: 0.55em;">
+							<div style="display: flex; flex-direction: column; gap: 1.2em; width: 10em;">
+								<div style="display: flex; align-items: center;">
+									<div class="node node--filled" style="flex: 1; border-radius: 1em;">Requêtes<br>entrantes</div>
+									<svg viewBox="0 0 30 10" style="width: 3em; height: 1em; flex: none;"><line x1="0" y1="5" x2="28" y2="5" style="stroke: var(--r-heading-color); stroke-width: 1.2;" marker-end="url(#bc-arrow)"/></svg>
+								</div>
+								<div style="display: flex; align-items: center;">
+									<div class="node node--filled" style="flex: 1; border-radius: 1em;">Évènements<br>entrants</div>
+									<svg viewBox="0 0 30 10" style="width: 3em; height: 1em; flex: none;"><line x1="0" y1="5" x2="28" y2="5" style="stroke: var(--r-heading-color); stroke-width: 1.2;" marker-end="url(#bc-arrow)"/></svg>
+								</div>
+								<div style="display: flex; align-items: center;">
+									<div class="node node--filled" style="flex: 1; border-radius: 1em;">Évènements<br>sortants</div>
+									<svg viewBox="0 0 30 10" style="width: 3em; height: 1em; flex: none;"><line x1="2" y1="5" x2="30" y2="5" style="stroke: var(--r-heading-color); stroke-width: 1.2;" marker-start="url(#bc-arrow)"/></svg>
+								</div>
+							</div>
+							<div style="position: relative; flex: 1; align-self: stretch; display: flex;">
+								<div class="titled-frame" style="position: absolute; left: 3.5em; right: 0; top: 0; bottom: 0; border: 2px solid var(--ext-highlight-blue); background: rgba(255, 255, 255, 0.08); padding: 0 0 0 3.5em; align-items: center;">
+									<div class="frame-title">Bounded Context</div>
+									<div class="node-grid" style="--node-grid-cols: 2; width: 15em; gap: 0.6em;">
+										<div class="node node--filled node--compact" style="min-height: 3.2em;">Domain<br>Model</div>
+										<div class="node node--filled node--compact" style="min-height: 3.2em;">Event<br>Handlers</div>
+										<div class="node node--filled node--compact" style="min-height: 3.2em;">View<br>Models</div>
+										<div class="node node--filled node--compact" style="min-height: 3.2em;">Infrastructure</div>
+										<div class="node node--filled node--compact" style="min-height: 3.2em;">Cache</div>
+										<div class="node node--filled node--compact" style="min-height: 3.2em;">Base de<br>données</div>
+									</div>
+								</div>
+								<div class="node node--filled" style="width: 7em; margin: 1.5em 0; border-radius: 1.5em;">Interface<br>publique</div>
+							</div>
+						</div>
+						<aside data-markdown class="notes">
+							Tout ce qui se passe à l'intérieur du bounded context, est privé au BC.
+							C'est son degré de liberté, ce qui va lui permettre de faire ce qu'il a à faire sans impacter le monde extérieur
+						</aside>
+					</section>
+					<section>
+						<p>Les Bounded Contexts communiquent uniquement via leur <span class="highlight">interface publique</span></p>
+					</section>
+					<section>
+						<p>Comment se matérialisent-ils ?</p>
+					</section>
+					<section>
+						<h5>Folders</h5>
+						<div style="padding-top: 1em; font-size: 0.6em;">
+							<div class="titled-frame" style="border: 2px solid var(--ext-highlight-blue); flex: none; width: 14em; height: 14em; margin: 0 auto; align-items: center;">
+								<div class="frame-title">Monolithe</div>
+								<div style="text-align: left; font-weight: bold; line-height: 1.3;">
+									<div style="color: var(--r-heading-color);">/topology</div>
+									<div style="padding-left: 0.6em;">/application</div>
+									<div style="padding-left: 0.6em;">/domain</div>
+									<div style="padding-left: 0.6em;">/infrastructure</div>
+									<div style="color: var(--r-heading-color);">/reservation</div>
+									<div style="padding-left: 0.6em;">/application</div>
+									<div style="padding-left: 0.6em;">/domain</div>
+									<div style="padding-left: 0.6em;">/infrastructure</div>
+								</div>
+							</div>
+						</div>
+					</section>
+					<section>
+						<h5>Packages</h5>
+						<div style="padding-top: 1em; font-size: 0.6em;">
+							<div class="titled-frame" style="border: 2px solid var(--ext-highlight-blue); flex: none; width: 14em; height: 14em; margin: 0 auto; align-items: center;">
+								<div class="frame-title">MonoRepo</div>
+								<div style="text-align: left; font-weight: bold; line-height: 1.3;">
+									<div style="color: var(--r-heading-color);">/topology.jar</div>
+									<div style="padding-left: 0.6em;">/application</div>
+									<div style="padding-left: 0.6em;">/domain</div>
+									<div style="padding-left: 0.6em;">/infrastructure</div>
+									<div style="color: var(--r-heading-color); margin-top: 0.8em;">/reservation.jar</div>
+									<div style="padding-left: 0.6em;">/application</div>
+									<div style="padding-left: 0.6em;">/domain</div>
+									<div style="padding-left: 0.6em;">/infrastructure</div>
+								</div>
+							</div>
+						</div>
+					</section>
+					<section>
+						<h5>Services / Microservices</h5>
+						<div style="display: flex; justify-content: center; gap: 1.5em; padding-top: 1em; font-size: 0.6em;">
+							<div class="titled-frame" style="border: 2px solid var(--ext-highlight-blue); flex: none; width: 14em; height: 10em; align-items: center;">
+								<div class="frame-title">Topology Service</div>
+								<div style="text-align: left; font-weight: bold; line-height: 1.3;">
+									<div>/application</div>
+									<div>/domain</div>
+									<div>/infrastructure</div>
+								</div>
+							</div>
+							<div class="titled-frame" style="border: 2px solid var(--ext-highlight-blue); flex: none; width: 14em; height: 10em; align-items: center;">
+								<div class="frame-title">Reservation Service</div>
+								<div style="text-align: left; font-weight: bold; line-height: 1.3;">
+									<div>/application</div>
+									<div>/domain</div>
+									<div>/infrastructure</div>
+								</div>
+							</div>
+						</div>
+					</section>
+					<section>
+						<p>La décomposition se fait autour du <span class="highlight">domain model</span></p>
+						<aside data-markdown class="notes">
+							Extrêmement important ! L'intérêt d'un BC c'est de diviser notre application d'un point de vue de notre domain model
+						</aside>
+					</section>
+					<section>
+						<p>C’est une <span class="highlight">décomposition métier</span></p>
+					</section>
+					<section>
+						<p>Un <span class="highlight">Bounded Context</span> a une responsabilité sur toute la <span class="highlight">verticalité du produit</span></p>
+					</section>
+					<section>
+						<div style="padding-top: 1.5em; font-size: 0.55em;">
+							<div class="titled-frame" style="border: 2px solid var(--ext-highlight-blue); background: rgba(255, 255, 255, 0.08); flex: none; width: 26em; margin: 0 auto; padding: 1.8em 3em 1.2em 3em; gap: 0.6em; align-items: stretch;">
+								<div class="frame-title">Bounded Context</div>
+								<div class="node node--filled node--compact" style="border-radius: 1em; padding: 0.7em;">Présentation / View / UI</div>
+								<div class="node node--filled node--compact" style="border-radius: 1em; padding: 0.7em;">Application Services</div>
+								<div class="node node--filled node--compact" style="border-radius: 1em; padding: 0.7em;">Domain Model</div>
+								<div class="node node--filled node--compact" style="border-radius: 1em; padding: 0.7em;">Data Layer</div>
+								<div style="position: relative; width: 6em; height: 5.5em; margin: 0.8em auto 0 auto; display: flex; align-items: center; justify-content: center;">
+									<svg viewBox="0 0 60 55" style="position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible;">
+										<path d="M1,8 L1,47 A29,7 0 0,0 59,47 L59,8" style="fill: var(--r-heading-color); stroke: var(--r-background-color); stroke-width: 1;"/>
+										<ellipse cx="30" cy="8" rx="29" ry="7" style="fill: var(--r-heading-color); stroke: var(--r-background-color); stroke-width: 1;"/>
+									</svg>
+									<span style="position: relative; top: 0.4em; color: var(--r-background-color); font-weight: bold;">Database</span>
+								</div>
+							</div>
+						</div>
+						<aside data-markdown class="notes">
+							principe des micro front-end pour gérer la verticalité entre front et back
+						</aside>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h1>Délimiter les contextes</h1>
+						<h3>Heuristiques</h3>
+						<aside data-markdown class="notes">
+							Définition : L'heuristique est une méthode ou un processus visant à faciliter la recherche, la découverte ou la résolution de problèmes en utilisant des approches approximatives plutôt que des analyses exhaustives, souvent pour obtenir des solutions rapides ou acceptables.
+						</aside>
+					</section>
+					<section>
+						<p>Relève plus de <span class="highlight">l’art</span> que de la <span class="highlight">science</span></p>
+						<aside data-markdown class="notes">
+							Donc il n'y a pas de bonnes réponses, mais il y en a des mauvaises
+						</aside>
+					</section>
+					<section>
+						<p>Comment savoir si notre décomposition est bonne ?</p>
+					</section>
+					<section>
+						<h5>Heuristique</h5>
+						<p>
+							Lorsqu’un nouveau besoin est introduit, <span class="highlight">un seul Bounded Context</span> est impacté
+						</p>
+						<p>
+							<span class="highlight">(Common Closure Principle)</span>
+						</p>
+					</section>
+					<section>
+						<h5>Heuristique</h5>
+						<p>
+							L’équipe gérant chaque Bounded Context travaille en <span class="highlight">grande autonomie</span>
+						</p>
+					</section>
+					<section>
+						<h5>Heuristique</h5>
+						<p>
+							Le <span class="highlight">nom</span> du Bounded Context a du sens aux yeux des <span class="highlight">personnes non techniques</span>
+						</p>
+					</section>
+					<section>
+						<h5>Heuristique</h5>
+						<p>
+							Les <span class="highlight">acteurs</span> concernés par chaque Bounded Context sont clairement identifiés
+						</p>
+					</section>
+					<section>
+						<h5>Heuristique</h5>
+						<p>
+							Les changements effectués dans un Bounded Context ont <span class="highlight">peu voire aucun impact sur les autres</span>
+						</p>
+					</section>
+					<section>
+						<h5>Heuristique</h5>
+						<p>
+							Chaque Bounded Context gère toute la <span class="highlight">verticalité</span> d’une partie du produit (DB et UI)
+						</p>
+					</section>
+					<section>
+						<h5>Heuristique</h5>
+						<p>
+							Les communications entre Bounded Contexts sont limitées
+						</p>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h1>Délimiter les contextes</h1>
+						<h3>Pistes et indices</h3>
+					</section>
+					<section>
+						<h5>Indice</h5>
+						<p>
+							Écouter le langage des différentes parties prenantes &amp; experts
+						</p>
+					</section>
+					<section>
+						<h5>Indice</h5>
+						<p>
+							Suivre les différents process / cycle de vie
+						</p>
+					</section>
+					<section>
+						<h5>Indice</h5>
+						<p>
+							Suivre la data et son évolution
+						</p>
+					</section>
+					<section>
+						<h5>Indice</h5>
+						<p>
+							Observer la concurrence ou d’autres secteurs similaires
+						</p>
+					</section>
+					<section>
+						<h5>Indice</h5>
+						<p>
+							<span class="highlight">Reverse Conway Maneuver</span> : adapter l’architecture à la dynamique des communications de l’entreprise
+						</p>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h1>Intégrer les Bounded Contexts</h1>
+					</section>
+					<section>
+						<h5>Intégration des Bounded Contexts</h5>
+						<div style="display: flex; justify-content: center; gap: 1.2em; padding-top: 1.2em; font-size: 0.34em;">
+							<!-- Shared Model -->
+							<div class="titled-frame" style="border: 2px solid var(--ext-highlight-blue); flex: none; padding: 1.5em;">
+								<div class="frame-title">Shared Model</div>
+								<div style="position: relative; width: 16em; height: 16em;">
+									<div style="position: absolute; left: 12%; top: 18%; width: 50%; aspect-ratio: 200 / 140; display: flex; align-items: center; justify-content: center;">
+										<svg style="position: absolute; inset: 0; width: 100%; height: 100%;"><use href="#bc-cloud"/></svg>
+										<span style="position: relative; color: var(--hf-caribbean-deep); font-weight: bold; line-height: 1.2;">Bounded<br>Context</span>
+									</div>
+									<div style="position: absolute; left: 34%; top: 46%; width: 50%; aspect-ratio: 200 / 140; display: flex; align-items: center; justify-content: center;">
+										<svg style="position: absolute; inset: 0; width: 100%; height: 100%;"><use href="#bc-cloud"/></svg>
+										<span style="position: relative; color: var(--hf-caribbean-deep); font-weight: bold; line-height: 1.2;">Bounded<br>Context</span>
+									</div>
+									<svg viewBox="0 0 100 100" style="position: absolute; inset: 0; width: 100%; height: 100%;">
+										<g transform="translate(40,51)">
+											<circle r="5" style="fill: var(--hf-caribbean-deep); stroke: var(--r-background-color); stroke-width: 0.8;"/>
+											<path d="M-2,-3 L1,-3 L2.2,-1.8 L2.2,3 L-2,3 Z" style="fill: white;"/>
+											<path d="M-0.4,-0.6 L-1.3,0.5 L-0.4,1.6 M0.6,-0.6 L1.5,0.5 L0.6,1.6" style="fill: none; stroke: var(--hf-caribbean-deep); stroke-width: 0.45;"/>
+										</g>
+										<g transform="translate(51,47)">
+											<circle r="5" style="fill: var(--hf-caribbean-deep); stroke: var(--r-background-color); stroke-width: 0.8;"/>
+											<path d="M-2,-3 L1,-3 L2.2,-1.8 L2.2,3 L-2,3 Z" style="fill: white;"/>
+											<path d="M-0.4,-0.6 L-1.3,0.5 L-0.4,1.6 M0.6,-0.6 L1.5,0.5 L0.6,1.6" style="fill: none; stroke: var(--hf-caribbean-deep); stroke-width: 0.45;"/>
+										</g>
+									</svg>
+								</div>
+							</div>
+							<!-- Direct Communication -->
+							<div class="titled-frame" style="border: 2px solid var(--ext-highlight-blue); flex: none; padding: 1.5em;">
+								<div class="frame-title">Direct Communication</div>
+								<div style="position: relative; width: 16em; height: 16em;">
+									<div style="position: absolute; left: 4%; top: 8%; width: 50%; aspect-ratio: 200 / 140; display: flex; align-items: center; justify-content: center;">
+										<svg style="position: absolute; inset: 0; width: 100%; height: 100%;"><use href="#bc-cloud"/></svg>
+										<span style="position: relative; color: var(--hf-caribbean-deep); font-weight: bold; line-height: 1.2;">Bounded<br>Context</span>
+									</div>
+									<div style="position: absolute; left: 46%; top: 58%; width: 50%; aspect-ratio: 200 / 140; display: flex; align-items: center; justify-content: center;">
+										<svg style="position: absolute; inset: 0; width: 100%; height: 100%;"><use href="#bc-cloud"/></svg>
+										<span style="position: relative; color: var(--hf-caribbean-deep); font-weight: bold; line-height: 1.2;">Bounded<br>Context</span>
+									</div>
+									<svg viewBox="0 0 100 100" style="position: absolute; inset: 0; width: 100%; height: 100%;">
+										<path d="M27,43 C24,58 34,66 48,67" style="fill: none; stroke: var(--r-heading-color); stroke-width: 0.9; stroke-dasharray: 3 2;" marker-end="url(#bc-arrow)"/>
+										<path d="M70,60 C70,46 62,38 51,36" style="fill: none; stroke: var(--r-heading-color); stroke-width: 0.9; stroke-dasharray: 3 2;" marker-end="url(#bc-arrow)"/>
+									</svg>
+								</div>
+							</div>
+							<!-- Asynchronous -->
+							<div class="titled-frame" style="border: 2px solid var(--ext-highlight-blue); flex: none; padding: 1.5em;">
+								<div class="frame-title">Asynchronous</div>
+								<div style="position: relative; width: 16em; height: 16em;">
+									<div style="position: absolute; left: 2%; top: 8%; width: 50%; aspect-ratio: 200 / 140; display: flex; align-items: center; justify-content: center;">
+										<svg style="position: absolute; inset: 0; width: 100%; height: 100%;"><use href="#bc-cloud"/></svg>
+										<span style="position: relative; color: var(--hf-caribbean-deep); font-weight: bold; line-height: 1.2;">Bounded<br>Context</span>
+									</div>
+									<div style="position: absolute; left: 2%; top: 56%; width: 50%; aspect-ratio: 200 / 140; display: flex; align-items: center; justify-content: center;">
+										<svg style="position: absolute; inset: 0; width: 100%; height: 100%;"><use href="#bc-cloud"/></svg>
+										<span style="position: relative; color: var(--hf-caribbean-deep); font-weight: bold; line-height: 1.2;">Bounded<br>Context</span>
+									</div>
+									<div style="position: absolute; left: 68%; top: 28%; width: 28%; height: 44%; box-sizing: border-box; background: var(--r-heading-color); border-radius: 0.8em; color: var(--r-background-color); font-weight: bold; font-size: 0.75em; line-height: 1.2; display: flex; flex-direction: column; justify-content: space-between; align-items: center; padding: 0.8em 0.3em;">
+										<span style="border: 2px solid var(--r-background-color); border-radius: 1em; padding: 0.1em 0.5em;">Message</span>
+										<span>Message<br>Bus</span>
+										<span style="border: 2px solid var(--r-background-color); border-radius: 1em; padding: 0.1em 0.5em;">Message</span>
+									</div>
+									<svg viewBox="0 0 100 100" style="position: absolute; inset: 0; width: 100%; height: 100%;">
+										<path d="M52,24 C60,24 61,35 67,35" style="fill: none; stroke: var(--r-heading-color); stroke-width: 0.9; stroke-dasharray: 3 2;" marker-end="url(#bc-arrow)"/>
+										<path d="M68,65 C61,65 60,75 53,75" style="fill: none; stroke: var(--r-heading-color); stroke-width: 0.9; stroke-dasharray: 3 2;" marker-end="url(#bc-arrow)"/>
+									</svg>
+								</div>
+							</div>
+						</div>
+					</section>
+					<section>
+						<div style="padding-top: 1.5em; font-size: 0.65em;">
+							<div class="titled-frame" style="border: 2px solid var(--ext-highlight-blue); flex: none; width: fit-content; margin: 0 auto; padding: 1.5em;">
+								<div class="frame-title">Shared Model</div>
+								<div style="position: relative; width: 16em; height: 16em;">
+									<div style="position: absolute; left: 12%; top: 18%; width: 50%; aspect-ratio: 200 / 140; display: flex; align-items: center; justify-content: center;">
+										<svg style="position: absolute; inset: 0; width: 100%; height: 100%;"><use href="#bc-cloud"/></svg>
+										<span style="position: relative; color: var(--hf-caribbean-deep); font-weight: bold; line-height: 1.2;">Bounded<br>Context</span>
+									</div>
+									<div style="position: absolute; left: 34%; top: 46%; width: 50%; aspect-ratio: 200 / 140; display: flex; align-items: center; justify-content: center;">
+										<svg style="position: absolute; inset: 0; width: 100%; height: 100%;"><use href="#bc-cloud"/></svg>
+										<span style="position: relative; color: var(--hf-caribbean-deep); font-weight: bold; line-height: 1.2;">Bounded<br>Context</span>
+									</div>
+									<svg viewBox="0 0 100 100" style="position: absolute; inset: 0; width: 100%; height: 100%;">
+										<g transform="translate(40,51)">
+											<circle r="5" style="fill: var(--hf-caribbean-deep); stroke: var(--r-background-color); stroke-width: 0.8;"/>
+											<path d="M-2,-3 L1,-3 L2.2,-1.8 L2.2,3 L-2,3 Z" style="fill: white;"/>
+											<path d="M-0.4,-0.6 L-1.3,0.5 L-0.4,1.6 M0.6,-0.6 L1.5,0.5 L0.6,1.6" style="fill: none; stroke: var(--hf-caribbean-deep); stroke-width: 0.45;"/>
+										</g>
+										<g transform="translate(51,47)">
+											<circle r="5" style="fill: var(--hf-caribbean-deep); stroke: var(--r-background-color); stroke-width: 0.8;"/>
+											<path d="M-2,-3 L1,-3 L2.2,-1.8 L2.2,3 L-2,3 Z" style="fill: white;"/>
+											<path d="M-0.4,-0.6 L-1.3,0.5 L-0.4,1.6 M0.6,-0.6 L1.5,0.5 L0.6,1.6" style="fill: none; stroke: var(--hf-caribbean-deep); stroke-width: 0.45;"/>
+										</g>
+									</svg>
+								</div>
+							</div>
+						</div>
+						<aside data-markdown class="notes">
+							anti-pattern.
+							C'est quand un BC va référencer des classes d'un autre BC. Il y a un semblant de découpe dans la structure de fichiers.
+							A éviter au maximum.
+						</aside>
+					</section>
+					<section>
+						<div style="padding-top: 1.5em; font-size: 0.65em;">
+							<div class="titled-frame" style="border: 2px solid var(--ext-highlight-blue); flex: none; width: fit-content; margin: 0 auto; padding: 1.5em;">
+								<div class="frame-title">Direct Communication</div>
+								<div style="position: relative; width: 16em; height: 16em;">
+									<div style="position: absolute; left: 4%; top: 8%; width: 50%; aspect-ratio: 200 / 140; display: flex; align-items: center; justify-content: center;">
+										<svg style="position: absolute; inset: 0; width: 100%; height: 100%;"><use href="#bc-cloud"/></svg>
+										<span style="position: relative; color: var(--hf-caribbean-deep); font-weight: bold; line-height: 1.2;">Bounded<br>Context</span>
+									</div>
+									<div style="position: absolute; left: 46%; top: 58%; width: 50%; aspect-ratio: 200 / 140; display: flex; align-items: center; justify-content: center;">
+										<svg style="position: absolute; inset: 0; width: 100%; height: 100%;"><use href="#bc-cloud"/></svg>
+										<span style="position: relative; color: var(--hf-caribbean-deep); font-weight: bold; line-height: 1.2;">Bounded<br>Context</span>
+									</div>
+									<svg viewBox="0 0 100 100" style="position: absolute; inset: 0; width: 100%; height: 100%;">
+										<path d="M27,43 C24,58 34,66 48,67" style="fill: none; stroke: var(--r-heading-color); stroke-width: 0.9; stroke-dasharray: 3 2;" marker-end="url(#bc-arrow)"/>
+										<path d="M70,60 C70,46 62,38 51,36" style="fill: none; stroke: var(--r-heading-color); stroke-width: 0.9; stroke-dasharray: 3 2;" marker-end="url(#bc-arrow)"/>
+									</svg>
+								</div>
+							</div>
+						</div>
+						<aside data-markdown class="notes">
+							2 BC qui vont communiquer via leur interface publique, directement en point à point.
+							Cette approche est plus facile à mettre en oeuvre dans un monolithe modulaire
+						</aside>
+					</section>
+					<section>
+						<div style="padding-top: 1.5em; font-size: 0.65em;">
+							<div class="titled-frame" style="border: 2px solid var(--ext-highlight-blue); flex: none; width: fit-content; margin: 0 auto; padding: 1.5em;">
+								<div class="frame-title">Asynchronous</div>
+								<div style="position: relative; width: 16em; height: 16em;">
+									<div style="position: absolute; left: 2%; top: 8%; width: 50%; aspect-ratio: 200 / 140; display: flex; align-items: center; justify-content: center;">
+										<svg style="position: absolute; inset: 0; width: 100%; height: 100%;"><use href="#bc-cloud"/></svg>
+										<span style="position: relative; color: var(--hf-caribbean-deep); font-weight: bold; line-height: 1.2;">Bounded<br>Context</span>
+									</div>
+									<div style="position: absolute; left: 2%; top: 56%; width: 50%; aspect-ratio: 200 / 140; display: flex; align-items: center; justify-content: center;">
+										<svg style="position: absolute; inset: 0; width: 100%; height: 100%;"><use href="#bc-cloud"/></svg>
+										<span style="position: relative; color: var(--hf-caribbean-deep); font-weight: bold; line-height: 1.2;">Bounded<br>Context</span>
+									</div>
+									<div style="position: absolute; left: 68%; top: 28%; width: 28%; height: 44%; box-sizing: border-box; background: var(--r-heading-color); border-radius: 0.8em; color: var(--r-background-color); font-weight: bold; font-size: 0.75em; line-height: 1.2; display: flex; flex-direction: column; justify-content: space-between; align-items: center; padding: 0.8em 0.3em;">
+										<span style="border: 2px solid var(--r-background-color); border-radius: 1em; padding: 0.1em 0.5em;">Message</span>
+										<span>Message<br>Bus</span>
+										<span style="border: 2px solid var(--r-background-color); border-radius: 1em; padding: 0.1em 0.5em;">Message</span>
+									</div>
+									<svg viewBox="0 0 100 100" style="position: absolute; inset: 0; width: 100%; height: 100%;">
+										<path d="M52,24 C60,24 61,35 67,35" style="fill: none; stroke: var(--r-heading-color); stroke-width: 0.9; stroke-dasharray: 3 2;" marker-end="url(#bc-arrow)"/>
+										<path d="M68,65 C61,65 60,75 53,75" style="fill: none; stroke: var(--r-heading-color); stroke-width: 0.9; stroke-dasharray: 3 2;" marker-end="url(#bc-arrow)"/>
+									</svg>
+								</div>
+							</div>
+						</div>
+						<aside data-markdown class="notes">
+							Approche à privilégier dans un système distribué
+						</aside>
+					</section>
+					<section>
+						<h2>Exercice pratique</h2>
+					</section>
+					<section>
+						<div style="width: fit-content; margin: 0 auto; padding-top: 1.2em; font-size: 0.34em;">
+							<div style="display: flex; justify-content: center; gap: 1.2em;">
+								<!-- Shared Model -->
+								<div class="titled-frame" style="border: 2px solid var(--ext-highlight-blue); flex: none; padding: 1.5em;">
+									<div class="frame-title">Shared Model</div>
+									<div style="position: relative; width: 16em; height: 16em;">
+										<div style="position: absolute; left: 12%; top: 18%; width: 50%; aspect-ratio: 200 / 140; display: flex; align-items: center; justify-content: center;">
+											<svg style="position: absolute; inset: 0; width: 100%; height: 100%;"><use href="#bc-cloud"/></svg>
+											<span style="position: relative; color: var(--hf-caribbean-deep); font-weight: bold; line-height: 1.2;">Bounded<br>Context</span>
+										</div>
+										<div style="position: absolute; left: 34%; top: 46%; width: 50%; aspect-ratio: 200 / 140; display: flex; align-items: center; justify-content: center;">
+											<svg style="position: absolute; inset: 0; width: 100%; height: 100%;"><use href="#bc-cloud"/></svg>
+											<span style="position: relative; color: var(--hf-caribbean-deep); font-weight: bold; line-height: 1.2;">Bounded<br>Context</span>
+										</div>
+										<svg viewBox="0 0 100 100" style="position: absolute; inset: 0; width: 100%; height: 100%;">
+											<g transform="translate(40,51)">
+												<circle r="5" style="fill: var(--hf-caribbean-deep); stroke: var(--r-background-color); stroke-width: 0.8;"/>
+												<path d="M-2,-3 L1,-3 L2.2,-1.8 L2.2,3 L-2,3 Z" style="fill: white;"/>
+												<path d="M-0.4,-0.6 L-1.3,0.5 L-0.4,1.6 M0.6,-0.6 L1.5,0.5 L0.6,1.6" style="fill: none; stroke: var(--hf-caribbean-deep); stroke-width: 0.45;"/>
+											</g>
+											<g transform="translate(51,47)">
+												<circle r="5" style="fill: var(--hf-caribbean-deep); stroke: var(--r-background-color); stroke-width: 0.8;"/>
+												<path d="M-2,-3 L1,-3 L2.2,-1.8 L2.2,3 L-2,3 Z" style="fill: white;"/>
+												<path d="M-0.4,-0.6 L-1.3,0.5 L-0.4,1.6 M0.6,-0.6 L1.5,0.5 L0.6,1.6" style="fill: none; stroke: var(--hf-caribbean-deep); stroke-width: 0.45;"/>
+											</g>
+										</svg>
+									</div>
+								</div>
+								<!-- Direct Communication -->
+								<div class="titled-frame" style="border: 2px solid var(--ext-highlight-blue); flex: none; padding: 1.5em;">
+									<div class="frame-title">Direct Communication</div>
+									<div style="position: relative; width: 16em; height: 16em;">
+										<div style="position: absolute; left: 4%; top: 8%; width: 50%; aspect-ratio: 200 / 140; display: flex; align-items: center; justify-content: center;">
+											<svg style="position: absolute; inset: 0; width: 100%; height: 100%;"><use href="#bc-cloud"/></svg>
+											<span style="position: relative; color: var(--hf-caribbean-deep); font-weight: bold; line-height: 1.2;">Bounded<br>Context</span>
+										</div>
+										<div style="position: absolute; left: 46%; top: 58%; width: 50%; aspect-ratio: 200 / 140; display: flex; align-items: center; justify-content: center;">
+											<svg style="position: absolute; inset: 0; width: 100%; height: 100%;"><use href="#bc-cloud"/></svg>
+											<span style="position: relative; color: var(--hf-caribbean-deep); font-weight: bold; line-height: 1.2;">Bounded<br>Context</span>
+										</div>
+										<svg viewBox="0 0 100 100" style="position: absolute; inset: 0; width: 100%; height: 100%;">
+											<path d="M27,43 C24,58 34,66 48,67" style="fill: none; stroke: var(--r-heading-color); stroke-width: 0.9; stroke-dasharray: 3 2;" marker-end="url(#bc-arrow)"/>
+											<path d="M70,60 C70,46 62,38 51,36" style="fill: none; stroke: var(--r-heading-color); stroke-width: 0.9; stroke-dasharray: 3 2;" marker-end="url(#bc-arrow)"/>
+										</svg>
+									</div>
+								</div>
+								<!-- Asynchronous -->
+								<div class="titled-frame" style="border: 2px solid var(--ext-highlight-blue); flex: none; padding: 1.5em;">
+									<div class="frame-title">Asynchronous</div>
+									<div style="position: relative; width: 16em; height: 16em;">
+										<div style="position: absolute; left: 2%; top: 8%; width: 50%; aspect-ratio: 200 / 140; display: flex; align-items: center; justify-content: center;">
+											<svg style="position: absolute; inset: 0; width: 100%; height: 100%;"><use href="#bc-cloud"/></svg>
+											<span style="position: relative; color: var(--hf-caribbean-deep); font-weight: bold; line-height: 1.2;">Bounded<br>Context</span>
+										</div>
+										<div style="position: absolute; left: 2%; top: 56%; width: 50%; aspect-ratio: 200 / 140; display: flex; align-items: center; justify-content: center;">
+											<svg style="position: absolute; inset: 0; width: 100%; height: 100%;"><use href="#bc-cloud"/></svg>
+											<span style="position: relative; color: var(--hf-caribbean-deep); font-weight: bold; line-height: 1.2;">Bounded<br>Context</span>
+										</div>
+										<div style="position: absolute; left: 68%; top: 28%; width: 28%; height: 44%; box-sizing: border-box; background: var(--r-heading-color); border-radius: 0.8em; color: var(--r-background-color); font-weight: bold; font-size: 0.75em; line-height: 1.2; display: flex; flex-direction: column; justify-content: space-between; align-items: center; padding: 0.8em 0.3em;">
+											<span style="border: 2px solid var(--r-background-color); border-radius: 1em; padding: 0.1em 0.5em;">Message</span>
+											<span>Message<br>Bus</span>
+											<span style="border: 2px solid var(--r-background-color); border-radius: 1em; padding: 0.1em 0.5em;">Message</span>
+										</div>
+										<svg viewBox="0 0 100 100" style="position: absolute; inset: 0; width: 100%; height: 100%;">
+											<path d="M52,24 C60,24 61,35 67,35" style="fill: none; stroke: var(--r-heading-color); stroke-width: 0.9; stroke-dasharray: 3 2;" marker-end="url(#bc-arrow)"/>
+											<path d="M68,65 C61,65 60,75 53,75" style="fill: none; stroke: var(--r-heading-color); stroke-width: 0.9; stroke-dasharray: 3 2;" marker-end="url(#bc-arrow)"/>
+										</svg>
+									</div>
+								</div>
+							</div>
+							<!-- Axe dépendance / complexité -->
+							<div style="display: flex; align-items: center; margin-top: 2.5em; color: var(--r-heading-color);">
+								<div style="flex: 1; height: 0.25em; background: currentColor;"></div>
+								<svg viewBox="0 0 10 10" style="width: 1.4em; height: 1.4em; margin-left: -0.2em;"><path d="M0,0 L10,5 L0,10 Z" style="fill: currentColor;"/></svg>
+							</div>
+							<div style="display: flex; justify-content: space-between; margin-top: 0.6em; color: var(--r-heading-color); font-weight: bold; font-size: 1.6em; line-height: 1.3;">
+								<div style="text-align: left;">High Dependency<br>Low Complexity</div>
+								<div style="text-align: right;">Low Dependency<br>High Complexity</div>
+							</div>
+						</div>
+					</section>
+				</section>
+
+				<section>
+					<h1>Merci&nbsp;!</h1>
+					<h3>Des <span class="highlight">questions</span>&nbsp;?</h3>
+				</section>
+			</div>
+		</div>
+
+		<script src="../../presentation-set/dist/reveal.js"></script>
+		<script src="../../presentation-set/dist/plugin/notes.js"></script>
+		<script src="../../presentation-set/dist/plugin/markdown.js"></script>
+		<script src="../../presentation-set/dist/plugin/highlight.js"></script>
+		<script src="../../presentation-set-custom/plugin/chapter-footer/plugin.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				hash: true,
+
+				// Ne pas éclater chaque fragment sur sa propre page à l'export PDF
+				pdfSeparateFragments: false,
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealChapterFooter ]
+			});
+		</script>
+	</body>
+</html>
