@@ -1,0 +1,505 @@
+<!doctype html>
+<html lang="fr">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>DDD — Aggregates</title>
+
+		<link rel="stylesheet" href="../../presentation-set/dist/reset.css">
+		<link rel="stylesheet" href="../../presentation-set/dist/reveal.css">
+		<link rel="stylesheet" href="../../presentation-set-custom/css/theme/hexafox-dark.css">
+		<link rel="stylesheet" href="../../presentation-set-custom/css/reveal-extended.css">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="../../presentation-set/dist/plugin/highlight/monokai.css">
+
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<h1>Domain-Driven Design</h1>
+					<h3>Aggregates</h3>
+				</section>
+
+				<section>
+					<section>
+						<h1>Aggregates</h1>
+					</section>
+					<section>
+						<h2>Exercice pratique</h2>
+						<aside data-markdown class="notes">
+							## Exercice d'introduction
+							C'est juste un exercice d'intro qui servira pour les exercices d'après
+
+							### Consignes :
+							- Créer un graphe d'objet correspondant au brief sur la gauche
+							- pas d'obligations de mettre des indications sur les flèches
+							- il n'y a pas de piège
+							- Durée : 5-10 minutes
+
+							### A la fin de l'exo :
+							- si on a du mal à faire un "beau" graphe objet, c'est peut être qu'il y a un problème
+							- Que peut-on dire de ce graphe d'objets ?
+							=> il est "costaud", gros
+							- Et encore, on s'est arrété à ce brief là, qui pourrait être bcp plus complet
+							- si on transforme ce graphe en MPD, qu'est-ce que ça implique de récupérer un Journey ?
+							Et qu'est-ce qu'on voulait récupérer comme information, ou faire à la base ?
+							- Comment fait-on en SQL pour charger tout l'objet Journey ?
+							=> une grosse jointure SQL
+							=> Bravo, tu viens de charger toute ta base
+							- Autre solution, utiliser le lazy loading, et le configurer par contexte pour ne pas tout charger.
+							Inconvénient => on peut se retrouver avec des NullRef
+							- On ne peut pas partir de ce graphe pour modéliser le comportement de l'application
+							- Le graphe d'objet doit venir en complément de l'ES par exemple
+							  - l'event storming permet de détailler les intéractions
+							  - le graphe d'objet permet de spécifier un peu les data
+						</aside>
+					</section>
+					<section>
+						<h5>Responsabilité</h5>
+						<p class="fragment fade-in-then-semi-out">
+							Protège les <span class="highlight">invariants</span> d’un ensemble d’objets
+						</p>
+						<p class="fragment fade-in-then-semi-out">
+							Délimite la concurrence du système
+						</p>
+					</section>
+					<section>
+						<div class="aggregate-diagram">
+							<div class="aggregate-boundary" style="left: 22.9%; top: 10.2%; width: 54.25%; height: 83.7%;">
+								<div class="aggregate-name"><span>Bank Account</span></div>
+							</div>
+							<div class="aggregate-command" style="left: 17.75%; top: 47.6%; width: 16.6%; height: 8.9%;">Withdraw</div>
+							<div class="aggregate-invariant" style="left: 38.7%; top: 45.6%; width: 16.6%; height: 12.8%;">Ne peut être à découvert</div>
+							<div class="aggregate-state" style="left: 56.5%; top: 45.8%; width: 16.5%; height: 12.3%;">Argent dans<br>le compte</div>
+						</div>
+						<aside data-markdown class="notes">
+							## Exemple : un compte bancaire
+							- On veut retirer de l'argent de ce compte bancaire => 100€
+							- Et on a une règle, ne pas être à découvert => donc si j'ai 100€, ça passe
+							- on voit ici qu'on a
+							  - une frontière (qui s'appelle le compte bancaire)
+							  - des actions possibles (appelée stimulus)
+							- ce stimulus (retirer de l'argent) va executer des règles métier et va faire en sorte que quelque soit le stimulus que tu vas envoyer, l'état du compte bancaire soit toujours consistant avec les règles du compte bancaire
+							- Dans notre cas, il fera en sortie qu'on ait toujours un minimum de 0€ sur le compte
+							- invariant = quelque chose qui ne varie pas
+							  - **quelque chose qui doit toujours être vrai**, quelque soit les circonstances.
+							  - C'est une règle extrêmement rigide. (ex : une quantité ne peut être inférieure à 0).
+							- les invariants sont des règles métiers (mais les règles métier ne sont pas toutes des invariants)
+							- **invariant  = notion fondamentale en DDD** => car ils vont guider le design de notre système
+						</aside>
+					</section>
+					<section>
+						<div class="aggregate-diagram">
+							<svg class="aggregate-links" viewBox="0 0 1600 900" aria-hidden="true">
+								<g transform="translate(233 157)">
+									<circle r="33" stroke-width="8" style="fill: #fff;" />
+									<path d="M-90 51 H90 M0 41 V166 L-71 230 M0 166 L71 230" />
+									<text y="280" text-anchor="middle" font-size="34">Alice</text>
+								</g>
+								<g transform="translate(233 557)">
+									<circle r="33" stroke-width="8" style="fill: #fff;" />
+									<path d="M-90 51 H90 M0 41 V166 L-71 230 M0 166 L71 230" />
+									<text y="280" text-anchor="middle" font-size="34">Bob</text>
+								</g>
+								<path d="M320 255 H405 Q420 255 420 270 V452 Q420 467 435 467 H512 M320 655 H405 Q420 655 420 640 V482 Q420 467 435 467 M494 452 L514 467 L494 482" />
+							</svg>
+							<div class="aggregate-boundary" style="left: 37.5%; top: 10.2%; width: 54.25%; height: 83.7%;">
+								<div class="aggregate-name"><span>Bank Account</span></div>
+							</div>
+							<div class="aggregate-command" style="left: 32.4%; top: 47.6%; width: 16.6%; height: 8.9%;">Withdraw</div>
+							<div class="aggregate-invariant" style="left: 53.3%; top: 45.6%; width: 16.6%; height: 12.8%;">Ne peut être à découvert</div>
+							<div class="aggregate-state" style="left: 71.1%; top: 45.8%; width: 16.5%; height: 12.3%;">Argent dans<br>le compte</div>
+						</div>
+						<aside data-markdown class="notes">
+							Exemple : un compte bancaire
+							- Alice et Bob veulent retirer de l'argent, qu'est-ce qui peut mal se passer ?
+							=> Que la somme des deux retraits dépasse le solde du compte
+							- Comment éviter que ça arrive ?
+							=> (solution, tu en tue un des deux :p )
+							=> un système de sémaphore (ou autrement dit un lock)
+							- C'est à dire que le compte en banque va limiter son usage à une seule personne à la fois (pour contrecarrer le risque de violer l'invariant)
+							- Donc premier problème : lorsqu'on a des invariants, **on est obligé de limiter la concurence dans notre système**
+						</aside>
+					</section>
+					<section>
+						<div class="aggregate-diagram">
+							<svg class="aggregate-links" viewBox="0 0 1600 900" aria-hidden="true">
+								<g transform="translate(233 157)">
+									<circle r="33" stroke-width="8" style="fill: #fff;" />
+									<path d="M-90 51 H90 M0 41 V166 L-71 230 M0 166 L71 230" />
+									<text y="280" text-anchor="middle" font-size="34">Alice</text>
+								</g>
+								<g transform="translate(233 557)">
+									<circle r="33" stroke-width="8" style="fill: #fff;" />
+									<path d="M-90 51 H90 M0 41 V166 L-71 230 M0 166 L71 230" />
+									<text y="280" text-anchor="middle" font-size="34">Bob</text>
+								</g>
+								<path d="M320 255 H405 Q420 255 420 270 V452 Q420 467 435 467 H512 M320 655 H405 Q420 655 420 640 V482 Q420 467 435 467 M494 452 L514 467 L494 482" />
+							</svg>
+							<div class="aggregate-boundary" style="left: 37.5%; top: 10.2%; width: 54.25%; height: 83.7%;">
+								<div class="aggregate-name"><span>Réservations de<br>Concert</span></div>
+							</div>
+							<div class="aggregate-command" style="left: 32.4%; top: 47.6%; width: 16.6%; height: 8.9%;">BuyTicket</div>
+							<div class="aggregate-invariant" style="left: 53.3%; top: 44.6%; width: 16.6%; height: 14.8%;">Ne peut acheter plus de ticket que disponible</div>
+							<div class="aggregate-state" style="left: 71.1%; top: 45.8%; width: 16.5%; height: 12.3%;"># Tickets Disponibles</div>
+							<div class="aggregate-caption" style="left: 71.1%; top: 59.5%; width: 16.5%;">100 tickets</div>
+						</div>
+						<aside data-markdown class="notes">
+							## Autre exemple : un système de réservation de place de concert (ou de train)
+
+							On va voir que selon le contexte, selon le besoin (toujours drivé par le métier), parfois on va vouloir remettre en question un invariant
+							- exemple : est-ce que c'est vraiment un invariant ? Est-ce qu'on ne peut pas vraiment acheter plus de tickets que disponible ? Que se passe-t-il si cela arrive ?
+							- est-ce qu'on peut faire de la survente ? (comme dans les billets d'avions, ou de train)
+							- un invariant est là pour bloquer la concurence d'un système. Mais lorsque le besoin est d'avoir de la concurrence (ex : fort traffic),
+							il faut éventuellement **RELAXER** ces invariants
+
+							Un aggregate est un pattern qui est intéressant ponctuellement, lorsqu'on a des invariants
+							=> si tu peux relaxer ton invariant, tu peux modéliser ton système autrement
+						</aside>
+					</section>
+					<section>Gardez vos Aggregates aussi <span class="highlight">petit que nécessaire</span></section>
+					<section>
+						Gros Aggregate = <span class="highlight-red">Faible Concurrence</span>
+						<aside data-markdown class="notes">
+							En effet, si tu charges un aggregate, tu met un lock dessus, et surtout TOUS les objets en dessous !
+
+							Mettre le faible concurrence en ROUGE !
+						</aside>
+					</section>
+					<section>
+						<img class="r-frame" src="./img/part4/objects.png" />
+						<aside data-markdown class="notes">
+							### Question :
+							Est-ce normal qu'on ne puisse pas me rembourser de l'argent pendant que je suis en train de faire un paiement ?
+
+							Donc la consistence du système va avoir un impact direct sur la façon dont on va modéliser nos aggregates (et donc notre système)
+						</aside>
+					</section>
+					<section>
+						<h5>Responsabilité</h5>
+						<p>
+							Le design est guidé par les <span class="highlight">UseCases</span> et les <span class="highlight">Invariants</span>
+						</p>
+					</section>
+					<section>
+						<h2>Démonstration</h2>
+						<aside data-markdown class="notes">
+							Fin du cours 1 (1ère session sur les Aggregates)
+							Time code : 1h50
+							=> discussion intéressantes à reprendre dans le cours sur le TDD (et peut être l'event storming)
+						</aside>
+					</section>
+					<section>
+						<h2>Exercice pratique</h2>
+						<aside data-markdown class="notes">
+							*Time code : 2h02*
+
+							## Exercice
+
+							### Consignes :
+							- On a les usecases, les règles métier, et la concurrence nécessaire
+							- Créer les aggregates
+							- On se concentre sur la délimitation
+							- Durée : 20 minutes
+
+							### Correction :
+							*(timecode 2h05 => solution 2h14)*
+
+							- Il y a de fortes chances qu'un aggregate soit créé à partir d'un autre aggregate (ex : note depuis Journey)
+							- Notion de "select for update" (en pgsql) et d'optimistic concurrency
+							- La discussion invariance VS concurence est une **discussion METIER !**
+							- Si on relaxe un invariant, on peut mettre en place des mesures compensatoire
+						</aside>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h1>Règles des aggregates</h1>
+						<aside data-markdown class="notes">
+							**RAPPELS :**
+							- Différencier la création d'un objet (responsabilité des factories) et la gestion de son cycle de vie (responsabilité d'un aggrégat)
+							- Les aggregates est **UN** pattern pour protéger des invariants, **ce n'est pas le seul !**
+							- Les *value objects* permmettent aussi de **protéger des invariants**
+							- L'aggregate intervient **surtout** lorsqu'on a un invariant à protéger vis-à-vis de la **concurrence**.
+							- Les invariants métier (= non-concurrent) sont protégés par des *values objects* (qui peuvent être réutilisé, dans des domain services par exemple)
+							- Une *factory* est un **domain service**
+							- Les invariants doivent **TOUJOURS** être dans des aggregates ou des value objects
+
+							Je passe volontairement sur les patterns de transaction. Ce qu'il faut retenir, c'est qu'en DDD, on va avoir tendance à centrer la transaction sur le usecase.
+						</aside>
+					</section>
+					<section>
+						<h5>Règle 1</h5>
+						<p>
+							Designer vos Aggregates à partir de vos invariants
+						</p>
+						<aside data-markdown class="notes">
+							Pas d'invariant = pas d'aggregate
+
+							**RAPPEL : un aggregate protège un invariant vis-à-vis de la concurrence**
+						</aside>
+					</section>
+					<section>
+						<h5>Règle 2</h5>
+						<p>
+							Garder les Aggregates aussi petit que nécessaire
+						</p>
+						<aside data-markdown class="notes">
+							Car qui dit gros aggregate dit faible concurrence.
+							Car mon aggregate va poser un lock sur tous ses objets subséquents
+							Et si j'ai 10 000 requêtes en même temps, on va avoir des problèmes
+						</aside>
+					</section>
+					<section>
+						<h5>Règle 3</h5>
+						<p>
+							Référencer les autres Aggregates uniquement par leur ID
+						</p>
+						<aside data-markdown class="notes">
+							**Règle fondamentale** pour garder *l'indépendance* des aggregates.
+							=> On parle alors de bounded context
+
+							Il y a une 4ème règle, mais il faut d'abord comprendre la notion de domain events
+						</aside>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h1>Domain Events</h1>
+					</section>
+					<section>
+						<h5>Responsabilité</h5>
+						<p class="fragment fade-in-then-semi-out">
+							Représente un évènement émis dans notre <span class="highlight">domaine</span>
+						</p>
+						<p class="fragment fade-in-then-semi-out">
+							Un fait <span class="highlight">immuable</span>, quelque chose qui s’est produit
+						</p>
+						<p class="fragment fade-in-then-semi-out">
+							<span class="highlight">Important</span> dans le cadre du domaine
+						</p>
+						<p class="fragment fade-in-then-semi-out">
+							Langage <span class="highlight">métier</span>
+						</p>
+						<aside data-markdown class="notes">
+							- *Représente un évènement…* : qqch qui a une signification métier
+							- *Un fait immuable…* : Et oui ! le passé est immuable !
+						</aside>
+					</section>
+					<section>
+						<div class="aggregate-diagram">
+							<svg class="aggregate-links" viewBox="0 0 1600 900" aria-hidden="true">
+								<g transform="translate(282 363) scale(0.8)">
+									<circle r="33" stroke-width="8" style="fill: #fff;" />
+									<path d="M-90 51 H90 M0 41 V166 L-71 230 M0 166 L71 230" />
+									<text y="280" text-anchor="middle" font-size="40">Alice</text>
+								</g>
+								<path d="M370 467 H457 M439 452 L459 467 L439 482" />
+							</svg>
+							<div class="aggregate-boundary" style="left: 34.06%; top: 10.2%; width: 54.2%; height: 83.7%;">
+								<div class="aggregate-name"><span>Bank Account</span></div>
+							</div>
+							<div class="aggregate-command" style="left: 28.9%; top: 47.6%; width: 16.6%; height: 8.9%;">Withdraw</div>
+							<div class="aggregate-invariant" style="left: 50.5%; top: 37.6%; width: 16.5%; height: 12.7%;">Ne peut être à découvert</div>
+							<div class="aggregate-state" style="left: 50.5%; top: 52.7%; width: 16.5%; height: 12.4%;">Argent dans<br>le compte</div>
+							<div class="aggregate-event" style="left: 70%; top: 45.6%; width: 16.6%; height: 12.8%;">Argent Retiré</div>
+						</div>
+					</section>
+					<section>
+						<div class="aggregate-diagram">
+							<svg class="aggregate-links" viewBox="0 0 1600 900" aria-hidden="true">
+								<g transform="translate(282 363) scale(0.8)">
+									<circle r="33" stroke-width="8" style="fill: #fff;" />
+									<path d="M-90 51 H90 M0 41 V166 L-71 230 M0 166 L71 230" />
+									<text y="280" text-anchor="middle" font-size="40">Alice</text>
+								</g>
+								<path d="M370 467 H400 Q415 467 415 452 V312 Q415 297 430 297 H454 M415 482 V658 Q415 673 430 673 H454 M415 452 V482 M436 282 L456 297 L436 312 M436 658 L456 673 L436 688" />
+							</svg>
+							<div class="aggregate-boundary" style="left: 34.06%; top: 10.2%; width: 54.2%; height: 83.7%;">
+								<div class="aggregate-name"><span>Bank Account</span></div>
+							</div>
+							<div class="aggregate-command" style="left: 28.6%; top: 28.6%; width: 16.6%; height: 8.9%;">Withdraw</div>
+							<div class="aggregate-command" style="left: 28.6%; top: 70.3%; width: 16.6%; height: 8.9%;">Deposit</div>
+							<div class="aggregate-invariant" style="left: 49.2%; top: 28.6%; width: 16.6%; height: 12.6%;">Ne peut être à découvert</div>
+							<div class="aggregate-state" style="left: 49.2%; top: 43.6%; width: 16.6%; height: 12.6%;">Argent dans<br>le compte</div>
+							<div class="aggregate-event" style="left: 68.75%; top: 28.6%; width: 16.6%; height: 12.6%;">Argent<br>Retiré</div>
+							<div class="aggregate-event" style="left: 68.75%; top: 66.7%; width: 16.6%; height: 12.6%;">Argent<br>Déposé</div>
+						</div>
+						<aside data-markdown class="notes">
+							Ici on a un event par usecase, mais il est possible d'avoir beaucoup plus d'events par usecase
+							Très souvent, les domains events sont lancés par les aggregates
+						</aside>
+					</section>
+					<section>
+						<h2>Exercice pratique</h2>
+						<aside data-markdown class="notes">
+							## Exercice : Domain events pattern
+
+							### Consignes :
+							- on a 3 approches (décrire les 3 approches)
+							- donner les points positifs et négatif de chaque approche
+							- durée : 7 minutes
+
+							### Correction :
+							- notion de transactionnal outbox pattern => pour garantir que l'event a bien été délivré à son destinataire
+							- notion de transactionnal inbox pattern => pour garantir que l'event a bien été géré par son destinataire
+							- pour l'outbox, on sauvegarde les events en BDD dans la même transaction que les changements du usecase
+						</aside>
+					</section>
+					<section>
+						<h2>Exercice pratique</h2>
+						<aside data-markdown class="notes">
+							## Exercice : Domain events
+
+							### Consignes :
+							- Lire le brief
+							- Compléter le code avec une gestion des domain events pour implémenter les fonctionalités
+							- durée : 15 minutes
+
+							### Correction :
+							- Certains event handlers vont être dans l'application layer, et d'autres dans la domain layer
+							- la logique d'un event handler est (doit être) extrêmement faible
+							- on peut nommer les handler vis à vis de la source ou de la destination
+							- en *général*, on aura tendance à les rapprocher des conséquences plutôt que des causes
+							- le domain event s'execute dans la même transaction (ils sont *in process*)
+							- a contrario des integration events qui ne sont pas dans la même transaction, et donc peuvent venir d'une infra dédiée (ex : rmq, kafka, ...) ou d'un autre bounded context
+						</aside>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h1>La dernière règle des aggregates</h1>
+						<aside data-markdown class="notes">
+							## RAPPEL et discussion :
+							- injecter un *DatetimeProvider* quand on en a besoin pour rendre le code **testable**
+							- loi de **Démeter** => Tell don't ask
+
+							Rule pattern :
+							- différent de policy => une policy est une implémentation différente d'une même interface (timecode 0h23)
+						</aside>
+					</section>
+					<section>
+						<h5>Règle 4</h5>
+						<p>
+							Utiliser <span class="highlight">l’Eventual Consistency</span> pour mettre à jour d’autres Aggregates
+						</p>
+						<aside data-markdown class="notes">
+							Ca peut être 2 aggregates dans le même BC, ou même dans 2 BC différents
+						</aside>
+					</section>
+					<section><span class="highlight">Transactional Consistency</span> : tout est mis à jour dans une même transaction</section>
+					<section><span class="highlight">Eventual Consistency</span> : certains Aggregates sont mis à jour ultérieurement</section>
+					<section><span class="highlight">Eventual</span> ne signifie pas <span class="highlight">“éventuellement”</span></section>
+					<section>
+						<span class="highlight">Eventual</span> signifie <span class="highlight">“tôt ou tard”</span> ! On peut parler de consistence <span class="highlight">retardée</span> ou à retardement
+						<aside data-markdown class="notes">
+							Vient des systèmes distribués
+						</aside>
+					</section>
+					<section>
+						<p>
+							Dans 5ms…
+						</p>
+						<p class="fragment">
+							100ms…
+						</p>
+						<p class="fragment">
+							1 seconde…
+						</p>
+						<p class="fragment">
+							1 minute…
+						</p>
+					</section>
+					<section>
+						<div class="aggregate-diagram" style="--aggregate-ratio: 18 / 8; font-size: 0.38em;">
+							<svg class="aggregate-links" viewBox="0 0 1800 800" aria-hidden="true">
+								<g transform="translate(133 307) scale(0.76)">
+									<circle r="33" stroke-width="8" style="fill: #fff;" />
+									<path d="M-90 51 H90 M0 41 V166 L-71 230 M0 166 L71 230" />
+									<text y="280" text-anchor="middle" font-size="42">Alice</text>
+								</g>
+								<path d="M220 410 H302 M284 395 L304 410 L284 425" />
+								<path d="M1080 410 H1156 M1138 395 L1158 410 L1138 425" style="stroke: var(--aggregate-event, #ffc4c4);" />
+							</svg>
+							<div class="aggregate-boundary" style="left: 20.72%; top: 18.4%; width: 41.5%; height: 67.25%;">
+								<div class="aggregate-name"><span>Money Deposit</span></div>
+							</div>
+							<div class="aggregate-boundary" style="left: 69.4%; top: 18.4%; width: 28.3%; height: 67.25%;">
+								<div class="aggregate-name"><span>Compte Bancaire</span></div>
+							</div>
+							<div class="aggregate-command" style="left: 17.2%; top: 46.4%; width: 12.4%; height: 9.9%;">CreateDeposit</div>
+							<div class="aggregate-state" style="left: 31.1%; top: 44.4%; width: 12.8%; height: 13.9%;">Somme<br>à déposer</div>
+							<div class="aggregate-event" style="left: 45%; top: 44.1%; width: 15%; height: 14.1%;">MoneyDeposited</div>
+							<div class="aggregate-command" style="left: 64.4%; top: 46.4%; width: 16.1%; height: 9.9%;">OnEvent<br>(MoneyDeposited)</div>
+							<div class="aggregate-state" style="left: 81.7%; top: 44.4%; width: 12.8%; height: 13.9%;">Argent dans<br>le compte</div>
+						</div>
+					</section>
+					<section>
+						Est-ce grave si le compte bancaire reflète le dépôt <span class="highlight">après</span> avoir déposé les fonds ?
+						<aside data-markdown class="notes">
+							exemple : lors d'un virement SEPA, il faut 48h
+						</aside>
+					</section>
+					<section>
+						<p>
+							Dans 5ms…
+						</p>
+						<p class="fragment">
+							100ms…
+						</p>
+						<p class="fragment">
+							1 seconde…
+						</p>
+						<p class="fragment">
+							1 minute…
+						</p>
+						<p class="fragment">
+							1 jour !
+						</p>
+					</section>
+					<section>
+						<h2>Exercice pratique</h2>
+						<aside data-markdown class="notes">
+							On ne modifie **JAMAIS** la données en BDD,
+							=> on passe **TOUJOURS** par le logiciel
+							Un event est un stimulus du système, un point d'entrée au même titre qu'un usecase.
+							Donc un évènement = un test
+							Garder les events sérialisable
+						</aside>
+					</section>
+				</section>
+
+				<section>
+					<h1>Merci&nbsp;!</h1>
+					<h3>Des <span class="highlight">questions</span>&nbsp;?</h3>
+				</section>
+			</div>
+		</div>
+
+		<script src="../../presentation-set/dist/reveal.js"></script>
+		<script src="../../presentation-set/dist/plugin/notes.js"></script>
+		<script src="../../presentation-set/dist/plugin/markdown.js"></script>
+		<script src="../../presentation-set/dist/plugin/highlight.js"></script>
+		<script src="../../presentation-set-custom/plugin/chapter-footer/plugin.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				hash: true,
+
+				// Ne pas éclater chaque fragment sur sa propre page à l'export PDF
+				pdfSeparateFragments: false,
+
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealChapterFooter ]
+			});
+		</script>
+	</body>
+</html>
