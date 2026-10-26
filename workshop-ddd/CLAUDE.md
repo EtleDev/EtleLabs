@@ -32,8 +32,17 @@ serveur ni réseau. Conséquences concrètes :
 ## Dossiers
 
 - `docs/` — les decks HTML et leurs images (`docs/img/part*/`).
-- `ancyr/` — **gelé, conservation historique, ne jamais y toucher.** Ancienne
-  copie de reveal.js, ne sera plus mise à jour.
+- `ancyr/` — **gelé, conservation historique.** Le workshop original sur
+  7 sessions : `cours1.html` … `cours7.html` et leur copie de reveal.js, plus
+  `exercices/` et `homeworks/` qui reconstituent les exercices de référence
+  (complétés le 2026-10-02, ce qui manquait à l'origine). **Ne plus rien y
+  toucher sauf demande expresse et explicite d'Etienne.** C'est la référence
+  dont le cours actuel s'écarte sciemment.
+- `exercices/` et `homeworks/` (à la racine de `workshop-ddd/`) — l'adaptation
+  sur 5 séances. Les énoncés restent dans les notes du présentateur des decks ;
+  ces dossiers ne portent que canevas, solutions et correspondances.
+- `miro-exports/` — exports bruts des boards, **non versionnés** (voir le
+  `.gitignore` à la racine du repo). Matériau de conversion, pas une source.
 
 Les assets partagés (thème, CSS d'extension, plugins vendorisés, template de
 démarrage) vivent **hors** de ce dossier, dans `presentation-set-custom/` à

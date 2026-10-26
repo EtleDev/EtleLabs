@@ -108,6 +108,70 @@ qui elle est une vraie image/tableau à garder telle quelle).
   `poll` + `questions`, pilotage à distance / sondages / Q&A en direct) —
   pas commencé, nécessite de vendoriser ces plugins + un petit serveur
   socket.io. Détails dans `memory.md`.
+- **Adapter deux exercices à des cas support plus parlants** — policies
+  → colisage d'expédition, invariants d'agrégat sous concurrence →
+  numérotation de facturation. Idées d'Etienne du 2026-10-16, détaillées dans
+  `workshop-ddd/exercices/README.md`, pas encore instruites.
+- **Outillage autour des canevas Excalidraw** — quatre outils demandés par
+  Etienne le 2026-10-20 ; **les outils 1 et 3 sont prioritaires**, et feront
+  l’objet de commits voire de branches séparés. Principe directeur :
+  l’`.excalidraw` versionné reste la **source**, Lucid et Miro ne sont que des
+  surfaces de diffusion en séance.
+  1. **Convertisseur Excalidraw → Lucid.** ⭐ **Prioritaire.** Contrainte de
+     politique d’entreprise : le travail se versionne sous Excalidraw mais doit
+     pouvoir vivre sous Lucid. Cible probable : le format *Lucid Standard Import*
+     (JSON documenté et importable), à vérifier avant de s’engager.
+  2. **Convertisseur Excalidraw → Miro.** Plus contraint : Miro n’offre pas
+     d’import de fichier public, il faudra passer par l’**API REST** (création
+     des items un par un), donc une app Miro et un token.
+  3. **Synthèse PDF post-séance.** ⭐ **Prioritaire.** Reproduit ce qu’Etienne
+     fait aujourd’hui à la main : le master est copié dans un board dédié à
+     l’équipe, elle travaille dessus, et le board entier part en un grand PDF.
+     L’outil doit donc **rassembler** les sorties de tous les petits exercices,
+     regroupées par séance, en un board unique, puis l’exporter.
+     Intention explicite : une **synthèse inamovible**, pas un support avec lequel
+     les participants continuent de jouer — le PDF est le bon format, pas un
+     board partagé.
+     Piste technique : les **frames** Excalidraw pour matérialiser les séances,
+     export SVG, assemblage HTML, impression via Chrome headless (présent sur la
+     machine ; poppler, non).
+     ⚠️ **Question bloquante avant de coder** : où se déroule réellement la séance ?
+     Si les exercices tournent sous Excalidraw, l’outil 3 lit des `.excalidraw` et
+     tout s’enchaîne. S’ils tournent sous Lucid, il faut un retour Lucid →
+     Excalidraw (coûteux), ou alors l’outil 3 se réduit à l’assemblage et c’est
+     Lucid qui exporte le PDF.
+  3bis. **Embarquer l’éditeur Excalidraw dans le deck** — à instruire **le jour où
+     le deck passe en mode serveur**, pas avant : le paquet `@excalidraw/excalidraw`
+     est un module ES qui exige React et un bundler, incompatible avec la règle
+     `file://`.
+     ⚠️ À savoir avant de s’emballer : **le paquet npm n’embarque pas la
+     collaboration**. Un éditeur intégré donne à chaque élève un canevas *privé*,
+     pas un tableau partagé. La collaboration d’excalidraw.com repose sur un
+     service séparé (`excalidraw-room`, socket.io + chiffrement de bout en bout)
+     qu’il faudrait héberger et câbler soi-même — donc du développement, pas un
+     réglage. Les images Docker toutes faites embarquent en dur le serveur public
+     d’Excalidraw, ce qui est un piège classique.
+     Contournement sans rien construire : garder le tableau partagé sur
+     excalidraw.com (collaboration en direct, gratuite, chiffrée) dans une seconde
+     fenêtre, et n’embarquer dans le deck qu’un canevas individuel si le besoin
+     s’en fait sentir.
+  4. **Plateforme d’exercices interactifs dédiés.** Chantier énorme, à cadrer
+     séparément. Recouvre en partie l’item *Mode serveur pour l’interactivité*
+     ci-dessus : même besoin de serveur, même public. À instruire ensemble
+     plutôt qu’en parallèle.
+- **Volet « IA et bonnes pratiques »** — demandé le 2026-10-26. Questions ouvertes :
+  un chapitre dédié dans un seul deck, ou un disclaimer repris dans tous ? Faut-il
+  ajuster les decks existants et y ajouter des exemples ? À cadrer avant d'écrire.
+- **Alimenter la banque d'exercices** — adapter et créer plusieurs exercices
+  supplémentaires, au-delà des 15 recensés. Rejoint les idées d'adaptation
+  (colisage, numérotation de facturation) déjà notées.
+- **Intégrer Mermaid quand c'est pertinent** — le plugin est déjà vendorisé dans
+  `presentation-set-custom/plugin/mermaid/` mais n'est utilisé nulle part.
+  Identifier les schémas des decks qui gagneraient à être des diagrammes Mermaid
+  plutôt que du HTML/CSS ou des images.
+- **Brainstorming « comment améliorer le cours »** — session de travail à prévoir
+  entre Etienne et Claude. Objectif : des propositions, **sans modifier le cours**
+  tant qu'elles ne sont pas validées.
 - **Refaire les boards Miro en Excalidraw** — Etienne doit fournir des
   exports/captures des boards existants ; produire des `.excalidraw` (JSON)
   éditables.
