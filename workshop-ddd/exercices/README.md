@@ -79,12 +79,25 @@ exercices/seance-1/
 exercices/seance-2/
   04-refacto-canevas.excalidraw           exercice 4
   04-refacto-solution.excalidraw
+  05-tri-objets-canevas.excalidraw        exercice 5
+  05-tri-objets-solution.excalidraw
 ```
 
 L'exercice 4 est un exercice **de code**, mais il se pilote sur le board comme sur
 le master : le brief, le code de départ, puis cinq ateliers « code + message de
 commit ». Le message de commit est le vrai livrable — c'est lui qui prouve que le
 pas de refacto portait une seule intention.
+
+L'exercice 5 porte un piège assumé : **« UserService » n'est pas dans la banque au
+départ**, il est lâché en cours d'exercice (c'est ce que disent les notes du deck).
+Le canevas le fournit quand même, en orange, pour que tu l'aies sous la main — à
+masquer jusqu'au bon moment. Sa place est « dehors » : un nom qui ne dit ni le
+métier ni la couche.
+
+La solution n'est **pas** celle du master, qui ne porte que la banque non triée :
+c'est une reconstitution à partir des points de débrief des notes du deck
+(« passengers » collection-oriented, le DTO côté application, la duplication
+acceptée). À valider par Etienne avant la séance.
 
 Le Use Case Mapping sert **les deux slides** « Rendre l’implicite explicite » et
 « Analyser les use cases » : c’est un seul canevas travaillé en deux temps, comme
