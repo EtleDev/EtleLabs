@@ -94,6 +94,8 @@ exercices/seance-4/
   10-aggregates-canevas.excalidraw        exercice 10
   10-aggregates-solution.excalidraw
   10-concurrence-debrief.excalidraw       exercice 10, débrief
+  11-domain-events-patterns-canevas.excalidraw    exercice 11
+  11-domain-events-patterns-solution.excalidraw
 ```
 
 L'exercice 4 est un exercice **de code**, mais il se pilote sur le board comme sur
@@ -142,6 +144,11 @@ rouge. Le troisième fichier est le débrief : pourquoi *Note* sort de *Journey*
 avec les deux arbitrages du master côte à côte, transactional consistency contre
 eventual consistency, et le code de chacun. C'est là que se joue la vraie leçon —
 une frontière d'agrégat se décide, elle ne se déduit pas du graphe.
+
+L'exercice 11 pose les trois endroits d'où lever un domain event — le use case,
+un objet global, l'infrastructure — et laisse les post-its de verdict vides. La
+solution porte les verdicts du master : possible, **interdit**, recommandé, et
+enchaîne sur le *transactional outbox pattern*.
 
 Le Use Case Mapping sert **les deux slides** « Rendre l’implicite explicite » et
 « Analyser les use cases » : c’est un seul canevas travaillé en deux temps, comme
