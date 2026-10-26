@@ -79,6 +79,9 @@ function consignes(x, y, titre, lignes, width = 300) {
   const pad = 16, fsT = 17, fsB = 13;
   const corps = lignes.join('\n');
   const h = pad * 2 + fsT * 1.25 + 10 + corps.split('\n').length * fsB * 1.25;
+  // L'encart s'élargit si une ligne déborde : Excalidraw ne renvoie pas à la ligne,
+  // et un texte plus large que sa boîte passe par-dessus la bordure.
+  width = Math.max(width, Math.ceil(Math.max(textWidth(corps, fsB), textWidth(titre, fsT)) + pad * 2));
   return [
     rect({ x, y, width, height: h, backgroundColor: '#fff9db', strokeColor: '#f08c00', strokeWidth: 1 }),
     text({ x: x + pad, y: y + pad, text: titre, fontSize: fsT, strokeColor: '#e8590c' }),
