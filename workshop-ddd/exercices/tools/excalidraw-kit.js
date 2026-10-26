@@ -47,7 +47,7 @@ function labelled(o, label, fontSize, color = '#1e1e1e') {
     text({
       id: tid, containerId: id, text: label, originalText: label, fontSize,
       textAlign: 'center', verticalAlign: 'middle', strokeColor: color,
-      locked: o.locked, x: o.x + 6, y: o.y + o.height / 2 - (lines * fontSize * 1.25) / 2,
+      locked: o.locked !== false, x: o.x + 6, y: o.y + o.height / 2 - (lines * fontSize * 1.25) / 2,
       width: o.width - 12, height: lines * fontSize * 1.25,
     }),
   ];
