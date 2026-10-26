@@ -81,6 +81,9 @@ exercices/seance-2/
   04-refacto-solution.excalidraw
   05-tri-objets-canevas.excalidraw        exercice 5
   05-tri-objets-solution.excalidraw
+exercices/seance-3/
+  06-trilemme-canevas.excalidraw          exercice 6
+  06-trilemme-solution.excalidraw
 ```
 
 L'exercice 4 est un exercice **de code**, mais il se pilote sur le board comme sur
@@ -98,6 +101,11 @@ La solution n'est **pas** celle du master, qui ne porte que la banque non triée
 c'est une reconstitution à partir des points de débrief des notes du deck
 (« passengers » collection-oriented, le DTO côté application, la duplication
 acceptée). À valider par Etienne avant la séance.
+
+L'exercice 6 ne montre que **deux** implémentations : la troisième colonne est
+vide, puisque la question posée est justement « en existe-t-il une troisième ? ».
+La solution la remplit, et pose les trois verdicts par colonne — un seul angle est
+sacrifié à chaque fois, c'est le trilemme.
 
 Le Use Case Mapping sert **les deux slides** « Rendre l’implicite explicite » et
 « Analyser les use cases » : c’est un seul canevas travaillé en deux temps, comme
