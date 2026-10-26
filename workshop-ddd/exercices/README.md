@@ -100,6 +100,9 @@ exercices/seance-4/
   12-domain-events-solution.excalidraw
   13-persistance-canevas.excalidraw       exercice 13
   13-persistance-solution.excalidraw
+exercices/seance-5/
+  14-integration-bc-canevas.excalidraw    exercice 14
+  14-integration-bc-solution.excalidraw
 ```
 
 L'exercice 4 est un exercice **de code**, mais il se pilote sur le board comme sur
@@ -167,6 +170,11 @@ pur, à juger en Positif / Négatif. Le débrief porte la règle qui justifie to
 le reste — **on ne modifie jamais la donnée en base, on passe toujours par le
 logiciel** — car si la base est un point d'entrée, les invariants de l'agrégat
 ne valent plus rien.
+
+L'exercice 14 illustrait ses trois modes d'intégration par des **images** sur le
+master. Elles sont redessinées en formes Excalidraw — un schéma versionnable vaut
+mieux qu'une capture, et il se corrige. Les post-its de verdict sont ceux du
+master, remis dans leur colonne.
 
 Le Use Case Mapping sert **les deux slides** « Rendre l’implicite explicite » et
 « Analyser les use cases » : c’est un seul canevas travaillé en deux temps, comme
