@@ -84,6 +84,8 @@ exercices/seance-2/
 exercices/seance-3/
   06-trilemme-canevas.excalidraw          exercice 6
   06-trilemme-solution.excalidraw
+  07-strategy-vs-template-canevas.excalidraw    exercice 7
+  07-strategy-vs-template-solution.excalidraw
 ```
 
 L'exercice 4 est un exercice **de code**, mais il se pilote sur le board comme sur
@@ -106,6 +108,12 @@ L'exercice 6 ne montre que **deux** implémentations : la troisième colonne est
 vide, puisque la question posée est justement « en existe-t-il une troisième ? ».
 La solution la remplit, et pose les trois verdicts par colonne — un seul angle est
 sacrifié à chaque fois, c'est le trilemme.
+
+L'exercice 7 est court et oral : deux écritures du même modèle de tarification,
+Template Method à gauche et Strategy à droite. Les post-its ne sont qu'un prétexte
+à la vraie question, posée dans les notes du deck — quelle est la différence de
+fond ? La solution la pose noir sur blanc : héritage et choix à la compilation
+contre composition et choix à l'exécution.
 
 Le Use Case Mapping sert **les deux slides** « Rendre l’implicite explicite » et
 « Analyser les use cases » : c’est un seul canevas travaillé en deux temps, comme
