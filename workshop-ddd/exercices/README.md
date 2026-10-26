@@ -103,6 +103,9 @@ exercices/seance-4/
 exercices/seance-5/
   14-integration-bc-canevas.excalidraw    exercice 14
   14-integration-bc-solution.excalidraw
+exercices/bonus/
+  15-event-storming-canevas.excalidraw    exercice 15
+  15-event-storming-solution.excalidraw
 ```
 
 L'exercice 4 est un exercice **de code**, mais il se pilote sur le board comme sur
@@ -175,6 +178,12 @@ L'exercice 14 illustrait ses trois modes d'intégration par des **images** sur l
 master. Elles sont redessinées en formes Excalidraw — un schéma versionnable vaut
 mieux qu'une capture, et il se corrige. Les post-its de verdict sont ceux du
 master, remis dans leur colonne.
+
+L'exercice 15 est le seul dont le canevas est **vide par construction** : la frise
+et la légende sont verrouillées, tout le reste vient de la bibliothèque
+`bonus/15-event-storming.excalidrawlib`. Sa « solution » n'est pas un corrigé mais
+la frame *Proposition de correction* du master — chaque groupe produit la sienne.
+Les quinze canevas sont désormais générés.
 
 Le Use Case Mapping sert **les deux slides** « Rendre l’implicite explicite » et
 « Analyser les use cases » : c’est un seul canevas travaillé en deux temps, comme
