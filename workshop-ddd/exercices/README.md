@@ -96,6 +96,8 @@ exercices/seance-4/
   10-concurrence-debrief.excalidraw       exercice 10, débrief
   11-domain-events-patterns-canevas.excalidraw    exercice 11
   11-domain-events-patterns-solution.excalidraw
+  12-domain-events-canevas.excalidraw     exercice 12
+  12-domain-events-solution.excalidraw
 ```
 
 L'exercice 4 est un exercice **de code**, mais il se pilote sur le board comme sur
@@ -149,6 +151,13 @@ L'exercice 11 pose les trois endroits d'où lever un domain event — le use cas
 un objet global, l'infrastructure — et laisse les post-its de verdict vides. La
 solution porte les verdicts du master : possible, **interdit**, recommandé, et
 enchaîne sur le *transactional outbox pattern*.
+
+L'exercice 12 donne le squelette du master et deux scénarios qui vont dans des
+sens opposés : un évènement qui **sort** du domaine (un passager rejoint, le
+conducteur est notifié) et un évènement qui y **entre** (un utilisateur banni,
+reçu de l'extérieur). Le second n'est pas un domain event — c'est un signal
+d'un autre contexte, qu'un handler applicatif traduit en geste du domaine. Il
+ouvre directement la séance 5.
 
 Le Use Case Mapping sert **les deux slides** « Rendre l’implicite explicite » et
 « Analyser les use cases » : c’est un seul canevas travaillé en deux temps, comme
