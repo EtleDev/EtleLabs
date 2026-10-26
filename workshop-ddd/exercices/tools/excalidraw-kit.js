@@ -39,8 +39,26 @@ const text = (o) => base({
 });
 
 // Boîte + texte centré lié : le texte suit la boîte quand on la déplace.
+// Excalidraw ROGNE un texte lié plus large que son conteneur (« SUPPORTING »
+// affiché « SUPPORTIN »). On replie donc le libellé sur la largeur de la boîte,
+// en gardant les retours à la ligne explicites comme des coupures dures.
+function wrap(label, width, fontSize) {
+  const max = Math.floor(width / (fontSize * CHAR_W));
+  if (max < 1) return label;
+  return label.split('\n').flatMap((hard) => {
+    const out = [];
+    for (const mot of hard.split(' ')) {
+      if (out.length && (out[out.length - 1] + ' ' + mot).length <= max) out[out.length - 1] += ' ' + mot;
+      else out.push(mot);
+    }
+    return out.length ? out : [''];
+  }).join('\n');
+}
+
+
 function labelled(o, label, fontSize, color = '#1e1e1e') {
   const id = nextId('box'), tid = nextId('txt');
+  label = wrap(label, o.width - 12, fontSize);
   const lines = label.split('\n').length;
   return [
     rect({ id, boundElements: [{ id: tid, type: 'text' }], ...o }),
@@ -114,4 +132,4 @@ function write(file, elements) {
   console.log(`  ${file.split(/[\/]/).pop().padEnd(40)} ${w}x${h}  ${elements.length} éléments (${libres} libres)`);
 }
 
-module.exports = { base, rect, text, labelled, arrow, connect, consignes, bbox, write, nextId, textWidth };
+module.exports = { base, rect, text, labelled, wrap, arrow, connect, consignes, bbox, write, nextId, textWidth };
