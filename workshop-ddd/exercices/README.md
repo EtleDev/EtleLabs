@@ -98,6 +98,8 @@ exercices/seance-4/
   11-domain-events-patterns-solution.excalidraw
   12-domain-events-canevas.excalidraw     exercice 12
   12-domain-events-solution.excalidraw
+  13-persistance-canevas.excalidraw       exercice 13
+  13-persistance-solution.excalidraw
 ```
 
 L'exercice 4 est un exercice **de code**, mais il se pilote sur le board comme sur
@@ -158,6 +160,13 @@ conducteur est notifié) et un évènement qui y **entre** (un utilisateur banni
 reçu de l'extérieur). Le second n'est pas un domain event — c'est un signal
 d'un autre contexte, qu'un handler applicatif traduit en geste du domaine. Il
 ouvre directement la séance 5.
+
+L'exercice 13 est celui qui manquait au master : il vient de la séance 6 du
+workshop original (*Domain Persistence*). Deux façons de persister un domaine
+pur, à juger en Positif / Négatif. Le débrief porte la règle qui justifie tout
+le reste — **on ne modifie jamais la donnée en base, on passe toujours par le
+logiciel** — car si la base est un point d'entrée, les invariants de l'agrégat
+ne valent plus rien.
 
 Le Use Case Mapping sert **les deux slides** « Rendre l’implicite explicite » et
 « Analyser les use cases » : c’est un seul canevas travaillé en deux temps, comme
