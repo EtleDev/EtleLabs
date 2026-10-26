@@ -91,6 +91,9 @@ exercices/seance-3/
 exercices/seance-4/
   09-graphe-objets-canevas.excalidraw     exercice 9
   09-graphe-objets-solution.excalidraw
+  10-aggregates-canevas.excalidraw        exercice 10
+  10-aggregates-solution.excalidraw
+  10-concurrence-debrief.excalidraw       exercice 10, débrief
 ```
 
 L'exercice 4 est un exercice **de code**, mais il se pilote sur le board comme sur
@@ -131,6 +134,14 @@ d'objets de Moveo à partir de douze indications, et la banque de noms contient
 deux pièges — *Passenger* et *Driver* ne sont pas des types mais deux rôles du
 même *User*, et ils disparaissent du graphe. Le graphe final est connexe, ce qui
 est exactement le problème que l'exercice suivant vient découper.
+
+L'exercice 10 porte **trois** fichiers. Le canevas pose le graphe verrouillé et
+les trois colonnes de post-its qui guident le découpage — use cases, invariants,
+contraintes de concurrence. La solution donne les cinq agrégats, racine en bordure
+rouge. Le troisième fichier est le débrief : pourquoi *Note* sort de *Journey*,
+avec les deux arbitrages du master côte à côte, transactional consistency contre
+eventual consistency, et le code de chacun. C'est là que se joue la vraie leçon —
+une frontière d'agrégat se décide, elle ne se déduit pas du graphe.
 
 Le Use Case Mapping sert **les deux slides** « Rendre l’implicite explicite » et
 « Analyser les use cases » : c’est un seul canevas travaillé en deux temps, comme
