@@ -81,3 +81,5 @@ horizontale courante).
   decks est en français.
 - Ne pas committer sans demande explicite ; ne pas pousser de branche sans
   demande explicite.
+- **Pas de ligne `Co-Authored-By: Claude`** dans les messages de commit, ni de
+  mention `Generated with Claude Code` dans les descriptions de PR.

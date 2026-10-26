@@ -76,7 +76,15 @@ exercices/seance-1/
   01-subdomains-solution.excalidraw
   02-usecase-mapping-canevas.excalidraw   exercices 2 et 3
   02-usecase-mapping-solution.excalidraw
+exercices/seance-2/
+  04-refacto-canevas.excalidraw           exercice 4
+  04-refacto-solution.excalidraw
 ```
+
+L'exercice 4 est un exercice **de code**, mais il se pilote sur le board comme sur
+le master : le brief, le code de départ, puis cinq ateliers « code + message de
+commit ». Le message de commit est le vrai livrable — c'est lui qui prouve que le
+pas de refacto portait une seule intention.
 
 Le Use Case Mapping sert **les deux slides** « Rendre l’implicite explicite » et
 « Analyser les use cases » : c’est un seul canevas travaillé en deux temps, comme
