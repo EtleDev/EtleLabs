@@ -88,6 +88,9 @@ exercices/seance-3/
   07-strategy-vs-template-solution.excalidraw
   08-policy-canevas.excalidraw            exercice 8
   08-policy-solution.excalidraw
+exercices/seance-4/
+  09-graphe-objets-canevas.excalidraw     exercice 9
+  09-graphe-objets-solution.excalidraw
 ```
 
 L'exercice 4 est un exercice **de code**, mais il se pilote sur le board comme sur
@@ -122,6 +125,12 @@ rectangles blancs verrouillés, que tu retires une par une. C'est le ressort de
 l'exercice — le design doit émerger au fur et à mesure que les règles tombent, pas
 être deviné d'avance. Un cache reste un cache : qui veut le déverrouiller le peut,
 et ce n'est pas grave.
+
+L'exercice 9 est l'échauffement de l'exercice 10 : on reconstitue le graphe
+d'objets de Moveo à partir de douze indications, et la banque de noms contient
+deux pièges — *Passenger* et *Driver* ne sont pas des types mais deux rôles du
+même *User*, et ils disparaissent du graphe. Le graphe final est connexe, ce qui
+est exactement le problème que l'exercice suivant vient découper.
 
 Le Use Case Mapping sert **les deux slides** « Rendre l’implicite explicite » et
 « Analyser les use cases » : c’est un seul canevas travaillé en deux temps, comme
