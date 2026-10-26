@@ -86,6 +86,8 @@ exercices/seance-3/
   06-trilemme-solution.excalidraw
   07-strategy-vs-template-canevas.excalidraw    exercice 7
   07-strategy-vs-template-solution.excalidraw
+  08-policy-canevas.excalidraw            exercice 8
+  08-policy-solution.excalidraw
 ```
 
 L'exercice 4 est un exercice **de code**, mais il se pilote sur le board comme sur
@@ -114,6 +116,12 @@ Template Method à gauche et Strategy à droite. Les post-its ne sont qu'un pré
 à la vraie question, posée dans les notes du deck — quelle est la différence de
 fond ? La solution la pose noir sur blanc : héritage et choix à la compilation
 contre composition et choix à l'exécution.
+
+L'exercice 8 utilise les **caches** : les règles 2 à 5 sont recouvertes de
+rectangles blancs verrouillés, que tu retires une par une. C'est le ressort de
+l'exercice — le design doit émerger au fur et à mesure que les règles tombent, pas
+être deviné d'avance. Un cache reste un cache : qui veut le déverrouiller le peut,
+et ce n'est pas grave.
 
 Le Use Case Mapping sert **les deux slides** « Rendre l’implicite explicite » et
 « Analyser les use cases » : c’est un seul canevas travaillé en deux temps, comme
