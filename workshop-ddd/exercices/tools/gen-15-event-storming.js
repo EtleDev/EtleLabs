@@ -51,7 +51,7 @@ const canevas = [
     x: AIRE_X, y: 46, width: AIRE_W, height: AIRE_H,
     backgroundColor: 'transparent', strokeColor: '#ced4da', strokeStyle: 'dashed', strokeWidth: 1,
   }),
-  ...consignes(AIRE_X + AIRE_W + 40, 0, 'Consignes', [
+  ...consignes('Consignes', [
     'Raconter le parcours Moveo de bout en',
     'bout, dans l’ordre du temps.',
     '',
@@ -103,7 +103,7 @@ FLUX.forEach(([acteur, commande, evenement, lit], i) => {
   if (lit) solution.push(connect(c[0], modele[0], '#9c36b5'));
 });
 
-solution.push(...consignes(COL.modele + S.w + 40, 0, 'Au débrief', [
+solution.push(...consignes('Au débrief', [
   'Les évènements se nomment au passé.',
   'S’ils se nomment à l’impératif, ce sont',
   'des commandes déguisées.',
@@ -124,7 +124,7 @@ solution.push(...consignes(COL.modele + S.w + 40, 0, 'Au débrief', [
   'sienne.',
 ], 360));
 
-const DIR = path.join(__dirname, '..', 'bonus');
+const DIR = path.join(__dirname, '..', '15-event-storming');
 require('fs').mkdirSync(DIR, { recursive: true });
-write(path.join(DIR, '15-event-storming-canevas.excalidraw'), canevas);
+write(path.join(DIR, '15-event-storming-exercice.excalidraw'), canevas);
 write(path.join(DIR, '15-event-storming-solution.excalidraw'), solution);

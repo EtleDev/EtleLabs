@@ -62,7 +62,7 @@ function iteration(i, source) {
 }
 
 const CONS_X = C_X[1] + C_W + 40;
-const CONSIGNES = consignes(CONS_X, 0, 'Consignes', [
+const CONSIGNES = consignes('Consignes', [
   'Développer le code en suivant les',
   'règles, dans leur ordre d’arrivée.',
   '',
@@ -148,6 +148,7 @@ class Journey {
 const solution = [...regles, ...depart, ...CONSIGNES];
 SOL.forEach((s, i) => solution.push(...iteration(i, s)));
 
-const DIR = path.join(__dirname, '..', 'seance-3');
-write(path.join(DIR, '08-policy-canevas.excalidraw'), canevas);
+const DIR = path.join(__dirname, '..', '08-policy');
+require('fs').mkdirSync(DIR, { recursive: true });
+write(path.join(DIR, '08-policy-exercice.excalidraw'), canevas);
 write(path.join(DIR, '08-policy-solution.excalidraw'), solution);

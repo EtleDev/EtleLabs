@@ -2,7 +2,7 @@
 // Reprend le dispositif du master board : le code de départ, puis cinq ateliers
 // « code + message de commit », pour forcer des pas de refacto très courts.
 const path = require('path');
-const { rect, text, labelled, consignes, write } = require('./excalidraw-kit');
+const { rect, text, labelled, consignes, BLEU, write } = require('./excalidraw-kit');
 
 const CODE_FS = 12, STEP_FS = 11;
 const code = (o) => text({ fontFamily: 3, fontSize: CODE_FS, strokeColor: '#1864ab', ...o });
@@ -33,20 +33,13 @@ const BRIEF = [
   '  · extra-muros  →  1.65 € / km',
 ];
 
-// ----- colonne de gauche : brief + consignes
-const briefBox = (() => {
-  const w = 380, pad = 16, h = pad * 2 + 17 * 1.25 + 10 + BRIEF.length * 13 * 1.25;
-  return [
-    rect({ x: 0, y: 0, width: w, height: h, backgroundColor: '#e7f5ff', strokeColor: '#1971c2', strokeWidth: 1 }),
-    text({ x: pad, y: pad, text: 'Brief', fontSize: 17, strokeColor: '#1864ab' }),
-    text({ x: pad, y: pad + 17 * 1.25 + 10, text: BRIEF.join('\n'), fontSize: 13, strokeColor: '#495057' }),
-  ];
-})();
-const BRIEF_H = briefBox[0].height;
+// ----- colonne de gauche : les consignes d'abord, le brief ensuite.
+// La premiere consigne, c'est justement « lisez le brief ».
+const briefBox = consignes('Brief', BRIEF, 380, BLEU);
 
-const CONSIGNES = consignes(0, BRIEF_H + 30, 'Consignes', [
-  'Refactoriser ce code en introduisant',
-  'des Domain Objects.',
+const CONSIGNES = consignes('Consignes', [
+  'Lire le brief, puis refactoriser le code',
+  'en introduisant des Domain Objects.',
   '',
   'Procéder par pas très courts : une',
   'intention par étape, et un message de',
@@ -90,7 +83,7 @@ function atelier(i, codeText, commitText) {
 }
 
 // ----- canevas : cinq ateliers vides
-const canevas = [...briefBox, ...CONSIGNES, ...depart];
+const canevas = [...CONSIGNES, ...briefBox, ...depart];
 for (let i = 0; i < 5; i++) canevas.push(...atelier(i, null, null));
 
 // ----- solution : la suite de refactos que vise le débrief
@@ -146,10 +139,10 @@ class PriceCalculator {
 // persistence-oriented.`, 'refactor: rename RatioProvider to Ratios'],
 ];
 
-const solution = [...briefBox, ...CONSIGNES, ...depart];
+const solution = [...CONSIGNES, ...briefBox, ...depart];
 SOL.forEach(([c, m], i) => solution.push(...atelier(i, c, m)));
 
-const DIR = path.join(__dirname, '..', 'seance-2');
+const DIR = path.join(__dirname, '..', '04-refacto');
 require('fs').mkdirSync(DIR, { recursive: true });
-write(path.join(DIR, '04-refacto-canevas.excalidraw'), canevas);
+write(path.join(DIR, '04-refacto-exercice.excalidraw'), canevas);
 write(path.join(DIR, '04-refacto-solution.excalidraw'), solution);

@@ -20,7 +20,7 @@ const usecase = (x, y, label, spec = UC) => labelled({
   backgroundColor: spec.bg, strokeColor: spec.stroke, locked: false,
 }, label, 13, '#0b7285');
 
-const CONSIGNES = consignes(1180, 0, 'Consignes', [
+const CONSIGNES = consignes('Consignes', [
   'Repérer les acteurs de Moveo, puis',
   'les use cases principaux de chacun.',
   '',
@@ -80,6 +80,7 @@ canevas.push(text({ x: 0, y: 140, text: 'Votre cartographie', fontSize: 14, stro
 // ----- solution : celle du master board
 const solution = [...CONSIGNES, ...groupe(0, 0, 'Conducteur', CONDUCTEUR), ...groupe(600, 40, 'Passager', PASSAGER)];
 
-const DIR = path.join(__dirname, '..', 'seance-1');
-write(path.join(DIR, '02-usecase-mapping-canevas.excalidraw'), canevas);
+const DIR = path.join(__dirname, '..', '02-usecase-mapping');
+require('fs').mkdirSync(DIR, { recursive: true });
+write(path.join(DIR, '02-usecase-mapping-exercice.excalidraw'), canevas);
 write(path.join(DIR, '02-usecase-mapping-solution.excalidraw'), solution);

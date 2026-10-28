@@ -2,7 +2,7 @@
 // Trois endroits où lever un évènement, trois verdicts. Les post-its de jugement
 // sont vides dans le canevas : le verdict se construit en séance.
 const path = require('path');
-const { rect, text, labelled, consignes, write } = require('./excalidraw-kit');
+const { rect, text, labelled, consignes, aGauche, write } = require('./excalidraw-kit');
 
 const code = (o) => text({ fontFamily: 3, fontSize: 11, strokeColor: '#1864ab', ...o });
 
@@ -101,7 +101,7 @@ const postit = (x, y, label, pal, w = S.w) => labelled({
 }, label, 12, '#495057');
 
 const CONS_X = COL_X[2] + COL_W + 40;
-const CONSIGNES = consignes(CONS_X, 0, 'Consignes', [
+const CONSIGNES = consignes('Consignes', [
   'Trois façons de lever un domain',
   'event :',
   '· depuis le use case,',
@@ -118,9 +118,11 @@ const CONSIGNES = consignes(CONS_X, 0, 'Consignes', [
 
 const canevas = [...colonne(0), ...colonne(1), ...colonne(2), ...CONSIGNES];
 canevas.push(text({ x: COL_X[0], y: JUGE_Y - 24, text: 'Positif / Négatif', fontSize: 13, strokeColor: '#868e96' }));
-canevas.push(text({ x: CONS_X, y: JUGE_Y - 24, text: 'Banque', fontSize: 13, strokeColor: '#868e96' }));
-canevas.push(...postit(CONS_X, JUGE_Y, 'Positif', POS));
-canevas.push(...postit(CONS_X + S.w + 14, JUGE_Y, 'Négatif', NEG));
+canevas.push(...aGauche([
+  text({ x: 0, y: 0, text: 'Banque', fontSize: 13, strokeColor: '#868e96' }),
+  ...postit(0, 22, 'Positif', POS),
+  ...postit(0, 22 + S.h + 12, 'Négatif', NEG),
+]));
 
 // ----- solution : les verdicts du master
 const VERDICTS = [
@@ -144,7 +146,7 @@ VERDICTS.forEach(([verdict, avis], i) => {
   avis.forEach(([l, pal], j) => solution.push(...postit(
     COL_X[i] + j * (S.w + 14), JUGE_Y + S.h + 12, l, pal, 220)));
 });
-solution.push(...consignes(CONS_X, 300, 'Au débrief', [
+solution.push(...consignes('Au débrief', [
   'Le singleton est interdit pour une',
   'raison simple : il rend le domaine',
   'dépendant d’un état global, donc',
@@ -162,6 +164,7 @@ solution.push(...consignes(CONS_X, 300, 'Au débrief', [
   'des évènements au premier crash.',
 ], 340));
 
-const DIR = path.join(__dirname, '..', 'seance-4');
-write(path.join(DIR, '11-domain-events-patterns-canevas.excalidraw'), canevas);
+const DIR = path.join(__dirname, '..', '11-domain-events-patterns');
+require('fs').mkdirSync(DIR, { recursive: true });
+write(path.join(DIR, '11-domain-events-patterns-exercice.excalidraw'), canevas);
 write(path.join(DIR, '11-domain-events-patterns-solution.excalidraw'), solution);

@@ -54,8 +54,7 @@ BANQUE.forEach((l, i) => {
   bank.push(...postit(x, y, l, l === 'UserService' ? PIEGE : STICKY));
 });
 
-const BANK_W = BANK_COLS * (S.w + 16) - 16;
-const CONSIGNES = consignes(BANK_X, 46 + 5 * (S.h + 16) + 24, 'Consignes', [
+const CONSIGNES = consignes('Consignes', [
   'Classer chaque étiquette dans la zone',
   'qui lui correspond : application',
   'service, domain object, domain service.',
@@ -65,7 +64,7 @@ const CONSIGNES = consignes(BANK_X, 46 + 5 * (S.h + 16) + 24, 'Consignes', [
   'pourquoi.',
   '',
   'Durée : 10-15 min',
-], BANK_W);
+], 320);
 
 // ----- canevas
 const canevas = [...zones, ...bank, ...CONSIGNES];
@@ -102,7 +101,7 @@ Object.entries(GLOSE).forEach(([l, g], i) => {
     text: g, fontSize: 11, strokeColor: '#868e96',
   }));
 });
-solution.push(...consignes(OUT.w + 60, 260, 'Points de débrief', [
+solution.push(...consignes('Points de débrief', [
   '« Passengers » est un service',
   'collection-oriented, pas une liste :',
   'un repository, ou un simple tableau.',
@@ -116,8 +115,9 @@ solution.push(...consignes(OUT.w + 60, 260, 'Points de débrief', [
   '',
   'La duplication est acceptée en DDD —',
   'ce qui renvoie aux bounded contexts.',
-], BANK_W));
+], 320));
 
-const DIR = path.join(__dirname, '..', 'seance-2');
-write(path.join(DIR, '05-tri-objets-canevas.excalidraw'), canevas);
+const DIR = path.join(__dirname, '..', '05-tri-objets');
+require('fs').mkdirSync(DIR, { recursive: true });
+write(path.join(DIR, '05-tri-objets-exercice.excalidraw'), canevas);
 write(path.join(DIR, '05-tri-objets-solution.excalidraw'), solution);

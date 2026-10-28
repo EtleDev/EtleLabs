@@ -38,9 +38,20 @@ serveur ni réseau. Conséquences concrètes :
   (complétés le 2026-10-02, ce qui manquait à l'origine). **Ne plus rien y
   toucher sauf demande expresse et explicite d'Etienne.** C'est la référence
   dont le cours actuel s'écarte sciemment.
-- `exercices/` et `homeworks/` (à la racine de `workshop-ddd/`) — l'adaptation
-  sur 5 séances. Les énoncés restent dans les notes du présentateur des decks ;
-  ces dossiers ne portent que canevas, solutions et correspondances.
+- `exercices/` — la **banque d'exercices** : un dossier par exercice, numéroté,
+  à plat. Pas de découpage par séance : on y pioche pour monter une formation
+  dédiée. Le README porte le catalogue. Chaque dossier contient
+  `<nom>-exercice.excalidraw`, `<nom>-solution.excalidraw` et, le cas échéant,
+  sa bibliothèque de post-its.
+  Les canevas sont **générés** par `exercices/tools/gen-*.js` — modifier le
+  générateur, jamais le `.excalidraw`.
+- `exercices-coding/` — les trois exercices dont le livrable est du code (4, 8,
+  12), en Java, .NET et TypeScript. Même numéro que le board, au choix du
+  participant. Les solutions n'y sont pas : elles restent sur le canevas.
+- `homeworks/` — les devoirs entre deux séances.
+- Les **énoncés** restent dans les notes du présentateur des decks, jamais dans
+  un fichier distribué. Chaque slide « Exercice pratique » porte en tête de ses
+  notes le numéro de l'exercice et son dossier.
 - `miro-exports/` — exports bruts des boards, **non versionnés** (voir le
   `.gitignore` à la racine du repo). Matériau de conversion, pas une source.
 

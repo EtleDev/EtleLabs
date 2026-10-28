@@ -91,19 +91,33 @@ function connect(from, to, strokeColor = '#868e96') {
   });
 }
 
-// Encart consignes, posé à côté du canevas. Verrouillé.
+// Encart consignes. Verrouillé, et TOUJOURS posé en haut à gauche : c'est la
+// première chose qu'on lit. Il n'a donc pas de coordonnées — write() le sort du lot,
+// l'empile dans la colonne de gauche et décale le reste de la scène.
 // Les lignes sont pré-découpées : Excalidraw ne fait pas de retour à la ligne.
-function consignes(x, y, titre, lignes, width = 300) {
+let encartSeq = 0;
+const JAUNE = { bg: '#fff9db', bord: '#f08c00', titre: '#e8590c' };
+const BLEU = { bg: '#e7f5ff', bord: '#1971c2', titre: '#1864ab' };
+
+// Range un groupe d'elements dans la colonne de gauche, sous les consignes :
+// une banque de post-its, une legende, tout ce qui se lit avant d'agir.
+const aGauche = (els) => {
+  const customData = { encart: ++encartSeq };
+  return els.map((e) => ({ ...e, customData }));
+};
+
+function consignes(titre, lignes, width = 300, pal = JAUNE) {
   const pad = 16, fsT = 17, fsB = 13;
   const corps = lignes.join('\n');
   const h = pad * 2 + fsT * 1.25 + 10 + corps.split('\n').length * fsB * 1.25;
   // L'encart s'élargit si une ligne déborde : Excalidraw ne renvoie pas à la ligne,
   // et un texte plus large que sa boîte passe par-dessus la bordure.
   width = Math.max(width, Math.ceil(Math.max(textWidth(corps, fsB), textWidth(titre, fsT)) + pad * 2));
+  const customData = { encart: ++encartSeq };
   return [
-    rect({ x, y, width, height: h, backgroundColor: '#fff9db', strokeColor: '#f08c00', strokeWidth: 1 }),
-    text({ x: x + pad, y: y + pad, text: titre, fontSize: fsT, strokeColor: '#e8590c' }),
-    text({ x: x + pad, y: y + pad + fsT * 1.25 + 10, text: corps, fontSize: fsB, strokeColor: '#495057' }),
+    rect({ x: 0, y: 0, width, height: h, backgroundColor: pal.bg, strokeColor: pal.bord, strokeWidth: 1, customData }),
+    text({ x: pad, y: pad, text: titre, fontSize: fsT, strokeColor: pal.titre, customData }),
+    text({ x: pad, y: pad + fsT * 1.25 + 10, text: corps, fontSize: fsB, strokeColor: '#495057', customData }),
   ];
 }
 
@@ -116,7 +130,39 @@ const bbox = (elements) => {
   return { minX: Math.min(...xs), maxX: Math.max(...xs), minY: Math.min(...ys), maxY: Math.max(...ys) };
 };
 
+// Déplace une copie des éléments : les générateurs réutilisent le même encart
+// pour le canevas et la solution, on ne doit pas le décaler deux fois.
+const place = (els, dx, dy) => els.map((e) => ({ ...e, x: e.x + dx, y: e.y + dy }));
+
+// Met la scène en page : les encarts consignes empilés en colonne de gauche,
+// le reste à leur droite, le tout calé en (0, 0).
+const GOUTTIERE = 40, INTER_ENCART = 24;
+function mettreEnPage(elements) {
+  const encarts = new Map();
+  const contenu = [];
+  for (const e of elements) {
+    const cle = e.customData && e.customData.encart;
+    if (cle) encarts.set(cle, [...(encarts.get(cle) || []), e]);
+    else contenu.push(e);
+  }
+  if (!encarts.size) {
+    const b = bbox(contenu);
+    return place(contenu, -b.minX, -b.minY);
+  }
+  const colonne = [];
+  let y = 0, largeur = 0;
+  for (const els of encarts.values()) {
+    const b = bbox(els);
+    colonne.push(...place(els, -b.minX, y - b.minY));
+    y += b.maxY - b.minY + INTER_ENCART;
+    largeur = Math.max(largeur, b.maxX - b.minX);
+  }
+  const b = bbox(contenu);
+  return [...colonne, ...place(contenu, largeur + GOUTTIERE - b.minX, -b.minY)];
+}
+
 function write(file, elements) {
+  elements = mettreEnPage(elements);
   const { minX, maxX, minY, maxY } = bbox(elements);
   const w = Math.round(maxX - minX), h = Math.round(maxY - minY);
   if (w > MAX_W || h > MAX_H) {
@@ -129,7 +175,7 @@ function write(file, elements) {
     files: {},
   }, null, 2));
   const libres = elements.filter((e) => !e.locked).length;
-  console.log(`  ${file.split(/[\/]/).pop().padEnd(40)} ${w}x${h}  ${elements.length} éléments (${libres} libres)`);
+  console.log(`  ${file.split(/[\/]/).pop().padEnd(44)} ${w}x${h}  ${elements.length} éléments (${libres} libres)`);
 }
 
-module.exports = { base, rect, text, labelled, wrap, arrow, connect, consignes, bbox, write, nextId, textWidth };
+module.exports = { base, rect, text, labelled, aGauche, BLEU, JAUNE, wrap, arrow, connect, consignes, bbox, write, nextId, textWidth };

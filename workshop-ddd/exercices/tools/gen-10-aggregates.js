@@ -2,7 +2,7 @@
 // Le graphe de l'exercice 9, à découper en agrégats. Les use cases, les
 // invariants et les contraintes de concurrence sont les guides du découpage.
 const path = require('path');
-const { rect, text, labelled, connect, consignes, write } = require('./excalidraw-kit');
+const { rect, text, labelled, connect, consignes, aGauche, write } = require('./excalidraw-kit');
 
 const N = { w: 140, h: 38 };
 const NODE = { bg: '#e5dbff', stroke: '#6741d9', txt: '#5f3dc4' };
@@ -17,7 +17,7 @@ const node = (x, y, label, style = NODE, libre = true) => labelled({
 
 // ---------------------------------------------------------------- le graphe
 // Mêmes objets que l'exercice 9, resserrés pour laisser la place aux post-its.
-const GX = 430, GY = 70;
+const GX = 0, GY = 70;
 const POS = {
   review:   [0, 230], journey: [165, 60], user: [165, 400],
   trip:     [330, 20], address: [330, 360], settings: [330, 430],
@@ -48,7 +48,7 @@ function graphe() {
 }
 
 // ------------------------------------------------------------ les post-its
-const S_W = 200;
+const S_W = 190;
 const COL = {
   'Use cases': [
     'Changer son adresse personnelle',
@@ -79,7 +79,7 @@ const TEINTE = {
   Concurrence: ['#ffd8a8', '#e8590c'],
 };
 
-const P_X = 1250;
+const P_X = 850;
 function postits() {
   const e = [];
   let x = P_X;
@@ -104,7 +104,7 @@ function postits() {
 }
 
 // ------------------------------------------------------------- la consigne
-const CONSIGNES = consignes(0, 0, 'Consignes', [
+const CONSIGNES = consignes('Consignes', [
   'Décomposer ce graphe d’objets en',
   'agrégats.',
   '',
@@ -133,7 +133,7 @@ function legende() {
   return e;
 }
 
-const canevas = [...CONSIGNES, ...legende(), ...graphe(), ...postits()];
+const canevas = [...CONSIGNES, ...aGauche(legende()), ...graphe(), ...postits()];
 
 // ------------------------------------------------------------- la solution
 // Cinq agrégats : chaque frontière suit un invariant, pas une relation.
@@ -181,7 +181,7 @@ push(...node(1220, 264, 'UserId', ID, false));
 push(...node(1060, 330, 'PhoneSettings', NODE, false));
 push(...node(1060, 396, 'EmailSettings', NODE, false));
 
-push(...consignes(1420, 0, 'Ce que dit le découpage', [
+push(...consignes('Ce que dit le découpage', [
   'La frontière suit l’invariant, pas la',
   'relation. Un voyage protège ses trips,',
   'son carnet de route et ses segments :',
@@ -292,7 +292,7 @@ AVIS.forEach(([titre, consistance, stickies, source, morale], i) => {
   cc.push(text({ x, y: codeY + 356, text: morale, fontSize: 12, strokeColor: '#495057' }));
 });
 
-cc.push(...consignes(CC_X[1] + CC_W + 40, 0, 'Le vrai arbitrage', [
+cc.push(...consignes('Le vrai arbitrage', [
   'La frontière d’agrégat n’est pas déduite',
   'du graphe : elle est décidée.',
   '',
@@ -310,7 +310,8 @@ cc.push(...consignes(CC_X[1] + CC_W + 40, 0, 'Le vrai arbitrage', [
   'seconde ? ».',
 ], 360));
 
-const DIR = path.join(__dirname, '..', 'seance-4');
-write(path.join(DIR, '10-aggregates-canevas.excalidraw'), canevas);
+const DIR = path.join(__dirname, '..', '10-aggregates');
+require('fs').mkdirSync(DIR, { recursive: true });
+write(path.join(DIR, '10-aggregates-exercice.excalidraw'), canevas);
 write(path.join(DIR, '10-aggregates-solution.excalidraw'), sol);
 write(path.join(DIR, '10-concurrence-debrief.excalidraw'), cc);

@@ -164,7 +164,7 @@ const banque = [
   ...labelled({ x: COL_X[2] + S.w + 12, y: JUGE_Y, width: S.w, height: S.h, backgroundColor: NEG[0], strokeColor: NEG[1], locked: false }, 'Négatif', 12),
 ];
 
-const CONSIGNES = consignes(COL_X[2] + COL_W + 40, 0, 'Consignes', [
+const CONSIGNES = consignes('Consignes', [
   'Deux implémentations du calcul de prix,',
   "l'une appelle le service externe depuis",
   "le domaine, l'autre depuis l'application.",
@@ -190,7 +190,7 @@ const SOL = [
 ];
 const solution = [...colonne(0, A), ...colonne(1, B), ...colonne(2, C), ...legende, ...CONSIGNES];
 SOL.forEach((avisCol, i) => avisCol.forEach(([l, pal], j) => solution.push(...avis(i, j, l, pal))));
-solution.push(...consignes(COL_X[2] + COL_W + 40, 300, 'Le trilemme', [
+solution.push(...consignes('Le trilemme', [
   'Pureté du domaine, complétude du',
   'domaine, performance : on ne garde',
   'que deux des trois.',
@@ -202,7 +202,7 @@ solution.push(...consignes(COL_X[2] + COL_W + 40, 300, 'Le trilemme', [
   'domaine à un appel réseau.',
 ], 320));
 
-const DIR = path.join(__dirname, '..', 'seance-3');
+const DIR = path.join(__dirname, '..', '06-trilemme');
 require('fs').mkdirSync(DIR, { recursive: true });
-write(path.join(DIR, '06-trilemme-canevas.excalidraw'), canevas);
+write(path.join(DIR, '06-trilemme-exercice.excalidraw'), canevas);
 write(path.join(DIR, '06-trilemme-solution.excalidraw'), solution);

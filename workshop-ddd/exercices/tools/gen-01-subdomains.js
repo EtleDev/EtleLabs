@@ -46,7 +46,7 @@ const postit = (x, y, label, k) => labelled({
   backgroundColor: STICKY[k][0], strokeColor: STICKY[k][1], locked: false,
 }, label, 13);
 
-const CONSIGNES = consignes(W + 50, 0, 'Consignes', [
+const CONSIGNES = consignes('Consignes', [
   'Lire le brief, puis identifier les',
   'subdomains de Moveo et les classer',
   'en Core, Supporting et Generic.',
@@ -86,6 +86,7 @@ for (const k of Object.keys(SOL)) {
     s.x + (i % s.cols) * (S.w + 20), s.y + Math.floor(i / s.cols) * (S.h + 14), lbl, k)));
 }
 
-const DIR = path.join(__dirname, '..', 'seance-1');
-write(path.join(DIR, '01-subdomains-canevas.excalidraw'), canevas);
+const DIR = path.join(__dirname, '..', '01-subdomains');
+require('fs').mkdirSync(DIR, { recursive: true });
+write(path.join(DIR, '01-subdomains-exercice.excalidraw'), canevas);
 write(path.join(DIR, '01-subdomains-solution.excalidraw'), solution);

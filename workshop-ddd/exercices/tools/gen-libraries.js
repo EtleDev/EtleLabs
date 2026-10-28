@@ -42,7 +42,7 @@ function sticky(label, bg, stroke, w, h, fontSize = 13) {
 
 const LIBRARIES = [
   {
-    file: 'seance-1/01-subdomains.excalidrawlib',
+    file: '01-subdomains/01-subdomains.excalidrawlib',
     name: 'Subdomains',
     // Code couleur de la banque du master board
     items: [
@@ -52,7 +52,7 @@ const LIBRARIES = [
     ],
   },
   {
-    file: 'seance-1/02-usecase-mapping.excalidrawlib',
+    file: '02-usecase-mapping/02-usecase-mapping.excalidrawlib',
     name: 'Use Case Mapping',
     size: { w: 180, h: 62 },
     items: [
@@ -62,7 +62,7 @@ const LIBRARIES = [
     ],
   },
   {
-    file: 'bonus/15-event-storming.excalidrawlib',
+    file: '15-event-storming/15-event-storming.excalidrawlib',
     name: 'Event Storming',
     // Les six catégories de la frame bonus du master
     items: [

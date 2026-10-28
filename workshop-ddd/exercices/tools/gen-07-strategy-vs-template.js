@@ -105,7 +105,7 @@ const banque = [
   ...labelled({ x: BANK_X + S.w + 14, y: JUGE_Y, width: S.w, height: S.h, backgroundColor: NEG[0], strokeColor: NEG[1], locked: false }, 'Négatif', 12),
 ];
 
-const CONSIGNES = consignes(BANK_X, 0, 'Consignes', [
+const CONSIGNES = consignes('Consignes', [
   'Le même modèle de tarification, écrit',
   'de deux façons.',
   '',
@@ -125,7 +125,7 @@ const SOL = [
 ];
 const solution = [...colonne(0, GAUCHE), ...colonne(1, DROITE), ...CONSIGNES];
 SOL.forEach((col, i) => col.forEach(([l, pal], j) => solution.push(...avis(i, j, l, pal))));
-solution.push(...consignes(BANK_X, 300, 'La différence de fond', [
+solution.push(...consignes('La différence de fond', [
   'À gauche, un Template Method : la',
   "classe mère internalise l'algorithme",
   'et délègue la variabilité à des',
@@ -142,6 +142,7 @@ solution.push(...consignes(BANK_X, 300, 'La différence de fond', [
   'Policy pattern retient.',
 ], 330));
 
-const DIR = path.join(__dirname, '..', 'seance-3');
-write(path.join(DIR, '07-strategy-vs-template-canevas.excalidraw'), canevas);
+const DIR = path.join(__dirname, '..', '07-strategy-vs-template');
+require('fs').mkdirSync(DIR, { recursive: true });
+write(path.join(DIR, '07-strategy-vs-template-exercice.excalidraw'), canevas);
 write(path.join(DIR, '07-strategy-vs-template-solution.excalidraw'), solution);

@@ -1,42 +1,75 @@
-# Exercices en séance — découpage sur 5 séances
-
-Adaptation du [workshop original sur 7 sessions](../ancyr/exercices/).
+# Banque d'exercices
 
 Les exercices **réalisés pendant la séance**, sur board ou en code, par opposition
-aux [devoirs](../homeworks/) faits entre deux séances.
+aux [devoirs](../homeworks/) faits entre deux séances. Adaptation du
+[workshop original sur 7 sessions](../ancyr/exercices/).
+
+C'est une **banque**, pas un programme : on y pioche de quoi monter une formation
+dédiée à un client, un atelier d'une demi-journée ou le workshop complet. Chaque
+exercice est autonome dans son dossier — canevas, solution, bibliothèque de
+post-its — et la colonne *Suppose* ci-dessous dit le seul enchaînement qu'il faut
+respecter.
+
+**Les énoncés restent dans les notes du présentateur** des decks, jamais ici : les
+élèves ne reçoivent que le PDF, qui exclut les notes. Chaque slide
+`<h2>Exercice pratique</h2>` porte en tête de ses notes le numéro de l'exercice
+et son dossier.
+
+## Catalogue
+
+| # | Exercice | Ce qu'il produit | Suppose | Durée | Code |
+|---|---|---|---|---|---|
+| 1 | [Classer les subdomains de Moveo](01-subdomains/) | un classement core / supporting / generic | — | 10 min | |
+| 2 | [Repérer acteurs et use cases](02-usecase-mapping/) | une carte acteurs → use cases | — | 10-15 min | |
+| 3 | [Nommer les use cases](02-usecase-mapping/) | les mêmes use cases, renommés | 2 | — | |
+| 4 | [Refacto du PriceCalculator](04-refacto/) | une suite de petits commits de refacto | — | 15 min | ✅ |
+| 5 | [Trier les objets par nature](05-tri-objets/) | un tri application / domaine / service | 4 | 10-15 min | |
+| 6 | [Le trilemme du DDD](06-trilemme/) | un verdict argumenté sur 3 implémentations | — | 10 min | |
+| 7 | [Strategy vs Template Method](07-strategy-vs-template/) | la différence de fond entre les deux | — | 10 min | |
+| 8 | [Faire émerger la policy](08-policy/) | du code, règle après règle | 7 | 20-25 min | ✅ |
+| 9 | [Le graphe d'objets](09-graphe-objets/) | un graphe connexe du domaine Moveo | — | 5-10 min | |
+| 10 | [Frontières d'agrégats](10-aggregates/) | le même graphe, découpé en agrégats | **9** | 20 min | |
+| 11 | [Patterns de domain events](11-domain-events-patterns/) | un verdict sur 3 façons de lever un event | — | 7 min | |
+| 12 | [Identifier les domain events](12-domain-events/) | les events du parcours, nommés au passé | 11 | 15 min | ✅ |
+| 13 | [Persister un domaine pur](13-persistance/) | le pour et le contre de deux voies | 10 | 10-15 min | |
+| 14 | [Intégrer deux bounded contexts](14-integration-bc/) | un choix entre 3 modes d'intégration | 12 | 15 min | |
+| 15 | [Event Storming du parcours Moveo](15-event-storming/) | une frise évènements → commandes → acteurs | — | 30-45 min | |
+
+*Suppose* = l'exercice reprend le matériau du précédent ; **10 en gras** parce que
+c'est le seul couplage dur (c'est littéralement le graphe de l'exercice 9 qu'on
+découpe). Les autres sont des enchaînements confortables, pas des obligations.
+*Code* = l'exercice existe aussi en projet IDE dans [`exercices-coding/`](../exercices-coding/),
+en Java, .NET et TypeScript.
+
+L'exercice 15 marche aussi bien en ouverture (découvrir le domaine) qu'en clôture
+(relire tout le workshop sur une frise). Les exercices 1, 2, 4, 6, 7, 9, 11 et 15
+ne supposent rien : ce sont les bons candidats pour un format court.
+
+## Parcours type : le workshop complet en 5 séances
+
+Un assemblage parmi d'autres — celui des decks de `docs/`. Pour une formation
+dédiée, repartir du catalogue.
+
+| Séance | Deck | Exercices |
+|---|---|---|
+| 1 — Domain Discovery | `partie-1-domain-discovery.html` | 1, 2, 3 |
+| 2 — Domain Modeling | `workshop-ddd-part2.html` | 4, 5 |
+| 3 — Entities | `workshop-ddd-part3.html` | 6, 7, 8 |
+| 4 — Aggregates | `workshop-ddd-part4.html` | 9, 10, 11, 12, 13 |
+| 5 — Bounded Context | `workshop-ddd-part5.html` | 14 |
+| bonus | `partie-bonus-pratiques.html` | 15 |
 
 Les séances 2 à 5 ont été reconverties en `workshop-ddd-part*.html` ; la séance 1
-et le bonus tournent encore sur les `partie-*.html` d'origine, pas encore
-reprises. Le découpage est déjà matérialisé dans les decks : chaque exercice correspond à une
-slide `<h2>Exercice pratique</h2>`, dont les notes du présentateur portent l'énoncé,
-les consignes, la durée et les pistes de débrief. **Les énoncés restent dans les
-notes** — ils ne sont pas repris ici, pour que les élèves ne puissent pas les lire
-en avance. Ce dossier ne contient que les **canevas** et les **solutions**.
+et le bonus tournent encore sur les `partie-*.html` d'origine.
 
-## Correspondance
-
-| # | Séance | Deck | Chapitre | Exercice | Durée | Origine |
-|---|---|---|---|---|---|---|
-| 1 | 1 — Domain Discovery | `partie-1-domain-discovery.html` | Subdomains patterns | Classer les subdomains de Moveo | — | S1 ex. 1 |
-| 2 | 1 | `partie-1-domain-discovery.html` | Rendre l'implicite explicite | Use cases : main course / alternative course | — | S1 ex. 2 |
-| 3 | 1 | `partie-1-domain-discovery.html` | Analyser les use cases | Nommer les use cases | — | S1 ex. 2 |
-| 4 | 2 — Domain Modeling | `workshop-ddd-part2.html` | Domain objects | Exercice de refacto | 15 mn | S2 Refactoring |
-| 5 | 2 | `workshop-ddd-part2.html` | Architecture | Trier les objets par nature | 10-15 mn | S2 Domain/App Services |
-| 6 | 3 — Entities | `workshop-ddd-part3.html` | Repositories | Le trilemme du DDD | 10 mn | S3 Purity & Completeness |
-| 7 | 3 | `workshop-ddd-part3.html` | Policy pattern | Strategy vs Template Method | — | S3 Policy Pattern |
-| 8 | 3 | `workshop-ddd-part3.html` | Policy pattern | Implémenter la policy | 20-25 mn | S3 Policy Pattern |
-| 9 | 4 — Aggregates | `workshop-ddd-part4.html` | Aggregates | Graphe d'objets (intro) | 5-10 mn | S4 Graphe d'Objet |
-| 10 | 4 | `workshop-ddd-part4.html` | Aggregates | Frontières d'agrégats | 20 mn | S4 Aggregates Boundaries |
-| 11 | 4 | `workshop-ddd-part4.html` | Domain events | Patterns de domain events | 7 mn | S5 Patterns de Domain Events |
-| 12 | 4 | `workshop-ddd-part4.html` | Domain events | Identifier les domain events | 15 mn | S5 Domain Events |
-| 13 | 4 | `workshop-ddd-part4.html` | La dernière règle des aggregates | Persistance du domaine | 10-15 mn | S6 Domain Persistence |
-| 14 | 5 — Bounded Context | `workshop-ddd-part5.html` | Intégrer les bounded contexts | Shared model / Direct / Asynchronous | 15 mn | master séance 5 |
-| 15 | bonus | `partie-bonus-pratiques.html` | Event storming | Event Storming du parcours Moveo | 30-45 mn | master bonus |
+⚠️ La slide « Exercice pratique » de l'exercice 2 est **commentée** dans
+`partie-1-domain-discovery.html` (chapitre « Rendre l'implicite explicite »).
+En l'état le deck ne propose que les exercices 1 et 3.
 
 ## Confirmé par le master board Lucid
 
-Le master est découpé en **5 séances + un bonus**, et ses sections confirment la
-correspondance ci-dessus :
+Le master est découpé en **5 séances + un bonus**, et ses sections confirment le
+parcours type ci-dessus :
 
 | Séance | Sections du master |
 |---|---|
@@ -65,48 +98,44 @@ une fois validés, ils rejoindront les notes des decks.
    board d'avril disait *covoituré* / *covoitureur* (9). Les canevas doivent suivre
    le master, puisque c'est le langage que tu emploies maintenant.
 
-## Canevas
+## Une banque d'exercices
 
-Un fichier Excalidraw par exercice, en deux versions — le canevas vierge diffusé en
-séance, et la solution réservée à l'animateur :
+**Un dossier par exercice, à plat, numéroté** — pas de découpage par séance. Le
+découpage, c'est la [table de correspondance](#correspondance) ci-dessus qui le
+porte : il change d'une promo à l'autre, les exercices non. Piocher dedans ne
+demande alors rien d'autre que de connaître son numéro.
+
+Chaque dossier porte l'exercice vierge diffusé en séance, la solution réservée à
+l'animateur, et la bibliothèque de post-its quand il y en a une :
 
 ```
-exercices/seance-1/
-  01-subdomains-canevas.excalidraw        exercice 1
-  01-subdomains-solution.excalidraw
-  02-usecase-mapping-canevas.excalidraw   exercices 2 et 3
-  02-usecase-mapping-solution.excalidraw
-exercices/seance-2/
-  04-refacto-canevas.excalidraw           exercice 4
-  04-refacto-solution.excalidraw
-  05-tri-objets-canevas.excalidraw        exercice 5
-  05-tri-objets-solution.excalidraw
-exercices/seance-3/
-  06-trilemme-canevas.excalidraw          exercice 6
-  06-trilemme-solution.excalidraw
-  07-strategy-vs-template-canevas.excalidraw    exercice 7
-  07-strategy-vs-template-solution.excalidraw
-  08-policy-canevas.excalidraw            exercice 8
-  08-policy-solution.excalidraw
-exercices/seance-4/
-  09-graphe-objets-canevas.excalidraw     exercice 9
-  09-graphe-objets-solution.excalidraw
-  10-aggregates-canevas.excalidraw        exercice 10
-  10-aggregates-solution.excalidraw
-  10-concurrence-debrief.excalidraw       exercice 10, débrief
-  11-domain-events-patterns-canevas.excalidraw    exercice 11
-  11-domain-events-patterns-solution.excalidraw
-  12-domain-events-canevas.excalidraw     exercice 12
-  12-domain-events-solution.excalidraw
-  13-persistance-canevas.excalidraw       exercice 13
-  13-persistance-solution.excalidraw
-exercices/seance-5/
-  14-integration-bc-canevas.excalidraw    exercice 14
-  14-integration-bc-solution.excalidraw
-exercices/bonus/
-  15-event-storming-canevas.excalidraw    exercice 15
-  15-event-storming-solution.excalidraw
+exercices/
+  01-subdomains/
+    01-subdomains-exercice.excalidraw
+    01-subdomains-solution.excalidraw
+    01-subdomains.excalidrawlib
+  02-usecase-mapping/           exercices 2 et 3
+  04-refacto/
+  05-tri-objets/
+  06-trilemme/
+  07-strategy-vs-template/
+  08-policy/
+  09-graphe-objets/
+  10-aggregates/                + 10-concurrence-debrief.excalidraw
+  11-domain-events-patterns/
+  12-domain-events/
+  13-persistance/
+  14-integration-bc/
+  15-event-storming/
+  tools/                        les générateurs
 ```
+
+Nomenclature : `<nom>-exercice.excalidraw` et `<nom>-solution.excalidraw`. Le
+numéro est dans le nom du dossier *et* dans celui des fichiers, pour qu'un fichier
+téléchargé reste identifiable hors de son dossier.
+
+Les exercices qui se font **en code** ont leur pendant dans
+[`../exercices-coding/`](../exercices-coding/) : même numéro, trois langages.
 
 L'exercice 4 est un exercice **de code**, mais il se pilote sur le board comme sur
 le master : le brief, le code de départ, puis cinq ateliers « code + message de
@@ -181,7 +210,7 @@ master, remis dans leur colonne.
 
 L'exercice 15 est le seul dont le canevas est **vide par construction** : la frise
 et la légende sont verrouillées, tout le reste vient de la bibliothèque
-`bonus/15-event-storming.excalidrawlib`. Sa « solution » n'est pas un corrigé mais
+`15-event-storming.excalidrawlib`. Sa « solution » n'est pas un corrigé mais
 la frame *Proposition de correction* du master — chaque groupe produit la sienne.
 Les quinze canevas sont désormais générés.
 
@@ -204,6 +233,18 @@ Les canevas sont générés par script — `tools/excalidraw-kit.js` porte les h
 communs, un `gen-NN-*.js` par exercice — et non dessinés à la main : la
 géométrie reste reproductible et un changement de palette se répercute partout.
 
+### L'encart consignes est toujours en haut à gauche
+
+C'est la première chose qu'on lit, donc la première chose qu'on voit. La règle est
+tenue par le kit, pas par la bonne volonté du générateur : `consignes()` ne prend
+**pas de coordonnées**, et `write()` sort les encarts du lot, les empile dans une
+colonne à gauche et décale le reste de la scène à leur droite. Un exercice ne peut
+donc pas poser sa consigne ailleurs.
+
+`aGauche(éléments)` range un autre groupe dans cette colonne, sous les consignes :
+une banque de deux post-its, une légende — tout ce qui se lit avant d'agir, et qui
+n'a rien à faire au milieu de l'aire de travail.
+
 ### La banque de post-its passe par la bibliothèque
 
 Excalidraw n’a **pas** de banque de formes posée sur le canevas, comme Lucid ou
@@ -221,20 +262,21 @@ sens, et le panneau étant global, mélanger les deux parasite la séance :
 
 ```
 exercices/
-  seance-1/01-subdomains.excalidrawlib        Core · Supporting · Generic
-  seance-1/02-usecase-mapping.excalidrawlib   Acteur · Use case · Variante
-  bonus/15-event-storming.excalidrawlib       Évènement · Commande · Acteur ·
+  01-subdomains/…                             Core · Supporting · Generic
+  02-usecase-mapping/…                        Acteur · Use case · Variante
+  15-event-storming/…                         Évènement · Commande · Acteur ·
                                               Règle métier · Modèle · Problématiques
 ```
 
 Les post-its de bibliothèque ont les mêmes dimensions que ceux des canevas
 (140 × 80), pour qu’un élément déposé s’aligne avec les autres. Tout est généré par
 `tools/gen-libraries.js`.
+
 ### Encart consignes
 
-Chaque canevas porte un encart **Consignes** à droite du plan de travail :
-ce que les participants doivent produire, la convention de couleurs et la durée.
-Verrouillé, comme tout ce qui n’est pas un post-it.
+Chaque canevas porte un encart **Consignes** en haut à gauche, avant le plan de
+travail : ce que les participants doivent produire, la convention de couleurs et
+la durée. Verrouillé, comme tout ce qui n’est pas un post-it.
 
 Il ne contient **ni le brief ni la solution** — le brief reste dans les notes du
 présentateur, pour ne pas être lu en avance.
@@ -254,7 +296,6 @@ fenêtre. Le recentrage, lui, est fait par Excalidraw tout seul.
 
 Les générateurs vérifient cette contrainte : toute scène dépassant ~1900 × 950
 redevient inconfortable à l’ouverture.
-
 
 ## Idées d'adaptation
 

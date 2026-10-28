@@ -72,14 +72,14 @@ const CONS_LIGNES = [
   '',
   'Durée : 5-10 min',
 ];
-const CONSIGNES = consignes(CONS_X, 0, 'Consignes', CONS_LIGNES, 320);
+const CONSIGNES = consignes('Consignes', CONS_LIGNES, 320);
 
 const canevas = [...regles, ...banque, ...aire, ...CONSIGNES];
 
 // ----- solution : un seul graphe connexe, celui du master
 const G = {};
 const SOL_CONS_X = B_X + 940;
-const solution = [...regles, ...consignes(SOL_CONS_X, 0, 'Consignes', CONS_LIGNES, 320)];
+const solution = [...regles, ...consignes('Consignes', CONS_LIGNES, 320)];
 const place = (key, x, y, label) => {
   const [box, txt] = node(x, y, label);
   G[key] = box;
@@ -107,7 +107,7 @@ for (const [a, b] of [
   ['user', 'address'], ['user', 'settings'], ['settings', 'phone'], ['settings', 'email'],
 ]) solution.push(connect(G[a], G[b], '#6741d9'));
 
-solution.push(...consignes(SOL_CONS_X, 300, 'À relever au débrief', [
+solution.push(...consignes('À relever au débrief', [
   'Passenger et Driver ne sont pas des',
   'types : ce sont deux rôles du même',
   'User. Ils disparaissent du graphe.',
@@ -122,7 +122,7 @@ solution.push(...consignes(SOL_CONS_X, 300, 'À relever au débrief', [
   "l'exercice suivant.",
 ], 320));
 
-const DIR = path.join(__dirname, '..', 'seance-4');
+const DIR = path.join(__dirname, '..', '09-graphe-objets');
 require('fs').mkdirSync(DIR, { recursive: true });
-write(path.join(DIR, '09-graphe-objets-canevas.excalidraw'), canevas);
+write(path.join(DIR, '09-graphe-objets-exercice.excalidraw'), canevas);
 write(path.join(DIR, '09-graphe-objets-solution.excalidraw'), solution);

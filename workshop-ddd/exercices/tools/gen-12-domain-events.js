@@ -45,7 +45,7 @@ SCENARIOS.forEach((s, i) => {
   by += h + 12;
 });
 
-const CONSIGNES = consignes(0, by + 12, 'Consignes', [
+const CONSIGNES = consignes('Consignes', [
   'Partir du squelette fourni.',
   '',
   'Scénario 1 : le domaine doit dire ce',
@@ -155,7 +155,7 @@ SOL.forEach((source, i) => {
   solution.push(rect({ x: S_X[i], y: 34, width: S_W2, height: S_H, backgroundColor: '#f8f9fa', strokeColor: '#adb5bd', strokeWidth: 1 }));
   solution.push(code({ x: S_X[i] + 12, y: 46, text: source }));
 });
-solution.push(...consignes(S_X[1] + S_W2 + 40, 0, 'Au débrief', [
+solution.push(...consignes('Au débrief', [
   'Un domain event se nomme au passé :',
   'PassengerJoined, pas JoinPassenger.',
   'Il constate, il n’ordonne pas.',
@@ -175,6 +175,7 @@ solution.push(...consignes(S_X[1] + S_W2 + 40, 0, 'Au débrief', [
   'contexts.',
 ], 360));
 
-const DIR = path.join(__dirname, '..', 'seance-4');
-write(path.join(DIR, '12-domain-events-canevas.excalidraw'), canevas);
+const DIR = path.join(__dirname, '..', '12-domain-events');
+require('fs').mkdirSync(DIR, { recursive: true });
+write(path.join(DIR, '12-domain-events-exercice.excalidraw'), canevas);
 write(path.join(DIR, '12-domain-events-solution.excalidraw'), solution);

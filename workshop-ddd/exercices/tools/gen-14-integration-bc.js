@@ -3,7 +3,7 @@
 // Le master illustrait chaque mode par une image ; les schémas sont ici redessinés
 // en formes Excalidraw, pour rester versionnables.
 const path = require('path');
-const { rect, text, labelled, connect, consignes, write } = require('./excalidraw-kit');
+const { rect, text, labelled, connect, consignes, aGauche, write } = require('./excalidraw-kit');
 
 const COL_W = 420, COL_X = [0, 460, 920], SCHEMA_Y = 60, SCHEMA_H = 280;
 
@@ -61,7 +61,7 @@ const postit = (x, y, label, pal, w = S.w) => labelled({
 }, label, 12, '#495057');
 
 const CONS_X = COL_X[2] + COL_W + 40;
-const CONSIGNES = consignes(CONS_X, 0, 'Consignes', [
+const CONSIGNES = consignes('Consignes', [
   'Trois façons d’intégrer deux bounded',
   'contexts.',
   '',
@@ -79,9 +79,11 @@ const canevas = [];
 for (let i = 0; i < 3; i++) canevas.push(...entete(i), ...schema(i));
 canevas.push(...CONSIGNES);
 canevas.push(text({ x: COL_X[0], y: JUGE_Y - 24, text: 'Positif / Négatif', fontSize: 13, strokeColor: '#868e96' }));
-canevas.push(text({ x: CONS_X, y: JUGE_Y - 24, text: 'Banque', fontSize: 13, strokeColor: '#868e96' }));
-canevas.push(...postit(CONS_X, JUGE_Y, 'Positif', POS));
-canevas.push(...postit(CONS_X + S.w + 14, JUGE_Y, 'Négatif', NEG));
+canevas.push(...aGauche([
+  text({ x: 0, y: 0, text: 'Banque', fontSize: 13, strokeColor: '#868e96' }),
+  ...postit(0, 22, 'Positif', POS),
+  ...postit(0, 22 + S.h + 12, 'Négatif', NEG),
+]));
 
 // --- solution : les post-its du master, remis dans leur colonne
 const SOL = [
@@ -98,7 +100,7 @@ solution.push(...CONSIGNES);
 SOL.forEach((avis, i) => avis.forEach(([l, pal], j) => solution.push(...postit(
   COL_X[i], JUGE_Y + j * (S.h + 12), l, pal, COL_W))));
 
-solution.push(...consignes(CONS_X, 300, 'Au débrief', [
+solution.push(...consignes('Au débrief', [
   'Le shared model n’est pas une',
   'intégration : c’est un bounded context',
   'de plus, que personne n’assume. Dès',
@@ -116,7 +118,7 @@ solution.push(...consignes(CONS_X, 300, 'Au débrief', [
   'rejeu, ordre des messages.',
 ], 340));
 
-const DIR = path.join(__dirname, '..', 'seance-5');
+const DIR = path.join(__dirname, '..', '14-integration-bc');
 require('fs').mkdirSync(DIR, { recursive: true });
-write(path.join(DIR, '14-integration-bc-canevas.excalidraw'), canevas);
+write(path.join(DIR, '14-integration-bc-exercice.excalidraw'), canevas);
 write(path.join(DIR, '14-integration-bc-solution.excalidraw'), solution);
