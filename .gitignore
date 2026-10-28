@@ -1,3 +1,9 @@
 # Exports bruts des boards (Miro, Lucid) : matériau intermédiaire de conversion,
 # volumineux et non réutilisable tel quel. Seul le résultat converti est versionné.
 workshop-ddd/miro-exports/
+
+# Exercices de code : artefacts de build des projets distribués aux participants.
+workshop-ddd/exercices-coding/**/node_modules/
+workshop-ddd/exercices-coding/**/target/
+workshop-ddd/exercices-coding/**/bin/
+workshop-ddd/exercices-coding/**/obj/
