@@ -3,7 +3,7 @@
 // .quadrant-chart des decks : Generic en bande gauche (25 %), Core en haut à droite
 // (à partir de 50 %, sur 75 % de la hauteur), Supporting pour le reste.
 const path = require('path');
-const { rect, text, labelled, arrow, consignes, write } = require('./excalidraw-kit');
+const { rect, text, labelled, arrow, consignes, BLEU, write } = require('./excalidraw-kit');
 
 const W = 1050, H = 700;                    // ratio 3:2, taille utilisable à 100 %
 const GENERIC_W = W * 0.25;
@@ -46,22 +46,40 @@ const postit = (x, y, label, k) => labelled({
   backgroundColor: STICKY[k][0], strokeColor: STICKY[k][1], locked: false,
 }, label, 13);
 
-const CONSIGNES = consignes('Consignes', [
-  'Lire le brief, puis identifier les',
-  'subdomains de Moveo et les classer',
-  'en Core, Supporting et Generic.',
+const BRIEF = consignes('Brief', [
+  'Moveo est une application mobile qui permet',
+  'à ses utilisateurs de partager un covoiturage',
+  'sur de courtes et longues distances.',
   '',
-  'Un post-it par subdomain, posé dans',
-  'la zone qui lui correspond.',
-  'La bibliothèque fournit les trois',
-  'couleurs.',
+  'Les conducteurs créent un profil et mettent',
+  'leur véhicule à disposition aux horaires qui',
+  'leur conviennent (répétitif ou ponctuel).',
+  '',
+  'Un covoituré fait une recherche pour trouver',
+  'un véhicule qui l\'emmène d\'un point A à un',
+  'point B via un module de recherche',
+  'sophistiqué.',
+  '',
+  'L\'entreprise prend une commission',
+  'sur les covoiturages et',
+  '**offre la meilleure rémunération du**',
+  '**marché à ses covoitureurs.**',
+], 340, BLEU);
+
+const CONSIGNES = consignes('Consignes', [
+  'Lire le brief, puis :',
+  'trouver quels sont les subdomains de Moveo ?',
+  'Classez-les.',
+  '',
+  'Un post-it par subdomain, posé dans la zone',
+  'qui lui correspond. La bibliothèque fournit',
+  'les trois couleurs.',
   '',
   'Durée : 10 min',
-  '(+ 5 min de rab si besoin)',
 ]);
 
 // ----- canevas : quadrant vierge + rappel du code couleur
-const canevas = [...quadrant(), ...CONSIGNES];
+const canevas = [...quadrant(), ...CONSIGNES, ...BRIEF];
 ['core', 'supporting', 'generic'].forEach((k, i) => {
   const x = 120 + i * 180;
   canevas.push(text({ x, y: H + 116, text: k[0].toUpperCase() + k.slice(1), fontSize: 14, strokeColor: STICKY[k][1] }));
@@ -75,11 +93,13 @@ const SOL = {
   generic:    ['Auth', 'Paiement', 'Support client', 'Avis & Feedback'],
 };
 const SLOT = {
-  core:       { x: CORE_X + 30, y: 70, cols: 3 },
+  // Le Core se lit dans le coin : le plus différenciant tout en haut à droite,
+  // le second juste dessous.
+  core:       { x: W - S.w - 20, y: 20, cols: 1 },
   supporting: { x: GENERIC_W + 30, y: 180, cols: 1 },
   generic:    { x: 20, y: 90, cols: 1 },
 };
-const solution = [...quadrant(), ...CONSIGNES];
+const solution = [...quadrant(), ...CONSIGNES, ...BRIEF];
 for (const k of Object.keys(SOL)) {
   const s = SLOT[k];
   SOL[k].forEach((lbl, i) => solution.push(...postit(

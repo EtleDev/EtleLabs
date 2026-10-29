@@ -106,18 +106,42 @@ const aGauche = (els) => {
   return els.map((e) => ({ ...e, customData }));
 };
 
+// Une ligne encadrée par ** ** est mise en avant. Excalidraw n'a pas de gras :
+// on le rend par la couleur d'accent de l'encart, qui est ce que l'œil attrape
+// en premier de toute façon. L'emphase se pose à la ligne entière, jamais au
+// milieu : poser deux textes côte à côte supposerait de connaître la largeur
+// exacte du premier, et l'estimation se voit.
+const EMPHASE = /^\*\*(.*)\*\*$/;
+
 function consignes(titre, lignes, width = 300, pal = JAUNE) {
   const pad = 16, fsT = 17, fsB = 13;
-  const corps = lignes.join('\n');
-  const h = pad * 2 + fsT * 1.25 + 10 + corps.split('\n').length * fsB * 1.25;
+  const nues = lignes.map((l) => l.replace(EMPHASE, '$1'));
+  const corps = nues.join('\n');
+  const hT = titre.split('\n').length * fsT * 1.25;
+  const h = pad * 2 + hT + 10 + nues.length * fsB * 1.25;
   // L'encart s'élargit si une ligne déborde : Excalidraw ne renvoie pas à la ligne,
   // et un texte plus large que sa boîte passe par-dessus la bordure.
   width = Math.max(width, Math.ceil(Math.max(textWidth(corps, fsB), textWidth(titre, fsT)) + pad * 2));
   const customData = { encart: ++encartSeq };
+  const y0 = pad + hT + 10;
+
+  // Un élément de texte par suite de lignes de même emphase : Excalidraw ne sait
+  // pas colorer une portion d'un texte.
+  const blocs = [];
+  lignes.forEach((l, i) => {
+    const fort = EMPHASE.test(l);
+    const dernier = blocs[blocs.length - 1];
+    if (dernier && dernier.fort === fort) dernier.lignes.push(nues[i]);
+    else blocs.push({ fort, debut: i, lignes: [nues[i]] });
+  });
+
   return [
     rect({ x: 0, y: 0, width, height: h, backgroundColor: pal.bg, strokeColor: pal.bord, strokeWidth: 1, customData }),
     text({ x: pad, y: pad, text: titre, fontSize: fsT, strokeColor: pal.titre, customData }),
-    text({ x: pad, y: pad + fsT * 1.25 + 10, text: corps, fontSize: fsB, strokeColor: '#495057', customData }),
+    ...blocs.map((b) => text({
+      x: pad, y: y0 + b.debut * fsB * 1.25, text: b.lignes.join('\n'),
+      fontSize: fsB, strokeColor: b.fort ? pal.titre : '#495057', customData,
+    })),
   ];
 }
 
