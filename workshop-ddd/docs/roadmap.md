@@ -91,6 +91,22 @@ qui elle est une vraie image/tableau à garder telle quelle).
 
 ### Autres demandes explicites d'Etienne, pas encore commencées
 
+- **Review globale des cours** — demandée le 2026-11-26. Une relecture
+  d’ensemble des decks (`docs/partie-*.html` + `ddd-cote-metier.html`), pas
+  slide par slide : cohérence du fil, redites entre parties, équilibre
+  théorie / exercices, notes du présentateur utilisables en séance, et ce qui
+  manque. Livrable : un rapport de constats classés par gravité, **sans rien
+  modifier** tant qu’Etienne n’a pas tranché. Recoupe le
+  *Brainstorming « comment améliorer le cours »* plus bas — à instruire
+  ensemble.
+- **Étudier le format Marp** (<https://marp.app/>) pour faire des
+  présentations : des slides écrites en Markdown, rendues en HTML/PDF/PPTX par
+  une CLI ou l'extension VS Code. À évaluer avec les contraintes maison en
+  tête — rendu hors ligne sans serveur, thème hexafox, notes du présentateur
+  (ce sont elles qui portent les énoncés d'exercice) — et en chiffrant ce
+  qu'on perdrait de reveal.js : `auto-animate`, les plugins vendorisés
+  (chalkboard, chart, mermaid, chapter-footer), les chapitres verticaux.
+  Conclure par une recommandation : bascule, usage mixte, ou abandon.
 - **Étude comparative** entre `ddd-cote-metier.html` et le cours original en
   PDF, pour vérifier qu'aucun contenu n'a été perdu/dénaturé pendant la
   conversion HTML/CSS. Demander le PDF si absent du repo.
@@ -159,9 +175,18 @@ qui elle est une vraie image/tableau à garder telle quelle).
      séparément. Recouvre en partie l’item *Mode serveur pour l’interactivité*
      ci-dessus : même besoin de serveur, même public. À instruire ensemble
      plutôt qu’en parallèle.
-- **Volet « IA et bonnes pratiques »** — demandé le 2026-10-26. Questions ouvertes :
+- **Volet « IA et bonnes pratiques »** — demandé le 2026-10-26, redemandé le
+  2026-11-26. Questions ouvertes :
   un chapitre dédié dans un seul deck, ou un disclaimer repris dans tous ? Faut-il
   ajuster les decks existants et y ajouter des exemples ? À cadrer avant d'écrire.
+- **Des exemples plus proches du métier ISAGRI** — demandé le 2026-11-26. Le
+  fil rouge Moveo (covoiturage) est neutre mais lointain pour un public
+  interne : chercher des cas tirés du domaine agricole / de la gestion
+  d’exploitation qui portent les mêmes notions (subdomains, agrégats,
+  policies, events). Attention à ne pas tout basculer d’un coup : Moveo sert
+  de fil continu sur les 5 séances, donc soit on le remplace partout, soit on
+  n’adapte que des exercices isolés. Prolonge l’item *Adapter deux exercices
+  à des cas support plus parlants* ci-dessus.
 - **Alimenter la banque d'exercices** — adapter et créer plusieurs exercices
   supplémentaires, au-delà des 15 recensés. Rejoint les idées d'adaptation
   (colisage, numérotation de facturation) déjà notées.
